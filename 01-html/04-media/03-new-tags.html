@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5新增标签</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        details {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 3px;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        meter, progress {
+            width: 200px;
+        }
+        dialog {
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML5 新增标签示例</h1>
+
+    <!-- ============================================
+         1. details + summary：可折叠内容
+         ============================================ -->
+    <section class="demo-section">
+        <h2>1. &lt;details&gt; + &lt;summary&gt; 可折叠内容</h2>
+
+        <details>
+            <summary>点击展开/收起 - 什么是HTML？</summary>
+            <p>HTML（HyperText Markup Language，超文本标记语言）是构建网页的基础。</p>
+            <p>它使用标签来描述网页的结构和内容。</p>
+        </details>
+
+        <details open>
+            <summary>默认展开的内容</summary>
+            <p>这个details标签带有open属性，所以默认是展开的。</p>
+        </details>
+    </section>
+
+    <!-- ============================================
+         2. meter：度量（用于显示已知范围内的标量值）
+         ============================================ -->
+    <section class="demo-section">
+        <h2>2. &lt;meter&gt; 度量条</h2>
+
+        <p>磁盘使用情况：</p>
+        <meter value="0.7" min="0" max="1" low="0.3" high="0.8" optimum="0.5">70%</meter>
+        <span>70%（正常）</span>
+        <br><br>
+
+        <p>内存使用（高）：</p>
+        <meter value="0.9" min="0" max="1" low="0.3" high="0.8">90%</meter>
+        <span>90%（偏高）</span>
+
+        <p><small>meter适合显示磁盘使用、分数等已知范围的度量值</small></p>
+    </section>
+
+    <!-- ============================================
+         3. progress：进度条
+         ============================================ -->
+    <section class="demo-section">
+        <h2>3. &lt;progress&gt; 进度条</h2>
+
+        <p>下载进度：</p>
+        <progress id="download" value="30" max="100"></progress>
+        <span id="progressText">30%</span>
+        <br><br>
+
+        <button onclick="increaseProgress()">增加进度</button>
+        <button onclick="resetProgress()">重置</button>
+
+        <p><small>progress适合显示任务完成进度</small></p>
+    </section>
+
+    <!-- ============================================
+         4. dialog：对话框（原生弹窗）
+         ============================================ -->
+    <section class="demo-section">
+        <h2>4. &lt;dialog&gt; 原生对话框</h2>
+
+        <button onclick="openDialog()">打开对话框</button>
+
+        <dialog id="myDialog">
+            <h3>这是一个对话框</h3>
+            <p>这是HTML5原生的dialog标签！</p>
+            <button onclick="closeDialog()">关闭</button>
+        </dialog>
+    </section>
+
+    <!-- ============================================
+         5. figure + figcaption：图片/图表容器
+         ============================================ -->
+    <section class="demo-section">
+        <h2>5. &lt;figure&gt; + &lt;figcaption&gt; 图片容器</h2>
+
+        <figure>
+            <img src="https://via.placeholder.com/300x150" alt="示例图片">
+            <figcaption>图1：这是一张示例图片的说明文字</figcaption>
+        </figure>
+
+        <p><small>figure用于包裹图片、图表等，figcaption用于添加说明</small></p>
+    </section>
+
+    <!-- ============================================
+         6. mark：高亮文本
+         ============================================ -->
+    <section class="demo-section">
+        <h2>6. &lt;mark&gt; 高亮文本</h2>
+
+        <p>这是一段包含 <mark>重要内容</mark> 的文字，被mark标签包裹的部分会高亮显示。</p>
+    </section>
+
+    <script>
+        // 进度条演示
+        function increaseProgress() {
+            const progress = document.getElementById('download');
+            const progressText = document.getElementById('progressText');
+            if (progress.value < 100) {
+                progress.value += 10;
+                progressText.textContent = progress.value + '%';
+            }
+        }
+
+        function resetProgress() {
+            const progress = document.getElementById('download');
+            const progressText = document.getElementById('progressText');
+            progress.value = 0;
+            progressText.textContent = '0%';
+        }
+
+        // 对话框演示
+        function openDialog() {
+            document.getElementById('myDialog').showModal();
+        }
+
+        function closeDialog() {
+            document.getElementById('myDialog').close();
+        }
+    </script>
+
+</body>
+</html>

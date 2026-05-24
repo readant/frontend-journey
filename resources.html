@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端学习资源导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header p {
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
+        .search-box {
+            max-width: 500px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            outline: none;
+        }
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .categories {
+            display: grid;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .category {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .category-title {
+            color: white;
+            font-size: 1.3em;
+        }
+        .category-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9em;
+        }
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .link-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 15px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        .link-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .link-name {
+            color: white;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .link-desc {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85em;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            margin-left: auto;
+        }
+        .tag-official {
+            background: #2ecc71;
+            color: white;
+        }
+        .tag-chinese {
+            background: #e74c3c;
+            color: white;
+        }
+        .tag-free {
+            background: #3498db;
+            color: white;
+        }
+        .tag-premium {
+            background: #f39c12;
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        /* 分类颜色 */
+        .cat-learning { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .cat-docs { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .cat-practice { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .cat-assets { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .cat-tools { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .cat-community { background: linear-gradient(135deg, #a8edea, #fed6e3); color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>🚀 前端学习资源导航</h1>
+            <p>精选优质学习资源，助力前端成长之路</p>
+        </div>
+
+        <div class="categories">
+            <!-- 课程学习平台 -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon cat-learning">📚</div>
+                    <div>
+                        <div class="category-title">课程学习平台</div>
+                        <div class="category-desc">系统化的视频教程和课程</div>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://lzfamily.cn/" target="_blank" class="link-card">
+                        <div class="link-name">源境在线 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">优质课程学习平台</div>
+                    </a>
+                    <a href="https://www.freecodecamp.org/" target="_blank" class="link-card">
+                        <div class="link-name">freeCodeCamp <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">免费编程学习平台</div>
+                    </a>
+                    <a href="https://www.imooc.com/" target="_blank" class="link-card">
+                        <div class="link-name">慕课网 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">IT技能学习平台</div>
+                    </a>
+                    <a href="https://www.bilibili.com/" target="_blank" class="link-card">
+                        <div class="link-name">B站 <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">大量免费编程教程</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 权威技术文档 -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon cat-docs">📖</div>
+                    <div>
+                        <div class="category-title">权威技术文档</div>
+                        <div class="category-desc">官方文档和权威参考资料</div>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://developer.mozilla.org/zh-CN/" target="_blank" class="link-card">
+                        <div class="link-name">MDN Web Docs <span class="tag tag-official">官方</span></div>
+                        <div class="link-desc">Mozilla 开发者文档</div>
+                    </a>
+                    <a href="https://www.w3school.com.cn/" target="_blank" class="link-card">
+                        <div class="link-name">W3School <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">Web 技术教程</div>
+                    </a>
+                    <a href="https://es6.ruanyifeng.com/" target="_blank" class="link-card">
+                        <div class="link-name">ES6 入门教程 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">阮一峰 ES6 教程</div>
+                    </a>
+                    <a href="https://www.runoob.com/" target="_blank" class="link-card">
+                        <div class="link-name">菜鸟教程 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">编程入门教程</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 在线实操练习 -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon cat-practice">💻</div>
+                    <div>
+                        <div class="category-title">在线实操练习</div>
+                        <div class="category-desc">边学边练，即时反馈</div>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://jsrun.net/" target="_blank" class="link-card">
+                        <div class="link-name">JS 在线编辑器 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">在线编写运行代码</div>
+                    </a>
+                    <a href="https://codepen.io/" target="_blank" class="link-card">
+                        <div class="link-name">CodePen <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">前端代码演示社区</div>
+                    </a>
+                    <a href="https://codesandbox.io/" target="_blank" class="link-card">
+                        <div class="link-name">CodeSandbox <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">在线开发环境</div>
+                    </a>
+                    <a href="https://leetcode.cn/" target="_blank" class="link-card">
+                        <div class="link-name">力扣 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">算法练习平台</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 图标图片素材 -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon cat-assets">🎨</div>
+                    <div>
+                        <div class="category-title">图标图片素材</div>
+                        <div class="category-desc">设计资源和素材</div>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://www.iconfont.cn/" target="_blank" class="link-card">
+                        <div class="link-name">阿里图标库 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">海量矢量图标</div>
+                    </a>
+                    <a href="https://www.pexels.com/" target="_blank" class="link-card">
+                        <div class="link-name">Pexels <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">无版权高清图库</div>
+                    </a>
+                    <a href="https://unsplash.com/" target="_blank" class="link-card">
+                        <div class="link-name">Unsplash <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">免费高质量图片</div>
+                    </a>
+                    <a href="https://fontawesome.com/" target="_blank" class="link-card">
+                        <div class="link-name">Font Awesome <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">图标字体库</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 代码调试校验 -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon cat-tools">🔧</div>
+                    <div>
+                        <div class="category-title">代码调试校验</div>
+                        <div class="category-desc">开发工具和调试资源</div>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://caniuse.com/" target="_blank" class="link-card">
+                        <div class="link-name">Can I Use <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">浏览器兼容性查询</div>
+                    </a>
+                    <a href="https://tool.oschina.net/codeformat/html" target="_blank" class="link-card">
+                        <div class="link-name">代码格式化 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">在线代码格式化工具</div>
+                    </a>
+                    <a href="https://validator.w3.org/" target="_blank" class="link-card">
+                        <div class="link-name">W3C 校验器 <span class="tag tag-official">官方</span></div>
+                        <div class="link-desc">HTML 代码校验</div>
+                    </a>
+                    <a href="https://jigsaw.w3.org/css-validator/" target="_blank" class="link-card">
+                        <div class="link-name">CSS 校验器 <span class="tag tag-official">官方</span></div>
+                        <div class="link-desc">CSS 代码校验</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 进阶学习社区 -->
+            <div class="category">
+                <div class="category-header">
+                    <div class="category-icon cat-community">🌐</div>
+                    <div>
+                        <div class="category-title">进阶学习社区</div>
+                        <div class="category-desc">技术社区和博客</div>
+                    </div>
+                </div>
+                <div class="links">
+                    <a href="https://juejin.cn/" target="_blank" class="link-card">
+                        <div class="link-name">掘金 <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">技术社区</div>
+                    </a>
+                    <a href="https://segmentfault.com/" target="_blank" class="link-card">
+                        <div class="link-name">SegmentFault <span class="tag tag-chinese">中文</span></div>
+                        <div class="link-desc">开发者社区</div>
+                    </a>
+                    <a href="https://stackoverflow.com/" target="_blank" class="link-card">
+                        <div class="link-name">Stack Overflow <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">全球编程问答社区</div>
+                    </a>
+                    <a href="https://github.com/" target="_blank" class="link-card">
+                        <div class="link-name">GitHub <span class="tag tag-free">免费</span></div>
+                        <div class="link-desc">开源代码托管平台</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>💡 收藏此页面，随时查阅优质学习资源</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Last updated: 2026-05-24</p>
+        </div>
+    </div>
+
+</body>
+</html>

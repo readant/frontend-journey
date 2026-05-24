@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML表格</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        caption {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML表格示例</h1>
+
+    <!-- ============================================
+         1. 基础表格
+         ============================================ -->
+    <section class="demo-section">
+        <h2>1. 基础表格</h2>
+
+        <table>
+            <caption>学生信息表</caption>
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>城市</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>张三</td>
+                    <td>25</td>
+                    <td>北京</td>
+                </tr>
+                <tr>
+                    <td>李四</td>
+                    <td>22</td>
+                    <td>上海</td>
+                </tr>
+                <tr>
+                    <td>王五</td>
+                    <td>28</td>
+                    <td>广州</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">共计 3 人</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+    <!-- ============================================
+         2. 合并单元格
+         ============================================ -->
+    <section class="demo-section">
+        <h2>2. 合并单元格（colspan、rowspan）</h2>
+
+        <table>
+            <caption>课程安排表</caption>
+            <thead>
+                <tr>
+                    <th>时间</th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>上午</td>
+                    <td>语文</td>
+                    <td>数学</td>
+                    <td>英语</td>
+                </tr>
+                <tr>
+                    <td>下午</td>
+                    <td colspan="2">体育课（跨两列）</td>
+                    <td>音乐</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">晚上</td>
+                    <td colspan="3">晚自习</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ============================================
+         3. 表格标签说明
+         ============================================ -->
+    <section class="demo-section">
+        <h2>3. 表格标签说明</h2>
+        <ul>
+            <li><code>&lt;table&gt;</code>：表格容器</li>
+            <li><code>&lt;caption&gt;</code>：表格标题（可选）</li>
+            <li><code>&lt;thead&gt;</code>：表头区域</li>
+            <li><code>&lt;tbody&gt;</code>：表体区域</li>
+            <li><code>&lt;tfoot&gt;</code>：表脚区域</li>
+            <li><code>&lt;tr&gt;</code>：table row，表格行</li>
+            <li><code>&lt;th&gt;</code>：table header，表头单元格</li>
+            <li><code>&lt;td&gt;</code>：table data，数据单元格</li>
+            <li><code>colspan</code>：跨列合并</li>
+            <li><code>rowspan</code>：跨行合并</li>
+        </ul>
+    </section>
+
+</body>
+</html>

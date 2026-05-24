@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 学习路线图</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .step {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .step h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .file-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .file-item {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+        .file-item:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .file-item::before {
+            content: '📄';
+            margin-right: 8px;
+        }
+        .checklist {
+            margin: 20px 0;
+        }
+        .checklist li {
+            list-style: none;
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        .checklist li::before {
+            content: '☑️';
+            position: absolute;
+            left: 0;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🎯 HTML 学习路线图</h1>
+            <p>系统学习 HTML，从基础到实战</p>
+        </div>
+
+        <!-- 内容 -->
+        <div class="content">
+            <!-- 第一步 -->
+            <div class="step">
+                <h2>
+                    <span class="step-number">1</span>
+                    第一步：HTML 基础入门
+                </h2>
+                <p>理解 HTML 的作用，掌握基本标签的使用</p>
+                
+                <h3>📚 学习文件：</h3>
+                <div class="file-list">
+                    <a href="01-basics/01-hello-world.html" class="file-item">01-hello-world.html</a>
+                    <a href="01-basics/02-document-structure.html" class="file-item">02-document-structure.html</a>
+                    <a href="01-basics/03-text-tags.html" class="file-item">03-text-tags.html</a>
+                    <a href="01-basics/04-lists.html" class="file-item">04-lists.html</a>
+                    <a href="01-basics/05-links-and-images.html" class="file-item">05-links-and-images.html</a>
+                    <a href="01-basics/06-tables.html" class="file-item">06-tables.html</a>
+                </div>
+
+                <h3>✅ 学习目标：</h3>
+                <ul class="checklist">
+                    <li>理解 HTML 文档结构</li>
+                    <li>掌握常用文本标签</li>
+                    <li>能创建有序和无序列表</li>
+                    <li>会使用链接和图片标签</li>
+                    <li>能制作简单的表格</li>
+                </ul>
+            </div>
+
+            <!-- 第二步 -->
+            <div class="step">
+                <h2>
+                    <span class="step-number">2</span>
+                    第二步：文档结构与语义化
+                </h2>
+                <p>理解语义化标签的重要性，正确使用语义标签</p>
+                
+                <h3>📚 学习文件：</h3>
+                <div class="file-list">
+                    <a href="02-advanced/01-semantic-layout.html" class="file-item">01-semantic-layout.html</a>
+                    <a href="02-advanced/02-semantic-vs-non.html" class="file-item">02-semantic-vs-non.html</a>
+                </div>
+
+                <h3>✅ 学习目标：</h3>
+                <ul class="checklist">
+                    <li>理解语义化的意义</li>
+                    <li>掌握 header、nav、main、article、section、aside、footer 等标签</li>
+                    <li>能使用语义标签构建页面结构</li>
+                </ul>
+            </div>
+
+            <!-- 第三步 -->
+            <div class="step">
+                <h2>
+                    <span class="step-number">3</span>
+                    第三步：表单与交互元素
+                </h2>
+                <p>掌握表单标签，能制作用户输入界面</p>
+                
+                <h3>📚 学习文件：</h3>
+                <div class="file-list">
+                    <a href="03-forms/01-basic-form.html" class="file-item">01-basic-form.html</a>
+                    <a href="03-forms/02-html5-forms.html" class="file-item">02-html5-forms.html</a>
+                    <a href="03-forms/03-form-validation.html" class="file-item">03-form-validation.html</a>
+                </div>
+
+                <h3>✅ 学习目标：</h3>
+                <ul class="checklist">
+                    <li>掌握 form、input、select、textarea、button 等标签</li>
+                    <li>了解 HTML5 新增的表单类型</li>
+                    <li>能使用表单验证属性</li>
+                </ul>
+            </div>
+
+            <!-- 第四步 -->
+            <div class="step">
+                <h2>
+                    <span class="step-number">4</span>
+                    第四步：多媒体与 HTML5 新特性
+                </h2>
+                <p>掌握音视频嵌入和 HTML5 新增标签</p>
+                
+                <h3>📚 学习文件：</h3>
+                <div class="file-list">
+                    <a href="04-media/01-video-audio.html" class="file-item">01-video-audio.html</a>
+                    <a href="04-media/02-canvas.html" class="file-item">02-canvas.html</a>
+                    <a href="04-media/03-new-tags.html" class="file-item">03-new-tags.html</a>
+                </div>
+
+                <h3>✅ 学习目标：</h3>
+                <ul class="checklist">
+                    <li>能使用 video 和 audio 标签</li>
+                    <li>了解 canvas 的基本使用</li>
+                    <li>熟悉 details、dialog、progress 等新标签</li>
+                </ul>
+            </div>
+
+            <!-- 第五步 -->
+            <div class="step">
+                <h2>
+                    <span class="step-number">5</span>
+                    第五步：实战项目
+                </h2>
+                <p>通过项目巩固所学知识</p>
+                
+                <h3>📚 项目文件：</h3>
+                <div class="file-list">
+                    <a href="05-projects/01-personal-resume.html" class="file-item">01-personal-resume.html</a>
+                    <a href="05-projects/02-simple-blog.html" class="file-item">02-simple-blog.html</a>
+                </div>
+
+                <h3>✅ 学习目标：</h3>
+                <ul class="checklist">
+                    <li>能独立制作个人简历页面</li>
+                    <li>能制作简单的博客首页</li>
+                    <li>将所学知识融会贯通</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>🚀 按顺序学习，每个文件都有详细注释和说明</p>
+            <p>💡 建议边看边动手实践，效果更好！</p>
+        </div>
+    </div>
+
+</body>
+</html>

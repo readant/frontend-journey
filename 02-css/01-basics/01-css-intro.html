@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 入门 - 什么是CSS</title>
+    <style>
+        /* ========== 基础重置 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========== 页面基础样式 ========== */
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.8;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        /* ========== 容器 ========== */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* ========== 标题样式 ========== */
+        h1 {
+            color: #f5576c;
+            border-bottom: 3px solid #f5576c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #f093fb;
+        }
+
+        /* ========== 代码块 ========== */
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+        }
+
+        .comment {
+            color: #75715e;
+        }
+
+        .property {
+            color: #66d9ef;
+        }
+
+        .value {
+            color: #a6e22e;
+        }
+
+        /* ========== 示例展示区 ========== */
+        .demo-box {
+            background: #fff3cd;
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .demo-box p {
+            color: #856404;
+        }
+
+        /* ========== 内联样式示例 ========== */
+        .inline-demo {
+            color: blue;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ========== 提示框 ========== */
+        .tip {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .tip-title {
+            color: #1976D2;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* ========== 对比表格 ========== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f5576c;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* ========== 导航 ========== */
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-links a {
+            color: #f5576c;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #f5576c;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #f5576c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎨 CSS 入门 - 什么是 CSS？</h1>
+
+        <h2>📖 什么是 CSS？</h2>
+        <p>CSS（Cascading Style Sheets）即<strong>层叠样式表</strong>，用于控制网页的外观和布局。</p>
+        
+        <div class="tip">
+            <div class="tip-title">💡 理解要点</div>
+            <p>HTML 负责网页的<strong>结构</strong>（骨架），CSS 负责网页的<strong>样式</strong>（皮肤）</p>
+        </div>
+
+        <h2>📝 CSS 三种引入方式</h2>
+        
+        <h3>1. 内联样式（Inline Style）</h3>
+        <p>直接在 HTML 标签的 style 属性中写 CSS：</p>
+        <div class="code-block">
+            <span class="comment">&lt;!-- 内联样式示例 --&gt;</span><br>
+            &lt;p <span class="property">style</span>=<span class="value">"color: blue; font-size: 18px;"</span>&gt;这是一段蓝色文字&lt;/p&gt;
+        </div>
+        <div class="demo-box">
+            <p class="inline-demo">这是一段蓝色文字（内联样式效果）</p>
+        </div>
+
+        <h3>2. 内部样式表（Internal Style Sheet）</h3>
+        <p>在 HTML 文件的 &lt;head&gt; 中使用 &lt;style&gt; 标签：</p>
+        <div class="code-block">
+            <span class="comment">&lt;!-- 放在 head 标签内 --&gt;</span><br>
+            &lt;style&gt;<br>
+            &nbsp;&nbsp;<span class="property">p</span> {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="property">color</span>: <span class="value">green</span>;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="property">font-size</span>: <span class="value">16px</span>;<br>
+            &nbsp;&nbsp;}<br>
+            &lt;/style&gt;
+        </div>
+
+        <h3>3. 外部样式表（External Style Sheet）</h3>
+        <p>将 CSS 写在独立的 .css 文件中，通过 link 标签引入：</p>
+        <div class="code-block">
+            <span class="comment">&lt;!-- 放在 head 标签内 --&gt;</span><br>
+            &lt;link <span class="property">rel</span>=<span class="value">"stylesheet"</span> <span class="property">href</span>=<span class="value">"styles.css"</span>&gt;
+        </div>
+
+        <h2>📊 三种方式对比</h2>
+        <table>
+            <tr>
+                <th>方式</th>
+                <th>优点</th>
+                <th>缺点</th>
+                <th>使用场景</th>
+            </tr>
+            <tr>
+                <td>内联样式</td>
+                <td>简单直接</td>
+                <td>难以维护、无法复用</td>
+                <td>临时测试</td>
+            </tr>
+            <tr>
+                <td>内部样式表</td>
+                <td>无需额外文件</td>
+                <td>只对当前页面有效</td>
+                <td>单页面应用</td>
+            </tr>
+            <tr>
+                <td>外部样式表</td>
+                <td>可复用、易维护</td>
+                <td>需要额外 HTTP 请求</td>
+                <td>推荐方式</td>
+            </tr>
+        </table>
+
+        <h2>✍️ CSS 基本语法</h2>
+        <div class="code-block">
+            <span class="comment">/* 选择器 { 属性: 值; } */</span><br><br>
+            <span class="property">h1</span> {<br>
+            &nbsp;&nbsp;<span class="property">color</span>: <span class="value">red</span>;<br>
+            &nbsp;&nbsp;<span class="property">font-size</span>: <span class="value">24px</span>;<br>
+            }
+        </div>
+
+        <div class="tip">
+            <div class="tip-title">🎯 记忆口诀</div>
+            <p>选择器选中谁，大括号包样式，属性值用冒号，分号来结尾</p>
+        </div>
+
+        <h2>🔗 相关资源</h2>
+        <ul>
+            <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS" target="_blank">MDN CSS 文档</a></li>
+            <li><a href="https://www.w3school.com.cn/css/index.asp" target="_blank">W3School CSS 教程</a></li>
+            <li><a href="https://css-tricks.com/" target="_blank">CSS-Tricks（英文）</a></li>
+        </ul>
+
+        <div class="nav-links">
+            <a href="../roadmap.html">⬅️ 返回路线图</a>
+            <a href="02-selectors.html">下一课：选择器 ➡️</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基础表单示例</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            padding: 8px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML基础表单示例</h1>
+
+    <section class="demo-section">
+        <h2>用户注册表单</h2>
+
+        <!-- form标签：表单容器
+             action：表单提交的地址
+             method：请求方法（GET或POST）
+             novalidate：关闭浏览器默认验证（用于测试） -->
+        <form action="/submit" method="post">
+
+            <!-- ============================================
+                 1. 文本输入框 input type="text"
+                 ============================================ -->
+            <div class="form-group">
+                <label for="username">用户名：</label>
+                <!-- id用于关联label，name用于提交数据 -->
+                <input type="text" id="username" name="username" 
+                       placeholder="请输入用户名" required>
+                <span style="color:red">*</span>
+            </div>
+
+            <!-- ============================================
+                 2. 密码输入框 input type="password"
+                 ============================================ -->
+            <div class="form-group">
+                <label for="password">密码：</label>
+                <input type="password" id="password" name="password" 
+                       placeholder="请输入密码" required minlength="6">
+                <span style="color:red">*</span>
+                <small>至少6个字符</small>
+            </div>
+
+            <!-- ============================================
+                 3. 单选按钮 input type="radio"
+                 name相同表示互斥
+                 ============================================ -->
+            <div class="form-group">
+                <label>性别：</label>
+                <input type="radio" id="male" name="gender" value="male" checked>
+                <label for="male">男</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">女</label>
+            </div>
+
+            <!-- ============================================
+                 4. 复选框 input type="checkbox"
+                 ============================================ -->
+            <div class="form-group">
+                <label>爱好：</label>
+                <input type="checkbox" id="hobby1" name="hobby" value="coding">
+                <label for="hobby1">编程</label>
+                <input type="checkbox" id="hobby2" name="hobby" value="music">
+                <label for="hobby2">音乐</label>
+                <input type="checkbox" id="hobby3" name="hobby" value="sports">
+                <label for="hobby3">运动</label>
+            </div>
+
+            <!-- ============================================
+                 5. 下拉选择 select + option
+                 ============================================ -->
+            <div class="form-group">
+                <label for="city">城市：</label>
+                <select id="city" name="city">
+                    <option value="">请选择</option>
+                    <option value="beijing">北京</option>
+                    <option value="shanghai">上海</option>
+                    <option value="guangzhou">广州</option>
+                    <option value="shenzhen">深圳</option>
+                </select>
+            </div>
+
+            <!-- ============================================
+                 6. 文本域 textarea
+                 ============================================ -->
+            <div class="form-group">
+                <label for="bio">个人简介：</label>
+                <textarea id="bio" name="bio" rows="4" cols="30" placeholder="介绍一下你自己..."></textarea>
+            </div>
+
+            <!-- ============================================
+                 7. 按钮
+                 ============================================ -->
+            <div class="form-group">
+                <button type="submit">提交</button>
+                <button type="reset" style="background: #f44336;">重置</button>
+            </div>
+
+        </form>
+    </section>
+
+</body>
+</html>
