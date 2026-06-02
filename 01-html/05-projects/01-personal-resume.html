@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .resume {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        /* 头部 */
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            color: #666;
+            font-size: 14px;
+        }
+        .contact-info span {
+            margin: 0 10px;
+        }
+        /* 章节 */
+        section {
+            margin: 25px 0;
+        }
+        section h2 {
+            color: #4CAF50;
+            border-left: 4px solid #4CAF50;
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
+        /* 技能 */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        /* 项目列表 */
+        .project-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .project-item h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        /* 表格 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="resume">
+        <!-- 头部 -->
+        <header>
+            <h1>张三</h1>
+            <div class="contact-info">
+                <span>📧 zhangsan@example.com</span>
+                <span>📱 138-0000-0000</span>
+                <span>📍 北京市</span>
+            </div>
+        </header>
+
+        <!-- 个人简介 -->
+        <section>
+            <h2>个人简介</h2>
+            <p>
+                拥有3年前端开发经验，熟悉HTML、CSS、JavaScript等前端技术。
+                热爱学习新技术，具有良好的团队协作能力。
+            </p>
+        </section>
+
+        <!-- 教育背景 -->
+        <section>
+            <h2>教育背景</h2>
+            <table>
+                <tr>
+                    <th>时间</th>
+                    <th>学校</th>
+                    <th>专业</th>
+                    <th>学历</th>
+                </tr>
+                <tr>
+                    <td>2017-2021</td>
+                    <td>某某大学</td>
+                    <td>计算机科学与技术</td>
+                    <td>本科</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- 技能 -->
+        <section>
+            <h2>专业技能</h2>
+            <div class="skills">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Vue.js</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Webpack</span>
+            </div>
+        </section>
+
+        <!-- 项目经验 -->
+        <section>
+            <h2>项目经验</h2>
+            
+            <article class="project-item">
+                <h3>电商网站</h3>
+                <p><strong>时间：</strong>2022-2023</p>
+                <p><strong>技术栈：</strong>Vue.js + Element UI + Axios</p>
+                <p><strong>项目描述：</strong>负责商品列表、购物车、订单等模块的开发</p>
+            </article>
+
+            <article class="project-item">
+                <h3>企业管理系统</h3>
+                <p><strong>时间：</strong>2021-2022</p>
+                <p><strong>技术栈：</strong>React + Ant Design</p>
+                <p><strong>项目描述：</strong>参与用户管理、权限控制等功能开发</p>
+            </article>
+        </section>
+
+        <!-- 工作经历 -->
+        <section>
+            <h2>工作经历</h2>
+            <ul>
+                <li>
+                    <strong>2021-至今</strong> - 某某科技公司 - 前端开发工程师
+                    <p>负责公司产品的前端开发工作</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 页脚 -->
+        <footer>
+            <p>© 2026 张三 - 个人简历</p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.8;
+            background: #f0f0f0;
+        }
+        /* 容器 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+        /* 头部 */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            opacity: 0.9;
+        }
+        /* 导航 */
+        nav {
+            background: #333;
+            padding: 0;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        nav a {
+            display: block;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background: #555;
+        }
+        /* 主内容 */
+        main {
+            flex: 3;
+        }
+        /* 文章 */
+        article {
+            background: white;
+            margin-bottom: 20px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        article h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .article-meta {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .article-content {
+            color: #555;
+        }
+        .read-more {
+            display: inline-block;
+            margin-top: 15px;
+            color: #667eea;
+            text-decoration: none;
+        }
+        /* 侧边栏 */
+        aside {
+            flex: 1;
+        }
+        .widget {
+            background: white;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .widget h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .widget ul {
+            list-style: none;
+        }
+        .widget a {
+            color: #666;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+        }
+        .widget a:hover {
+            color: #667eea;
+        }
+        /* 页脚 */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 页面头部 -->
+    <header>
+        <h1>我的技术博客</h1>
+        <p>记录学习过程，分享技术心得</p>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">技术文章</a></li>
+            <li><a href="#">学习笔记</a></li>
+            <li><a href="#">关于我</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主体内容 -->
+    <div class="container">
+        <!-- 主要内容区 -->
+        <main>
+            <!-- 文章1 -->
+            <article>
+                <h2>HTML5 新特性详解</h2>
+                <div class="article-meta">
+                    <span>📅 2026-05-20</span> | 
+                    <span>👤 作者</span> | 
+                    <span>📁 分类：HTML</span>
+                </div>
+                <div class="article-content">
+                    <p>HTML5带来了很多新特性，包括语义化标签、新的表单类型、多媒体标签、Canvas等等...</p>
+                    <p>这些新特性让Web开发变得更加简单和强大...</p>
+                </div>
+                <a href="#" class="read-more">阅读全文 →</a>
+            </article>
+
+            <!-- 文章2 -->
+            <article>
+                <h2>CSS3 动画入门教程</h2>
+                <div class="article-meta">
+                    <span>📅 2026-05-15</span> | 
+                    <span>👤 作者</span> | 
+                    <span>📁 分类：CSS</span>
+                </div>
+                <div class="article-content">
+                    <p>CSS3提供了强大的动画功能，通过transition和animation属性可以实现各种酷炫的动画效果...</p>
+                </div>
+                <a href="#" class="read-more">阅读全文 →</a>
+            </article>
+
+            <!-- 文章3 -->
+            <article>
+                <h2>JavaScript 基础总结</h2>
+                <div class="article-meta">
+                    <span>📅 2026-05-10</span> | 
+                    <span>👤 作者</span> | 
+                    <span>📁 分类：JavaScript</span>
+                </div>
+                <div class="article-content">
+                    <p>JavaScript是一门非常重要的编程语言，掌握它的基础知识是前端开发的关键...</p>
+                </div>
+                <a href="#" class="read-more">阅读全文 →</a>
+            </article>
+        </main>
+
+        <!-- 侧边栏 -->
+        <aside>
+            <div class="widget">
+                <h3>文章分类</h3>
+                <ul>
+                    <li><a href="#">HTML (5)</a></li>
+                    <li><a href="#">CSS (8)</a></li>
+                    <li><a href="#">JavaScript (10)</a></li>
+                    <li><a href="#">Vue.js (3)</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
+                <h3>最新评论</h3>
+                <ul>
+                    <li><a href="#">小明：写得很好！</a></li>
+                    <li><a href="#">小红：学习了~</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
+                <h3>友情链接</h3>
+                <ul>
+                    <li><a href="#">MDN Web Docs</a></li>
+                    <li><a href="#">掘金</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2026 我的技术博客 | 用 ❤️ 构建</p>
+    </footer>
+
+</body>
+</html>

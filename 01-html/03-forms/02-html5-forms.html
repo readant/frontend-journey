@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5新增表单类型</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }
+        input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML5新增表单类型示例</h1>
+
+    <section class="demo-section">
+        <h2>HTML5 输入类型</h2>
+
+        <form>
+            <!-- ============================================
+                 1. email：邮箱输入，自动验证格式
+                 ============================================ -->
+            <div class="form-group">
+                <label for="email">邮箱：</label>
+                <input type="email" id="email" name="email" 
+                       placeholder="example@domain.com" required>
+                <small>type="email" 自动验证邮箱格式</small>
+            </div>
+
+            <!-- ============================================
+                 2. url：URL输入，自动验证格式
+                 ============================================ -->
+            <div class="form-group">
+                <label for="website">个人网站：</label>
+                <input type="url" id="website" name="website" 
+                       placeholder="https://example.com">
+                <small>type="url" 自动验证网址格式</small>
+            </div>
+
+            <!-- ============================================
+                 3. number：数字输入
+                 ============================================ -->
+            <div class="form-group">
+                <label for="age">年龄：</label>
+                <input type="number" id="age" name="age" 
+                       min="1" max="120" step="1" value="18">
+                <small>type="number" 只能输入数字</small>
+            </div>
+
+            <!-- ============================================
+                 4. range：滑块
+                 ============================================ -->
+            <div class="form-group">
+                <label for="volume">音量：</label>
+                <input type="range" id="volume" name="volume" 
+                       min="0" max="100" value="50">
+                <span id="volumeValue">50</span>
+                <small>type="range" 滑块控件</small>
+            </div>
+
+            <!-- ============================================
+                 5. date：日期选择器
+                 ============================================ -->
+            <div class="form-group">
+                <label for="birthday">生日：</label>
+                <input type="date" id="birthday" name="birthday">
+                <small>type="date" 日期选择器</small>
+            </div>
+
+            <!-- ============================================
+                 6. time：时间选择器
+                 ============================================ -->
+            <div class="form-group">
+                <label for="meeting">会议时间：</label>
+                <input type="time" id="meeting" name="meeting">
+                <small>type="time" 时间选择器</small>
+            </div>
+
+            <!-- ============================================
+                 7. color：颜色选择器
+                 ============================================ -->
+            <div class="form-group">
+                <label for="favcolor">喜欢的颜色：</label>
+                <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+                <small>type="color" 颜色选择器</small>
+            </div>
+
+            <!-- ============================================
+                 8. search：搜索框
+                 ============================================ -->
+            <div class="form-group">
+                <label for="search">搜索：</label>
+                <input type="search" id="search" name="search" 
+                       placeholder="搜索内容...">
+                <small>type="search" 搜索框样式</small>
+            </div>
+
+            <!-- ============================================
+                 9. tel：电话号码
+                 ============================================ -->
+            <div class="form-group">
+                <label for="phone">电话：</label>
+                <input type="tel" id="phone" name="phone" 
+                       placeholder="13800138000" 
+                       pattern="[0-9]{11}">
+                <small>type="tel" 电话输入</small>
+            </div>
+
+        </form>
+    </section>
+
+    <script>
+        // 滑块值实时显示
+        const volumeInput = document.getElementById('volume');
+        const volumeValue = document.getElementById('volumeValue');
+        volumeInput.addEventListener('input', function() {
+            volumeValue.textContent = this.value;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML链接和图片</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        img {
+            max-width: 200px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML链接和图片示例</h1>
+
+    <!-- ============================================
+         1. 超链接 a - anchor
+         ============================================ -->
+    <section class="demo-section">
+        <h2>1. 超链接 &lt;a&gt;</h2>
+
+        <h3>基础链接：</h3>
+        <a href="https://www.baidu.com">百度一下</a>
+
+        <h3>新标签页打开（target="_blank"）：</h3>
+        <a href="https://www.google.com" target="_blank">Google（新标签页）</a>
+
+        <h3>带提示的链接（title属性）：</h3>
+        <a href="https://developer.mozilla.org" title="去MDN学习Web开发">MDN Web文档</a>
+
+        <h3>锚点链接（跳转到页面内的位置）：</h3>
+        <a href="#section3">跳转到第三章</a>
+    </section>
+
+    <!-- ============================================
+         2. 图片 img - image
+         ============================================ -->
+    <section class="demo-section">
+        <h2>2. 图片 &lt;img&gt;</h2>
+        <p>img是单标签，必须有src和alt属性</p>
+
+        <h3>基本图片：</h3>
+        <img src="https://via.placeholder.com/150" alt="占位图片">
+
+        <h3>设置尺寸：</h3>
+        <img src="https://via.placeholder.com/150" alt="占位图片" width="100" height="100">
+
+        <h3>图片作为链接：</h3>
+        <a href="https://www.example.com">
+            <img src="https://via.placeholder.com/100" alt="点击访问">
+        </a>
+    </section>
+
+    <!-- ============================================
+         3. 锚点演示
+         ============================================ -->
+    <section class="demo-section" id="section3">
+        <h2>3. 第三章（这就是锚点位置）</h2>
+        <p>你可以通过锚点链接直接跳转到这里！</p>
+        <a href="#top">返回顶部</a>
+    </section>
+
+    <div id="top"></div>
+
+</body>
+</html>

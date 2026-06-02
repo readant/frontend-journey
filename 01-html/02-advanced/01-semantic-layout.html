@@ -1,0 +1,151 @@
+<!--
+  ============================================
+  HTML5 语义化标签布局示例
+  ============================================
+  语义化标签的好处：
+  1. 代码更易读，结构清晰
+  2. SEO友好，搜索引擎更容易理解
+  3. 无障碍访问友好，屏幕阅读器能更好解读
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5语义化布局示例</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        /* 语义化标签的样式，让结构更明显 */
+        header, nav, main, article, section, aside, footer {
+            padding: 20px;
+            margin: 10px;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+        /* 给不同区域不同背景色，方便区分 */
+        header { background: #f0f8ff; border-color: #4682b4; }
+        nav { background: #fff0f5; border-color: #db7093; }
+        main { background: #f5f5dc; border-color: #daa520; }
+        article { background: #e6e6fa; border-color: #9370db; }
+        section { background: #fffacd; border-color: #ffd700; }
+        aside { background: #f0fff0; border-color: #32cd32; }
+        footer { background: #faf0e6; border-color: #d2691e; }
+        figure {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border: 1px solid #ccc;
+        }
+        figcaption {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         header：页面头部区域
+         包含：logo、标题、搜索框等
+         ============================================ -->
+    <header>
+        <h1>&lt;header&gt; 页面头部</h1>
+        <p>这是页面的顶部区域，通常包含Logo、标题、导航等</p>
+        <p>一个页面可以有多个header，但最好有一个主导航的header</p>
+    </header>
+
+    <!-- ============================================
+         nav：导航栏
+         包含：主要的导航链接
+         ============================================ -->
+    <nav>
+        <h2>&lt;nav&gt; 导航栏</h2>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">文章</a></li>
+            <li><a href="#">关于</a></li>
+            <li><a href="#">联系</a></li>
+        </ul>
+    </nav>
+
+    <!-- ============================================
+         main：主要内容区
+         包含：页面核心内容
+         注意：一个页面应该只有一个main
+         ============================================ -->
+    <main>
+        <h2>&lt;main&gt; 主要内容区</h2>
+        <p>这里是页面的核心内容，一个页面应该只有一个main标签</p>
+
+        <!-- ============================================
+             article：独立的文章/内容块
+             含义：可以独立被阅读或分发的内容
+             ============================================ -->
+        <article>
+            <h3>&lt;article&gt; 独立文章</h3>
+            <p>article标签表示一个完整的、可以独立阅读的内容块</p>
+            <p>比如：一篇博客文章、论坛帖子、新闻报道等</p>
+
+            <!-- ============================================
+                 figure：图片/图表容器
+                 figcaption：图片说明
+                 ============================================ -->
+            <figure>
+                <img src="https://via.placeholder.com/300x150" alt="示例图片">
+                <figcaption>&lt;figcaption&gt; 这是图片说明文字</figcaption>
+            </figure>
+
+            <!-- ============================================
+                 section：内容分区
+                 含义：有独立主题的内容区域
+                 ============================================ -->
+            <section>
+                <h4>&lt;section&gt; 内容分区 1</h4>
+                <p>section表示有独立主题的内容区域</p>
+                <p>每个section通常包含一个h2-h6标题</p>
+            </section>
+
+            <section>
+                <h4>&lt;section&gt; 内容分区 2</h4>
+                <p>这是另一个内容分区，有自己的主题</p>
+            </section>
+        </article>
+    </main>
+
+    <!-- ============================================
+         aside：侧边栏/补充内容
+         含义：与主要内容相关但又独立的内容
+         ============================================ -->
+    <aside>
+        <h3>&lt;aside&gt; 侧边栏</h3>
+        <p>aside包含与主要内容相关但又可以独立的内容</p>
+        <ul>
+            <li>相关链接</li>
+            <li>热门文章</li>
+            <li>广告位</li>
+            <li>作者信息</li>
+        </ul>
+    </aside>
+
+    <!-- ============================================
+         footer：页脚
+         包含：版权信息、联系方式、链接等
+         ============================================ -->
+    <footer>
+        <h3>&lt;footer&gt; 页脚</h3>
+        <p>这是页面的底部区域，通常包含版权信息、联系方式等</p>
+        <p>&copy; 2026 我的网站 | <a href="#">联系我们</a></p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 选择器详解</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.8;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #f5576c;
+            border-bottom: 3px solid #f5576c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #f093fb;
+        }
+
+        h3 {
+            color: #666;
+            margin: 15px 0 10px;
+        }
+
+        /* ========== 选择器示例样式 ========== */
+        
+        /* 标签选择器 */
+        .demo-tag {
+            color: #e74c3c;
+        }
+
+        /* 类选择器 */
+        .demo-class {
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        /* ID 选择器 */
+        #demo-id {
+            border: 3px solid #2ecc71;
+            padding: 10px;
+            background: #e8f8f0;
+        }
+
+        /* 后代选择器 */
+        .ancestor .descendant {
+            color: #9b59b6;
+            font-weight: bold;
+        }
+
+        /* 子选择器 */
+        .parent > .child {
+            background: #f1c40f;
+            padding: 3px 8px;
+        }
+
+        /* 相邻兄弟选择器 */
+        .sibling-a + .sibling-b {
+            color: #1abc9c;
+            font-size: 20px;
+        }
+
+        /* 通用兄弟选择器 */
+        .sibling-x ~ .sibling-y {
+            text-decoration: line-through;
+            color: #95a5a6;
+        }
+
+        /* 属性选择器 */
+        [data-type="special"] {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        /* 伪类选择器 */
+        .hover-demo:hover {
+            background: #e74c3c;
+            color: white;
+            transform: scale(1.05);
+            transition: all 0.3s;
+        }
+
+        /* 伪元素选择器 */
+        .pseudo-element::before {
+            content: "🔥 ";
+        }
+
+        .pseudo-element::after {
+            content: " ✓";
+            color: #2ecc71;
+        }
+
+        /* ========== 代码块 ========== */
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+        }
+
+        .comment { color: #75715e; }
+        .selector { color: #f92672; }
+        .property { color: #66d9ef; }
+        .value { color: #a6e22e; }
+
+        /* ========== 示例展示区 ========== */
+        .demo-area {
+            background: #f8f9fa;
+            border: 1px dashed #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        /* ========== 表格 ========== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f5576c;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* ========== 提示框 ========== */
+        .tip {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* ========== 导航 ========== */
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-links a {
+            color: #f5576c;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #f5576c;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #f5576c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎯 CSS 选择器详解</h1>
+
+        <h2>📖 什么是选择器？</h2>
+        <p>选择器用于<strong>选中</strong>你想要设置样式的 HTML 元素。</p>
+
+        <h2>1️⃣ 基础选择器</h2>
+
+        <h3>标签选择器（元素选择器）</h3>
+        <p>直接使用 HTML 标签名作为选择器，选中所有该标签。</p>
+        <div class="code-block">
+            <span class="comment">/* 选中所有 p 标签 */</span><br>
+            <span class="selector">p</span> {<br>
+            &nbsp;&nbsp;<span class="property">color</span>: <span class="value">red</span>;<br>
+            }
+        </div>
+        <div class="demo-area">
+            <p class="demo-tag">这是一个红色段落（标签选择器效果）</p>
+        </div>
+
+        <h3>类选择器（Class Selector）</h3>
+        <p>使用 <code>.</code> 加类名，可重复使用。</p>
+        <div class="code-block">
+            <span class="comment">/* 选中 class="demo-class" 的元素 */</span><br>
+            <span class="selector">.demo-class</span> {<br>
+            &nbsp;&nbsp;<span class="property">background</span>: <span class="value">#3498db</span>;<br>
+            &nbsp;&nbsp;<span class="property">color</span>: <span class="value">white</span>;<br>
+            }
+        </div>
+        <div class="demo-area">
+            <span class="demo-class">这是一个带类名的元素</span>
+        </div>
+
+        <h3>ID 选择器</h3>
+        <p>使用 <code>#</code> 加 ID 名，页面中唯一。</p>
+        <div class="code-block">
+            <span class="comment">/* 选中 id="demo-id" 的元素 */</span><br>
+            <span class="selector">#demo-id</span> {<br>
+            &nbsp;&nbsp;<span class="property">border</span>: <span class="value">3px solid #2ecc71</span>;<br>
+            }
+        </div>
+        <div class="demo-area">
+            <div id="demo-id">这是 ID 选择器效果（绿色边框）</div>
+        </div>
+
+        <h3>通配符选择器</h3>
+        <p>使用 <code>*</code> 选中所有元素。</p>
+        <div class="code-block">
+            <span class="selector">*</span> {<br>
+            &nbsp;&nbsp;<span class="property">margin</span>: <span class="value">0</span>;<br>
+            &nbsp;&nbsp;<span class="property">padding</span>: <span class="value">0</span>;<br>
+            }
+        </div>
+
+        <h2>2️⃣ 组合选择器</h2>
+
+        <h3>后代选择器（空格）</h3>
+        <p>选中某元素内部的所有指定后代元素。</p>
+        <div class="code-block">
+            <span class="selector">.ancestor .descendant</span> { <span class="property">color</span>: <span class="value">purple</span>; }
+        </div>
+        <div class="demo-area ancestor">
+            <p>这是祖先元素</p>
+            <p><span class="descendant">这是后代元素（紫色）</span></p>
+        </div>
+
+        <h3>子选择器（>）</h3>
+        <p>只选中直接子元素。</p>
+        <div class="code-block">
+            <span class="selector">.parent > .child</span> { <span class="property">background</span>: <span class="value">yellow</span>; }
+        </div>
+        <div class="demo-area parent">
+            <span class="child">直接子元素（黄色背景）</span>
+            <div>
+                <span class="child">嵌套的子元素（不受影响）</span>
+            </div>
+        </div>
+
+        <h3>相邻兄弟选择器（+）</h3>
+        <p>选中紧邻的下一个兄弟元素。</p>
+        <div class="code-block">
+            <span class="selector">.sibling-a + .sibling-b</span> { <span class="property">color</span>: <span class="value">teal</span>; <span class="property">font-size</span>: <span class="value">20px</span>; }
+        </div>
+        <div class="demo-area">
+            <span class="sibling-a">兄弟 A</span>
+            <span class="sibling-b">兄弟 B（紧邻 A，受影响）</span>
+            <span class="sibling-b">兄弟 C（不紧邻 A，不受影响）</span>
+        </div>
+
+        <h2>3️⃣ 属性选择器</h2>
+        <div class="code-block">
+            <span class="comment">/* 选中带有 data-type="special" 的元素 */</span><br>
+            <span class="selector">[data-type="special"]</span> {<br>
+            &nbsp;&nbsp;<span class="property">background</span>: <span class="value">linear-gradient(135deg, #667eea, #764ba2)</span>;<br>
+            }
+        </div>
+        <div class="demo-area">
+            <span data-type="special">属性选择器效果</span>
+        </div>
+
+        <h2>4️⃣ 伪类选择器</h2>
+        <p>用于元素的特殊状态。</p>
+        <div class="code-block">
+            <span class="selector">.hover-demo:hover</span> {<br>
+            &nbsp;&nbsp;<span class="property">background</span>: <span class="value">#e74c3c</span>;<br>
+            &nbsp;&nbsp;<span class="property">color</span>: <span class="value">white</span>;<br>
+            }
+        </div>
+        <div class="demo-area">
+            <span class="hover-demo" style="padding: 10px 20px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;">
+                鼠标悬停试试
+            </span>
+        </div>
+
+        <h3>常用伪类</h3>
+        <table>
+            <tr>
+                <th>伪类</th>
+                <th>作用</th>
+            </tr>
+            <tr><td>:hover</td><td>鼠标悬停状态</td></tr>
+            <tr><td>:active</td><td>鼠标按下状态</td></tr>
+            <tr><td>:focus</td><td>获得焦点状态</td></tr>
+            <tr><td>:first-child</td><td>第一个子元素</td></tr>
+            <tr><td>:last-child</td><td>最后一个子元素</td></tr>
+            <tr><td>:nth-child(n)</td><td>第 n 个子元素</td></tr>
+        </table>
+
+        <h2>5️⃣ 伪元素选择器</h2>
+        <p>用于创建或选中元素的特定部分。</p>
+        <div class="code-block">
+            <span class="selector">.pseudo-element::before</span> { <span class="property">content</span>: <span class="value">"🔥 "</span>; }<br>
+            <span class="selector">.pseudo-element::after</span> { <span class="property">content</span>: <span class="value">" ✓"</span>; }
+        </div>
+        <div class="demo-area">
+            <p class="pseudo-element">伪元素示例</p>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ 注意：</strong>伪元素必须设置 content 属性才能显示！
+        </div>
+
+        <h2>📊 选择器优先级</h2>
+        <table>
+            <tr>
+                <th>选择器</th>
+                <th>权重</th>
+                <th>示例</th>
+            </tr>
+            <tr><td>!important</td><td>最高</td><td>color: red !important;</td></tr>
+            <tr><td>内联样式</td><td>1000</td><td>style="color: red"</td></tr>
+            <tr><td>ID 选择器</td><td>100</td><td>#id</td></tr>
+            <tr><td>类/伪类/属性选择器</td><td>10</td><td>.class, :hover, [attr]</td></tr>
+            <tr><td>标签/伪元素选择器</td><td>1</td><td>div, ::before</td></tr>
+        </table>
+
+        <div class="nav-links">
+            <a href="01-css-intro.html">⬅️ 上一课</a>
+            <a href="../roadmap.html">返回路线图</a>
+            <a href="03-colors.html">下一课 ➡️</a>
+        </div>
+    </div>
+
+</body>
+</html>
