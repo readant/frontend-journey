@@ -3,233 +3,762 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的博客</title>
+    <title>我的技术博客</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --color-primary: #6366f1;
+            --color-primary-light: #818cf8;
+            --color-primary-dark: #4f46e5;
+            --color-accent: #06b6d4;
+            --color-text: #1e293b;
+            --color-text-secondary: #64748b;
+            --color-bg: #f8fafc;
+            --color-surface: #ffffff;
+            --color-border: #e2e8f0;
+            --color-tag-bg: #f1f5f9;
+            --font-sans: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-primary: #818cf8;
+                --color-primary-light: #a5b4fc;
+                --color-primary-dark: #6366f1;
+                --color-accent: #22d3ee;
+                --color-text: #f1f5f9;
+                --color-text-secondary: #94a3b8;
+                --color-bg: #0f172a;
+                --color-surface: #1e293b;
+                --color-border: #334155;
+                --color-tag-bg: #1e293b;
+            }
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
         body {
-            font-family: 'Microsoft YaHei', Arial, sans-serif;
-            line-height: 1.8;
-            background: #f0f0f0;
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-bg);
+            min-height: 100vh;
         }
-        /* 容器 */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-        }
-        /* 头部 */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        /* Header */
+        .site-header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
             color: white;
-            padding: 40px;
+            padding: 64px 24px 48px;
             text-align: center;
         }
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+
+        .site-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
         }
-        header p {
+
+        .site-header p {
+            font-size: 1.1rem;
             opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto;
         }
-        /* 导航 */
-        nav {
-            background: #333;
-            padding: 0;
+
+        /* Navigation */
+        .site-nav {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        nav ul {
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-list {
             list-style: none;
             display: flex;
             justify-content: center;
-            max-width: 1000px;
+            gap: 0;
+        }
+
+        .nav-item a {
+            display: block;
+            padding: 16px 24px;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: all 0.2s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-item a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-item a:hover::after,
+        .nav-item a.active::after {
+            width: 24px;
+        }
+
+        .nav-item a.active {
+            color: var(--color-primary);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 48px;
+        }
+
+        /* Articles */
+        .articles-section {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .article-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            transition: all 0.2s ease;
+        }
+
+        .article-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--color-primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 100px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .article-card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .article-card h2 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .article-card h2 a:hover {
+            color: var(--color-primary);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .article-meta-item svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .article-excerpt {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .read-more:hover {
+            gap: 12px;
+        }
+
+        .read-more svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .read-more:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .widget {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+        }
+
+        .widget-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        .widget-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .widget-list li a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .widget-list li a:hover {
+            background: var(--color-tag-bg);
+            color: var(--color-primary);
+        }
+
+        .widget-list .count {
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
+            color: var(--color-text-secondary);
+            background: var(--color-tag-bg);
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        .widget-list li a:hover .count {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* Tags Widget */
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--color-tag-bg);
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* About Widget */
+        .about-widget {
+            text-align: center;
+        }
+
+        .about-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .about-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+
+        .about-bio {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            padding: 32px 24px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
             margin: 0 auto;
         }
-        nav a {
-            display: block;
-            color: white;
-            padding: 15px 25px;
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--color-text-secondary);
             text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
-        nav a:hover {
-            background: #555;
+
+        .footer-links a:hover {
+            color: var(--color-primary);
         }
-        /* 主内容 */
-        main {
-            flex: 3;
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
         }
-        /* 文章 */
-        article {
-            background: white;
-            margin-bottom: 20px;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
         }
-        article h2 {
-            color: #333;
-            margin-bottom: 10px;
+
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 48px 24px 36px;
+            }
+
+            .site-header h1 {
+                font-size: 1.875rem;
+            }
+
+            .nav-list {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-item a {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+
+            .main-container {
+                padding: 32px 16px;
+            }
+
+            .article-card {
+                padding: 24px;
+            }
+
+            .article-card h2 {
+                font-size: 1.25rem;
+            }
+
+            .article-meta {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
         }
-        .article-meta {
-            color: #999;
-            font-size: 14px;
-            margin-bottom: 20px;
+
+        @media (max-width: 480px) {
+            .site-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .nav-item a {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+
+            .article-card {
+                padding: 20px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 12px;
+            }
         }
-        .article-content {
-            color: #555;
-        }
-        .read-more {
-            display: inline-block;
-            margin-top: 15px;
-            color: #667eea;
-            text-decoration: none;
-        }
-        /* 侧边栏 */
-        aside {
-            flex: 1;
-        }
-        .widget {
-            background: white;
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .widget h3 {
-            color: #333;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
-        }
-        .widget ul {
-            list-style: none;
-        }
-        .widget a {
-            color: #666;
-            text-decoration: none;
-            display: block;
-            padding: 8px 0;
-        }
-        .widget a:hover {
-            color: #667eea;
-        }
-        /* 页脚 */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
+
+        /* Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .article-card {
+                animation: slideUp 0.4s ease-out backwards;
+            }
+
+            .article-card:nth-child(1) { animation-delay: 0.1s; }
+            .article-card:nth-child(2) { animation-delay: 0.15s; }
+            .article-card:nth-child(3) { animation-delay: 0.2s; }
+
+            .widget {
+                animation: fadeIn 0.4s ease-out backwards;
+            }
+
+            .widget:nth-child(1) { animation-delay: 0.25s; }
+            .widget:nth-child(2) { animation-delay: 0.3s; }
+            .widget:nth-child(3) { animation-delay: 0.35s; }
+
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(16px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 页面头部：渐变背景 + 居中文本 -->
-    <header>
+    <!-- Header -->
+    <header class="site-header">
         <h1>我的技术博客</h1>
-        <p>记录学习过程，分享技术心得</p>
+        <p>记录学习过程，分享前端开发心得与实践经验</p>
     </header>
 
-    <!-- 导航栏：深色背景 + flex 水平排列 -->
-    <nav>
-        <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#">技术文章</a></li>
-            <li><a href="#">学习笔记</a></li>
-            <li><a href="#">关于我</a></li>
-        </ul>
+    <!-- Navigation -->
+    <nav class="site-nav" aria-label="主导航">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="active">首页</a></li>
+                <li class="nav-item"><a href="#">技术文章</a></li>
+                <li class="nav-item"><a href="#">学习笔记</a></li>
+                <li class="nav-item"><a href="#">开源项目</a></li>
+                <li class="nav-item"><a href="#">关于我</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <!-- 主体内容：flex 双栏布局（main + aside） -->
-    <div class="container">
-        <!-- main：文章列表区域（flex: 3 占大部分宽度） -->
-        <main aria-label="文章列表">
+    <!-- Main Content -->
+    <div class="main-container">
 
-            <!-- article：每篇文章用 article 包裹，表示独立内容 -->
-            <article>
-                <h2>HTML5 新特性详解</h2>
-                <!-- 文章元信息：日期、作者、分类 -->
+        <!-- Articles -->
+        <main class="articles-section" aria-label="文章列表">
+
+            <article class="article-card">
+                <span class="article-category">HTML</span>
+                <h2><a href="#">HTML5 新特性详解：语义化标签与现代Web开发</a></h2>
                 <div class="article-meta">
-                    <!-- time 标签：datetime 属性放机器可读格式，标签内容放人类可读格式 -->
-                    <span>📅 <time datetime="2026-05-20">2026-05-20</time></span> |
-                    <span>👤 作者</span> |
-                    <span>📁 分类：HTML</span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                        <time datetime="2026-05-20">2026-05-20</time>
+                    </span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+                        张三
+                    </span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
+                        阅读 8 分钟
+                    </span>
                 </div>
-                <!-- 文章摘要 -->
-                <div class="article-content">
-                    <p>HTML5带来了很多新特性，包括语义化标签、新的表单类型、多媒体标签、Canvas等等...</p>
-                    <p>这些新特性让Web开发变得更加简单和强大...</p>
-                </div>
-                <!-- 阅读全文链接 -->
-                <a href="#" class="read-more">阅读全文 →</a>
+                <p class="article-excerpt">
+                    HTML5带来了很多新特性，包括语义化标签、新的表单类型、多媒体标签、Canvas等。这些新特性让Web开发变得更加简单和强大，同时也提升了网页的可访问性和SEO表现。本文将深入解析这些新特性及其最佳实践。
+                </p>
+                <a href="#" class="read-more">
+                    阅读全文
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
             </article>
 
-            <article>
-                <h2>CSS3 动画入门教程</h2>
+            <article class="article-card">
+                <span class="article-category">CSS</span>
+                <h2><a href="#">CSS3 动画入门教程：从Transition到Animation</a></h2>
                 <div class="article-meta">
-                    <span>📅 <time datetime="2026-05-15">2026-05-15</time></span> |
-                    <span>👤 作者</span> |
-                    <span>📁 分类：CSS</span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                        <time datetime="2026-05-15">2026-05-15</time>
+                    </span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+                        张三
+                    </span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
+                        阅读 6 分钟
+                    </span>
                 </div>
-                <div class="article-content">
-                    <p>CSS3提供了强大的动画功能，通过transition和animation属性可以实现各种酷炫的动画效果...</p>
-                </div>
-                <a href="#" class="read-more">阅读全文 →</a>
+                <p class="article-excerpt">
+                    CSS3提供了强大的动画功能，通过transition和animation属性可以实现各种酷炫的动画效果。本文将从基础概念入手，教你如何创建平滑的过渡动画和关键帧动画，让你的网页更加生动有趣。
+                </p>
+                <a href="#" class="read-more">
+                    阅读全文
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
             </article>
 
-            <article>
-                <h2>JavaScript 基础总结</h2>
+            <article class="article-card">
+                <span class="article-category">JavaScript</span>
+                <h2><a href="#">JavaScript 基础总结：ES6+ 核心特性速览</a></h2>
                 <div class="article-meta">
-                    <span>📅 <time datetime="2026-05-10">2026-05-10</time></span> |
-                    <span>👤 作者</span> |
-                    <span>📁 分类：JavaScript</span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                        <time datetime="2026-05-10">2026-05-10</time>
+                    </span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+                        张三
+                    </span>
+                    <span class="article-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
+                        阅读 10 分钟
+                    </span>
                 </div>
-                <div class="article-content">
-                    <p>JavaScript是一门非常重要的编程语言，掌握它的基础知识是前端开发的关键...</p>
-                </div>
-                <a href="#" class="read-more">阅读全文 →</a>
+                <p class="article-excerpt">
+                    JavaScript是一门非常重要的编程语言，掌握它的基础知识是前端开发的关键。本文将总结ES6+的核心特性，包括箭头函数、解构赋值、Promise、async/await等，帮助你快速掌握现代JavaScript开发。
+                </p>
+                <a href="#" class="read-more">
+                    阅读全文
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
             </article>
+
         </main>
 
-        <!-- aside：侧边栏（flex: 1 占小部分宽度） -->
-        <aside>
-            <!-- widget：侧边栏组件，统一的卡片样式 -->
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <!-- About Widget -->
+            <div class="widget about-widget">
+                <div class="about-avatar">张</div>
+                <div class="about-name">张三</div>
+                <p class="about-bio">前端开发工程师，热爱技术，乐于分享。专注于Vue.js和React生态系统。</p>
+            </div>
+
+            <!-- Categories Widget -->
             <div class="widget">
-                <h3>文章分类</h3>
-                <ul>
-                    <li><a href="#">HTML (5)</a></li>
-                    <li><a href="#">CSS (8)</a></li>
-                    <li><a href="#">JavaScript (10)</a></li>
-                    <li><a href="#">Vue.js (3)</a></li>
+                <h3 class="widget-title">文章分类</h3>
+                <ul class="widget-list">
+                    <li>
+                        <a href="#">
+                            <span>HTML</span>
+                            <span class="count">5</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>CSS</span>
+                            <span class="count">8</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>JavaScript</span>
+                            <span class="count">12</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>Vue.js</span>
+                            <span class="count">6</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>React</span>
+                            <span class="count">4</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
+            <!-- Tags Widget -->
             <div class="widget">
-                <h3>最新评论</h3>
-                <ul>
-                    <li><a href="#">小明：写得很好！</a></li>
-                    <li><a href="#">小红：学习了~</a></li>
+                <h3 class="widget-title">热门标签</h3>
+                <div class="tags-cloud">
+                    <a href="#" class="tag">前端</a>
+                    <a href="#" class="tag">JavaScript</a>
+                    <a href="#" class="tag">Vue</a>
+                    <a href="#" class="tag">React</a>
+                    <a href="#" class="tag">CSS</a>
+                    <a href="#" class="tag">Node.js</a>
+                    <a href="#" class="tag">TypeScript</a>
+                    <a href="#" class="tag">性能优化</a>
+                </div>
+            </div>
+
+            <!-- Links Widget -->
+            <div class="widget">
+                <h3 class="widget-title">友情链接</h3>
+                <ul class="widget-list">
+                    <li>
+                        <a href="#">
+                            <span>MDN Web Docs</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>掘金</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>GitHub</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
-            <div class="widget">
-                <h3>友情链接</h3>
-                <ul>
-                    <li><a href="#">MDN Web Docs</a></li>
-                    <li><a href="#">掘金</a></li>
-                </ul>
-            </div>
         </aside>
+
     </div>
 
-    <!-- 页脚：深色背景 + 居中文本 -->
-    <footer>
-        <p>&copy; 2026 我的技术博客 | 用 ❤️ 构建</p>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <nav class="footer-links">
+                <a href="#">首页</a>
+                <a href="#">技术文章</a>
+                <a href="#">学习笔记</a>
+                <a href="#">关于我</a>
+            </nav>
+            <p class="footer-copyright">© 2026 我的技术博客 · 用代码构建精彩世界</p>
+        </div>
     </footer>
 
 </body>
