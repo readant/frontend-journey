@@ -40,13 +40,23 @@
          ============================================ -->
     <section class="demo-section">
         <h2>1. &lt;details&gt; + &lt;summary&gt; 可折叠内容</h2>
+        <!--
+          details + summary：可折叠/展开内容（HTML5新增）
+          - details：可折叠的容器
+          - summary：折叠时显示的标题（点击切换展开/收起）
+          - open 属性：设置后默认展开
+          使用场景：FAQ、代码块、详细信息
+        -->
 
+        <!-- 基础用法：点击 summary 切换展开/收起 -->
         <details>
             <summary>点击展开/收起 - 什么是HTML？</summary>
+            <!-- details 内的内容，默认隐藏，点击 summary 后显示 -->
             <p>HTML（HyperText Markup Language，超文本标记语言）是构建网页的基础。</p>
             <p>它使用标签来描述网页的结构和内容。</p>
         </details>
 
+        <!-- open 属性：默认展开状态 -->
         <details open>
             <summary>默认展开的内容</summary>
             <p>这个details标签带有open属性，所以默认是展开的。</p>
@@ -58,17 +68,33 @@
          ============================================ -->
     <section class="demo-section">
         <h2>2. &lt;meter&gt; 度量条</h2>
+        <!--
+          meter：度量条（HTML5新增）
+          用途：表示已知范围内的标量值（如磁盘使用率、分数）
+          属性：
+            value    → 当前值（必填）
+            min      → 最小值（默认0）
+            max      → 最大值（默认1）
+            low      → 低阈值（低于此值显示绿色/黄色）
+            high     → 高阈值（高于此值显示红色）
+            optimum  → 最佳值（配合 low/high 判断好坏）
+          与 progress 的区别：
+          - meter：表示"已知范围内的标量值"（如 70% 磁盘使用率）
+          - progress：表示"任务完成进度"（如上传进度 30%）
+        -->
 
         <p>磁盘使用情况：</p>
+        <!-- value=0.7 在 low(0.3) 和 high(0.8) 之间，显示为正常 -->
         <meter value="0.7" min="0" max="1" low="0.3" high="0.8" optimum="0.5">70%</meter>
-        <span>70%（正常）</span>
+        <span>70%（正常，在 low 和 high 之间）</span>
         <br><br>
 
         <p>内存使用（高）：</p>
+        <!-- value=0.9 超过 high(0.8)，显示为偏高/红色 -->
         <meter value="0.9" min="0" max="1" low="0.3" high="0.8">90%</meter>
-        <span>90%（偏高）</span>
+        <span>90%（偏高，超过 high 阈值）</span>
 
-        <p><small>meter适合显示磁盘使用、分数等已知范围的度量值</small></p>
+        <p><small>meter 适合显示磁盘使用率、考试分数、电池电量等已知范围的度量值</small></p>
     </section>
 
     <!-- ============================================
@@ -76,8 +102,18 @@
          ============================================ -->
     <section class="demo-section">
         <h2>3. &lt;progress&gt; 进度条</h2>
+        <!--
+          progress：进度条（HTML5新增）
+          用途：表示任务完成进度（如上传进度、加载进度）
+          属性：
+            value → 当前进度（0 到 max）
+            max   → 最大值（默认1）
+          不确定进度：不设 value，显示为滚动条样式
+          需要用 JavaScript 动态更新 value
+        -->
 
         <p>下载进度：</p>
+        <!-- value="30" 表示完成 30%，max="100" 表示总共 100% -->
         <progress id="download" value="30" max="100"></progress>
         <span id="progressText">30%</span>
         <br><br>
@@ -85,7 +121,7 @@
         <button onclick="increaseProgress()">增加进度</button>
         <button onclick="resetProgress()">重置</button>
 
-        <p><small>progress适合显示任务完成进度</small></p>
+        <p><small>progress 适合显示文件上传、页面加载等任务完成进度</small></p>
     </section>
 
     <!-- ============================================
@@ -93,12 +129,27 @@
          ============================================ -->
     <section class="demo-section">
         <h2>4. &lt;dialog&gt; 原生对话框</h2>
+        <!--
+          dialog：原生对话框（HTML5新增）
+          方法：
+            showModal() → 打开模态对话框（有遮罩层，可 ESC 关闭）
+            show()      → 打开非模态对话框（无遮罩层）
+            close()     → 关闭对话框（可传参设置 returnValue）
+          属性：
+            open        → 布尔属性，表示对话框打开
+            returnValue → 关闭时返回的值
+          CSS：
+            dialog::backdrop → 遮罩层样式
+          优势：不需要 JavaScript 库（如 jQuery UI）就能实现对话框
+        -->
 
         <button onclick="openDialog()">打开对话框</button>
 
+        <!-- dialog 标签：默认隐藏，需要 JS 调用 showModal() 打开 -->
         <dialog id="myDialog">
             <h3>这是一个对话框</h3>
             <p>这是HTML5原生的dialog标签！</p>
+            <!-- close() 关闭对话框 -->
             <button onclick="closeDialog()">关闭</button>
         </dialog>
     </section>
@@ -131,9 +182,23 @@
          ============================================ -->
     <section class="demo-section">
         <h2>7. &lt;template&gt; HTML 模板</h2>
+        <!--
+          template：HTML 模板（HTML5新增）
+          特点：
+            - 内容不会渲染到页面上
+            - 内部的 script、img 不会加载
+            - 只有通过 JS 克隆并插入 DOM 后才会生效
+          用法：
+            1. 在 template 中定义 HTML 结构
+            2. 用 JS 获取 template 元素
+            3. 用 template.content.cloneNode(true) 克隆
+            4. 用 appendChild 插入到 DOM 中
+          使用场景：动态生成重复的 HTML 结构、Web Components 基础
+        -->
 
         <p>template 内容不会渲染，script/img 不会加载，直到被 JS 克隆插入 DOM。</p>
 
+        <!-- 定义模板：页面上不会显示 -->
         <template id="cardTemplate">
             <div style="background: #f0f0f0; padding: 15px; margin: 10px 0; border-radius: 5px;">
                 <h4>动态卡片</h4>
@@ -146,8 +211,11 @@
 
         <script>
             function cloneTemplate() {
+                // 1. 获取 template 元素
                 const template = document.getElementById('cardTemplate');
+                // 2. 克隆 template 的内容（true = 深克隆，包含所有子元素）
                 const clone = template.content.cloneNode(true);
+                // 3. 插入到 DOM 中（此时才会渲染）
                 document.getElementById('templateOutput').appendChild(clone);
             }
         </script>

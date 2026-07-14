@@ -121,10 +121,18 @@
 </head>
 <body>
 
+    <!--
+      简历容器：
+      - role="document"：告诉屏幕阅读器这是一个完整文档
+      - aria-label="个人简历"：帮助屏幕阅读器识别区域
+      - 整体用卡片布局（白色背景 + 阴影 + 圆角）
+    -->
     <div class="resume" role="document" aria-label="个人简历">
-        <!-- 头部 -->
+
+        <!-- 头部：姓名 + 联系方式 -->
         <header>
             <h1>张三</h1>
+            <!-- aria-label 帮助屏幕阅读器识别这个区域 -->
             <div class="contact-info" aria-label="联系方式">
                 <span>📧 zhangsan@example.com</span>
                 <span>📱 138-0000-0000</span>
@@ -132,7 +140,7 @@
             </div>
         </header>
 
-        <!-- 个人简介 -->
+        <!-- 个人简介：简要介绍 -->
         <section aria-label="个人简介">
             <h2>个人简介</h2>
             <p>
@@ -141,9 +149,10 @@
             </p>
         </section>
 
-        <!-- 教育背景 -->
+        <!-- 教育背景：用表格展示结构化数据 -->
         <section aria-label="教育背景">
             <h2>教育背景</h2>
+            <!-- table 适合展示结构化数据，搜索引擎和屏幕阅读器能更好理解 -->
             <table>
                 <tr>
                     <th>时间</th>
@@ -160,9 +169,10 @@
             </table>
         </section>
 
-        <!-- 技能 -->
+        <!-- 专业技能：用 flex + tag 样式展示 -->
         <section aria-label="专业技能">
             <h2>专业技能</h2>
+            <!-- flex 布局让标签自动换行，gap 控制间距 -->
             <div class="skills">
                 <span class="skill-tag">HTML5</span>
                 <span class="skill-tag">CSS3</span>
@@ -175,10 +185,11 @@
             </div>
         </section>
 
-        <!-- 项目经验 -->
+        <!-- 项目经验：每个项目用 article 表示独立内容 -->
         <section aria-label="项目经验">
             <h2>项目经验</h2>
-            
+
+            <!-- article 表示独立的项目经历，可被独立阅读 -->
             <article class="project-item">
                 <h3>电商网站</h3>
                 <p><strong>时间：</strong>2022-2023</p>
@@ -194,7 +205,7 @@
             </article>
         </section>
 
-        <!-- 工作经历 -->
+        <!-- 工作经历：用列表展示 -->
         <section aria-label="工作经历">
             <h2>工作经历</h2>
             <ul>
@@ -205,7 +216,7 @@
             </ul>
         </section>
 
-        <!-- 页脚 -->
+        <!-- 页脚：版权信息 -->
         <footer>
             <p>© 2026 张三 - 个人简历</p>
         </footer>

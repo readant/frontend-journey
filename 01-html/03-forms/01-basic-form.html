@@ -44,24 +44,50 @@
     <section class="demo-section">
         <h2>用户注册表单</h2>
 
-        <!-- form标签：表单容器
-             action：表单提交的地址
-             method：请求方法（GET或POST）
-             novalidate：关闭浏览器默认验证（用于测试） -->
+        <!--
+          form 标签：表单容器
+          属性详解：
+            action="/submit"  → 表单提交的目标 URL（服务器地址）
+            method="post"     → HTTP 请求方法
+              get  → 数据附加在 URL 后面（?key=value），适合搜索、筛选
+              post → 数据放在请求体中，适合注册、登录、上传（更安全）
+            novalidate        → 禁用浏览器默认验证（用于测试）
+            enctype           → 编码类型
+              application/x-www-form-urlencoded → 默认
+              multipart/form-data              → 文件上传时必须
+        -->
         <form action="/submit" method="post">
 
             <!-- ============================================
                  fieldset + legend：表单分组（提升无障碍）
                  ============================================ -->
+            <!--
+              fieldset：表单分组容器
+              - 将相关的表单控件分组，有视觉边框
+              - 对无障碍访问非常重要（屏幕阅读器会朗读分组信息）
+
+              legend：分组标题
+              - 必须是 fieldset 的第一个子元素
+              - 屏幕阅读器会朗读 legend 内容
+            -->
             <fieldset>
                 <legend>基本信息</legend>
 
                 <!-- ============================================
                      1. 文本输入框 input type="text"
                      ============================================ -->
+                <!--
+                  input type="text"：单行文本输入框
+                  属性详解：
+                    type="text"   → 输入类型（默认值）
+                    id="username" → 唯一标识，用于关联 label（必须唯一）
+                    name="username" → 提交到服务器的字段名（必须）
+                    placeholder    → 输入提示文字（输入后消失）
+                    required       → 必填（布尔属性）
+                -->
                 <div class="form-group">
                     <label for="username">用户名：</label>
-                    <!-- id用于关联label，name用于提交数据 -->
+                    <!-- for="id" 与 input 的 id 匹配，点击 label 可聚焦输入框 -->
                     <input type="text" id="username" name="username"
                            placeholder="请输入用户名" required>
                     <span style="color:red">*</span>
@@ -70,6 +96,11 @@
                 <!-- ============================================
                      2. 密码输入框 input type="password"
                      ============================================ -->
+                <!--
+                  input type="password"：密码输入框
+                  - 输入内容显示为圆点（隐藏明文）
+                  - minlength="6"：最小长度限制
+                -->
                 <div class="form-group">
                     <label for="password">密码：</label>
                     <input type="password" id="password" name="password"
@@ -82,8 +113,17 @@
                      3. 单选按钮 input type="radio"
                      name相同表示互斥
                      ============================================ -->
+                <!--
+                  input type="radio"：单选按钮
+                  关键规则：
+                    - 同一组 radio 必须 name 相同，否则可以多选
+                    - value 是提交到服务器的值
+                    - checked 表示默认选中
+                    - 每个 radio 需要独立的 id 和 label
+                -->
                 <div class="form-group">
                     <label>性别：</label>
+                    <!-- name="gender" 相同 → 互斥（只能选一个） -->
                     <input type="radio" id="male" name="gender" value="male" checked>
                     <label for="male">男</label>
                     <input type="radio" id="female" name="gender" value="female">
@@ -97,6 +137,12 @@
                 <!-- ============================================
                      4. 复选框 input type="checkbox"
                      ============================================ -->
+                <!--
+                  input type="checkbox"：复选框
+                  - 可以多选
+                  - name 可以相同（提交时发送所有选中的值）
+                  - 每个 checkbox 需要独立的 id 和 label
+                -->
                 <div class="form-group">
                     <label>爱好：</label>
                     <input type="checkbox" id="hobby1" name="hobby" value="coding">
@@ -110,6 +156,14 @@
                 <!-- ============================================
                      5. 下拉选择 select + option
                      ============================================ -->
+                <!--
+                  select + option：下拉选择框
+                  属性：
+                    value    → 提交到服务器的值（不写则用文本内容）
+                    selected → 默认选中
+                    disabled → 禁用选项
+                  注意：第一个 option 通常为空值，作为"请选择"提示
+                -->
                 <div class="form-group">
                     <label for="city">城市：</label>
                     <select id="city" name="city">
@@ -124,8 +178,16 @@
                 <!-- ============================================
                      5.1 datalist 预定义选项（用户仍可自定义输入）
                      ============================================ -->
+                <!--
+                  datalist：预定义选项列表（HTML5新增）
+                  与 select 的区别：
+                    - select：只能从选项中选择，不能自定义
+                    - datalist：提供选项建议，但仍可自由输入
+                  用法：input 的 list 属性 = datalist 的 id
+                -->
                 <div class="form-group">
                     <label for="tech">技术栈：</label>
+                    <!-- list 属性关联 datalist 的 id -->
                     <input type="text" id="tech" name="tech" list="tech-list"
                            placeholder="输入或选择技术">
                     <datalist id="tech-list">
@@ -141,6 +203,13 @@
                 <!-- ============================================
                      6. 文本域 textarea
                      ============================================ -->
+                <!--
+                  textarea：多行文本输入框
+                  属性：
+                    rows="4"  → 初始显示行数（可通过拖拽调整）
+                    cols="30" → 初始显示列数
+                  注意：rows 和 cols 只是初始大小，用 CSS 控制尺寸更可靠
+                -->
                 <div class="form-group">
                     <label for="bio">个人简介：</label>
                     <textarea id="bio" name="bio" rows="4" cols="30" placeholder="介绍一下你自己..."></textarea>
@@ -153,6 +222,13 @@
                 <!-- ============================================
                      7. 按钮
                      ============================================ -->
+                <!--
+                  button 类型详解：
+                    type="submit" → 提交表单（默认类型）
+                    type="reset"  → 重置表单（清空所有输入）
+                    type="button" → 普通按钮（需配合 JS 使用）
+                  注意：按钮在 form 内部时，不要用 <input type="submit">，用 <button> 更灵活
+                -->
                 <div class="form-group">
                     <button type="submit">提交</button>
                     <button type="reset" style="background: #f44336;">重置</button>

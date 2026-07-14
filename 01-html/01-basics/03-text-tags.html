@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML文本标签</title>
     <style>
-        /* 简单样式，让示例更清晰 */
         .demo-section {
             margin: 20px 0;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            background-color: #fafafa;
         }
-        .tag-label {
-            color: #666;
-            font-size: 12px;
-            font-family: monospace;
+
+        .code-note {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        .hint {
+            color: #6c757d;
+            margin-left: 10px;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -26,18 +35,22 @@
     <!-- ============================================
          1. 标题标签 h1-h6
          ============================================ -->
-         <!-- 额外补充，<section>是HTML5语义元素。表示文档中的独立部分 
-            “区块”或者是“章节”通常用在文档的大纲里面
-            -->
+    <!--
+      section 是 HTML5 语义元素，表示文档中的独立部分/章节
+      它通常用于将相关内容分组，帮助构建文档大纲
+      每个 section 应该有一个 h2-h6 标题
+    -->
     <section class="demo-section">
-        <!-- 这里正好说一下,<、>标志标签的开始和结束，但是如果想打出<、>符号，就用这些代码 -->
         <h2>1. 标题标签 &lt;h1&gt; - &lt;h6&gt;</h2>
-       
-        <p class="tag-label">说明：标题从大到小，一个页面通常只有一个h1</p>
+        <p><small>标题从大到小，一个页面通常只有一个 h1，用于 SEO 和页面结构</small></p>
 
+        <!-- h1：一级标题，页面主标题，SEO权重最高，一个页面建议只有一个 -->
         <h1>h1 一级标题（最大）</h1>
+        <!-- h2：二级标题，文章/章节标题 -->
         <h2>h2 二级标题</h2>
+        <!-- h3：三级标题，子章节标题 -->
         <h3>h3 三级标题</h3>
+        <!-- h4-h6：更深层级，实际项目中很少用到 -->
         <h4>h4 四级标题</h4>
         <h5>h5 五级标题</h5>
         <h6>h6 六级标题（最小）</h6>
@@ -48,11 +61,15 @@
          ============================================ -->
     <section class="demo-section">
         <h2>2. 段落 &lt;p&gt;、换行 &lt;br&gt;、水平线 &lt;hr&gt;</h2>
-
+        <p><small>p 用于段落，br 用于强制换行，hr 用于主题分隔</small></p>
         <p>这是第一个段落。段落之间会自动有间距。</p>
+
+        <!-- br 标签：强制换行，单标签（自闭合标签），没有结束标签 -->
+        <!-- 注意：不要用 br 来制造间距，应该用 CSS margin/padding -->
         <p>这是第二个段落。<br>这里使用了br标签强制换行。</p>
 
-        <hr> <!-- 水平分隔线，单标签 -->
+        <!-- hr 标签：水平分隔线，单标签，表示主题的分隔 -->
+        <hr>
 
         <p>水平线上面和下面是不同的内容区域。</p>
     </section>
@@ -62,25 +79,62 @@
          ============================================ -->
     <section class="demo-section">
         <h2>3. 文本格式化标签</h2>
+        <p><small>语义化标签 vs 纯样式标签：优先使用语义化标签（strong/em），搜索引擎和屏幕阅读器能理解含义</small></p>
 
-        <p><strong>strong 标签：重要文本，通常显示为粗体</strong></p>
-        <p><em>em 标签：强调文本，通常显示为斜体</em></p>
-        <p><mark>mark 标签：高亮文本</mark></p>
-        <p><small>small 标签：小号文本</small></p>
+        <!-- strong：重要文本，语义上表示"特别重要"，浏览器默认加粗 -->
+        <p><strong>strong 标签：重要文本，通常显示为粗体（语义上表示重要性）</strong></p>
+
+        <!-- em：强调文本，语义上表示"语气强调"，浏览器默认斜体 -->
+        <p><em>em 标签：强调文本，通常显示为斜体（语义上表示强调）</em></p>
+
+        <!-- mark：高亮文本，用于标记需要关注的内容，如搜索关键词 -->
+        <p><mark>mark 标签：高亮文本（黄色背景）</mark></p>
+
+        <!-- small：小号文本，用于注释、法律声明等次要信息 -->
+        <p><small>small 标签：小号文本（如版权信息、免责声明）</small></p>
+
+        <!-- del：删除线，语义上表示"被删除的内容" -->
         <p><del>del 标签：删除线（被删除的文本）</del></p>
-        <p><ins>ins 标签：下划线（插入的文本）</ins></p>
-        <p>下标：H<sub>2</sub>O，上标：2<sup>10</sup></p>
-        <p><i>斜体</i></p>
 
+        <!-- ins：下划线，语义上表示"新插入的内容"，常与 del 配合使用 -->
+        <p><ins>ins 标签：下划线（新插入的文本）</ins></p>
+
+        <!-- sub：下标，用于化学式、数学公式等 -->
+        <!-- sup：上标，用于数学幂次、脚注标记等 -->
+        <p>下标：H<sub>2</sub>O（水的化学式），上标：2<sup>10</sup>（2的10次方）</p>
+
+        <!-- i：斜体，纯样式标签，无语义。用于技术术语、外语词汇等 -->
+        <p><i>i 标签：斜体（纯样式，无语义，如术语、外语）</i></p>
+
+        <!--
+          abbr：缩写标签
+          - title 属性包含完整含义，鼠标悬停时显示
+          - 帮助屏幕阅读器正确朗读缩写
+        -->
         <p><abbr title="HyperText Markup Language">HTML</abbr> - abbr 标签：缩写，鼠标悬停显示全称</p>
 
-        <p>按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 复制 - kbd 标签：键盘按键</p>
+        <!--
+          kbd：键盘按键标签
+          - 语义上表示"用户输入的键盘操作"
+          - 浏览器通常显示为等宽字体
+        -->
+        <p>按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 复制 - kbd 标签：键盘按键（表示键盘输入）</p>
 
-        <p>输出结果：<samp>Error 404</samp> - samp 标签：程序输出</p>
+        <!--
+          samp：程序输出标签
+          - 语义上表示"程序或系统的输出"
+          - 常用于错误信息、命令行输出
+        -->
+        <p>输出结果：<samp>Error 404</samp> - samp 标签：程序输出（如错误信息）</p>
 
+        <!--
+          time：日期时间标签（HTML5新增）
+          - datetime 属性：机器可读的格式（如 2026-07-14）
+          - 标签内容：人类可读的格式（如 2026年7月14日）
+          - 帮助搜索引擎提取结构化日期数据
+        -->
         <p>发布时间：<time datetime="2026-07-14">2026年7月14日</time> - time 标签：机器可读的日期时间</p>
 
-        
     </section>
 
     <!-- ============================================
@@ -88,13 +142,24 @@
          ============================================ -->
     <section class="demo-section">
         <h2>4. 容器标签 &lt;div&gt; 和 &lt;span&gt;</h2>
+        <p><small>div：块级容器，独占一行；span：行内容器，不换行</small></p>
 
-        <p class="tag-label">div：块级容器，独占一行；span：行内容器，不换行</p>
-
+        <!--
+          div：块级容器（block）
+          - 独占一行，前后会换行
+          - 没有语义，用于组合其他元素
+          - 配合 CSS 实现布局和样式
+        -->
         <div style="background: #f0f0f0; padding: 10px;">
             这是一个 div 容器，独占一行，可以包含其他元素。
         </div>
 
+        <!--
+          span：行内容器（inline）
+          - 不会独占一行，只占据内容宽度
+          - 没有语义，用于包裹行内部分内容
+          - 常配合 CSS 给文字添加样式
+        -->
         <p>这是一个段落，包含 <span style="color: red; font-weight: bold;">span 标签</span> 用于突出显示部分文字。</p>
     </section>
 
@@ -103,7 +168,7 @@
          ============================================ -->
     <section class="demo-section">
         <h2>5. 预格式文本和引用</h2>
-
+        <p><small>pre 保留空格和换行，blockquote 用于长引用，q 用于行内引用</small></p>
         <h3>&lt;pre&gt; 预格式文本（保留空格和换行）</h3>
         <pre>
         春晓
@@ -115,11 +180,23 @@
         花落知多少。
         </pre>
 
+        <!--
+          blockquote：引用块（Block Quotation）
+          - 表示一段长引用，浏览器默认缩进显示
+          - cite 属性：引用来源的URL（用户不可见，供搜索引擎和浏览器使用）
+          - 注意：cite 属性不会显示在页面上
+        -->
         <h3>&lt;blockquote&gt; 引用块</h3>
         <blockquote cite="https://www.example.com">
             这是一段引用的文字。cite属性可以指明引用来源。
         </blockquote>
 
+        <!--
+          q：短引用（Inline Quotation）
+          - 行内引用，不换行
+          - 浏览器会自动添加引号（不同语言引号样式不同）
+          - cite 属性：引用来源
+        -->
         <h3>&lt;q&gt; 短引用（行内）</h3>
         <p>孔子说：<q>学而不思则罔，思而不学则殆。</q></p>
     </section>

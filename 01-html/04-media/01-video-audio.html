@@ -39,17 +39,35 @@
          ============================================ -->
     <section class="demo-section">
         <h2>1. &lt;video&gt; 视频标签</h2>
+        <!--
+          video 标签：嵌入视频内容
+          多格式回退：浏览器从上到下读取 source，加载第一个支持的格式
+          常见格式：
+            mp4 (H.264) → 兼容性最好，所有浏览器支持
+            webm (VP8/VP9) → 开源，体积小，现代浏览器支持
+            ogg (Theora) → 开源，兼容性一般
+        -->
 
         <h3>基础视频：</h3>
+        <!-- controls 属性：显示播放控件（播放、暂停、音量、进度条） -->
         <video controls>
-            <!-- 支持多种格式，浏览器会选择支持的 -->
+            <!-- source 标签：指定视频来源，type 说明格式 -->
             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
             <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
-            <!-- 浏览器不支持时显示 -->
+            <!-- 兜底文本：浏览器不支持 video 标签时显示 -->
             您的浏览器不支持 video 标签。
         </video>
 
         <h3>带属性的视频：</h3>
+        <!--
+          完整属性组合：
+          - controls     → 显示播放控件
+          - autoplay     → 自动播放（现代浏览器要求同时 muted）
+          - muted        → 静音（autoplay 必备搭档）
+          - loop         → 循环播放
+          - width="600"  → 视频宽度
+          - poster="..." → 视频封面图（加载前显示）
+        -->
         <video controls autoplay muted loop width="600" poster="https://via.placeholder.com/600x338">
             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
             您的浏览器不支持 video 标签。
@@ -101,8 +119,16 @@
          ============================================ -->
     <section class="demo-section">
         <h2>2. &lt;audio&gt; 音频标签</h2>
+        <!--
+          audio 标签：嵌入音频内容
+          属性与 video 类似，但没有 poster、width、height（因为没有画面）
+          常见格式：
+            mp3 (MPEG Audio) → 兼容性最好，所有浏览器支持
+            ogg (Vorbis) → 开源，体积小，现代浏览器支持
+        -->
 
         <h3>基础音频：</h3>
+        <!-- 多格式回退：浏览器加载第一个支持的格式 -->
         <audio controls>
             <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
             <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
@@ -110,6 +136,7 @@
         </audio>
 
         <h3>带属性的音频：</h3>
+        <!-- controls + loop：显示控件 + 循环播放 -->
         <audio controls loop>
             <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
             您的浏览器不支持 audio 标签。
