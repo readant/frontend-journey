@@ -138,6 +138,45 @@
     </aside>
 
     <!-- ============================================
+         time：日期时间标签
+         含义：机器可读的日期时间，SEO 友好
+         ============================================ -->
+    <section>
+        <h2>&lt;time&gt; 日期时间标签</h2>
+        <p>文章发布于 <time datetime="2026-07-14">2026年7月14日</time></p>
+        <p>事件时间 <time datetime="2026-12-25T18:00">圣诞节晚上6点</time></p>
+        <p><small>datetime 属性放机器可读的值，标签内放人类可读的显示文本</small></p>
+    </section>
+
+    <!-- ============================================
+         address：联系信息标签
+         含义：提供联系人或组织的信息
+         ============================================ -->
+    <section>
+        <h2>&lt;address&gt; 联系信息</h2>
+        <address>
+            <p>作者：L君</p>
+            <p>邮箱：<a href="mailto:example@test.com">example@test.com</a></p>
+            <p>博客：<a href="#">我的技术博客</a></p>
+        </address>
+        <p><small>address 通常放在 header 或 footer 内，表示作者/联系人信息</small></p>
+    </section>
+
+    <!-- ============================================
+         role 属性：语义化的补充手段
+         当 HTML5 语义标签不够用时，可用 role 增强
+         ============================================ -->
+    <section>
+        <h2>role 属性（语义化补充）</h2>
+        <p>当没有合适的 HTML5 语义标签时，可用 role 属性增强语义：</p>
+        <div role="banner">role="banner" = 页面横幅（类似 header）</div>
+        <div role="main">role="main" = 主要内容（类似 main）</div>
+        <div role="complementary">role="complementary" = 补充内容（类似 aside）</div>
+        <div role="contentinfo">role="contentinfo" = 页脚信息（类似 footer）</div>
+        <p><small>WAI-ARIA role 用于增强无障碍访问，优先使用原生 HTML5 标签</small></p>
+    </section>
+
+    <!-- ============================================
          footer：页脚
          包含：版权信息、联系方式、链接等
          ============================================ -->

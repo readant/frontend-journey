@@ -117,10 +117,48 @@
                  ============================================ -->
             <div class="form-group">
                 <label for="phone">电话：</label>
-                <input type="tel" id="phone" name="phone" 
-                       placeholder="13800138000" 
+                <input type="tel" id="phone" name="phone"
+                       placeholder="13800138000"
                        pattern="[0-9]{11}">
                 <small>type="tel" 电话输入</small>
+            </div>
+
+            <!-- ============================================
+                 10. month：月份选择器
+                 ============================================ -->
+            <div class="form-group">
+                <label for="birthday-month">出生月份：</label>
+                <input type="month" id="birthday-month" name="birthday-month">
+                <small>type="month" 选择年月</small>
+            </div>
+
+            <!-- ============================================
+                 11. week：周选择器
+                 ============================================ -->
+            <div class="form-group">
+                <label for="schedule-week">安排周次：</label>
+                <input type="week" id="schedule-week" name="schedule-week">
+                <small>type="week" 选择年+第几周</small>
+            </div>
+
+            <!-- ============================================
+                 12. file：文件上传
+                 ============================================ -->
+            <div class="form-group">
+                <label for="avatar">头像：</label>
+                <input type="file" id="avatar" name="avatar"
+                       accept="image/*">
+                <small>type="file" 文件上传，accept="image/*" 限制图片类型</small>
+            </div>
+
+            <!-- ============================================
+                 13. file 多文件上传
+                 ============================================ -->
+            <div class="form-group">
+                <label for="photos">照片：</label>
+                <input type="file" id="photos" name="photos"
+                       accept="image/*" multiple>
+                <small>multiple 属性允许选择多个文件</small>
             </div>
 
         </form>

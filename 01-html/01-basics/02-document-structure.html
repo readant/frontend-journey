@@ -11,51 +11,66 @@
   4. body内容区
 -->
 
-<!-- DOCTYPE声明：告诉浏览器使用HTML5标准解析 -->
+<!-- DOCTYPE声明:告诉浏览器使用HTML5标准解析 -->
+ <!-- HTML4需要些超长的DTD，HTML5仅简化<!DOCTYPE html>,不区分大小写 -->
 <!DOCTYPE html>
 
-<!-- html标签：整个文档的根元素
-     lang属性：指定文档语言，有助于SEO和无障碍访问
-     zh-CN表示简体中文 -->
+<!-- 
+    html标签: 整个文档的根元素
+    lang属性: 指定文档语言,有有助于SEO和无障碍访问
+    zh-CN: 表示简体中文
+-->
 <html lang="zh-CN">
 
-<!-- head标签：包含元数据（用户不可见，但浏览器和搜索引擎需要） -->
+<!-- head标签: 包含元数据(用户不可见,但是浏览器和搜索引擎需要) -->
 <head>
-    <!-- meta标签：字符集声明，UTF-8是国际通用编码 -->
-     <!--对于中文网页需要使用<meta charset = "utf-8">声明编码，否则会出现乱码
-     有些浏览器（如360浏览器，大概吧）会设置默认GBK为默认编码，则需要设置为<meta charset="gdk"> >-->
+
+    <!-- meta标签: 字符集声明,UTF-8是国际通用编码-->
+    <!-- 只能写在<head>内部,不会在页面上显示任何内容 -->
     <meta charset="UTF-8">
-
-    <!-- viewport设置：移动端适配必备 -->
+    
+    <!-- viewport设置: 移动端适配必备 -->
+    <!-- viewport补充参数：禁止缩放、最大缩放限制，移动端常用 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- 页面描述：搜索引擎会显示这个描述 -->
-    <meta name="description" content="HTML文档结构学习示例">
+    
+    <!-- 页面描述: 搜索引擎会显示这个描述 -->
+     <meta name="description" content="HTML文档结构学习示例">
 
     <!-- 页面作者 -->
-    <meta name="author" content="你的名字">
+    <meta name="author" content="L君">
 
     <!-- 页面关键词（SEO用） -->
     <meta name="keywords" content="HTML,学习,前端">
 
-    <!-- title标签：页面标题，显示在浏览器标签页 -->
+    <!-- 爬虫控制meta，控制搜索引擎抓取页面 -->
+    <meta name="robots" content="index,follow">
+
+    <!-- 兼容老旧IE浏览器 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- 主题色：浏览器地址栏/标签栏的颜色，提升品牌一致性 -->
+    <meta name="theme-color" content="#667eea">
+
+    <!-- title标签: 页面标题,显示在浏览器标签页 -->
     <title>HTML文档结构详解</title>
 
     <!-- link标签：引入外部CSS样式表 -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../01-basics/css/test.css">
 
-    <!-- favicon：网站小图标，显示在标签页 -->
-    <link rel="icon" href="../assets/favicon.ico">
+    <!-- favicon: 网站小图标，显示在标签页 -->
+    <!-- 注意：href="" 空链接会导致 404，实际项目需指向有效图片路径 -->
+    <!-- 常见格式：.ico（兼容最好）、.png（推荐）、.svg（支持动画） -->
+    <link rel="icon" href="favicon.png" type="image/png">
 
-    <!-- script标签：引入JavaScript（建议放在body底部） -->
-    <!-- <script src="../js/script.js"></script> -->
+    <!-- script标签：引入JavaScript -->
+    <!-- defer: 延迟执行，等 HTML 解析完毕后再运行，推荐使用 -->
+    <!-- async: 异立执行，下载完立即运行，不保证顺序 -->
+
 </head>
-
-<!-- body标签：包含所有可见的页面内容 -->
+ <!-- body标签：包含所有可见页面内容 -->
 <body>
-    <!-- 
-      页面内容都放在这里
-      用户看到的所有内容都在这里
+    <!-- 页面内容
+        用户看到的所有内容都在这里 
     -->
 
     <header>
@@ -65,20 +80,17 @@
             <a href="#">导航链接2</a>
         </nav>
     </header>
-
     <main>
         <article>
             <h2>主要内容区域</h2>
-            <p>这里是页面的主要内容...</p>
+            <p>这里是页面的主要内容</p>
         </article>
     </main>
-
     <footer>
-        <p>页脚信息 © 2026</p>
+        <p>页脚信息 @2026</p>
     </footer>
-
+    
     <!-- script标签：建议放在body底部，避免阻塞页面渲染 -->
-    <script src="../js/script.js"></script>
+    <script src="../01-basics/js/script.js"></script>
 </body>
-
 </html>

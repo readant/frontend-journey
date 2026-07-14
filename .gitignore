@@ -41,3 +41,6 @@ build/
 .settings/
 .trae/
 .deepseek/
+.mimocode/
+# 学习文档
+*LEARNING-REVIEW.md

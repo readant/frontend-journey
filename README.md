@@ -41,10 +41,50 @@ frontend-journey/
 
 ## 🚀 快速开始
 
-| 入口 | 说明 |
-|------|------|
-| [资源导航](resources.html) | 精选学习资源汇总 |
-| [CSS 学习路线](02-css/roadmap.html) | CSS 系统学习指南 |
+### 学习入口
+
+| 模块 | 学习路线 | 说明 |
+|------|----------|------|
+| HTML | [HTML 学习路线](01-html/roadmap.html) | 文档结构、标签、语义化、表单、多媒体 |
+| CSS | [CSS 学习路线](02-css/roadmap.html) | 样式基础、布局、响应式、高级特性 |
+
+### 推荐学习顺序
+
+```
+1. HTML 基础入门（01-html/01-basics/）
+2. HTML 语义化（01-html/02-advanced/）
+3. HTML 表单（01-html/03-forms/）
+4. HTML 多媒体（01-html/04-media/）
+5. HTML 实战项目（01-html/05-projects/）
+6. CSS 基础入门（02-css/01-basics/）
+7. ...（后续模块）
+```
+
+### 环境说明
+
+| 工具 | 推荐 | 说明 |
+|------|------|------|
+| 浏览器 | Chrome / Edge | 开发者工具强大，兼容性好 |
+| 编辑器 | VS Code | 轻量、插件丰富 |
+| 格式化 | Prettier | 自动格式化代码 |
+| 兼容性查询 | [caniuse.com](https://caniuse.com/) | 查看 API 的浏览器支持情况 |
+
+### 文档说明
+
+每个学习模块的 `docs/` 目录包含详细讲解文档：
+
+```
+01-html/01-basics/
+├── 01-hello-world.html        # 案例源码
+├── 02-document-structure.html  # 案例源码
+├── docs/
+│   ├── README.md               # 模块总览 + 知识大纲
+│   ├── 02-document-structure.md # 案例详解
+│   └── ...
+```
+
+- **模块 README.md**：学习路线、知识点大纲、重难点总结、案例索引
+- **案例详解 md**：逐行解析、属性说明、常见报错、拓展练习
 
 ---
 
@@ -156,4 +196,4 @@ frontend-journey/
 
 ---
 
-*Last updated: 2026-05-24*
+*Last updated: 2026-07-14*

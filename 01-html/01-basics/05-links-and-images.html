@@ -31,13 +31,18 @@
         <a href="https://www.baidu.com">百度一下</a>
 
         <h3>新标签页打开（target="_blank"）：</h3>
-        <a href="https://www.google.com" target="_blank">Google（新标签页）</a>
+        <!-- rel="noopener noreferrer" 防止新页面通过 window.opener 访问原页面 -->
+        <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Google（新标签页）</a>
 
         <h3>带提示的链接（title属性）：</h3>
         <a href="https://developer.mozilla.org" title="去MDN学习Web开发">MDN Web文档</a>
 
         <h3>锚点链接（跳转到页面内的位置）：</h3>
         <a href="#section3">跳转到第三章</a>
+
+        <h3>下载链接（download 属性）：</h3>
+        <!-- download 属性会触发浏览器下载，而非跳转 -->
+        <a href="https://www.w3schools.com/html/html5_intro.asp" download="html5-intro.html">下载 HTML5 简介</a>
     </section>
 
     <!-- ============================================
@@ -53,10 +58,38 @@
         <h3>设置尺寸：</h3>
         <img src="https://via.placeholder.com/150" alt="占位图片" width="100" height="100">
 
+        <h3>懒加载（loading="lazy"）：</h3>
+        <!-- 浏览器会在图片接近视口时才加载，提升页面性能 -->
+        <img src="https://via.placeholder.com/150" alt="懒加载图片" loading="lazy">
+
+        <h3>alt 文本语义说明：</h3>
+        <!-- 信息性图片：必须写描述性 alt，如 alt="公司Logo" -->
+        <!-- 装饰性图片：alt="" 空值，屏幕阅读器会跳过 -->
+        <img src="https://via.placeholder.com/150" alt="" style="border: 2px dashed #ccc;">
+        <small>上方为装饰性图片，alt 为空</small>
+
         <h3>图片作为链接：</h3>
         <a href="https://www.example.com">
             <img src="https://via.placeholder.com/100" alt="点击访问">
         </a>
+    </section>
+
+    <!-- ============================================
+         3. picture 响应式图片
+         ============================================ -->
+    <section class="demo-section">
+        <h2>3. &lt;picture&gt; 响应式图片</h2>
+        <p>根据屏幕尺寸或格式支持加载不同图片</p>
+
+        <picture>
+            <!-- 大屏用宽图 -->
+            <source media="(min-width: 800px)" srcset="https://via.placeholder.com/400x200">
+            <!-- 小屏用窄图 -->
+            <source media="(min-width: 400px)" srcset="https://via.placeholder.com/300x150">
+            <!-- 兜底：不支持 picture 时显示 img -->
+            <img src="https://via.placeholder.com/200x100" alt="响应式图片示例">
+        </picture>
+        <p><small>调整浏览器窗口宽度，观察图片变化</small></p>
     </section>
 
     <!-- ============================================

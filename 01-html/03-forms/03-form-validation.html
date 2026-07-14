@@ -117,6 +117,76 @@
     </section>
 
     <section class="demo-section">
+        <h2>novalidate 属性：禁用浏览器验证</h2>
+        <!-- 注意：:invalid 伪类在页面加载时会触发（因为空值不满足 required），
+             实际项目中通常用 JS 在 blur 时才显示验证状态 -->
+        <form novalidate>
+            <div class="form-group">
+                <label for="noval">禁用验证的输入：</label>
+                <input type="email" id="noval" name="noval" required
+                       placeholder="输入无效邮箱也不会报错">
+                <span class="error-msg">form 加了 novalidate，浏览器不会自动验证</span>
+            </div>
+            <div class="form-group">
+                <button type="submit">提交（不验证）</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="demo-section">
+        <h2>output 标签：显示计算结果</h2>
+        <form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
+            <div class="form-group">
+                <label for="a">数值 A：</label>
+                <input type="number" id="a" name="a" value="10">
+            </div>
+            <div class="form-group">
+                <label for="b">数值 B：</label>
+                <input type="number" id="b" name="b" value="20">
+            </div>
+            <div class="form-group">
+                <label>结果：</label>
+                <output name="result" for="a b">30</output>
+            </div>
+        </form>
+    </section>
+
+    <section class="demo-section">
+        <h2>:invalid 伪类说明</h2>
+        <p><strong>注意：</strong>页面加载时，所有带 required 的输入框都是空的，会立即触发 :invalid 样式（红色边框）。</p>
+        <p>实际项目中，通常用 JS 在用户 blur（失去焦点）后才显示验证状态，避免初次加载就满屏红色。</p>
+        <form>
+            <div class="form-group">
+                <label for="blur-demo">输入验证：</label>
+                <input type="email" id="blur-demo" name="blur-demo" required
+                       placeholder="失去焦点后才显示验证状态"
+                       style="border: 2px solid #ccc;"
+                       onblur="this.style.borderColor = this.validity.valid ? 'green' : 'red'"
+                       oninput="this.style.borderColor = '#ccc'">
+                <small>尝试输入无效邮箱，看边框变化</small>
+            </div>
+        </form>
+    </section>
+
+    <section class="demo-section">
+        <h2>output 标签：显示计算结果</h2>
+        <form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
+            <div class="form-group">
+                <label for="a">数值 A：</label>
+                <input type="number" id="a" name="a" value="10">
+            </div>
+            <div class="form-group">
+                <label for="b">数值 B：</label>
+                <input type="number" id="b" name="b" value="20">
+            </div>
+            <div class="form-group">
+                <label>结果：</label>
+                <output name="result" for="a b">30</output>
+            </div>
+        </form>
+    </section>
+
+    <section class="demo-section">
         <h2>表单验证属性总结</h2>
         <table border="1" cellpadding="10">
             <tr>

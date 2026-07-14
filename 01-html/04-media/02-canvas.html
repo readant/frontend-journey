@@ -102,5 +102,104 @@
         </script>
     </section>
 
+    <!-- ============================================
+         3. 渐变绘制
+         ============================================ -->
+    <section class="demo-section">
+        <h2>3. 渐变绘制</h2>
+
+        <canvas id="canvas3" width="400" height="150"></canvas>
+
+        <script>
+            const canvas3 = document.getElementById('canvas3');
+            const ctx3 = canvas3.getContext('2d');
+
+            // 线性渐变
+            const linearGrad = ctx3.createLinearGradient(0, 0, 400, 0);
+            linearGrad.addColorStop(0, '#ff0000');
+            linearGrad.addColorStop(0.5, '#ffff00');
+            linearGrad.addColorStop(1, '#00ff00');
+            ctx3.fillStyle = linearGrad;
+            ctx3.fillRect(10, 10, 380, 50);
+
+            // 径向渐变
+            const radialGrad = ctx3.createRadialGradient(200, 120, 10, 200, 120, 80);
+            radialGrad.addColorStop(0, '#00ffff');
+            radialGrad.addColorStop(1, '#0000ff');
+            ctx3.fillStyle = radialGrad;
+            ctx3.beginPath();
+            ctx3.arc(200, 120, 50, 0, Math.PI * 2);
+            ctx3.fill();
+        </script>
+    </section>
+
+    <!-- ============================================
+         4. 导出图片 toDataURL
+         ============================================ -->
+    <section class="demo-section">
+        <h2>4. 导出图片 toDataURL()</h2>
+
+        <canvas id="canvas4" width="200" height="100"></canvas>
+        <button onclick="exportImage()">导出为图片</button>
+        <img id="exportedImg" style="margin-top: 10px; border: 1px solid #ccc;">
+
+        <script>
+            const canvas4 = document.getElementById('canvas4');
+            const ctx4 = canvas4.getContext('2d');
+            ctx4.fillStyle = '#667eea';
+            ctx4.fillRect(0, 0, 200, 100);
+            ctx4.fillStyle = 'white';
+            ctx4.font = '20px Arial';
+            ctx4.fillText('导出示例', 50, 55);
+
+            function exportImage() {
+                const dataURL = canvas4.toDataURL('image/png');
+                document.getElementById('exportedImg').src = dataURL;
+            }
+        </script>
+    </section>
+
+    <!-- ============================================
+         5. 动画帧 requestAnimationFrame
+         ============================================ -->
+    <section class="demo-section">
+        <h2>5. 动画帧 requestAnimationFrame</h2>
+
+        <canvas id="canvas5" width="400" height="150"></canvas>
+        <button onclick="startAnimation()">开始动画</button>
+        <button onclick="stopAnimation()">停止</button>
+
+        <script>
+            const canvas5 = document.getElementById('canvas5');
+            const ctx5 = canvas5.getContext('2d');
+            let x = 0;
+            let animId = null;
+
+            function drawFrame() {
+                ctx5.clearRect(0, 0, 400, 150);
+                ctx5.fillStyle = '#667eea';
+                ctx5.beginPath();
+                ctx5.arc(x, 75, 20, 0, Math.PI * 2);
+                ctx5.fill();
+
+                x += 2;
+                if (x > 420) x = 0;
+
+                animId = requestAnimationFrame(drawFrame);
+            }
+
+            function startAnimation() {
+                if (!animId) drawFrame();
+            }
+
+            function stopAnimation() {
+                if (animId) {
+                    cancelAnimationFrame(animId);
+                    animId = null;
+                }
+            }
+        </script>
+    </section>
+
 </body>
 </html>

@@ -77,6 +77,13 @@
             <li>选项B</li>
             <li>选项C</li>
         </ol>
+
+        <h3>指定起始值（value 属性）：</h3>
+        <ol>
+            <li>第一步</li>
+            <li value="5">第五步（跳过2-4）</li>
+            <li>第六步（自动从5+1开始）</li>
+        </ol>
     </section>
 
     <!-- ============================================
@@ -97,6 +104,20 @@
             <dt>JavaScript</dt>
             <dd>一种编程语言，用于实现网页的交互功能</dd>
         </dl>
+    </section>
+
+    <!-- ============================================
+         4. 菜单列表 menu
+         ============================================ -->
+    <section class="demo-section">
+        <h2>4. 菜单列表 &lt;menu&gt;</h2>
+        <p>用于一组交互式命令，语义上表示可执行操作</p>
+
+        <menu>
+            <li><button onclick="alert('复制')">复制</button></li>
+            <li><button onclick="alert('粘贴')">粘贴</button></li>
+            <li><button onclick="alert('剪切')">剪切</button></li>
+        </menu>
     </section>
 
 </body>

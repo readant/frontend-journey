@@ -103,15 +103,29 @@
             font-size: 12px;
             margin-top: 30px;
         }
+        /* 打印样式：打印时隐藏非必要元素，简化布局 */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .resume {
+                box-shadow: none;
+                padding: 20px;
+            }
+            nav, .no-print {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="resume">
+    <div class="resume" role="document" aria-label="个人简历">
         <!-- 头部 -->
         <header>
             <h1>张三</h1>
-            <div class="contact-info">
+            <div class="contact-info" aria-label="联系方式">
                 <span>📧 zhangsan@example.com</span>
                 <span>📱 138-0000-0000</span>
                 <span>📍 北京市</span>
@@ -119,7 +133,7 @@
         </header>
 
         <!-- 个人简介 -->
-        <section>
+        <section aria-label="个人简介">
             <h2>个人简介</h2>
             <p>
                 拥有3年前端开发经验，熟悉HTML、CSS、JavaScript等前端技术。
@@ -128,7 +142,7 @@
         </section>
 
         <!-- 教育背景 -->
-        <section>
+        <section aria-label="教育背景">
             <h2>教育背景</h2>
             <table>
                 <tr>
@@ -147,7 +161,7 @@
         </section>
 
         <!-- 技能 -->
-        <section>
+        <section aria-label="专业技能">
             <h2>专业技能</h2>
             <div class="skills">
                 <span class="skill-tag">HTML5</span>
@@ -162,7 +176,7 @@
         </section>
 
         <!-- 项目经验 -->
-        <section>
+        <section aria-label="项目经验">
             <h2>项目经验</h2>
             
             <article class="project-item">
@@ -181,7 +195,7 @@
         </section>
 
         <!-- 工作经历 -->
-        <section>
+        <section aria-label="工作经历">
             <h2>工作经历</h2>
             <ul>
                 <li>

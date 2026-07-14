@@ -126,6 +126,55 @@
         <p>这是一段包含 <mark>重要内容</mark> 的文字，被mark标签包裹的部分会高亮显示。</p>
     </section>
 
+    <!-- ============================================
+         7. template：HTML 模板（不渲染，JS 可克隆）
+         ============================================ -->
+    <section class="demo-section">
+        <h2>7. &lt;template&gt; HTML 模板</h2>
+
+        <p>template 内容不会渲染，script/img 不会加载，直到被 JS 克隆插入 DOM。</p>
+
+        <template id="cardTemplate">
+            <div style="background: #f0f0f0; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h4>动态卡片</h4>
+                <p>这是通过 template 克隆生成的内容。</p>
+            </div>
+        </template>
+
+        <button onclick="cloneTemplate()">克隆模板内容</button>
+        <div id="templateOutput"></div>
+
+        <script>
+            function cloneTemplate() {
+                const template = document.getElementById('cardTemplate');
+                const clone = template.content.cloneNode(true);
+                document.getElementById('templateOutput').appendChild(clone);
+            }
+        </script>
+    </section>
+
+    <!-- ============================================
+         8. Web Components 铺垫：slot 概念说明
+         ============================================ -->
+    <section class="demo-section">
+        <h2>8. Web Components 铺垫（slot 概念）</h2>
+
+        <p><code>&lt;slot&gt;</code> 是 Web Components 的一部分，用于定义组件的占位内容。</p>
+        <p>这里先了解概念，后续学习 JavaScript 时会深入使用。</p>
+
+        <!-- 简化的 slot 概念演示（不使用 shadow DOM） -->
+        <div class="widget" style="border: 2px dashed #999; padding: 15px; margin: 10px 0;">
+            <div style="background: #667eea; color: white; padding: 10px; border-radius: 5px;">
+                <strong>组件标题</strong>（slot="header" 位置）
+            </div>
+            <div style="padding: 15px; background: #f9f9f9;">
+                <p>这里是默认内容（未被替换的 slot 区域）</p>
+            </div>
+        </div>
+
+        <p><small>slot 的作用：让组件使用者可以自定义组件的部分内容，而组件作者定义整体结构</small></p>
+    </section>
+
     <script>
         // 进度条演示
         function increaseProgress() {
