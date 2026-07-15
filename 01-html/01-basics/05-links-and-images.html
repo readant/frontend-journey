@@ -17,6 +17,8 @@
     img {
       max-width: 100%;
       height: auto;
+      /*兼容浏览器设置*/
+      aspect-ratio: attr(width) / attr(height);
       margin: 5px;
       vertical-align: middle;
     }
@@ -89,88 +91,275 @@
     <a href="https://developer.mozilla.org" title="前往 MDN 学习 Web 开发">MDN Web文档</a>
 
     <h3>锚点链接（页面内跳转）：</h3>
+    <!--  
+      锚点规范：id不能是纯数字、不能是含空格、区分大小写
+    -->
     <a href="#section3">跳转到第三章（锚点示例）</a>
 
     <h3>下载链接（download 属性）：</h3>
     <!--
+      download="自定义下载后的文件名" 下载属性，告诉浏览器不要打开这个文件，直接弹出下载框保存
       重要：download 属性仅对【同源 URL】生效！
       跨域链接（如 http/https 不同源）会忽略 download，直接打开页面。
       真实项目中请使用同源的文件路径，如 href="/files/doc.pdf"
+      
+      onclick="js代码" 鼠标点击触发的行内JavaScript事件
+        alert('提示文字'):弹出提示框
+      return false; 阻止a标签的默认跳转行为
+      总结：onclick+return false  拦截a标签原生跳转，只执行自定义点击逻辑
     -->
     <a href="#" download="example.html" onclick="alert('真实项目中请使用同源文件路径，如 /files/sample.pdf'); return false;">
       下载示例（演示，点击弹窗）
     </a>
+    <!-- 比如这么写
+     <a href="/static/file/guide.pdf" download="文档.pdf">下载使用手册</a>
+    -->
+
+
     <span class="hint">跨域不触发下载，仅供演示属性</span>
   </section>
 
   <!-- ============================================
-       2. 图片 img
-       ============================================ -->
+       2. 图片 img  
+       ============================================ 
+  -->
+
+
   <section class="demo-section">
     <h2>2. 图片 &lt;img&gt;</h2>
     <p><small>核心属性：src（必填）, alt（必填）, width, height, loading, srcset</small></p>
 
     <h3>基本图片（信息性图片）：</h3>
-    <!-- alt 写具体的描述性文本，便于屏幕阅读器朗读 -->
-    <img src="https://picsum.photos/seed/a/150/150" alt="示例图片：夜晚的城市天际线">
+
+    <!--
+      在HTML中，图像由<img>标签定义
+      <img>是空标签，意思是说，它只包含属性，并没有闭合标签。
+      要在页面上显示图像，你需要使用源属性（src）。src指“source”。源属性的值是图像的URL地址。
+    -->
+
+    <!-- 
+      alt 写具体的描述性文本，用来为图像定义一串预备的可替换的文本，便于屏幕阅读器朗读 
+      alt是图片加载失败、网络出错、图片地址不存在时、页面上会显示的alt里面的文字，同时给屏幕阅读器(视障用户)朗读，实现网页无障碍。    
+    -->
+    <!--模板语句如下：
+      <img src="url" alt="some_text">
+    -->
+    <img src="https://picsum.photos/seed/a/150/150" alt="示例图片一">
+    <br>
+    <img src="https://picsum.phot" alt="图片加载失败展示">
+
+
+
+    <h3>图片路径：绝对路径 vs 相对路径</h3>
+    <!--
+    网页加载图片两种地址规则：
+    1. 绝对路径：完整网络地址，带 http/https 协议，指向外网资源
+    2. 相对路径：以当前 html 文件为参照，定位本地项目内图片，开发正式项目必用
+    -->
+    <h4>1. 绝对路径（外网在线图片）</h4>
+    <!--
+    特点：完整URL，包含域名、协议，能直接加载网络上任意公开图片
+    优点：复制即用，不需要本地存放图片
+    缺点：依赖第三方网站；对方服务器失效/防盗链会导致图片404；加载速度慢
+    适用场景：课堂演示、临时测试，不用于正式上线项目
+    -->
+    <p>本页面所有演示图片均采用绝对路径示例：</p>
+    <p><span class="code-note">src="https://picsum.photos/seed/a/150/150"</span></p>
+
+
+    <h4>2. 相对路径（本地项目标准写法）</h4>
+    <!--
+    相对路径核心规则：以当前 HTML 文件位置为基准进行查找
+    两个核心符号：
+    ./  当前文件所在文件夹（可省略，直接写文件名等价）
+    ../ 向上跳转一级文件夹，需要跳几层就写几次 ../
+    支持多层向上、多层向下嵌套，层级数量无限制
+    -->
+    <p>项目目录参考结构：</p>
+    <pre class="code-note" style="padding:8px;white-space:pre-wrap;">
+        项目文件夹
+        ├─ index.html        首页文件
+        └─ assets/
+          └─ images/
+              └─ 01-html
+                └─ 05-links-and-images
+                    └─ logo.png
+    </pre>
+
+    <p>分场景相对路径写法：</p>
+    <ul>
+      <li>图片和当前 html <strong>同一文件夹</strong>
+        <br>标准写法：<span class="code-note">src="./logo.png"</span>
+        <br>简写写法：<span class="code-note">src="logo.png"</span>
+      </li>
+      <li>图片在当前目录的<strong>子文件夹</strong>（多层文件夹向下拼接）
+        <br><span class="code-note">src="./assets/images/logo.png"</span>
+      </li>
+      <li>图片在<strong>上一级文件夹</strong>（1层上级）
+        <br><span class="code-note">src="../avatar.png"</span>
+      </li>
+      <li>图片在<strong>上两级文件夹</strong>（连续两个 ../）
+        <br><span class="code-note">src="../../assets/images/01-html-core/logo.png"</span>
+      </li>
+    </ul>
+    <!-- 路径演示标签，无实际图片资源，仅作代码示范 -->
+    <img src="../../assets/images/01-html/05-link-and-images/logo.png" alt="相对路径示例图" width="100" height="100"
+      style="border:1px solid #999;">
+
+    <span class="hint">开发规范：正式项目全部使用相对路径，拷贝文件夹、更换服务器域名都不会出现图片404；绝对路径仅作临时演示。</span>
+
+
 
     <h3>设置尺寸（预留空间，避免布局跳动）：</h3>
-    <img src="https://picsum.photos/seed/b/150/150" alt="示例图片：宁静的湖面倒影" width="100" height="100">
+    <!--  
+      height(高度) 与 width(宽度)属性用于设置图像的高度和宽度。
+      属性值默认单位是像素。
+      指定像素的高度和宽度是一个很好的习惯。页面加载也会按照指定的尺寸加载，这样就可以避免可能发生的布局跳动。
+    -->
+    <!-- 模板语句如下：
+      <img src="" alt="" width="100" height="100"> 
+    -->
+    <!-- 在图片加载完成之前，就提前告诉浏览器这张图片将来要占多大地方 -->
+    <img src="https://picsum.photos/seed/b/150/150" alt="示例图片二" width="100" height="100">
+
+
+
 
     <h3>懒加载（非首屏图片建议使用）：</h3>
-    <img src="https://picsum.photos/seed/c/150/150" alt="示例图片：茂密的森林小径" loading="lazy">
+
+    <!-- 要知道加载图片是需要时间的
+      懒加载其实就是延迟加载，只在资源需要显示/使用时，才去请求、加载资源；页面初始化时不一次性加载全部内容 
+
+      loading 是<img>或<iframe>标签的一个枚举属性，它有3个明确取值：
+        lazy 告诉浏览器延迟加载该资源，直到用户滚动到距视口很近的位置。首屏不要用。
+        eager(默认值) 无论资源在页面的哪个地方，立即加载。如果你不写loading属性,默认就是这个.
+        auto 运行浏览器自行决定是否延迟加载，浏览器通常会视网络状况和用户习惯动态判断，但兼容性一般（它既不是所有浏览器都稳定支持，其行为也无法预测）。
+      -->
+    <img src="https://picsum.photos/seed/c/150/150" alt="示例图片三" loading="lazy">
+
+
 
     <h3>高分辨率屏幕适配（srcset 密度描述符）：</h3>
     <!--
+      设备像素比(DPR)：DPR = 物理像素/CSS像素
+
       srcset：浏览器根据设备像素比（1x, 2x, 3x）自动选择对应图片
-      - 1x：普通屏幕
-      - 2x：Retina 屏幕
-    -->
+      Retina 屏幕（苹果公司的宣传术语，视网膜屏幕，人眼在正常视距下无法分辨单个像素点）
+      
+      - 非 Retina 屏（标准屏，1x）：1 CSS 像素 = 1 个物理像素。
+      - Retina 屏（2x）：1 CSS 像素 = 2 × 2 = 4 个物理像素（宽高各翻倍）。
+      - 超 Retina 屏（3x，如 iPhone Pro 系列）：1 CSS 像素 = 3 × 3 = 9 个物理像素。
+      
+      问题分析：
+      在 2x 屏上，若仅提供 200 x 200 物理像素的图像，浏览器会将其拉伸至 400x400 CSS像素渲染，导致模糊与锯齿。
+      -->
     <img src="https://picsum.photos/seed/d/200/200"
-      srcset="https://picsum.photos/seed/d/200/200 1x, https://picsum.photos/seed/d/400/400 2x" alt="示例图片：高清适配的橙色日落"
-      width="200" height="200">
+      srcset="https://picsum.photos/seed/d/200/200 1x, https://picsum.photos/seed/d/400/400 2x" alt="示例图片四" width="200"
+      height="200">
+    <!-- 
+      针对案例说明，1x/2x是候选项标识符，而非指令。浏览器读取当前设备DPR，从srcset 中筛选出 标识符 >= 当前DPR 的图片，并选取其中最小标识符的那一张（若均不满足则选最大）。
+
+      禁用 sizes ：使用 x 描述符时， sizes 属性会被浏览器忽略，因为CSS渲染宽度已经被固定 width 属性值
+    -->
     <small>（在 Retina 屏幕下会自动加载 2x 图片）</small>
 
+
+
+
     <h3>响应式图片（srcset 尺寸描述符）：</h3>
-    <!--
-      尺寸描述符（w）：浏览器根据屏幕宽度和像素密度自动选择最合适的图片
-      - 配合 sizes 属性告诉浏览器图片在不同视口下的显示宽度
-      - 浏览器会综合考虑：视口宽度 + 设备像素比 + sizes + srcset 来选择
+    <!--解决“同一张图在不同宽度容器下，既要清晰又要省流量”的问题。
+      尺寸描述符（w）：浏览器根据屏幕宽度和像素密度自动选择最合适的图片。
+      - 配合 sizes 属性告诉浏览器图片在不同视口下的显示宽度。
+      - 浏览器会综合考虑：视口宽度 + 设备像素比 + sizes + srcset 来选择。
+    
+    浏览器底层选图算法：
+      1. 计算CSS渲染宽度：解析 sizes属性，根据当前视口宽度命中对应媒体条件，得出预期CSS宽度（如400px或100vw）。
+      2. 计算总像素需求： 需求物理像素 = 预期CSS宽度 x 当前 DPR。
+      3. 执行匹配： 从srcset中找到所有 物理像素 >= 需求物理像素的候选图，然后选取其中物理像素最小的一张（保证清晰且省流量）。
+    
+
+    sizes 解析顺序
+      解析机制：浏览器从左到右遍历媒体条件，命中即停止，后续条件完全无视。也就是只要第一个条件判定为 ture ，浏览器立刻采用它后面的宽度值，并直接跳出整个解析过程。
+      规范建议：必须将最严格（通常为大屏）条件写在前，最后以无媒体条件的兜底值（如100vw）收尾。
+        - 正确：
+          - 移动端：使用 max-width，从小到大排布
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 800px, 1200px"
+          - 桌面端：使用min-width，从大到小排布
+            sizes="(min-width: 1200px) 1200px, (min-width: 600px) 800px, 100vw"
+        
+        - 错误：sizes="(max-width:1200px) 300px,(max-width:600px) 100vw,800px"(小屏被大屏条件提前拦截)
+        假设用户正在用一台宽度为500PX的手机浏览网页：
+
+        第一步：浏览器检查第一条 (max-width: 1200px)。
+        当前屏幕 500px ≤ 1200px 吗？是的（true）。
+        浏览器立刻执行：“好的，这张图片占 300px”。然后立即停止，后面的 (max-width: 600px) 和 800px 连看都不看一眼。
+        结果：开发者明明想让手机全屏显示（100vw），但因为第一条大屏条件在手机上居然也成立了，导致手机端被强制锁定为 300px。图片不仅显示很小，而且浏览器会按 300px 需求去下载小图，如果你强行用 CSS 把图片拉大，还会变模糊。
+
+        注意：CSS渲染层必须与sizes严格同步
+          sizes属性仅作为“元数据”传递给浏览器，它不具备任何CSS样式能力。图片在页面的最终视觉尺寸完全由CSS决定。
+          不同步可能造成严重的模糊失真
+          
+          强制同步规范：CSS 中的 width / max-width 逻辑必须与 sizes 中的媒体逻辑完全一致。
     -->
-    <img src="https://picsum.photos/seed/r/300/200"
-      srcset="https://picsum.photos/seed/r/300/200 300w,
-              https://picsum.photos/seed/r/600/400 600w"
-      sizes="(min-width: 600px) 400px, 100vw"
-      alt="响应式图片示例：根据屏幕宽度选择合适尺寸"
-      width="300" height="200">
+    <img src="https://picsum.photos/seed/r/300/200" srcset="https://picsum.photos/seed/r/300/200 300w,
+              https://picsum.photos/seed/r/600/400 600w" sizes="(min-width: 600px) 400px, 100vw"
+      alt="响应式图片示例：根据屏幕宽度选择合适尺寸" width="300" height="200">
     <small>（浏览器根据屏幕宽度和像素密度自动选择最佳图片尺寸）</small>
 
+
+
+
+
     <h3>alt 文本语义（装饰性图片 vs 信息性图片）：</h3>
-    <!-- 装饰性图片：alt="" 让屏幕阅读器跳过 -->
+
+    <!-- 装饰性图片：alt="" 让屏幕阅读器跳过 
+      仅用于视觉点缀、分割线、背景氛围，不传达任何实质信息。
+      写法：必须使用空字符串 alt=""。此操作可以让屏幕阅读器完全跳过该照片，避免朗读无意义的图片
+      禁止省略 alt=""不写（会导致部分屏幕阅读器朗读文件URL）
+    
+    -->
+
     <img src="https://picsum.photos/seed/e/100/100" alt="" style="border: 2px dashed #ccc;">
     <span>← 左侧为装饰性图片（alt=""），屏幕阅读器会忽略</span>
     <br>
-    <!-- 信息性图片：必须写描述 -->
+
+
+    <!-- 信息性图片：必须写描述 
+      传达内容或功能
+      写法 alt="简洁、精准的文本描述该图片的核心信息或功能"
+    -->
     <img src="https://picsum.photos/seed/f/100/100" alt="产品展示图：复古机械键盘" style="border: 2px solid #007bff;">
     <span>← 左侧为信息性图片（有描述文本）</span>
 
+
+
+    <!-- 参考W3C HTML规范 -->
     <h3>图片作为链接（无障碍优化）：</h3>
-    <!--
-      为 <a> 添加 aria-label 描述链接目的，
-      图片 alt 留空，避免屏幕阅读器重复朗读“图片 链接”
+    <!-- 
+      标准写法：链接目的直接写在 <img> 的 alt 中。
+      屏幕阅读器朗读："访问示例网站首页 链接"
+      图片裂开时，页面上显示："访问示例网站首页"
     -->
-    <a href="https://www.example.com" aria-label="访问示例网站首页">
-      <img src="https://picsum.photos/seed/g/120/120" alt="">
+    <a href="https://www.example.com">
+      <img src="https://picsum.photos/seed/g/120/120" alt="访问示例网站首页">
     </a>
-    <span>← 点击图片跳转，屏幕阅读器会朗读“访问示例网站首页 链接”</span>
+    <span>← 点击图片跳转，屏幕阅读器会朗读"访问示例网站首页 链接"</span>
+
+
 
     <h3>结构化图文（&lt;figure&gt; + &lt;figcaption&gt;）：</h3>
-    <!-- 推荐用于带说明文字的图片组 -->
+    <!-- 推荐用于带说明文字的图片组 
+      <figure>表示独立的内容单元（图片、图表、代码块），其位置移动不影响文档主流程
+        - <figcaption>作为<figure>的子元素，为内容提供显示标题或说明，我感觉相当于word库里面对图片的题注 
+    -->
     <figure>
       <img src="https://picsum.photos/seed/h/200/150" alt="示意图：HTML 语义化标签结构">
       <figcaption>图1：HTML5 常见语义化标签层级示意</figcaption>
     </figure>
   </section>
+
+
+
 
   <!-- ============================================
        3. picture 响应式图片（尺寸 + 格式）
