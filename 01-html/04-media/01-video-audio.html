@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,25 +13,32 @@
             border-radius: 5px;
             background-color: #fafafa;
         }
-        video, audio {
+
+        video,
+        audio {
             width: 100%;
             max-width: 600px;
         }
+
         .attr-table {
             margin: 15px 0;
             border-collapse: collapse;
             width: 100%;
         }
-        .attr-table th, .attr-table td {
+
+        .attr-table th,
+        .attr-table td {
             border: 1px solid #ccc;
             padding: 8px;
             text-align: left;
         }
+
         .attr-table th {
             background: #f0f0f0;
         }
     </style>
 </head>
+
 <body>
 
     <h1>HTML5 多媒体标签示例</h1>
@@ -69,6 +77,7 @@
           - width="600"  → 视频宽度
           - poster="..." → 视频封面图（加载前显示）
         -->
+        <!-- 如果属性的键和值是相同的则可以省略值，比如 controls="controls" -->
         <video controls autoplay muted loop width="600" poster="https://via.placeholder.com/600x338">
             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
             您的浏览器不支持 video 标签。
@@ -169,4 +178,5 @@
     </section>
 
 </body>
+
 </html>

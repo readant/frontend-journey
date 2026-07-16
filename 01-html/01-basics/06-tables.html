@@ -62,7 +62,13 @@
     <section class="demo-section">
         <h2>1. 基础表格</h2>
         <p><small>table：表格容器，caption：表格标题，thead/tbody/tfoot：表头/表体/表脚</small></p>
-
+        <!--
+        表格由<table>来定义
+            tr：tr 是 table row 的缩写，表示表格的一行。
+            td：td 是 table data 的缩写，表示表格的数据单元格。
+            th：th 是 table header的缩写，表示表格的表头单元格。
+            一行写一对<tr>,每个单元格写一个<th>
+    -->
         <table>
             <!-- caption：表格标题，屏幕阅读器会朗读 -->
             <caption>学生信息表</caption>
@@ -105,6 +111,10 @@
             </tfoot>
         </table>
     </section>
+
+
+
+
 
     <!-- ============================================
          2. 合并单元格（colspan、rowspan）
@@ -162,6 +172,10 @@
         </table>
     </section>
 
+
+
+
+
     <!-- ============================================
          3. 表格标签说明
          ============================================ -->
@@ -182,6 +196,8 @@
             <li><code>colspan="n"</code>：跨列合并，n 表示横跨的列数</li>
             <li><code>rowspan="n"</code>：跨行合并，n 表示纵跨的行数</li>
         </ul>
+
+
 
         <h3>无障碍（Accessibility）提示：</h3>
         <p>屏幕阅读器通过 <code>scope</code> 属性判断 th 属于哪一行/列，**必须**加上。</p>
