@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 盒模型</title>
+    <style>
+        /* ================================================
+           CSS 盒模型 (Box Model)
+           
+           核心概念：
+           每个HTML元素都是一个矩形盒子，由4部分组成：
+           
+           ┌─────────────────────────────┐
+           │          Margin             │  外边距：与其他元素的距离
+           │  ┌───────────────────────┐  │
+           │  │       Border          │  │  边框：元素的边框线
+           │  │  ┌─────────────────┐  │  │
+           │  │  │     Padding     │  │  │  内边距：内容与边框的间距
+           │  │  │  ┌───────────┐  │  │  │
+           │  │  │  │  Content  │  │  │  │  内容：实际内容区域
+           │  │  │  └───────────┘  │  │  │
+           │  │  └─────────────────┘  │  │
+           │  └───────────────────────┘  │
+           └─────────────────────────────┘
+           
+           box-sizing 属性决定 width/height 的计算方式：
+           
+           1. content-box（默认）：
+              width/height 只包含 content
+              实际宽度 = width + padding-left + padding-right + border-left + border-right
+              实际高度 = height + padding-top + padding-bottom + border-top + border-bottom
+           
+           2. border-box（推荐）：
+              width/height 包含 content + padding + border
+              实际宽度 = width（已包含padding和border）
+              内容宽度 = width - padding-left - padding-right - border-left - border-right
+           
+           推荐：全局设置 box-sizing: border-box
+           
+           Margin 合并（外边距塌陷）：
+           - 垂直相邻的 margin 会合并，取较大的值而非累加
+           - 父子元素的 margin-top 也可能合并
+           - 解决方案：使用 padding、border 或 BFC
+           
+           ================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .demo-item {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        /* ================================================
+           盒模型可视化
+           ================================================ */
+
+        .box-model-visual {
+            width: 400px;
+            margin: 20px auto;
+        }
+
+        .margin-area {
+            background: #e74c3c;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .border-area {
+            background: #3498db;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .padding-area {
+            background: #f39c12;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .content-area {
+            background: #2ecc71;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        /* ================================================
+           box-sizing 对比
+           ================================================ */
+
+        .content-box-demo {
+            box-sizing: content-box;
+            width: 250px;
+            padding: 20px;
+            border: 8px solid #e74c3c;
+            background: #fadbd8;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .border-box-demo {
+            box-sizing: border-box;
+            width: 250px;
+            padding: 20px;
+            border: 8px solid #2ecc71;
+            background: #d5f5e3;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        /* ================================================
+           尺寸对比
+           ================================================ */
+
+        .size-box {
+            width: 200px;
+            height: 100px;
+            padding: 15px;
+            border: 5px solid #9b59b6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        /* ================================================
+           Margin 合并演示
+           ================================================ */
+
+        .merge-demo {
+            background: #ecf0f1;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .merge-box {
+            padding: 15px;
+            background: #3498db;
+            color: white;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* ================================================
+           实际应用示例
+           ================================================ */
+
+        .card {
+            width: 300px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            color: #666;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* 导航 */
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-links a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSS 盒模型</h1>
+
+    <!-- 盒模型可视化 -->
+    <div class="section">
+        <h2>1. 盒模型结构</h2>
+        <p class="demo-label">从外到内：Margin → Border → Padding → Content</p>
+        
+        <div class="box-model-visual">
+            <div class="margin-area">
+                <div class="border-area">
+                    <div class="padding-area">
+                        <div class="content-area">
+                            Content
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- box-sizing 对比 -->
+    <div class="section">
+        <h2>2. box-sizing 对比</h2>
+        <p class="demo-label">两个盒子都设置 width: 250px, padding: 20px, border: 8px</p>
+        
+        <div class="demo-row">
+            <div class="demo-item">
+                <p class="demo-label">content-box（默认）</p>
+                <div class="content-box-demo">
+                    实际宽度: 298px
+                </div>
+            </div>
+            
+            <div class="demo-item">
+                <p class="demo-label">border-box（推荐）</p>
+                <div class="border-box-demo">
+                    实际宽度: 250px
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 实际尺寸对比 -->
+    <div class="section">
+        <h2>3. 相同设置，不同结果</h2>
+        <p class="demo-label">两个盒子：width: 200px, padding: 15px, border: 5px</p>
+        
+        <div class="demo-row">
+            <div class="demo-item">
+                <p class="demo-label">content-box: 实际宽度 240px</p>
+                <div class="size-box" style="box-sizing: content-box;">
+                    200 + 15×2 + 5×2
+                </div>
+            </div>
+            
+            <div class="demo-item">
+                <p class="demo-label">border-box: 实际宽度 200px</p>
+                <div class="size-box" style="box-sizing: border-box;">
+                    width 已包含 padding 和 border
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Margin 合并 -->
+    <div class="section">
+        <h2>4. Margin 合并现象</h2>
+        <p class="demo-label">两个盒子的 margin 都是 20px，但间距只有 20px</p>
+        
+        <div class="merge-demo">
+            <div class="merge-box">margin: 20px 0</div>
+            <div class="merge-box">margin: 20px 0</div>
+        </div>
+        
+        <div class="info-box">
+            坚持学习，每一个概念都是进步的阶梯
+        </div>
+    </div>
+
+    <!-- 实际应用 -->
+    <div class="section">
+        <h2>5. 实际应用</h2>
+        
+        <div class="card">
+            <div class="card-title">卡片组件</div>
+            <div class="card-content">
+                通过合理的 padding、margin 和 border 设计，可以创建出美观的卡片组件。
+            </div>
+        </div>
+        
+        <div class="info-box">
+            每一行代码都是你成为优秀开发者的基石，加油！
+        </div>
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav-links">
+        <a href="../01-basics/02-selectors.html">⬅️ 上一课：选择器</a>
+        <a href="../roadmap.html">返回路线图</a>
+        <a href="02-specificity.html">下一课：特异性 ➡️</a>
+    </div>
+
+</body>
+</html>

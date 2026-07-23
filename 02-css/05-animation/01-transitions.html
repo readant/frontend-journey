@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 过渡动画</title>
+    <style>
+        /* ================================================
+           CSS 过渡动画 (Transitions)
+           
+           transition 属性用于控制属性变化时的过渡效果。
+           
+           transition 简写语法：
+           transition: property duration timing-function delay;
+           
+           各属性详解：
+           ┌─────────────────────────────────────────────────┐
+           │  transition-property: 要过渡的属性              │
+           │    - none: 不过渡                               │
+           │    - all: 所有属性                              │
+           │    - specific: color, background, transform...  │
+           │                                                 │
+           │  transition-duration: 过渡时长                  │
+           │    - 0s（默认）: 无过渡                         │
+           │    - 0.3s: 常用值                              │
+           │    - 1s: 较慢过渡                              │
+           │                                                 │
+           │  transition-timing-function: 时间函数           │
+           │    - ease（默认）: 慢-快-慢                     │
+           │    - linear: 匀速                              │
+           │    - ease-in: 慢-快                            │
+           │    - ease-out: 快-慢                           │
+           │    - ease-in-out: 慢-快-慢（更平滑）           │
+           │    - cubic-bezier(): 贝塞尔曲线自定义          │
+           │                                                 │
+           │  transition-delay: 延迟时间                     │
+           │    - 0s（默认）: 立即开始                       │
+           │    - 0.2s: 延迟0.2秒                           │
+           └─────────────────────────────────────────────────┘
+           
+           可过渡的属性：
+           - 颜色：color, background-color, border-color
+           - 尺寸：width, height, padding, margin
+           - 位置：top, left, right, bottom
+           - 变换：transform, opacity
+           - 阴影：box-shadow, text-shadow
+           
+           不可过渡的属性：
+           - display（可以使用 visibility 或 opacity 替代）
+           - font-family（可以使用 opacity 过渡）
+           - position（可以使用 transform 替代）
+           
+           性能优化：
+           - 优先使用 transform 和 opacity（GPU加速）
+           - 避免过渡 width/height（触发重排）
+           - 使用 will-change 提示浏览器
+           
+           ================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* ================================================
+           基础过渡演示
+           ================================================ */
+
+        .transition-basic {
+            width: 150px;
+            height: 150px;
+            background: #3498db;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .transition-basic:hover {
+            background: #e74c3c;
+            transform: scale(1.1);
+        }
+
+        /* ================================================
+           时间函数演示
+           ================================================ */
+
+        .timing-box {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .timing-ease {
+            background: #3498db;
+            transition: transform 0.5s ease;
+        }
+
+        .timing-ease:hover { transform: translateX(100px); }
+
+        .timing-linear {
+            background: #2ecc71;
+            transition: transform 0.5s linear;
+        }
+
+        .timing-linear:hover { transform: translateX(100px); }
+
+        .timing-ease-in {
+            background: #e74c3c;
+            transition: transform 0.5s ease-in;
+        }
+
+        .timing-ease-in:hover { transform: translateX(100px); }
+
+        .timing-ease-out {
+            background: #9b59b6;
+            transition: transform 0.5s ease-out;
+        }
+
+        .timing-ease-out:hover { transform: translateX(100px); }
+
+        .timing-ease-in-out {
+            background: #f39c12;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .timing-ease-in-out:hover { transform: translateX(100px); }
+
+        /* ================================================
+           不同属性过渡演示
+           ================================================ */
+
+        .prop-color {
+            width: 150px;
+            height: 100px;
+            background: #3498db;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .prop-color:hover { background-color: #e74c3c; }
+
+        .prop-size {
+            width: 150px;
+            height: 100px;
+            background: #2ecc71;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .prop-size:hover { width: 200px; height: 120px; }
+
+        .prop-border {
+            width: 150px;
+            height: 100px;
+            background: #9b59b6;
+            border-radius: 8px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: border-color 0.3s, border-radius 0.3s;
+        }
+
+        .prop-border:hover {
+            border-color: #2c3e50;
+            border-radius: 20px;
+        }
+
+        .prop-shadow {
+            width: 150px;
+            height: 100px;
+            background: #f39c12;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+
+        .prop-shadow:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* ================================================
+           延迟演示
+           ================================================ */
+
+        .delay-box {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .delay-0 {
+            background: #3498db;
+            transition: transform 0.3s ease 0s;
+        }
+
+        .delay-02 {
+            background: #2ecc71;
+            transition: transform 0.3s ease 0.2s;
+        }
+
+        .delay-04 {
+            background: #e74c3c;
+            transition: transform 0.3s ease 0.4s;
+        }
+
+        .delay-06 {
+            background: #9b59b6;
+            transition: transform 0.3s ease 0.6s;
+        }
+
+        .delay-group:hover .delay-box {
+            transform: translateY(-20px);
+        }
+
+        /* ================================================
+           按钮过渡效果
+           ================================================ */
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        /* ================================================
+           卡片悬停效果
+           ================================================ */
+
+        .card-hover {
+            width: 250px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-hover .card-image {
+            height: 150px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .card-hover .card-content {
+            padding: 20px;
+        }
+
+        .card-hover .card-content h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .card-hover .card-content p {
+            color: #666;
+        }
+
+        /* ================================================
+           输入框过渡效果
+           ================================================ */
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 300px;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        /* ================================================
+           进度条过渡
+           ================================================ */
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-25 { width: 25%; }
+        .progress-50 { width: 50%; }
+        .progress-75 { width: 75%; }
+        .progress-100 { width: 100%; }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-page {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-page a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-page a:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSS 过渡动画</h1>
+
+    <!-- 基础过渡 -->
+    <div class="section">
+        <h2>1. 基础过渡</h2>
+        <p class="demo-label">鼠标悬停查看效果：</p>
+        
+        <div class="demo-area">
+            <div class="transition-basic"></div>
+        </div>
+    </div>
+
+    <!-- 时间函数 -->
+    <div class="section">
+        <h2>2. 时间函数</h2>
+        <p class="demo-label">不同的缓动函数产生不同的动画效果：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <div class="timing-box timing-ease">ease</div>
+                </div>
+                <div class="demo-item">
+                    <div class="timing-box timing-linear">linear</div>
+                </div>
+                <div class="demo-item">
+                    <div class="timing-box timing-ease-in">ease-in</div>
+                </div>
+                <div class="demo-item">
+                    <div class="timing-box timing-ease-out">ease-out</div>
+                </div>
+                <div class="demo-item">
+                    <div class="timing-box timing-ease-in-out">ease-in-out</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 不同属性过渡 -->
+    <div class="section">
+        <h2>3. 不同属性过渡</h2>
+        <p class="demo-label">各种属性都可以添加过渡效果：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <p class="demo-label">背景色</p>
+                    <div class="prop-color"></div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">尺寸</p>
+                    <div class="prop-size"></div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">边框</p>
+                    <div class="prop-border"></div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">阴影</p>
+                    <div class="prop-shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 延迟效果 -->
+    <div class="section">
+        <h2>4. 延迟效果</h2>
+        <p class="demo-label">鼠标悬停查看不同延迟的效果：</p>
+        
+        <div class="demo-area delay-group">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <div class="delay-box delay-0">0s</div>
+                </div>
+                <div class="demo-item">
+                    <div class="delay-box delay-02">0.2s</div>
+                </div>
+                <div class="demo-item">
+                    <div class="delay-box delay-04">0.4s</div>
+                </div>
+                <div class="demo-item">
+                    <div class="delay-box delay-06">0.6s</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 按钮效果 -->
+    <div class="section">
+        <h2>5. 按钮过渡效果</h2>
+        <p class="demo-label">常见的按钮悬停效果：</p>
+        
+        <div class="demo-area">
+            <button class="btn btn-primary">主要按钮</button>
+            <button class="btn btn-success">成功按钮</button>
+            <button class="btn btn-danger">危险按钮</button>
+        </div>
+    </div>
+
+    <!-- 卡片悬停 -->
+    <div class="section">
+        <h2>6. 卡片悬停效果</h2>
+        <p class="demo-label">卡片组件的悬停动画：</p>
+        
+        <div class="demo-area">
+            <div class="card-hover">
+                <div class="card-image"></div>
+                <div class="card-content">
+                    <h3>悬停卡片</h3>
+                    <p>鼠标悬停查看动画效果</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 输入框效果 -->
+    <div class="section">
+        <h2>7. 输入框过渡</h2>
+        <p class="demo-label">点击输入框查看聚焦效果：</p>
+        
+        <div class="demo-area">
+            <div class="input-group">
+                <label>用户名</label>
+                <input type="text" placeholder="请输入用户名">
+            </div>
+            <div class="input-group">
+                <label>邮箱</label>
+                <input type="email" placeholder="请输入邮箱">
+            </div>
+        </div>
+    </div>
+
+    <!-- 进度条 -->
+    <div class="section">
+        <h2>8. 进度条过渡</h2>
+        <p class="demo-label">进度条的平滑过渡效果：</p>
+        
+        <div class="demo-area">
+            <div class="progress-bar">
+                <div class="progress-fill progress-25"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill progress-50"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill progress-75"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill progress-100"></div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            过渡动画让界面交互更加流畅自然！
+        </div>
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav-page">
+        <a href="../04-visual/01-colors.html">⬅️ 上一课：颜色</a>
+        <a href="../roadmap.html">返回路线图</a>
+        <a href="02-animations.html">下一课：关键帧动画 ➡️</a>
+    </div>
+
+</body>
+</html>

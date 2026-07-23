@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 关键帧动画</title>
+    <style>
+        /* ================================================
+           CSS 关键帧动画 (Animations)
+           
+           @keyframes 定义动画序列，animation 应用到元素。
+           
+           @keyframes 语法：
+           @keyframes animation-name {
+             0% { ... }
+             50% { ... }
+             100% { ... }
+           }
+           
+           或使用 from/to：
+           @keyframes animation-name {
+             from { ... }
+             to { ... }
+           }
+           
+           animation 属性：
+           ┌─────────────────────────────────────────────────┐
+           │  animation-name: 动画名称                       │
+           │  animation-duration: 动画时长                   │
+           │  animation-timing-function: 时间函数            │
+           │  animation-delay: 延迟时间                      │
+           │  animation-iteration-count: 迭代次数            │
+           │    - 1（默认）/ infinite / 数字                 │
+           │  animation-direction: 方向                      │
+           │    - normal（默认）/ reverse / alternate        │
+           │  animation-fill-mode: 填充模式                  │
+           │    - none（默认）/ forwards / backwards / both  │
+           │  animation-play-state: 播放状态                 │
+           │    - running（默认）/ paused                    │
+           └─────────────────────────────────────────────────┘
+           
+           animation 简写：
+           animation: name duration timing-function delay iteration-count direction fill-mode;
+           
+           与 transition 的区别：
+           - transition：需要触发状态变化，单次过渡
+           - animation：可以自动播放，支持多关键帧，可循环
+           
+           常用场景：
+           - 加载动画（spinner）
+           - 脉冲效果
+           - 弹跳动画
+           - 旋转效果
+           - 渐入渐出
+           
+           性能优化：
+           - 优先使用 transform 和 opacity
+           - 使用 will-change 提示浏览器
+           - 避免在动画中触发重排
+           
+           ================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* ================================================
+           基础关键帧动画
+           ================================================ */
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slide-right {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        @keyframes scale-up {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+
+        .basic-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        .anim-fade {
+            background: #3498db;
+            animation: fade-in 1s ease infinite alternate;
+        }
+
+        .anim-slide {
+            background: #2ecc71;
+            animation: slide-right 1s ease infinite alternate;
+        }
+
+        .anim-scale {
+            background: #e74c3c;
+            animation: scale-up 1s ease infinite alternate;
+        }
+
+        /* ================================================
+           加载动画（Spinner）
+           ================================================ */
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ecf0f1;
+            border-top-color: #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .spinner-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        @keyframes bounce-dot {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .dot {
+            width: 15px;
+            height: 15px;
+            background: #3498db;
+            border-radius: 50%;
+            animation: bounce-dot 0.6s ease infinite;
+        }
+
+        .dot:nth-child(2) { animation-delay: 0.1s; }
+        .dot:nth-child(3) { animation-delay: 0.2s; }
+
+        /* ================================================
+           脉冲效果
+           ================================================ */
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(52, 152, 219, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+
+        .pulse-circle {
+            width: 100px;
+            height: 100px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            animation: pulse 2s ease infinite;
+        }
+
+        /* ================================================
+           弹跳动画
+           ================================================ */
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
+            40%, 43% { transform: translateY(-30px); }
+            70% { transform: translateY(-15px); }
+            90% { transform: translateY(-4px); }
+        }
+
+        .bounce-ball {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            animation: bounce 2s ease infinite;
+        }
+
+        /* ================================================
+           旋转效果
+           ================================================ */
+
+        @keyframes rotate-3d {
+            from { transform: perspective(200px) rotateY(0deg); }
+            to { transform: perspective(200px) rotateY(360deg); }
+        }
+
+        .rotate-box {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            animation: rotate-3d 3s linear infinite;
+        }
+
+        /* ================================================
+           渐入渐出
+           ================================================ */
+
+        @keyframes fade-in-out {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .fade-box {
+            width: 120px;
+            height: 120px;
+            background: #2ecc71;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            animation: fade-in-out 2s ease infinite;
+        }
+
+        /* ================================================
+           摇摆效果
+           ================================================ */
+
+        @keyframes swing {
+            20% { transform: rotate(15deg); }
+            40% { transform: rotate(-10deg); }
+            60% { transform: rotate(5deg); }
+            80% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .swing-box {
+            width: 100px;
+            height: 100px;
+            background: #e74c3c;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transform-origin: top center;
+            animation: swing 2s ease infinite;
+        }
+
+        /* ================================================
+           波浪效果
+           ================================================ */
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .wave-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            height: 80px;
+        }
+
+        .wave-bar {
+            width: 20px;
+            background: linear-gradient(180deg, #3498db, #2ecc71);
+            border-radius: 4px 4px 0 0;
+            animation: wave 1s ease infinite;
+        }
+
+        .wave-bar:nth-child(1) { height: 40px; animation-delay: 0s; }
+        .wave-bar:nth-child(2) { height: 60px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { height: 50px; animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { height: 70px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { height: 45px; animation-delay: 0.4s; }
+
+        /* ================================================
+           按钮动画
+           ================================================ */
+
+        @keyframes btn-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+
+        .animated-btn {
+            padding: 15px 40px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            animation: btn-pulse 2s ease infinite;
+        }
+
+        /* ================================================
+           动画控制按钮
+           ================================================ */
+
+        .control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        .pause-anim {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .resume-anim {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .controlled-anim {
+            width: 80px;
+            height: 80px;
+            background: #9b59b6;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+
+        .paused {
+            animation-play-state: paused;
+        }
+
+        /* ================================================
+           多关键帧动画
+           ================================================ */
+
+        @keyframes rainbow {
+            0% { background: #e74c3c; }
+            16% { background: #f39c12; }
+            33% { background: #2ecc71; }
+            50% { background: #3498db; }
+            66% { background: #9b59b6; }
+            83% { background: #e74c3c; }
+            100% { background: #e74c3c; }
+        }
+
+        .rainbow-box {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            animation: rainbow 3s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-page {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-page a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-page a:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSS 关键帧动画</h1>
+
+    <!-- 基础动画 -->
+    <div class="section">
+        <h2>1. 基础关键帧动画</h2>
+        <p class="demo-label">使用 @keyframes 定义动画序列：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <p class="demo-label">fade-in（淡入）</p>
+                    <div class="basic-box anim-fade"></div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">slide-right（滑动）</p>
+                    <div class="basic-box anim-slide"></div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">scale-up（缩放）</p>
+                    <div class="basic-box anim-scale"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载动画 -->
+    <div class="section">
+        <h2>2. 加载动画</h2>
+        <p class="demo-label">常见的加载效果：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <p class="demo-label">旋转圈</p>
+                    <div class="spinner"></div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">弹跳点</p>
+                    <div class="spinner-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 脉冲效果 -->
+    <div class="section">
+        <h2>3. 脉冲效果</h2>
+        <p class="demo-label">按钮或图标的脉冲动画：</p>
+        
+        <div class="demo-area">
+            <div class="pulse-circle">脉冲</div>
+        </div>
+    </div>
+
+    <!-- 弹跳动画 -->
+    <div class="section">
+        <h2>4. 弹跳动画</h2>
+        <p class="demo-label">模拟物理弹跳效果：</p>
+        
+        <div class="demo-area">
+            <div class="bounce-ball"></div>
+        </div>
+    </div>
+
+    <!-- 旋转效果 -->
+    <div class="section">
+        <h2>5. 3D 旋转</h2>
+        <p class="demo-label">使用 perspective 实现 3D 旋转：</p>
+        
+        <div class="demo-area">
+            <div class="rotate-box">3D旋转</div>
+        </div>
+    </div>
+
+    <!-- 渐入渐出 -->
+    <div class="section">
+        <h2>6. 渐入渐出</h2>
+        <p class="demo-label">透明度循环变化：</p>
+        
+        <div class="demo-area">
+            <div class="fade-box">呼吸效果</div>
+        </div>
+    </div>
+
+    <!-- 摇摆效果 -->
+    <div class="section">
+        <h2>7. 摇摆效果</h2>
+        <p class="demo-label">钟摆式的摇摆动画：</p>
+        
+        <div class="demo-area">
+            <div class="swing-box">摇摆</div>
+        </div>
+    </div>
+
+    <!-- 波浪效果 -->
+    <div class="section">
+        <h2>8. 波浪效果</h2>
+        <p class="demo-label">音频波浪可视化效果：</p>
+        
+        <div class="demo-area">
+            <div class="wave-container">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 多关键帧 -->
+    <div class="section">
+        <h2>9. 多关键帧动画</h2>
+        <p class="demo-label">颜色渐变动画：</p>
+        
+        <div class="demo-area">
+            <div class="rainbow-box">彩虹色</div>
+        </div>
+    </div>
+
+    <!-- 动画控制 -->
+    <div class="section">
+        <h2>10. 动画控制</h2>
+        <p class="demo-label">暂停和恢复动画：</p>
+        
+        <div class="demo-area">
+            <div class="controlled-anim" id="controlledAnim"></div>
+            <div style="margin-top: 15px;">
+                <button class="control-btn pause-anim" onclick="document.getElementById('controlledAnim').classList.add('paused')">暂停</button>
+                <button class="control-btn resume-anim" onclick="document.getElementById('controlledAnim').classList.remove('paused')">恢复</button>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            关键帧动画可以创建复杂的动画效果，让界面更加生动！
+        </div>
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav-page">
+        <a href="01-transitions.html">⬅️ 上一课：过渡动画</a>
+        <a href="../roadmap.html">返回路线图</a>
+        <a href="03-transforms.html">下一课：变换 ➡️</a>
+    </div>
+
+</body>
+</html>

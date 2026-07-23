@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颜色与渐变</title>
+    <style>
+        /* ================================================
+           颜色与渐变
+           
+           颜色格式：
+           ┌─────────────────────────────────────────────────┐
+           │  命名颜色：red, blue, green, transparent        │
+           │  十六进制：#ff0000, #f00, #ff000080（带透明度） │
+           │  RGB：rgb(255, 0, 0)                           │
+           │  RGBA：rgba(255, 0, 0, 0.5)                    │
+           │  HSL：hsl(0, 100%, 50%)                        │
+           │  HSLA：hsla(0, 100%, 50%, 0.5)                 │
+           └─────────────────────────────────────────────────┘
+           
+           HSL 颜色模型：
+           - H (Hue)：色相，0-360度
+           - S (Saturation)：饱和度，0%-100%
+           - L (Lightness)：亮度，0%-100%
+           
+           渐变类型：
+           1. linear-gradient：线性渐变
+              linear-gradient(方向, 颜色1, 颜色2, ...)
+              方向：to right, to bottom right, 45deg
+           
+           2. radial-gradient：径向渐变
+              radial-gradient(形状, 颜色1, 颜色2, ...)
+              形状：circle, ellipse
+           
+           3. conic-gradient：锥形渐变
+              conic-gradient(颜色1, 颜色2, ...)
+           
+           渐变停止点：
+           - 默认均匀分布
+           - 可指定位置：linear-gradient(red 0%, blue 50%, green 100%)
+           - 重复渐变：repeating-linear-gradient()
+           
+           CSS 变量与颜色：
+           - 使用 CSS 变量管理主题色
+           - 便于主题切换
+           
+           透明度：
+           - opacity：整个元素透明
+           - rgba/hsla：只影响颜色透明度
+           - transparent：完全透明
+           
+           ================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        /* ================================================
+           颜色格式演示
+           ================================================ */
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .color-box {
+            padding: 30px 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* 命名颜色 */
+        .named-red { background: red; }
+        .named-blue { background: blue; }
+        .named-green { background: green; }
+        .named-orange { background: orange; }
+        .named-purple { background: purple; }
+        .named-teal { background: teal; }
+
+        /* 十六进制 */
+        .hex-ff0000 { background: #ff0000; }
+        .hex-3498db { background: #3498db; }
+        .hex-2ecc71 { background: #2ecc71; }
+        .hex-e74c3c { background: #e74c3c; }
+        .hex-9b59b6 { background: #9b59b6; }
+        .hex-1abc9c { background: #1abc9c; }
+
+        /* RGB */
+        .rgb-demo { background: rgb(255, 0, 0); }
+        .rgb-green { background: rgb(0, 128, 0); }
+        .rgb-blue { background: rgb(0, 0, 255); }
+
+        /* HSL */
+        .hsl-red { background: hsl(0, 100%, 50%); }
+        .hsl-blue { background: hsl(210, 100%, 50%); }
+        .hsl-green { background: hsl(120, 100%, 50%); }
+
+        /* ================================================
+           透明度演示
+           ================================================ */
+
+        .opacity-demo {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .opacity-box {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
+        /* ================================================
+           线性渐变演示
+           ================================================ */
+
+        .gradient-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .gradient-box {
+            height: 150px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .linear-right { background: linear-gradient(to right, #ff6b6b, #4ecdc4); }
+        .linear-bottom { background: linear-gradient(to bottom, #667eea, #764ba2); }
+        .linear-diagonal { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .linear-angle { background: linear-gradient(45deg, #4facfe, #00f2fe); }
+
+        /* ================================================
+           径向渐变演示
+           ================================================ */
+
+        .radial-center { background: radial-gradient(circle, #ff6b6b, #4ecdc4); }
+        .radial-circle { background: radial-gradient(circle at 30% 30%, #667eea, #764ba2); }
+        .radial-ellipse { background: radial-gradient(ellipse, #f093fb, #f5576c); }
+
+        /* ================================================
+           锥形渐变演示
+           ================================================ */
+
+        .conic-demo { background: conic-gradient(#ff6b6b, #4ecdc4, #667eea, #764ba2, #ff6b6b); }
+        .conic-pie { background: conic-gradient(red 0% 25%, blue 25% 50%, green 50% 75%, yellow 75% 100%); border-radius: 50%; }
+
+        /* ================================================
+           重复渐变演示
+           ================================================ */
+
+        .repeating-linear { background: repeating-linear-gradient(45deg, #667eea 0px, #667eea 10px, #764ba2 10px, #764ba2 20px); }
+        .repeating-radial { background: repeating-radial-gradient(circle, #ff6b6b 0px, #ff6b6b 10px, #4ecdc4 10px, #4ecdc4 20px); }
+
+        /* ================================================
+           渐变文字演示
+           ================================================ */
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        /* ================================================
+           CSS 变量主题演示
+           ================================================ */
+
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+
+        .theme-demo {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .theme-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .theme-primary { background: var(--primary); }
+        .theme-secondary { background: var(--secondary); }
+        .theme-danger { background: var(--danger); }
+        .theme-warning { background: var(--warning); }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-page {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-page a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-page a:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>颜色与渐变</h1>
+
+    <!-- 颜色格式 -->
+    <div class="section">
+        <h2>1. 颜色格式</h2>
+        <p class="demo-label">CSS 支持多种颜色表示方法：</p>
+        
+        <div class="demo-area">
+            <p class="demo-label">命名颜色</p>
+            <div class="color-grid">
+                <div class="color-box named-red">red</div>
+                <div class="color-box named-blue">blue</div>
+                <div class="color-box named-green">green</div>
+                <div class="color-box named-orange">orange</div>
+                <div class="color-box named-purple">purple</div>
+                <div class="color-box named-teal">teal</div>
+            </div>
+        </div>
+        
+        <div class="demo-area">
+            <p class="demo-label">十六进制</p>
+            <div class="color-grid">
+                <div class="color-box hex-ff0000">#ff0000</div>
+                <div class="color-box hex-3498db">#3498db</div>
+                <div class="color-box hex-2ecc71">#2ecc71</div>
+                <div class="color-box hex-e74c3c">#e74c3c</div>
+                <div class="color-box hex-9b59b6">#9b59b6</div>
+                <div class="color-box hex-1abc9c">#1abc9c</div>
+            </div>
+        </div>
+        
+        <div class="demo-area">
+            <p class="demo-label">RGB / HSL</p>
+            <div class="color-grid">
+                <div class="color-box rgb-demo">rgb(255,0,0)</div>
+                <div class="color-box hsl-red">hsl(0,100%,50%)</div>
+                <div class="color-box hsl-blue">hsl(210,100%,50%)</div>
+                <div class="color-box hsl-green">hsl(120,100%,50%)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 透明度 -->
+    <div class="section">
+        <h2>2. 透明度</h2>
+        <p class="demo-label">rgba 和 opacity 控制透明度：</p>
+        
+        <div class="demo-area">
+            <div class="opacity-demo">
+                <div class="opacity-box" style="background: rgba(52, 152, 219, 1);">100%</div>
+                <div class="opacity-box" style="background: rgba(52, 152, 219, 0.8);">80%</div>
+                <div class="opacity-box" style="background: rgba(52, 152, 219, 0.6);">60%</div>
+                <div class="opacity-box" style="background: rgba(52, 152, 219, 0.4);">40%</div>
+                <div class="opacity-box" style="background: rgba(52, 152, 219, 0.2);">20%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 线性渐变 -->
+    <div class="section">
+        <h2>3. 线性渐变</h2>
+        <p class="demo-label">linear-gradient() 创建直线渐变：</p>
+        
+        <div class="demo-area">
+            <div class="gradient-grid">
+                <div class="gradient-box linear-right">to right</div>
+                <div class="gradient-box linear-bottom">to bottom</div>
+                <div class="gradient-box linear-diagonal">135deg</div>
+                <div class="gradient-box linear-angle">45deg</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 径向渐变 -->
+    <div class="section">
+        <h2>4. 径向渐变</h2>
+        <p class="demo-label">radial-gradient() 创建圆形渐变：</p>
+        
+        <div class="demo-area">
+            <div class="gradient-grid">
+                <div class="gradient-box radial-center">circle</div>
+                <div class="gradient-box radial-circle">circle at 30% 30%</div>
+                <div class="gradient-box radial-ellipse">ellipse</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 锥形渐变 -->
+    <div class="section">
+        <h2>5. 锥形渐变</h2>
+        <p class="demo-label">conic-gradient() 创建锥形渐变：</p>
+        
+        <div class="demo-area">
+            <div class="gradient-grid">
+                <div class="gradient-box conic-demo">锥形渐变</div>
+                <div class="gradient-box conic-pie" style="width: 150px; height: 150px; margin: 0 auto;">饼图效果</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 重复渐变 -->
+    <div class="section">
+        <h2>6. 重复渐变</h2>
+        <p class="demo-label">repeating-linear-gradient() 创建重复图案：</p>
+        
+        <div class="demo-area">
+            <div class="gradient-grid">
+                <div class="gradient-box repeating-linear">重复线性</div>
+                <div class="gradient-box repeating-radial">重复径向</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 渐变文字 -->
+    <div class="section">
+        <h2>7. 渐变文字</h2>
+        <p class="demo-label">使用 background-clip 实现渐变文字效果：</p>
+        
+        <div class="demo-area">
+            <div class="gradient-text">渐变文字效果</div>
+        </div>
+    </div>
+
+    <!-- CSS 变量主题 -->
+    <div class="section">
+        <h2>8. CSS 变量与主题</h2>
+        <p class="demo-label">使用 CSS 变量管理主题色：</p>
+        
+        <div class="demo-area">
+            <div class="theme-demo">
+                <button class="theme-btn theme-primary">Primary</button>
+                <button class="theme-btn theme-secondary">Secondary</button>
+                <button class="theme-btn theme-danger">Danger</button>
+                <button class="theme-btn theme-warning">Warning</button>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            掌握颜色和渐变，让你的界面更加生动！
+        </div>
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav-page">
+        <a href="../03-layout/04-responsive.html">⬅️ 上一课：响应式</a>
+        <a href="../roadmap.html">返回路线图</a>
+        <a href="02-typography.html">下一课：字体与文本 ➡️</a>
+    </div>
+
+</body>
+</html>

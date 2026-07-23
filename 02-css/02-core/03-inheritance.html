@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 继承</title>
+    <style>
+        /* ================================================
+           CSS 继承机制 (Inheritance)
+           
+           某些CSS属性会从父元素传递给子元素。
+           
+           可继承的属性（文本相关）：
+           ┌─────────────────────────────────────────┐
+           │  字体：font-family, font-size,         │
+           │        font-weight, line-height,       │
+           │        font-style                      │
+           │  文本：color, text-align, text-indent,  │
+           │        text-decoration, letter-spacing  │
+           │  列表：list-style, list-style-type      │
+           │  表格：border-collapse, border-spacing  │
+           │  其他：visibility, cursor               │
+           └─────────────────────────────────────────┘
+           
+           不可继承的属性（盒模型相关）：
+           ┌─────────────────────────────────────────┐
+           │  margin, padding, border                │
+           │  width, height, display, position       │
+           │  background, overflow, z-index          │
+           └─────────────────────────────────────────┘
+           
+           继承值的特异性：
+           - 继承来的值特异性为 0（最低）
+           - 任何直接应用的规则都会覆盖继承值
+           
+           关键字：
+           - inherit：强制使用继承值
+           - initial：重置为CSS规范的初始值
+           - unset：继承属性用继承值，非继承属性用初始值
+           
+           ================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        /* ================================================
+           继承演示
+           
+           font-family, font-size, color, line-height 会继承
+           ================================================ */
+
+        .inheritance-demo .parent {
+            font-size: 18px;
+            color: #2c3e50;
+            line-height: 2;
+        }
+
+        .inheritance-demo .child {
+            background: #e7f3ff;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .inheritance-demo .grandchild {
+            background: #d5f5e3;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        /* ================================================
+           不可继承属性演示
+           
+           padding, border, background 不会继承
+           ================================================ */
+
+        .no-inherit-demo .parent-box {
+            background: #e74c3c;
+            padding: 20px;
+            border: 5px solid #2c3e50;
+            color: white;
+            margin: 10px 0;
+        }
+
+        .no-inherit-demo .child-box {
+            background: #3498db;
+            padding: 15px;
+            border: 3px solid #2c3e50;
+            color: white;
+            margin-top: 15px;
+        }
+
+        /* ================================================
+           inherit 关键字演示
+           
+           - 默认继承：子元素继承父元素的 color、font-size
+           - 覆盖继承：子元素设置自己的 color、font-size
+           - 强制继承：使用 inherit 关键字
+           - 重置初始值：使用 initial 关键字
+           ================================================ */
+
+        .inherit-keyword-demo .parent-text {
+            color: #9b59b6;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .inherit-keyword-demo .child-normal {
+            /* 默认会继承 */
+        }
+
+        .inherit-keyword-demo .child-override {
+            color: #e74c3c;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .inherit-keyword-demo .child-inherit {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+        }
+
+        .inherit-keyword-demo .child-initial {
+            color: initial;
+            font-size: initial;
+            font-weight: initial;
+        }
+
+        /* ================================================
+           文本容器演示
+           
+           在容器上设置字体样式，所有子元素自动继承
+           ================================================ */
+
+        .text-container {
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #2c3e50;
+        }
+
+        .text-container p {
+            margin-bottom: 15px;
+        }
+
+        .text-container .highlight {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* ================================================
+           列表继承演示
+           
+           list-style-type 会继承给子列表
+           ================================================ */
+
+        .list-demo ul {
+            list-style-type: square;
+            margin-left: 20px;
+        }
+
+        .list-demo li {
+            margin-bottom: 5px;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-links a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSS 继承</h1>
+
+    <!-- 可继承属性演示 -->
+    <div class="section">
+        <h2>1. 可继承的属性</h2>
+        <p class="demo-label">字体和文本属性会从父元素传递给子元素：</p>
+        
+        <div class="demo-area inheritance-demo">
+            <div class="parent">
+                父元素（18px, 深蓝色）
+                <div class="child">
+                    子元素自动继承字体大小和颜色
+                    <div class="grandchild">
+                        孙元素继续继承
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 不可继承属性演示 -->
+    <div class="section">
+        <h2>2. 不可继承的属性</h2>
+        <p class="demo-label">盒模型属性需要单独设置：</p>
+        
+        <div class="demo-area no-inherit-demo">
+            <div class="parent-box">
+                父元素：红色背景，20px padding，5px 边框
+                <div class="child-box">
+                    子元素：需要单独设置背景、padding 和边框
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- inherit 关键字 -->
+    <div class="section">
+        <h2>3. inherit 关键字</h2>
+        <p class="demo-label">观察不同继承方式的效果：</p>
+        
+        <div class="demo-area inherit-keyword-demo">
+            <div class="parent-text">
+                父元素：紫色，18px，粗体
+                <p class="child-normal">默认继承：紫色，18px，粗体</p>
+                <p class="child-override">覆盖继承：红色，14px，正常</p>
+                <p class="child-inherit">inherit 关键字：紫色，18px，粗体</p>
+                <p class="child-initial">initial 关键字：默认样式</p>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            坚持学习，每个概念都让你离目标更近一步
+        </div>
+    </div>
+
+    <!-- 文本容器应用 -->
+    <div class="section">
+        <h2>4. 实际应用</h2>
+        <p class="demo-label">在容器上设置字体样式，所有子元素自动继承：</p>
+        
+        <div class="demo-area">
+            <div class="text-container">
+                <p>在容器上设置字体、大小、行高和颜色，所有子元素自动继承。</p>
+                <p>这样可以避免为每个元素重复设置这些属性。</p>
+                <p>需要特殊样式的元素可以单独覆盖：<span class="highlight">比如这个高亮文字</span>。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 列表继承 -->
+    <div class="section">
+        <h2>5. 列表继承</h2>
+        <p class="demo-label">列表样式也会继承给子列表：</p>
+        
+        <div class="demo-area list-demo">
+            <ul>
+                <li>列表项（继承了 square 样式）
+                    <ul>
+                        <li>嵌套列表（也继承了 square 样式）</li>
+                        <li>另一个嵌套列表项</li>
+                    </ul>
+                </li>
+                <li>另一个列表项</li>
+            </ul>
+        </div>
+        
+        <div class="info-box">
+            每一次实践都是成长的机会，保持热情！
+        </div>
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav-links">
+        <a href="02-specificity.html">⬅️ 上一课：特异性</a>
+        <a href="../roadmap.html">返回路线图</a>
+        <a href="04-units.html">下一课：单位与值 ➡️</a>
+    </div>
+
+</body>
+</html>

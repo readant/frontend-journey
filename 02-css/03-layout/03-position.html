@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 定位</title>
+    <style>
+        /* ================================================
+           CSS 定位 (Position)
+           
+           position 属性决定元素的定位方式：
+           
+           1. static（默认）：
+              - 元素按正常文档流排列
+              - top/right/bottom/left/z-index 无效
+           
+           2. relative：
+              - 相对于自身正常位置定位
+              - 原来的空间保留
+              - 常用于作为绝对定位的参考
+           
+           3. absolute：
+              - 相对于最近的已定位祖先元素定位
+              - 脱离文档流
+              - 原来的空间不保留
+           
+           4. fixed：
+              - 相对于浏览器窗口定位
+              - 脱离文档流
+              - 滚动时位置不变
+           
+           5. sticky：
+              - 正常流中定位
+              - 滚动到阈值时变成固定定位
+              - 需要设置 top/bottom 才能生效
+           
+           定位偏移：
+           - top/right/bottom/left：设置定位元素的位置
+           - 百分比相对于包含块的对应尺寸
+           
+           z-index：
+           - 控制堆叠顺序
+           - 值越大越靠上
+           - 只对已定位元素有效
+           - 创建了层叠上下文
+           
+           层叠上下文（Stacking Context）：
+           - 根元素创建层叠上下文
+           - position 不是 static 且 z-index 不是 auto
+           - opacity 小于 1
+           - transform/filter 等属性
+           
+           ================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 2px dashed #ddd;
+            position: relative;
+        }
+
+        .demo-item {
+            padding: 15px;
+            background: #3498db;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        /* ================================================
+           relative 演示
+           ================================================ */
+
+        .relative-demo {
+            position: relative;
+            top: 20px;
+            left: 30px;
+        }
+
+        /* ================================================
+           absolute 演示
+           ================================================ */
+
+        .absolute-demo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+        }
+
+        /* ================================================
+           fixed 演示
+           ================================================ */
+
+        .fixed-demo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2ecc71;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* ================================================
+           sticky 演示
+           ================================================ */
+
+        .sticky-container {
+            height: 300px;
+            overflow-y: scroll;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .sticky-item {
+            position: sticky;
+            top: 0;
+            background: #9b59b6;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .sticky-content {
+            padding: 20px;
+        }
+
+        /* ================================================
+           z-index 演示
+           ================================================ */
+
+        .z-index-demo {
+            position: relative;
+            height: 200px;
+        }
+
+        .z-index-box {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
+        .z-index-box:nth-child(1) {
+            background: #e74c3c;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+
+        .z-index-box:nth-child(2) {
+            background: #3498db;
+            top: 50px;
+            left: 60px;
+            z-index: 2;
+        }
+
+        .z-index-box:nth-child(3) {
+            background: #2ecc71;
+            top: 80px;
+            left: 100px;
+            z-index: 3;
+        }
+
+        /* ================================================
+           居中演示
+           ================================================ */
+
+        .center-relative {
+            position: relative;
+            height: 200px;
+        }
+
+        .center-absolute {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #f39c12;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 8px;
+        }
+
+        /* ================================================
+           导航栏演示
+           ================================================ */
+
+        .navbar-demo {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-page {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-page a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-page a:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSS 定位</h1>
+
+    <!-- relative -->
+    <div class="section">
+        <h2>1. relative（相对定位）</h2>
+        <p class="demo-label">相对于自身正常位置偏移：</p>
+        
+        <div class="demo-area">
+            <div class="demo-item">正常元素</div>
+            <div class="demo-item relative-demo">relative: top:20px, left:30px</div>
+            <div class="demo-item">正常元素（位置不变）</div>
+        </div>
+    </div>
+
+    <!-- absolute -->
+    <div class="section">
+        <h2>2. absolute（绝对定位）</h2>
+        <p class="demo-label">相对于最近的已定位祖先元素定位：</p>
+        
+        <div class="demo-area">
+            <div class="demo-item">正常元素</div>
+            <div class="demo-item" style="background: #9b59b6;">
+                正常元素（位置已调整）
+            </div>
+            <div class="demo-item absolute-demo">absolute: top:10px, right:10px</div>
+        </div>
+    </div>
+
+    <!-- fixed -->
+    <div class="section">
+        <h2>3. fixed（固定定位）</h2>
+        <p class="demo-label">相对于浏览器窗口定位，滚动时位置不变：</p>
+        
+        <div class="demo-area">
+            <div class="demo-item">正常元素</div>
+            <div class="demo-item">正常元素</div>
+        </div>
+        
+        <div class="info-box">
+            固定定位元素始终在右下角，即使滚动也不会移动
+        </div>
+    </div>
+
+    <!-- sticky -->
+    <div class="section">
+        <h2>4. sticky（粘性定位）</h2>
+        <p class="demo-label">滚动到阈值时变成固定定位：</p>
+        
+        <div class="sticky-container">
+            <div class="sticky-item">sticky: top: 0（滚动时会固定）</div>
+            <div class="sticky-content">
+                <p>向下滚动查看效果...</p>
+                <p>内容 1</p>
+                <p>内容 2</p>
+                <p>内容 3</p>
+                <p>内容 4</p>
+                <p>内容 5</p>
+                <p>内容 6</p>
+                <p>内容 7</p>
+                <p>内容 8</p>
+                <p>内容 9</p>
+                <p>内容 10</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- z-index -->
+    <div class="section">
+        <h2>5. z-index（堆叠顺序）</h2>
+        <p class="demo-label">值越大越靠上：</p>
+        
+        <div class="demo-area">
+            <div class="z-index-demo">
+                <div class="z-index-box">z-index: 1</div>
+                <div class="z-index-box">z-index: 2</div>
+                <div class="z-index-box">z-index: 3</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 水平垂直居中 -->
+    <div class="section">
+        <h2>6. 水平垂直居中</h2>
+        <p class="demo-label">使用 absolute + transform 实现居中：</p>
+        
+        <div class="demo-area center-relative">
+            <div class="center-absolute">居中内容</div>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="section">
+        <h2>7. 实际应用</h2>
+        <p class="demo-label">定位常用于导航栏、悬浮按钮等：</p>
+        
+        <div class="navbar-demo">
+            <div class="logo">Logo</div>
+            <div>导航项</div>
+        </div>
+        
+        <div class="info-box">
+            定位是CSS布局的重要补充，灵活运用它！
+        </div>
+    </div>
+
+    <!-- 固定按钮 -->
+    <div class="fixed-demo">
+        固定按钮
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav-page">
+        <a href="02-grid.html">⬅️ 上一课：Grid</a>
+        <a href="../roadmap.html">返回路线图</a>
+        <a href="04-responsive.html">下一课：响应式 ➡️</a>
+    </div>
+
+</body>
+</html>

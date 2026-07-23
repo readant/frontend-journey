@@ -1,0 +1,420 @@
+/*
+    ============================================
+    CSS Reset（样式重置）
+    ============================================
+    * 选择器：选中所有元素
+    - margin: 0;  清除外边距
+    - padding: 0; 清除内边距
+    - box-sizing: border-box; 使width/height包含padding和border
+
+    目的：消除浏览器默认样式差异，确保各浏览器显示一致
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+    ============================================
+    body 基础样式
+    ============================================
+    - background-color: #f5f5f5;  浅灰色背景
+    - font-family: 设置字体优先级，优先使用微软雅黑
+*/
+body {
+    background-color: #f5f5f5;
+    font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+/*
+    ============================================
+    顶部导航栏 (.header)
+    ============================================
+    布局思路：
+    1. header 是固定宽度的白色容器
+    2. header-content 使用 flex 布局，内容居中且左右分布
+    3. 左边是店铺信息，右边是搜索框
+
+    关键CSS属性：
+    - display: flex;  弹性布局
+    - justify-content: space-between;  左右两端对齐
+    - align-items: center;  垂直居中
+*/
+
+/* 顶部导航栏 */
+.header {
+    background-color: #fff;          /* 白色背景 */
+    padding: 15px 0;                 /* 上下15px内边距 */
+    border-bottom: 1px solid #eee;   /* 底部浅灰色边线 */
+}
+
+/* 头部内容容器：限制最大宽度并居中 */
+.header-content {
+    max-width: 1200px;               /* 最大宽度1200px */
+    margin: 0 auto;                  /* 水平居中：左右margin为auto */
+    display: flex;                   /* 弹性布局 */
+    justify-content: space-between;  /* 左右两端对齐 */
+    align-items: center;             /* 垂直居中对齐 */
+}
+
+/*
+    ============================================
+    店铺信息区域 (.shop-info)
+    ============================================
+    布局：flex + align-items: center 使logo和文字垂直居中
+    - logo图片固定80x80像素
+    - 店铺名称使用h1标签，字号24px加粗
+*/
+
+/* 店铺信息：logo + 店铺名称 + 评分 */
+.shop-info {
+    display: flex;                   /* 弹性布局 */
+    align-items: center;             /* 垂直居中 */
+}
+
+/* 小米logo图片 */
+.logo {
+    width: 80px;                     /* 固定宽度 */
+    height: 80px;                    /* 固定高度 */
+    margin-right: 15px;              /* 右边距15px，与文字间隔 */
+}
+
+/* 店铺名称 */
+.shop-name {
+    font-size: 24px;                 /* 字号24px */
+    font-weight: bold;               /* 加粗 */
+    color: #333;                     /* 深灰色文字 */
+    margin-bottom: 5px;              /* 底部间距5px */
+}
+
+/*
+    ============================================
+    星星评分和粉丝数
+    ============================================
+    布局：flex水平排列，垂直居中
+    - 星星使用Font Awesome图标，颜色为橙色#FE6700
+    - 粉丝数为普通文字
+*/
+
+/* 评分区域容器 */
+.shop-rating {
+    display: flex;
+    align-items: center;
+}
+
+/* 星星图片 */
+.stars-img {
+    height: 16px;
+    margin-right: 15px;
+}
+
+/* 粉丝数文字 */
+.fans {
+    color: #333;                     /* 深灰色 */
+    font-size: 14px;                 /* 字号14px */
+}
+
+/*
+    ============================================
+    搜索框 (.search-box)
+    ============================================
+    布局：flex水平排列
+    结构：
+    1. 搜索输入框：左侧，无右边框（与按钮无缝连接）
+    2. 搜索按钮：右侧，橙色背景
+
+    关键技巧：
+    - border-right: none; 去掉输入框右边框，与按钮无缝拼接
+    - cursor: pointer; 按钮显示小手图标
+    - ::placeholder 伪元素设置提示文字颜色
+*/
+
+/* 搜索框容器 */
+.search-box {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* 搜索输入框 */
+.search-input {
+    flex: 1;
+    height: 36px;
+    padding: 0 16px;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+/* 搜索框提示文字样式 */
+.search-input::placeholder {
+    color: #999;
+}
+
+/* 搜索按钮（浅色样式） */
+.search-btn-outline {
+    height: 36px;
+    padding: 0 14px;
+    background-color: transparent;
+    color: #999;
+    border: none;
+    border-left: 1px solid #eee;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* 搜索按钮（橙色实心样式） */
+.search-btn {
+    height: 36px;
+    padding: 0 18px;
+    margin: 3px;
+    background-color: #FE6700;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* 搜索按钮悬停效果 */
+.search-btn:hover {
+    background-color: #e55a00;
+}
+
+/*
+    ============================================
+    主体容器 (.main-container)
+    ============================================
+    布局：flex水平排列
+    - 左侧边栏固定宽度200px
+    - 右侧商品区域自动填充剩余空间
+
+    关键属性：
+    - flex: 1 (在.sidebar中使用flex-shrink: 0防止被压缩)
+    - gap: 20px; 项目之间的间距
+*/
+
+/* 主体容器 */
+.main-container {
+    max-width: 1200px;               /* 最大宽度 */
+    margin: 20px auto;               /* 上下20px外边距，水平居中 */
+    display: flex;                   /* 弹性布局 */
+    gap: 20px;                       /* 项目间距20px */
+}
+
+/*
+    ============================================
+    左侧边栏 (.sidebar)
+    ============================================
+    布局：
+    1. 固定宽度200px
+    2. 白色背景
+    3. flex-shrink: 0 防止在flex布局中被压缩
+
+    菜单项交互效果：
+    - hover时背景变为橙色 #FE6700
+    - 文字和箭头变为白色
+    - transition实现平滑过渡动画
+*/
+
+/* 左侧边栏 */
+.sidebar {
+    width: 200px;                    /* 固定宽度200px */
+    background-color: #fff;          /* 白色背景 */
+    flex-shrink: 0;                  /* 防止被压缩 */
+}
+
+/* 菜单列表：去掉默认样式 */
+.menu-list {
+    list-style: none;                /* 去掉列表项前面的圆点 */
+}
+
+/*
+    菜单项 (.menu-item)
+    布局：flex水平排列，文字在左，箭头在右
+    - justify-content: space-between; 左右两端对齐
+    - padding: 15px 20px; 上下15px，左右20px内边距
+    - border-bottom: 底部边线分隔每个菜单项
+    - transition: 平滑过渡动画（hover效果时使用）
+*/
+.menu-item {
+    display: flex;
+    justify-content: space-between;  /* 左右两端对齐 */
+    align-items: center;             /* 垂直居中 */
+    padding: 15px 20px;              /* 内边距 */
+    cursor: pointer;                 /* 鼠标显示小手 */
+    border-bottom: 1px solid #f5f5f5;  /* 底部边线 */
+    transition: background-color 0.2s;  /* 0.2秒平滑过渡 */
+}
+
+/* 菜单项悬停效果：背景变橙色，文字变白色 */
+.menu-item:hover {
+    background-color: #FE6700;       /* 橙色背景 */
+    color: #fff;                     /* 白色文字 */
+}
+
+/* 菜单文字 */
+.menu-item span {
+    font-size: 14px;
+}
+
+/* 向下箭头图标（Font Awesome） */
+.menu-item i {
+    font-size: 12px;
+    color: #999;                     /* 默认灰色 */
+}
+
+/* 悬停时箭头也变白色 */
+.menu-item:hover i {
+    color: #fff;
+}
+
+/*
+    ============================================
+    商品网格 (.product-grid)
+    ============================================
+    布局：CSS Grid 网格布局
+    - grid-template-columns: repeat(4, 1fr); 创建4列等宽网格
+    - 1fr 表示1份比例的空间
+    - gap: 15px; 网格项之间的间距
+
+    CSS Grid 优势：
+    - 比float更现代的布局方式
+    - 天然支持多列等宽布局
+    - 响应式友好
+*/
+
+/* 商品网格容器 */
+.product-grid {
+    flex: 1;                         /* 占据剩余空间 */
+    display: grid;                   /* 启用网格布局 */
+    grid-template-columns: repeat(4, 1fr);  /* 4列等宽 */
+    gap: 15px;                       /* 网格间距15px */
+}
+
+/*
+    ============================================
+    商品卡片 (.product-card)
+    ============================================
+    结构：
+    1. .product-img - 商品图片（正方形，使用aspect-ratio保持比例）
+    2. .product-info - 商品信息区域
+       - .product-title - 商品标题（两行截断）
+       - .product-tag - 标签（热销榜/补贴等）
+       - .product-price - 价格和销量
+
+    交互效果：
+    - hover时显示阴影 box-shadow
+    - transition实现平滑动画
+
+    关键CSS技巧：
+    - aspect-ratio: 1; 使容器保持1:1正方形
+    - object-fit: cover; 图片填充容器且不变形
+    - -webkit-line-clamp: 2; 文字两行截断
+    - display: -webkit-box; 配合line-clamp使用
+*/
+
+/* 商品卡片 */
+.product-card {
+    background-color: #fff;          /* 白色背景 */
+    cursor: pointer;                 /* 鼠标显示小手 */
+    transition: box-shadow 0.3s;     /* 0.3秒阴影过渡 */
+}
+
+/* 商品卡片悬停：显示阴影效果 */
+.product-card:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);  /* 轻微阴影 */
+}
+
+/*
+    商品图片容器
+    - aspect-ratio: 1; 保持1:1宽高比（正方形）
+    - overflow: hidden; 隐藏超出部分
+*/
+.product-img {
+    width: 100%;
+    aspect-ratio: 1;                 /* 宽高比1:1 */
+    overflow: hidden;
+    background-color: #f5f5f5;       /* 浅灰色背景 */
+}
+
+/* 确保所有商品图片显示为正方形 */
+.product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;               /* 填充容器，保持比例 */
+    display: block;                  /* 去掉图片底部间隙 */
+}
+
+/* 商品信息区域 */
+.product-info {
+    padding: 12px;                   /* 内边距12px */
+}
+
+/*
+    商品标题 - 两行截断效果
+    ============================================
+    关键属性解释：
+    - height: 36px; 固定高度（两行的高度）
+    - overflow: hidden; 隐藏超出内容
+    - display: -webkit-box; 启用弹性盒子模型
+    - -webkit-line-clamp: 2; 限制最多显示2行
+    - -webkit-box-orient: vertical; 设置盒子方向为垂直
+    - line-height: 1.4; 行高1.4倍，控制行间距
+*/
+.product-title {
+    font-size: 13px;
+    font-weight: normal;             /* 不加粗 */
+    color: #333;
+    line-height: 1.4;                /* 行高1.4倍 */
+    height: 36px;                    /* 固定高度（两行） */
+    overflow: hidden;                /* 隐藏超出内容 */
+    display: -webkit-box;            /* 启用弹性盒子 */
+    -webkit-line-clamp: 2;           /* 最多显示2行 */
+    -webkit-box-orient: vertical;    /* 垂直方向 */
+    margin-bottom: 8px;
+}
+
+/*
+    商品标签
+    - 默认橙色（热销榜等）
+    - .tag-green 类：绿色（政府补贴等）
+*/
+.product-tag {
+    font-size: 12px;
+    color: #FE6700;                  /* 橙色 */
+    margin-bottom: 8px;
+}
+
+/* 绿色标签（如"政府补贴"） */
+.product-tag.tag-green {
+    color: #28b249;                  /* 绿色 */
+}
+
+/*
+    价格区域
+    - flex水平排列
+    - align-items: baseline; 按文字基线对齐（¥符号与数字对齐）
+*/
+.product-price {
+    display: flex;
+    align-items: baseline;           /* 基线对齐 */
+}
+
+/* 价格数字 */
+.price {
+    font-size: 20px;                 /* 大字号突出价格 */
+    font-weight: bold;               /* 加粗 */
+    color: #FE6700;                  /* 橙色 */
+    margin-right: 10px;
+}
+
+/* 销量文字 */
+.sales {
+    font-size: 12px;
+    color: #999;                     /* 灰色 */
+}

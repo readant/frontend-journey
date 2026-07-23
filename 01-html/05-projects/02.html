@@ -13,8 +13,17 @@
 
         <p>考试科目：统一建模语言</p>
         <p>时间：100分钟</p>
+        <p>班级（必填）
+            <input type="text" width="220" border="2">
+        </p>
 
-        <p>班级（必填）<input type="text" width="220" border="2"></p>
+        <!--  追加重置按钮 -->
+        <p>班级（必填）
+            <input type="text" width="220" border="2">
+            <input type="reset" width="220" border="2">
+
+        </p>
+
         <p>学号（必填）<input type="text" width="220" border="2"></p>
         <p>姓名（必填）<input type="text" width="220" border="2"></p>
 
@@ -28,43 +37,36 @@
             </li>
         </ol>
 
-        <h2>二、选择题（每题10分，共20分）</h2>
+        <h2 id="P2">二、选择题（每题10分，共20分）</h2>
+
         <ol>
             <li>UML与软件工程的关系是
-                <ul type="none">
-                    <li><input type="radio" name="q1"> (A)UML就是软件工程</li>
-                    <li><input type="radio" name="q1"> (B) UML参与到软件工程中软件开发过程的几个阶段</li>
-                    <li><input type="radio" name="q1"> (C) UML与软件工程无关</li>
-                    <li><input type="radio" name="q1"> (D)UML是软件工程的一部分</li>
-                </ul>
+                <br><input type="radio" name="q1"> (A)UML就是软件工程
+                <br><input type="radio" name="q1"> (B) UML参与到软件工程中软件开发过程的几个阶段
+                <br><input type="radio" name="q1"> (C) UML与软件工程无关
+                <br><input type="radio" name="q1"> (D)UML是软件工程的一部分
             </li>
             <li>Java语言支持:
-                <ul type="none">
-                    <li><input type="radio" name="q2"> (A)单继承</li>
-                    <li><input type="radio" name="q2"> (B) 多继承</li>
-                    <li><input type="radio" name="q2"> (C)单继承和多继承都支持</li>
-                    <li><input type="radio" name="q2"> (D)单继承和多继承都不支持</li>
-                </ul>
+                <br><input type="radio" name="q2"> (A)单继承
+                <br><input type="radio" name="q2"> (B) 多继承
+                <br><input type="radio" name="q2"> (C)单继承和多继承都支持
+                <br><input type="radio" name="q2"> (D)单继承和多继承都不支持
             </li>
         </ol>
 
         <h2>三、多项选择题(每题10分，共20分)</h2>
         <ol>
             <li>用例的粒度分为以下哪三种
-                <ul type="none">
-                    <li><input type="checkbox"> (A)概述级</li>
-                    <li><input type="checkbox"> (B)需求级</li>
-                    <li><input type="checkbox"> (C)用户目标级</li>
-                    <li><input type="checkbox"> (D)子功能级</li>
-                </ul>
+                <br><input type="checkbox"> (A)概述级
+                <br><input type="checkbox"> (B)需求级
+                <br><input type="checkbox"> (C)用户目标级
+                <br><input type="checkbox"> (D)子功能级
             </li>
             <li>类图由以下哪三部分组成:
-                <ul type="none">
-                    <li><input type="checkbox"> (A)名称(Name)</li>
-                    <li><input type="checkbox"> (B) 属性(Attribute)</li>
-                    <li><input type="checkbox"> (C) 操作(Operation)</li>
-                    <li><input type="checkbox"> (D)方法(Function)</li>
-                </ul>
+                <br><input type="checkbox"> (A)名称(Name)
+                <br><input type="checkbox"> (B) 属性(Attribute)
+                <br><input type="checkbox"> (C) 操作(Operation)
+                <br><input type="checkbox"> (D)方法(Function)
             </li>
         </ol>
 
@@ -75,6 +77,7 @@
                     <tr>
                         <td>用例图只是用于和客户交流和沟通的用于确定需求。</td>
                         <td><input type="radio" name="t1"> ○</td>
+                        <td><input type="radio" name="t1"> ○</td>
                     </tr>
                 </table>
             </li>
@@ -83,12 +86,16 @@
                     <tr>
                         <td>在状态图中终止状态在一个状态图中允许有任意多个。</td>
                         <td><input type="radio" name="t2"> ○</td>
+                        <td><input type="radio" name="t2"> ○</td>
                     </tr>
                 </table>
             </li>
         </ol>
 
-        <h2>五、简答题（每题20分，共二十分）</h2>
+
+        <a href="#P2">
+            <h2>五、简答题（每题20分，共二十分）</h2>
+        </a>
         <p>1. 简述什么是模型以及模型的表现形式?</p>
         <textarea width="420" height="190" border="2"></textarea>
 

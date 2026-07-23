@@ -1,20 +1,20 @@
 {
-  // 编辑器基础设置
-  "editor.tabSize": 2,                     // 制表符宽度设为2个字符
-  "editor.insertSpaces": false,            // 使用制表符（Tab）而不是空格进行缩进
-  "editor.formatOnSave": true,             // 保存文件时自动格式化代码
-  
-  // 格式化工具设置
-  "editor.defaultFormatter": "esbenp.prettier-vscode",  // 使用Prettier作为默认格式化工具
-  
-  // 语言特定格式化设置
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"  // HTML文件使用Prettier格式化
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"  // CSS文件使用Prettier格式化
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"  // JavaScript文件使用Prettier格式化
-  }
+	// 编辑器基础设置
+	"editor.tabSize": 2, // 制表符宽度设为2个字符
+	"editor.insertSpaces": false, // 使用制表符（Tab）而不是空格进行缩进
+	"editor.formatOnSave": true, // 保存文件时自动格式化代码
+
+	// 格式化工具设置
+	"editor.defaultFormatter": "esbenp.prettier-vscode", // 使用Prettier作为默认格式化工具
+
+	// 语言特定格式化设置
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode" // HTML文件使用Prettier格式化
+	},
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode" // CSS文件使用Prettier格式化
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode" // JavaScript文件使用Prettier格式化
+	}
 }
