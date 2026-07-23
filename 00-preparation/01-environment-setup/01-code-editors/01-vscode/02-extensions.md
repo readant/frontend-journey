@@ -407,7 +407,7 @@
 
 ---
 
-## 📁 截图存放位置
+## 截图存放位置
 
 建议将插件截图统一存放在以下目录：
 
@@ -424,7 +424,7 @@
     └── ...
 ```
 
-## 🔗 相关资源
+## 相关资源
 
 - [VS Code 官方插件市场](https://marketplace.visualstudio.com/)
 - [VS Code 插件搜索](https://marketplace.visualstudio.com/search?target=VSCode)

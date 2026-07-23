@@ -1,8 +1,8 @@
-# 🔧 Common Tools
+# Common Tools
 
 This directory documents auxiliary tools and productivity tools commonly used during development.
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 03-common-tools/
@@ -11,24 +11,27 @@ This directory documents auxiliary tools and productivity tools commonly used du
 └── 03-productivity/     # Productivity tools
 ```
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 ### CLI Tools
+
 - Master common command line operations
 - Learn shell script writing
 - Understand automation scripts
 
 ### Development Helpers
+
 - Code formatting tools
 - Code review tools
 - Performance analysis tools
 
 ### Productivity Tools
+
 - Text processing tools
 - File management tools
 - Time management tools
 
-## 📋 Common Tools List
+## Common Tools List
 
 | Category | Tool | Purpose |
 | :--- | :--- | :--- |

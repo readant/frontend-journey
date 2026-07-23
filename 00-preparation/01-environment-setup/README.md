@@ -1,8 +1,8 @@
-# 🛠️ Environment Setup
+# Environment Setup
 
 This directory documents the development environment configuration and tool usage guides for frontend development.
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 01-environment-setup/
@@ -36,7 +36,7 @@ This directory documents the development environment configuration and tool usag
 └── 07-shortcuts/            # Keyboard shortcuts
 ```
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 - Master configuration and usage of common code editors
 - Proficient in using browser developer tools for debugging

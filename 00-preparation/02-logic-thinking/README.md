@@ -1,8 +1,8 @@
-# 🧠 Logic and Thinking
+# Logic and Thinking
 
 Programming is not just about writing code, it's a way of thinking. This directory helps you build the logical thinking foundation needed for programming.
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 02-logic-thinking/
@@ -11,24 +11,27 @@ Programming is not just about writing code, it's a way of thinking. This directo
 └── 03-programming-thinking/  # Programming thinking development
 ```
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 ### Logic Basics
+
 - Understand logical operations (AND, OR, NOT)
 - Master conditional judgment and logical reasoning
 - Learn truth tables and logical expressions
 
 ### Algorithm Introduction
+
 - Understand basic algorithm concepts
 - Master common algorithm ideas (recursion, iteration, divide and conquer)
 - Learn time complexity and space complexity
 
 ### Programming Thinking
+
 - Develop problem decomposition skills
 - Learn abstract thinking and pattern recognition
 - Master debugging and problem-solving techniques
 
-## 📋 Learning Resources
+## Learning Resources
 
 - **Books**: "Grokking Algorithms", "Programming Pearls"
 - **Online Courses**: freeCodeCamp algorithm courses

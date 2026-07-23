@@ -1,6 +1,6 @@
 # Git 常用命令速查
 
-## 📚 基础配置
+## 基础配置
 
 ```bash
 # 配置用户信息
@@ -18,7 +18,7 @@ git config --global alias.ci commit
 git config --global alias.st status
 ```
 
-## 📁 仓库操作
+## 仓库操作
 
 ```bash
 # 初始化仓库
@@ -36,7 +36,7 @@ git remote -v
 git remote remove origin
 ```
 
-## 📝 日常操作
+## 日常操作
 
 ```bash
 # 查看状态
@@ -64,7 +64,7 @@ git diff <file>
 git diff <commit1> <commit2>
 ```
 
-## 🔀 分支操作
+## 分支操作
 
 ```bash
 # 查看分支
@@ -92,7 +92,7 @@ git push origin <branch-name>
 git push -u origin <branch-name> # 设置上游
 ```
 
-## 📤 远程操作
+## 远程操作
 
 ```bash
 # 拉取更新
@@ -111,7 +111,7 @@ git fetch
 git fetch origin
 ```
 
-## 🔄 撤销操作
+## 撤销操作
 
 ```bash
 # 撤销工作区修改
@@ -129,7 +129,7 @@ git reflog
 git cherry-pick <commit>
 ```
 
-## 🔧 标签操作
+## 标签操作
 
 ```bash
 # 创建标签
@@ -148,7 +148,7 @@ git tag -d <tag-name>
 git push origin :<tag-name>
 ```
 
-## 📊 高级命令
+## 高级命令
 
 ```bash
 # 交互式变基（整理提交）
@@ -171,9 +171,10 @@ git count-objects -v
 git gc
 ```
 
-## 🎯 工作流示例
+## 工作流示例
 
 ### 功能分支工作流
+
 ```bash
 # 创建功能分支
 git checkout -b feature/login
@@ -191,6 +192,7 @@ git branch -d feature/login
 ```
 
 ### 修复Bug
+
 ```bash
 # 从主分支创建修复分支
 git checkout -b bugfix/issue-123
@@ -204,9 +206,10 @@ git checkout main
 git merge bugfix/issue-123
 ```
 
-## 📝 配置文件
+## 配置文件
 
 ### .gitignore 常用规则
+
 ```gitignore
 # 依赖目录
 node_modules/
@@ -232,6 +235,7 @@ Thumbs.db
 ```
 
 ### .gitconfig 示例
+
 ```ini
 [user]
     name = Your Name
