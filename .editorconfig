@@ -1,0 +1,15 @@
+# EditorConfig helps maintain consistent coding styles across different editors and IDEs
+# https://editorconfig.org
+
+# 顶层配置，表示这是根配置文件
+root = true
+
+# 通用配置，适用于所有文件
+[*]
+indent_style = tab          # 使用制表符缩进
+indent_size = 2             # 制表符宽度为2个字符
+tab_width = 2               # 制表符显示宽度为2
+end_of_line = lf            # 使用Unix换行符（LF），避免Windows换行符（CRLF）
+charset = utf-8             # 使用UTF-8编码，支持中文等Unicode字符
+trim_trailing_whitespace = true  # 自动删除行尾多余的空格
+insert_final_newline = true      # 确保文件末尾有一个换行符
