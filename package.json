@@ -1,0 +1,21 @@
+{
+  "name": "frontend-journey",
+  "version": "1.0.0",
+  "description": "前端学习笔记 - 从零开始的前端学习旅程",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/readant/frontend-journey.git"
+  },
+  "keywords": ["frontend", "learning", "html", "css", "javascript"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}

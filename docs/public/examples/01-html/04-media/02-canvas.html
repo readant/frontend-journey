@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas绘图</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML5 Canvas 绘图示例</h1>
+
+    <!--
+      Canvas：HTML5 新增的绘图容器
+      - 本身只是画布，所有绘制都通过 JavaScript 完成
+      - width/height 是画布的像素尺寸（不是 CSS 尺寸）
+      - 默认尺寸：300x150 像素
+      - 使用场景：游戏、数据可视化、图片处理、动画
+    -->
+    <p>注意：Canvas 需要配合 JavaScript 才能绘图，这里只是简单演示</p>
+
+    <!-- ============================================
+         1. Canvas 基础
+         ============================================ -->
+    <section class="demo-section">
+        <h2>1. Canvas 基础绘制</h2>
+
+        <!-- canvas 标签：定义画布，width/height 设置像素尺寸 -->
+        <canvas id="canvas1" width="400" height="200"></canvas>
+
+        <script>
+            // 步骤1：获取 canvas 元素
+            const canvas1 = document.getElementById('canvas1');
+            // 步骤2：获取 2D 绘图上下文（Context）
+            // getContext('2d') 返回一个 CanvasRenderingContext2D 对象
+            const ctx1 = canvas1.getContext('2d');
+
+            // === 绘制红色填充矩形 ===
+            ctx1.fillStyle = '#ff0000';          // 设置填充颜色
+            ctx1.fillRect(10, 10, 100, 80);     // fillRect(x, y, width, height)
+
+            // === 绘制蓝色边框矩形 ===
+            ctx1.strokeStyle = '#0000ff';        // 设置描边颜色
+            ctx1.lineWidth = 3;                  // 设置线宽（像素）
+            ctx1.strokeRect(130, 10, 100, 80);   // strokeRect(x, y, width, height)
+
+            // === 绘制圆形 ===
+            ctx1.beginPath();                    // 开始新路径（必须，否则会和之前的路径连在一起）
+            ctx1.arc(300, 50, 40, 0, Math.PI * 2);  // arc(x, y, 半径, 起始角, 结束角)
+            // 角度说明：0 = 3点钟方向，Math.PI = 180度，Math.PI * 2 = 360度（完整圆）
+            ctx1.fillStyle = '#00ff00';          // 设置填充颜色
+            ctx1.fill();                         // 填充路径
+
+            // === 绘制文字 ===
+            ctx1.font = '20px Arial';            // 设置字体（大小 + 字体名）
+            ctx1.fillStyle = '#333';             // 设置文字颜色
+            ctx1.fillText('Hello Canvas!', 10, 150);  // fillText(text, x, y) 绘制填充文字
+        </script>
+    </section>
+
+    <!-- ============================================
+         2. Canvas 路径绘制
+         ============================================ -->
+    <section class="demo-section">
+        <h2>2. 路径绘制</h2>
+
+        <canvas id="canvas2" width="400" height="200"></canvas>
+
+        <script>
+            const canvas2 = document.getElementById('canvas2');
+            const ctx2 = canvas2.getContext('2d');
+
+            // === 绘制三角形 ===
+            ctx2.beginPath();              // 开始新路径
+            ctx2.moveTo(50, 150);         // moveTo(x, y)：移动画笔到起点（不画线）
+            ctx2.lineTo(150, 50);         // lineTo(x, y)：从当前点画直线到目标点
+            ctx2.lineTo(250, 150);        // 继续画线
+            ctx2.closePath();              // closePath()：闭合路径（自动回到起点）
+            ctx2.strokeStyle = '#9400d3';  // 描边颜色
+            ctx2.lineWidth = 5;            // 线宽
+            ctx2.stroke();                 // stroke()：描边（画边框）
+            ctx2.fillStyle = '#dda0dd';    // 填充颜色
+            ctx2.fill();                   // fill()：填充（填充内部）
+
+            // === 绘制笑脸 ===
+            // 脸（圆圈）
+            ctx2.beginPath();
+            ctx2.arc(320, 100, 40, 0, Math.PI * 2);  // arc(x, y, 半径, 起始角, 结束角)
+            ctx2.stroke();
+
+            // 左眼（小圆点）
+            ctx2.beginPath();
+            ctx2.arc(305, 90, 5, 0, Math.PI * 2);    // 半径5的小圆
+            ctx2.fill();
+
+            // 右眼（小圆点）
+            ctx2.beginPath();
+            ctx2.arc(335, 90, 5, 0, Math.PI * 2);
+            ctx2.fill();
+
+            // 嘴（半圆弧）
+            ctx2.beginPath();
+            ctx2.arc(320, 100, 25, 0, Math.PI);      // Math.PI = 半圆（180度）
+            ctx2.stroke();
+        </script>
+    </section>
+
+    <!-- ============================================
+         3. 渐变绘制
+         ============================================ -->
+    <section class="demo-section">
+        <h2>3. 渐变绘制</h2>
+
+        <canvas id="canvas3" width="400" height="150"></canvas>
+
+        <script>
+            const canvas3 = document.getElementById('canvas3');
+            const ctx3 = canvas3.getContext('2d');
+
+            // === 线性渐变 ===
+            // createLinearGradient(x1, y1, x2, y2)：定义渐变方向（从起点到终点）
+            const linearGrad = ctx3.createLinearGradient(0, 0, 400, 0);  // 从左到右
+            // addColorStop(position, color)：添加颜色停靠点
+            // position 范围 0-1，表示渐变位置（0=起点，1=终点）
+            linearGrad.addColorStop(0, '#ff0000');    // 0% 处：红色
+            linearGrad.addColorStop(0.5, '#ffff00');  // 50% 处：黄色
+            linearGrad.addColorStop(1, '#00ff00');    // 100% 处：绿色
+            ctx3.fillStyle = linearGrad;              // 设置填充样式为渐变
+            ctx3.fillRect(10, 10, 380, 50);          // 用渐变填充矩形
+
+            // === 径向渐变 ===
+            // createRadialGradient(x1, y1, r1, x2, y2, r2)：定义两个圆（内圆到外圆）
+            const radialGrad = ctx3.createRadialGradient(200, 120, 10, 200, 120, 80);
+            // 内圆：圆心(200,120) 半径10 → 外圆：圆心(200,120) 半径80
+            radialGrad.addColorStop(0, '#00ffff');  // 内圆：青色
+            radialGrad.addColorStop(1, '#0000ff');  // 外圆：蓝色
+            ctx3.fillStyle = radialGrad;
+            ctx3.beginPath();
+            ctx3.arc(200, 120, 50, 0, Math.PI * 2);  // 画圆
+            ctx3.fill();
+        </script>
+    </section>
+
+    <!-- ============================================
+         4. 导出图片 toDataURL
+         ============================================ -->
+    <section class="demo-section">
+        <h2>4. 导出图片 toDataURL()</h2>
+
+        <canvas id="canvas4" width="200" height="100"></canvas>
+        <button onclick="exportImage()">导出为图片</button>
+        <img id="exportedImg" style="margin-top: 10px; border: 1px solid #ccc;">
+
+        <script>
+            // 绘制一个简单的图形用于导出示例
+            const canvas4 = document.getElementById('canvas4');
+            const ctx4 = canvas4.getContext('2d');
+            ctx4.fillStyle = '#667eea';           // 蓝紫色背景
+            ctx4.fillRect(0, 0, 200, 100);        // 填充整个画布
+            ctx4.fillStyle = 'white';              // 白色文字
+            ctx4.font = '20px Arial';
+            ctx4.fillText('导出示例', 50, 55);     // 绘制文字
+
+            // toDataURL()：将 Canvas 内容导出为 base64 编码的图片 URL
+            // 参数：格式（image/png、image/jpeg）和质量（0-1，仅 JPEG 有效）
+            function exportImage() {
+                const dataURL = canvas4.toDataURL('image/png');  // 导出为 PNG 格式
+                document.getElementById('exportedImg').src = dataURL;  // 显示导出的图片
+            }
+        </script>
+    </section>
+
+    <!-- ============================================
+         5. 动画帧 requestAnimationFrame
+         ============================================ -->
+    <section class="demo-section">
+        <h2>5. 动画帧 requestAnimationFrame</h2>
+        <!--
+          requestAnimationFrame：浏览器提供的动画帧 API
+          - 自动匹配屏幕刷新率（通常 60fps）
+          - 页面不可见时自动暂停，节省资源
+          - 比 setInterval/setTimeout 更适合动画
+          - 返回一个 ID，可以用 cancelAnimationFrame 取消
+        -->
+
+        <canvas id="canvas5" width="400" height="150"></canvas>
+        <button onclick="startAnimation()">开始动画</button>
+        <button onclick="stopAnimation()">停止</button>
+
+        <script>
+            const canvas5 = document.getElementById('canvas5');
+            const ctx5 = canvas5.getContext('2d');
+            let x = 0;         // 小球的 x 坐标
+            let animId = null;  // 动画帧 ID（用于取消动画）
+
+            // 绘制一帧的函数
+            function drawFrame() {
+                // 1. 清除画布（必须，否则会留下上一帧的痕迹）
+                ctx5.clearRect(0, 0, 400, 150);
+
+                // 2. 绘制小球
+                ctx5.fillStyle = '#667eea';
+                ctx5.beginPath();
+                ctx5.arc(x, 75, 20, 0, Math.PI * 2);  // 在当前位置画圆
+                ctx5.fill();
+
+                // 3. 更新状态（小球向右移动）
+                x += 2;              // 每帧移动 2 像素
+                if (x > 420) x = 0;  // 超出画布后重置到左边
+
+                // 4. 请求下一帧（递归调用）
+                animId = requestAnimationFrame(drawFrame);
+            }
+
+            // 开始动画
+            function startAnimation() {
+                if (!animId) drawFrame();  // 只在未运行时启动
+            }
+
+            // 停止动画
+            function stopAnimation() {
+                if (animId) {
+                    cancelAnimationFrame(animId);  // 取消动画帧
+                    animId = null;                  // 清空 ID
+                }
+            }
+        </script>
+    </section>
+
+</body>
+</html>

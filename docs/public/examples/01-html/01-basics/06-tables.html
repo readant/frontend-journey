@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML表格</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+
+        .code-note {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        .hint {
+            color: #6c757d;
+            margin-left: 10px;
+            font-size: 0.9em;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        caption {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>HTML表格示例</h1>
+
+    <!-- ============================================
+         1. 基础表格
+         ============================================ -->
+    <section class="demo-section">
+        <h2>1. 基础表格</h2>
+        <p><small>table：表格容器，caption：表格标题，thead/tbody/tfoot：表头/表体/表脚</small></p>
+        <!--
+        表格由<table>来定义
+            tr：tr 是 table row 的缩写，表示表格的一行。
+            td：td 是 table data 的缩写，表示表格的数据单元格。
+            th：th 是 table header的缩写，表示表格的表头单元格。
+            一行写一对<tr>,每个单元格写一个<th>
+    -->
+        <table>
+            <!-- caption：表格标题，屏幕阅读器会朗读 -->
+            <caption>学生信息表</caption>
+
+            <!-- thead：表头区域 -->
+            <thead>
+                <tr>
+                    <!-- scope="col" 表示这是列头（垂直方向的表头） -->
+                    <th scope="col">姓名</th>
+                    <th scope="col">年龄</th>
+                    <th scope="col">城市</th>
+                </tr>
+            </thead>
+
+            <!-- tbody：表体区域，包含数据行 -->
+            <tbody>
+                <tr>
+                    <td>张三</td>
+                    <td>25</td>
+                    <td>北京</td>
+                </tr>
+                <tr>
+                    <td>李四</td>
+                    <td>22</td>
+                    <td>上海</td>
+                </tr>
+                <tr>
+                    <td>王五</td>
+                    <td>28</td>
+                    <td>广州</td>
+                </tr>
+            </tbody>
+
+            <!-- tfoot：表脚区域，通常放汇总信息 -->
+            <tfoot>
+                <tr>
+                    <!-- colspan="3" 表示这个单元格横跨3列 -->
+                    <td colspan="3">共计 3 人</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+    <!-- ============================================
+         2. 合并单元格（colspan、rowspan）
+         ============================================ -->
+    <section class="demo-section">
+        <h2>2. 合并单元格（colspan、rowspan）</h2>
+        <p><small>colspan：跨列合并，rowspan：跨行合并，合并后每行单元格数必须等于总列数</small></p>
+
+        <table>
+            <caption>课程安排表</caption>
+            <thead>
+                <tr>
+                    <th scope="col">时间</th>
+                    <th scope="col">星期一</th>
+                    <th scope="col">星期二</th>
+                    <th scope="col">星期三</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 普通行：4个单元格 = 4列，正常 -->
+                <tr>
+                    <td>上午</td>
+                    <td>语文</td>
+                    <td>数学</td>
+                    <td>英语</td>
+                </tr>
+                <!--
+                  跨列合并示例：
+                  colspan="2" 表示这个单元格横跨2列（星期一+星期二）
+                  该行：1(时间) + 1(体育课跨2列) + 1(音乐) = 3个单元格，但占4列位置
+                -->
+                <tr>
+                    <td>下午</td>
+                    <td colspan="2">体育课（跨两列，星期一和星期二合并）</td>
+                    <td>音乐</td>
+                </tr>
+                <!--
+                  跨行合并示例：
+                  rowspan="2" 表示"晚上"这个单元格纵跨2行（第一节晚+第二节晚）
+                  注意：下一行不要再写被"晚上"占据的第一个位置
+                -->
+                <tr>
+                    <td rowspan="2">晚上（跨两行）</td>
+                    <td>自习</td>
+                    <td>自习</td>
+                    <td>自习</td>
+                </tr>
+                <!-- 这一行只有3个单元格，因为"晚上"已经被上一行的rowspan占据了 -->
+                <tr>
+                    <td>篮球</td>
+                    <td>阅读</td>
+                    <td>编程</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+
+
+
+    <!-- ============================================
+         3. 表格标签说明
+         ============================================ -->
+    <section class="demo-section">
+        <h2>3. 表格标签说明</h2>
+        <p><small>表格标签速查表，包含所有常用标签和属性</small></p>
+        <ul>
+            <li><code>&lt;table&gt;</code>：表格容器，定义一个表格</li>
+            <li><code>&lt;caption&gt;</code>：表格标题（可选但推荐，屏幕阅读器会朗读，提升可访问性）</li>
+            <li><code>&lt;thead&gt;</code>：表头区域（包含列标题，可选）</li>
+            <li><code>&lt;tbody&gt;</code>：表体区域（包含数据行，可选，浏览器会自动添加）</li>
+            <li><code>&lt;tfoot&gt;</code>：表脚区域（通常放汇总信息，可选）</li>
+            <li><code>&lt;tr&gt;</code>：Table Row，表格行（必须）</li>
+            <li><code>&lt;th&gt;</code>：Table Header，表头单元格（默认加粗居中，用于标题行或首列）</li>
+            <li><code>&lt;td&gt;</code>：Table Data，数据单元格（存放实际数据）</li>
+            <li><code>scope="col"</code>：列头（垂直方向的表头，放在 thead 的 th 上）</li>
+            <li><code>scope="row"</code>：行头（水平方向的表头，放在每行第一个 th 上）</li>
+            <li><code>colspan="n"</code>：跨列合并，n 表示横跨的列数</li>
+            <li><code>rowspan="n"</code>：跨行合并，n 表示纵跨的行数</li>
+        </ul>
+
+
+
+        <h3>无障碍（Accessibility）提示：</h3>
+        <p>屏幕阅读器通过 <code>scope</code> 属性判断 th 属于哪一行/列，**必须**加上。</p>
+        <p><code>&lt;th scope="col"&gt;</code> = 列头（垂直方向的表头，如"姓名"、"年龄"）</p>
+        <p><code>&lt;th scope="row"&gt;</code> = 行头（水平方向的表头，如"张三"这一行的第一个单元格）</p>
+        <p>不加 scope → 屏幕阅读器无法正确朗读表格，视障用户无法理解数据关系。</p>
+    </section>
+
+</body>
+
+</html>

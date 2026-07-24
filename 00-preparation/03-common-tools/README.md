@@ -1,43 +1,45 @@
-# Common Tools
+# 通用工具
 
-This directory documents auxiliary tools and productivity tools commonly used during development.
+[返回首页](../../README.md) | [返回准备阶段](../README.md)
 
-## Directory Structure
+本目录整理了开发过程中常用的辅助工具和效率工具。
+
+## 目录结构
 
 ```
 03-common-tools/
-├── 01-cli-tools/        # CLI tools
-├── 02-dev-helpers/      # Development helper tools
-└── 03-productivity/     # Productivity tools
+├── 01-cli-tools/        # 命令行工具
+├── 02-dev-helpers/      # 开发辅助工具
+└── 03-productivity/     # 效率工具
 ```
 
-## Learning Objectives
+## 学习目标
 
-### CLI Tools
+### 命令行工具
 
-- Master common command line operations
-- Learn shell script writing
-- Understand automation scripts
+- 掌握常用命令行操作
+- 学习 Shell 脚本编写
+- 了解自动化脚本
 
-### Development Helpers
+### 开发辅助
 
-- Code formatting tools
-- Code review tools
-- Performance analysis tools
+- 代码格式化工具
+- 代码审查工具
+- 性能分析工具
 
-### Productivity Tools
+### 效率工具
 
-- Text processing tools
-- File management tools
-- Time management tools
+- 文本处理工具
+- 文件管理工具
+- 时间管理工具
 
-## Common Tools List
+## 常用工具清单
 
-| Category | Tool | Purpose |
+| 类别 | 工具 | 用途 |
 | :--- | :--- | :--- |
-| CLI | git | Version control |
-| CLI | npm/yarn/pnpm | Package management |
-| Formatting | prettier | Code formatting |
-| Linting | eslint | Code linting |
-| Search | fzf | Fuzzy search |
-| Search | ripgrep | Fast search |
+| 命令行 | git | 版本控制 |
+| 命令行 | npm/yarn/pnpm | 包管理 |
+| 格式化 | Prettier | 代码格式化 |
+| 检查 | ESLint | 代码规范检查 |
+| 搜索 | fzf | 模糊搜索 |
+| 搜索 | ripgrep | 快速全文搜索 |

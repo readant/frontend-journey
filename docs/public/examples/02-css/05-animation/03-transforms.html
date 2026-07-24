@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 2D/3D 变换</title>
+    <style>
+        /* ================================================
+           CSS 2D/3D 变换 (Transforms)
+           
+           transform 属性用于对元素进行2D或3D变换。
+           
+           2D 变换函数：
+           ┌─────────────────────────────────────────────────┐
+           │  translate(x, y) - 平移                         │
+           │    - translateX(x) / translateY(y)              │
+           │    - 单位：px, %, em, rem                       │
+           │                                                 │
+           │  scale(x, y) - 缩放                             │
+           │    - scaleX(x) / scaleY(y)                      │
+           │    - 1 = 原始大小, >1 放大, <1 缩小             │
+           │                                                 │
+           │  rotate(angle) - 旋转                           │
+           │    - 单位：deg（度）, rad（弧度）               │
+           │    - 正值顺时针，负值逆时针                     │
+           │                                                 │
+           │  skew(x-angle, y-angle) - 倾斜                  │
+           │    - skewX(angle) / skewY(angle)                │
+           └─────────────────────────────────────────────────┘
+           
+           3D 变换函数：
+           ┌─────────────────────────────────────────────────┐
+           │  translate3d(x, y, z) - 3D平移                  │
+           │    - translateZ(z) - Z轴平移                     │
+           │                                                 │
+           │  scale3d(x, y, z) - 3D缩放                      │
+           │    - scaleZ(z) - Z轴缩放                         │
+           │                                                 │
+           │  rotateX(angle) - 绕X轴旋转                     │
+           │  rotateY(angle) - 绕Y轴旋转                     │
+           │  rotateZ(angle) - 绕Z轴旋转（同rotate）         │
+           │                                                 │
+           │  perspective(length) - 透视距离                 │
+           │    - 设置观察者到Z=0平面的距离                  │
+           └─────────────────────────────────────────────────┘
+           
+           transform-origin：变换原点
+           - 默认：50% 50%（中心）
+           - 可设置：top, left, right, bottom, center
+           
+           transform-style：
+           - flat（默认）：子元素不保留3D位置
+           - preserve-3d：子元素保留3D位置
+           
+           perspective 属性：
+           - 设置在父元素上，影响所有子元素
+           - 值越小，透视效果越强
+           
+           backface-visibility：
+           - visible（默认）：背面可见
+           - hidden：背面隐藏
+           
+           性能优化：
+           - transform 只触发合成，不触发重排
+           - 使用 will-change 提示浏览器
+           - 3D变换会创建新的层叠上下文
+           
+           ================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .demo-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .transform-box {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        /* ================================================
+           2D 平移变换
+           ================================================ */
+
+        .translate-right:hover { transform: translateX(50px); }
+        .translate-up:hover { transform: translateY(-50px); }
+        .translate-both:hover { transform: translate(30px, -30px); }
+
+        /* ================================================
+           2D 缩放变换
+           ================================================ */
+
+        .scale-up:hover { transform: scale(1.3); }
+        .scale-down:hover { transform: scale(0.7); }
+        .scale-x:hover { transform: scaleX(1.5); }
+        .scale-y:hover { transform: scaleY(0.5); }
+
+        /* ================================================
+           2D 旋转变换
+           ================================================ */
+
+        .rotate-cw:hover { transform: rotate(45deg); }
+        .rotate-ccw:hover { transform: rotate(-45deg); }
+        .rotate-180:hover { transform: rotate(180deg); }
+
+        /* ================================================
+           2D 倾斜变换
+           ================================================ */
+
+        .skew-x:hover { transform: skewX(20deg); }
+        .skew-y:hover { transform: skewY(20deg); }
+        .skew-both:hover { transform: skew(10deg, 10deg); }
+
+        /* ================================================
+           组合变换
+           ================================================ */
+
+        .combo-transform:hover {
+            transform: translate(20px, -20px) rotate(15deg) scale(1.1);
+        }
+
+        /* ================================================
+           3D 变换
+           ================================================ */
+
+        .perspective-container {
+            perspective: 500px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .rotate-x:hover { transform: rotateX(30deg); }
+        .rotate-y:hover { transform: rotateY(30deg); }
+
+        .rotate-x-neg:hover { transform: rotateX(-30deg); }
+        .rotate-y-neg:hover { transform: rotateY(-30deg); }
+
+        /* ================================================
+           3D 翻转卡片
+           ================================================ */
+
+        .card-3d {
+            width: 200px;
+            height: 250px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-3d:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            transform: rotateY(180deg);
+        }
+
+        /* ================================================
+           3D 立方体
+           ================================================ */
+
+        .cube-container {
+            width: 150px;
+            height: 150px;
+            perspective: 500px;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate-cube 8s linear infinite;
+        }
+
+        @keyframes rotate-cube {
+            from { transform: rotateX(0) rotateY(0); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(52, 152, 219, 0.8);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .cube-front { transform: translateZ(75px); }
+        .cube-back { transform: rotateY(180deg) translateZ(75px); }
+        .cube-right { transform: rotateY(90deg) translateZ(75px); }
+        .cube-left { transform: rotateY(-90deg) translateZ(75px); }
+        .cube-top { transform: rotateX(90deg) translateZ(75px); }
+        .cube-bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+        /* ================================================
+           transform-origin 演示
+           ================================================ */
+
+        .origin-demo {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .origin-box {
+            width: 100px;
+            height: 100px;
+            background: #2ecc71;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .origin-center { transform-origin: center; }
+        .origin-top-left { transform-origin: top left; }
+        .origin-bottom-right { transform-origin: bottom right; }
+
+        .origin-box:hover { transform: rotate(45deg); }
+
+        /* ================================================
+           实际应用：图标动画
+           ================================================ */
+
+        .icon-btn {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 50%;
+            background: #3498db;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-page {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-page a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-page a:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSS 2D/3D 变换</h1>
+
+    <!-- 2D 平移 -->
+    <div class="section">
+        <h2>1. 2D 平移 (translate)</h2>
+        <p class="demo-label">鼠标悬停查看效果：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <p class="demo-label">translateX(50px)</p>
+                    <div class="transform-box translate-right">→</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">translateY(-50px)</p>
+                    <div class="transform-box translate-up">↑</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">translate(30px, -30px)</p>
+                    <div class="transform-box translate-both">↗</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2D 缩放 -->
+    <div class="section">
+        <h2>2. 2D 缩放 (scale)</h2>
+        <p class="demo-label">改变元素大小：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <p class="demo-label">scale(1.3)</p>
+                    <div class="transform-box scale-up">放大</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">scale(0.7)</p>
+                    <div class="transform-box scale-down">缩小</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">scaleX(1.5)</p>
+                    <div class="transform-box scale-x">水平</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">scaleY(0.5)</p>
+                    <div class="transform-box scale-y">垂直</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2D 旋转 -->
+    <div class="section">
+        <h2>3. 2D 旋转 (rotate)</h2>
+        <p class="demo-label">绕中心点旋转：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <p class="demo-label">rotate(45deg)</p>
+                    <div class="transform-box rotate-cw">45°</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">rotate(-45deg)</p>
+                    <div class="transform-box rotate-ccw">-45°</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">rotate(180deg)</p>
+                    <div class="transform-box rotate-180">180°</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2D 倾斜 -->
+    <div class="section">
+        <h2>4. 2D 倾斜 (skew)</h2>
+        <p class="demo-label">让元素倾斜：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <p class="demo-label">skewX(20deg)</p>
+                    <div class="transform-box skew-x">水平</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">skewY(20deg)</p>
+                    <div class="transform-box skew-y">垂直</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">skew(10deg, 10deg)</p>
+                    <div class="transform-box skew-both">双向</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 组合变换 -->
+    <div class="section">
+        <h2>5. 组合变换</h2>
+        <p class="demo-label">多个变换可以组合使用：</p>
+        
+        <div class="demo-area">
+            <div class="demo-row">
+                <div class="demo-item">
+                    <p class="demo-label">translate + rotate + scale</p>
+                    <div class="transform-box combo-transform">组合</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            注意：变换顺序会影响最终效果！先写平移再旋转，与先旋转再平移结果不同。
+        </div>
+    </div>
+
+    <!-- transform-origin -->
+    <div class="section">
+        <h2>6. 变换原点 (transform-origin)</h2>
+        <p class="demo-label">不同的原点产生不同的旋转效果：</p>
+        
+        <div class="demo-area">
+            <div class="origin-demo">
+                <div class="origin-box origin-center">center</div>
+                <div class="origin-box origin-top-left">top-left</div>
+                <div class="origin-box origin-bottom-right">bottom-right</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D 旋转 -->
+    <div class="section">
+        <h2>7. 3D 旋转</h2>
+        <p class="demo-label">在3D空间中旋转：</p>
+        
+        <div class="demo-area">
+            <div class="perspective-container">
+                <div class="demo-item">
+                    <p class="demo-label">rotateX(30deg)</p>
+                    <div class="transform-box rotate-x">X轴</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">rotateY(30deg)</p>
+                    <div class="transform-box rotate-y">Y轴</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">rotateX(-30deg)</p>
+                    <div class="transform-box rotate-x-neg">X轴-</div>
+                </div>
+                <div class="demo-item">
+                    <p class="demo-label">rotateY(-30deg)</p>
+                    <div class="transform-box rotate-y-neg">Y轴-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 翻转卡片 -->
+    <div class="section">
+        <h2>8. 3D 翻转卡片</h2>
+        <p class="demo-label">鼠标悬停翻转卡片：</p>
+        
+        <div class="demo-area">
+            <div class="card-3d">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <h3>正面</h3>
+                        <p>悬停翻转</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>背面</h3>
+                        <p>3D变换效果</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D 立方体 -->
+    <div class="section">
+        <h2>9. 3D 立方体</h2>
+        <p class="demo-label">旋转的3D立方体：</p>
+        
+        <div class="demo-area">
+            <div class="cube-container">
+                <div class="cube">
+                    <div class="cube-face cube-front">前</div>
+                    <div class="cube-face cube-back">后</div>
+                    <div class="cube-face cube-right">右</div>
+                    <div class="cube-face cube-left">左</div>
+                    <div class="cube-face cube-top">上</div>
+                    <div class="cube-face cube-bottom">下</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 实际应用 -->
+    <div class="section">
+        <h2>10. 实际应用</h2>
+        <p class="demo-label">图标按钮动画：</p>
+        
+        <div class="demo-area">
+            <button class="icon-btn">❤</button>
+            <button class="icon-btn" style="background: #2ecc71;">✓</button>
+            <button class="icon-btn" style="background: #e74c3c;">×</button>
+        </div>
+        
+        <div class="info-box">
+            变换是创建动画效果的基础，掌握它让界面更加生动！
+        </div>
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav-page">
+        <a href="02-animations.html">⬅️ 上一课：关键帧动画</a>
+        <a href="../roadmap.html">返回路线图</a>
+        <a href="../06-advanced/01-variables.html">下一课：CSS变量 ➡️</a>
+    </div>
+
+</body>
+</html>

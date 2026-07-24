@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单验证属性</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+        input:invalid {
+            border: 2px solid red;
+        }
+        input:valid {
+            border: 2px solid green;
+        }
+        .error-msg {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML5表单验证属性示例</h1>
+
+    <section class="demo-section">
+        <h2>表单验证属性演示</h2>
+
+        <form>
+            <!-- ============================================
+                 required：必填
+                 ============================================ -->
+            <div class="form-group">
+                <label for="req">必填项：</label>
+                <input type="text" id="req" name="req" required>
+                <span class="error-msg">required 属性</span>
+            </div>
+
+            <!-- ============================================
+                 minlength / maxlength：长度限制
+                 ============================================ -->
+            <div class="form-group">
+                <label for="length">用户名：</label>
+                <input type="text" id="length" name="length" 
+                       minlength="3" maxlength="10" 
+                       placeholder="3-10个字符">
+                <span class="error-msg">minlength/maxlength 属性</span>
+            </div>
+
+            <!-- ============================================
+                 min / max：数值范围
+                 ============================================ -->
+            <div class="form-group">
+                <label for="num">分数：</label>
+                <input type="number" id="num" name="num" 
+                       min="0" max="100" 
+                       placeholder="0-100">
+                <span class="error-msg">min/max 属性</span>
+            </div>
+
+            <!-- ============================================
+                 pattern：正则表达式验证
+                 ============================================ -->
+            <div class="form-group">
+                <label for="pattern">邮编：</label>
+                <input type="text" id="pattern" name="pattern" 
+                       pattern="[0-9]{6}" 
+                       placeholder="6位数字">
+                <span class="error-msg">pattern 正则属性</span>
+            </div>
+
+            <!-- ============================================
+                 综合示例
+                 ============================================ -->
+            <div class="form-group">
+                <hr>
+                <h3>完整注册表单示例：</h3>
+            </div>
+
+            <div class="form-group">
+                <label for="username2">用户名：</label>
+                <input type="text" id="username2" name="username2" 
+                       required minlength="3" maxlength="10"
+                       placeholder="3-10个字符，必填">
+            </div>
+
+            <div class="form-group">
+                <label for="email2">邮箱：</label>
+                <input type="email" id="email2" name="email2" 
+                       required placeholder="必填，会自动验证格式">
+            </div>
+
+            <div class="form-group">
+                <label for="pwd2">密码：</label>
+                <input type="password" id="pwd2" name="pwd2" 
+                       required minlength="6"
+                       placeholder="至少6个字符，必填">
+            </div>
+
+            <div class="form-group">
+                <button type="submit">提交</button>
+            </div>
+
+        </form>
+    </section>
+
+    <section class="demo-section">
+        <h2>novalidate 属性：禁用浏览器验证</h2>
+        <!-- 注意：:invalid 伪类在页面加载时会触发（因为空值不满足 required），
+             实际项目中通常用 JS 在 blur 时才显示验证状态 -->
+        <form novalidate>
+            <div class="form-group">
+                <label for="noval">禁用验证的输入：</label>
+                <input type="email" id="noval" name="noval" required
+                       placeholder="输入无效邮箱也不会报错">
+                <span class="error-msg">form 加了 novalidate，浏览器不会自动验证</span>
+            </div>
+            <div class="form-group">
+                <button type="submit">提交（不验证）</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="demo-section">
+        <h2>表单验证属性总结</h2>
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>属性</th>
+                <th>作用</th>
+                <th>示例</th>
+            </tr>
+            <tr>
+                <td><code>required</code></td>
+                <td>必填项</td>
+                <td><code>&lt;input required&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>minlength</code></td>
+                <td>最小长度</td>
+                <td><code>minlength="3"</code></td>
+            </tr>
+            <tr>
+                <td><code>maxlength</code></td>
+                <td>最大长度</td>
+                <td><code>maxlength="10"</code></td>
+            </tr>
+            <tr>
+                <td><code>min</code></td>
+                <td>最小值</td>
+                <td><code>min="0"</code></td>
+            </tr>
+            <tr>
+                <td><code>max</code></td>
+                <td>最大值</td>
+                <td><code>max="100"</code></td>
+            </tr>
+            <tr>
+                <td><code>pattern</code></td>
+                <td>正则验证</td>
+                <td><code>pattern="[0-9]{6}"</code></td>
+            </tr>
+        </table>
+    </section>
+
+</body>
+</html>

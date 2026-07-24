@@ -74,10 +74,31 @@ cd frontend-journey
 
 ### 学习入口
 
-| 模块 | 学习路线 | 内容 |
-|:-----|:---------|:-----|
-| HTML | [HTML 学习路线](01-html/roadmap.html) | 文档结构、标签、语义化、表单、多媒体 |
-| CSS | [CSS 学习路线](02-css/roadmap.html) | 选择器、布局、响应式、动画、高级特性 |
+| 模块 | 路线图 | 内容 |
+|:-----|:-------|:-----|
+| HTML | [学习路线](01-html/roadmap.html) | 文档结构、标签、语义化、表单、多媒体 |
+| CSS | [学习路线](02-css/roadmap.html) | 选择器、布局、响应式、动画、高级特性 |
+
+### 章节目录
+
+| 模块 | 章节 | 内容 |
+|:-----|:-----|:-----|
+| **准备阶段** | [环境搭建](00-preparation/01-environment-setup/README.md) | 编辑器、浏览器、Git、Node.js |
+| | [逻辑思维](00-preparation/02-logic-thinking/README.md) | 逻辑基础、算法入门、编程思维 |
+| | [通用工具](00-preparation/03-common-tools/README.md) | 命令行、开发辅助、效率工具 |
+| **HTML** | [基础入门](01-html/01-basics/docs/README.md) | 文档结构、文本标签、列表、链接、图片、表格 |
+| | [语义化标签](01-html/02-advanced/docs/README.md) | header、nav、main、article、section |
+| | [表单元素](01-html/03-forms/docs/README.md) | 表单结构、input 类型、验证、无障碍 |
+| | [多媒体标签](01-html/04-media/docs/README.md) | 视频音频、Canvas 绘图、HTML5 新标签 |
+| | [实战项目](01-html/05-projects/docs/README.md) | 个人简历 + 简易博客 |
+| **CSS** | [基础入门](02-css/01-basics/) | 选择器、盒模型 |
+| | [核心概念](02-css/02-core/) | 特异性、继承、单位 |
+| | [现代布局](02-css/03-layout/) | Flexbox、Grid、定位、响应式 |
+| | [视觉效果](02-css/04-visual/) | 颜色、字体、背景、阴影 |
+| | [动画交互](02-css/05-animation/) | 过渡、关键帧、变换 |
+| | [高级特性](02-css/06-advanced/) | CSS 变量、滤镜、伪类 |
+| | [性能优化](02-css/07-optimization/) | 选择器性能、重排重绘 |
+| | [实战案例](02-css/08-practice/) | 导航栏、卡片布局、表单样式 |
 
 ### 推荐学习顺序
 

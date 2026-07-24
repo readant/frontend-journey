@@ -1,0 +1,169 @@
+<!--
+  ============================================
+  HTML5 完整文档结构
+  ============================================
+  这是一个标准的HTML5文档模板，包含了所有必要的部分
+
+  学习要点：
+  1. DOCTYPE声明 - 告诉浏览器使用什么标准解析
+  2. html根元素 - 整个文档的根，lang属性影响SEO和无障碍
+  3. head元数据区 - 用户不可见，但浏览器和搜索引擎需要
+  4. body内容区 - 所有可见内容都在这里
+-->
+
+<!-- DOCTYPE声明：告诉浏览器使用HTML5标准解析页面 -->
+<!-- 注意：必须放在第一行，前面不能有任何字符（包括空格和注释） -->
+<!-- HTML4需要写很长的DTD（Document Type Declaration），HTML5简化为这一行 -->
+<!-- 不区分大小写：<!DOCTYPE html> 和 <!DOCTYPE HTML> 都可以 -->
+<!DOCTYPE html>
+
+<!--
+    html标签：整个文档的根元素，所有其他标签都是它的子孙
+    lang属性：指定文档的主要语言，有两个重要作用：
+      1. SEO：搜索引擎根据lang决定展示给哪个语言的用户
+      2. 无障碍：屏幕阅读器根据lang选择正确的语音包朗读
+    常见值：zh-CN（简体中文）、zh-TW（繁体中文）、en（英文）、ja（日文）
+-->
+<html lang="zh-CN">
+
+<!--
+    head标签：包含文档的元数据（metadata）
+    元数据不会显示在页面上，但对浏览器和搜索引擎非常重要
+    顺序建议：charset → viewport → description → title → link → script
+-->
+<head>
+
+    <!--
+      meta charset：字符编码声明
+      - 必须放在 head 的最前面（在任何其他内容之前）
+      - UTF-8 是国际通用编码，支持几乎所有语言的字符
+      - 不设置或设置错误会导致中文乱码（最常见的编码问题）
+    -->
+    <meta charset="UTF-8">
+
+    <!--
+      viewport：移动端视口设置，是响应式设计的必备标签
+      参数详解：
+        width=device-width  → 视口宽度等于设备宽度（必须，否则移动端显示桌面版）
+        initial-scale=1.0   → 初始缩放比例（1.0 = 不缩放）
+        maximum-scale=1.0   → 最大缩放比例（可选，限制用户放大）
+        user-scalable=no    → 禁止用户缩放（可选，影响无障碍，不推荐）
+      固定写法：content="width=device-width, initial-scale=1.0"
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+      description：页面描述
+      - 搜索引擎结果页（SERP）会显示这段描述
+      - 建议 150-160 个字符（超出会被截断）
+      - 应包含页面核心关键词，影响点击率
+    -->
+    <meta name="description" content="HTML文档结构学习示例">
+
+    <!-- author：页面作者，搜索引擎可能显示 -->
+    <meta name="author" content="L君">
+
+    <!--
+      keywords：页面关键词（SEO用）
+      - 早期搜索引擎重视，现在权重已经很低
+      - 不要堆砌关键词，搜索引擎会认为是作弊
+    -->
+    <meta name="keywords" content="HTML,学习,前端">
+
+    <!--
+      robots：爬虫控制，告诉搜索引擎如何处理这个页面
+      常用值：
+        index,follow    → 允许索引，允许跟踪链接（默认值）
+        noindex         → 不允许索引此页面
+        nofollow        → 不允许跟踪页面上的链接
+    -->
+    <meta name="robots" content="index,follow">
+
+    <!-- X-UA-Compatible：兼容老旧IE浏览器，强制使用最新渲染引擎 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--
+      theme-color：浏览器主题色
+      - 影响浏览器地址栏、标签栏的颜色
+      - Android Chrome 会使用这个颜色
+      - 提升品牌一致性和用户体验
+    -->
+    <meta name="theme-color" content="#667eea">
+
+    <!--
+      title：页面标题
+      - 显示在浏览器标签页上
+      - 是 SEO 最重要的因素之一
+      - 用户收藏网页时默认使用 title 作为名称
+      - 建议 30 个字符以内
+    -->
+    <title>HTML文档结构详解</title>
+
+    <!-- link rel="stylesheet"：引入外部CSS样式表 -->
+    <!-- href 使用相对路径，../ 表示返回上一级目录 -->
+    <link rel="stylesheet" href="../01-basics/css/test.css">
+
+    <!--
+      favicon：网站小图标（favorite icon）
+      - 显示在浏览器标签页和书签栏
+      - 不设置也会有默认图标（通常是地球或文件图标）
+      格式对比：
+        .ico  → 兼容性最好（所有浏览器），但文件较大
+        .png  → 推荐，平衡兼容性和文件大小
+        .svg  → 支持高分辨率和动画，现代浏览器支持
+      注意：href="" 空链接会导致 404 错误
+    -->
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <!--
+      script：引入JavaScript脚本
+      加载方式对比：
+        正常（无属性） → 下载并立即执行，会阻塞HTML解析（不推荐）
+        defer           → 下载但延迟执行，等HTML解析完毕后再运行（推荐）
+        async           → 下载完立即运行，不保证执行顺序（分析型脚本可用）
+      建议：大多数情况下使用 defer
+    -->
+    <!-- <script src="app.js" defer></script> -->
+
+</head>
+ <!--
+   body标签：包含所有可见页面内容
+   用户在浏览器中看到的一切都在这里
+   顺序建议：header → nav → main → aside → footer
+-->
+<body>
+
+    <!-- header：页面头部区域，通常包含Logo、标题、导航 -->
+    <header>
+        <h1>页面头部</h1>
+        <!-- nav：导航区域，包含主要的导航链接 -->
+        <nav>
+            <a href="#">导航链接1</a>
+            <a href="#">导航链接2</a>
+        </nav>
+    </header>
+
+    <!-- main：主要内容区域，一个页面只能有一个main -->
+    <main>
+        <!-- article：独立的文章/内容块，可以被独立分发或阅读 -->
+        <article>
+            <h2>主要内容区域</h2>
+            <p>这里是页面的主要内容</p>
+        </article>
+    </main>
+
+    <!-- footer：页脚区域，通常包含版权信息、联系方式 -->
+    <footer>
+        <p>页脚信息 @2026</p>
+    </footer>
+
+    <!--
+      script：引入JavaScript脚本
+      放在body底部的原因：
+        1. 避免阻塞页面渲染（用户看到内容前不需要等脚本加载）
+        2. 脚本可以操作已加载的DOM元素
+      现代方案：使用 defer 属性，可以放在head中
+    -->
+    <script src="../01-basics/js/script.js"></script>
+</body>
+</html>

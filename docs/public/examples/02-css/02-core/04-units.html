@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 单位与值</title>
+    <style>
+        /* ================================================
+           CSS 单位与值
+           
+           绝对单位（固定尺寸）：
+           ┌─────────────────────────────────────────┐
+           │  px - 像素，最常用                      │
+           │  pt - 点（1pt = 1/72英寸），打印用      │
+           │  in - 英寸                             │
+           │  cm/mm - 厘米/毫米                     │
+           └─────────────────────────────────────────┘
+           
+           相对单位（根据上下文变化）：
+           ┌─────────────────────────────────────────┐
+           │  em   - 相对于父元素字体大小             │
+           │  rem  - 相对于根元素(html)字体大小       │
+           │  vw/vh - 视口宽度/高度的百分比           │
+           │  vmin/vmax - 视口较小/较大尺寸的百分比   │
+           │  %    - 相对于父元素的百分比             │
+           └─────────────────────────────────────────┘
+           
+           特殊单位：
+           ┌─────────────────────────────────────────┐
+           │  ch - 字符"0"的宽度                      │
+           │  ex - 小写"x"的高度                      │
+           │  fr - CSS Grid 的弹性单位                │
+           └─────────────────────────────────────────┘
+           
+           颜色值格式：
+           - 命名颜色：red, blue, green
+           - 十六进制：#ff0000, #f00
+           - RGB：rgb(255, 0, 0)
+           - RGBA：rgba(255, 0, 0, 0.5)
+           - HSL：hsl(0, 100%, 50%)
+           - HSLA：hsla(0, 100%, 50%, 0.5)
+           
+           CSS 变量：
+           - 定义：:root { --primary: #3498db; }
+           - 使用：background: var(--primary);
+           - 默认值：var(--color, blue)
+           
+           calc() 函数：
+           - 混合单位计算：calc(100% - 20px)
+           - 支持加减乘除
+           - 运算符前后必须有空格
+           
+           最佳实践：
+           1. 字体大小使用 rem
+           2. 间距使用 em 或 rem
+           3. 边框使用 px
+           4. 响应式设计使用 vw/vh 或 %
+           5. 使用 CSS 变量管理主题色
+           
+           ================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .demo-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* ================================================
+           绝对单位演示
+           ================================================ */
+
+        .px-demo {
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
+        .pt-demo {
+            font-size: 12pt;
+            margin: 8px 0;
+        }
+
+        .cm-demo {
+            font-size: 0.5cm;
+            margin: 8px 0;
+        }
+
+        /* ================================================
+           em 和 rem 演示
+           
+           em：相对于父元素
+           rem：相对于根元素（html 的 font-size）
+           ================================================ */
+
+        .em-demo {
+            font-size: 16px;
+        }
+
+        .em-demo .child {
+            font-size: 1.2em;
+            /* 16px * 1.2 = 19.2px */
+            margin: 8px 0;
+        }
+
+        .em-demo .child .grandchild {
+            font-size: 0.8em;
+            /* 19.2px * 0.8 = 15.36px */
+            color: #e74c3c;
+        }
+
+        .rem-demo {
+            font-size: 16px;
+        }
+
+        .rem-demo .child {
+            font-size: 1.2rem;
+            /* 16px * 1.2 = 19.2px（相对于根元素） */
+            margin: 8px 0;
+        }
+
+        .rem-demo .child .grandchild {
+            font-size: 0.8rem;
+            /* 16px * 0.8 = 12.8px（相对于根元素） */
+            color: #e74c3c;
+        }
+
+        /* ================================================
+           视口单位演示
+           ================================================ */
+
+        .vw-demo {
+            font-size: 5vw;
+            margin: 10px 0;
+        }
+
+        .vh-demo {
+            font-size: 3vh;
+            margin: 10px 0;
+        }
+
+        /* ================================================
+           百分比演示
+           ================================================ */
+
+        .parent-percent {
+            width: 400px;
+            padding: 15px;
+            background: #e7f3ff;
+            border: 2px solid #3498db;
+            margin: 10px 0;
+        }
+
+        .child-percent {
+            width: 50%;
+            padding: 10px;
+            background: #d5f5e3;
+            border: 2px solid #2ecc71;
+            margin: 10px 0;
+        }
+
+        /* ================================================
+           颜色格式演示
+           ================================================ */
+
+        .color-box {
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            margin: 5px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .color-named {
+            background: red;
+        }
+
+        .color-hex {
+            background: #ff0000;
+        }
+
+        .color-rgb {
+            background: rgb(255, 0, 0);
+        }
+
+        .color-rgba {
+            background: rgba(255, 0, 0, 0.7);
+        }
+
+        .color-hsl {
+            background: hsl(0, 100%, 50%);
+        }
+
+        .color-hsla {
+            background: hsla(0, 100%, 50%, 0.7);
+        }
+
+        /* ================================================
+           CSS 变量演示
+           ================================================ */
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --spacing: 16px;
+        }
+
+        .var-demo {
+            padding: var(--spacing);
+            margin: 10px 0;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+        }
+
+        .var-demo-alt {
+            padding: var(--spacing);
+            margin: 10px 0;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 5px;
+        }
+
+        /* ================================================
+           calc() 演示
+           ================================================ */
+
+        .calc-box {
+            width: calc(100% - 40px);
+            padding: 20px;
+            background: #e7f3ff;
+            border: 2px solid #3498db;
+            margin: 10px 0;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-links a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>CSS 单位与值</h1>
+
+    <!-- 绝对单位 -->
+    <div class="section">
+        <h2>1. 绝对单位</h2>
+        <p class="demo-label">固定尺寸，不会随上下文变化：</p>
+
+        <div class="demo-area">
+            <p class="px-demo">px 像素：16px</p>
+            <p class="pt-demo">pt 点：12pt</p>
+            <p class="cm-demo">cm 厘米：0.5cm</p>
+        </div>
+    </div>
+
+    <!-- em 和 rem -->
+    <div class="section">
+        <h2>2. em 和 rem</h2>
+        <p class="demo-label">相对单位，更适合响应式设计：</p>
+
+        <div class="demo-row">
+            <div class="demo-item">
+                <p class="demo-label">em（相对于父元素）</p>
+                <div class="demo-area em-demo">
+                    <p>父元素：16px</p>
+                    <div class="child">
+                        子元素：1.2em = 19.2px
+                        <div class="grandchild">
+                            孙元素：0.8em = 15.36px
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <p class="demo-label">rem（相对于根元素）</p>
+                <div class="demo-area rem-demo">
+                    <p>根元素(html)：16px</p>
+                    <div class="child">
+                        子元素：1.2rem = 19.2px
+                        <div class="grandchild">
+                            孙元素：0.8rem = 12.8px
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 视口单位 -->
+    <div class="section">
+        <h2>3. 视口单位</h2>
+        <p class="demo-label">基于浏览器视口的尺寸：</p>
+
+        <div class="demo-area">
+            <p class="vw-demo">5vw = 视口宽度的 5%</p>
+            <p class="vh-demo">3vh = 视口高度的 3%</p>
+        </div>
+
+        <div class="info-box">
+            1vw = 视口宽度的 1%，1vh = 视口高度的 1%
+        </div>
+    </div>
+
+    <!-- 百分比 -->
+    <div class="section">
+        <h2>4. 百分比</h2>
+        <p class="demo-label">相对于父元素的百分比：</p>
+
+        <div class="demo-area">
+            <div class="parent-percent">
+                父元素：400px
+                <div class="child-percent">
+                    子元素：50% = 200px
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 颜色格式 -->
+    <div class="section">
+        <h2>5. 颜色格式</h2>
+        <p class="demo-label">CSS 支持多种颜色表示方法：</p>
+
+        <div class="demo-area">
+            <div class="color-box color-named">red</div>
+            <div class="color-box color-hex">#ff0000</div>
+            <div class="color-box color-rgb">rgb()</div>
+            <div class="color-box color-rgba">rgba()</div>
+            <div class="color-box color-hsl">hsl()</div>
+            <div class="color-box color-hsla">hsla()</div>
+        </div>
+    </div>
+
+    <!-- CSS 变量 -->
+    <div class="section">
+        <h2>6. CSS 变量</h2>
+        <p class="demo-label">自定义属性让样式更易维护：</p>
+
+        <div class="demo-area">
+            <div class="var-demo">使用 --primary-color 变量</div>
+            <div class="var-demo-alt">使用 --secondary-color 变量</div>
+        </div>
+    </div>
+
+    <!-- calc() -->
+    <div class="section">
+        <h2>7. calc() 函数</h2>
+        <p class="demo-label">在 CSS 中进行数学计算：</p>
+
+        <div class="demo-area">
+            <div class="calc-box">
+                width: calc(100% - 40px)
+            </div>
+        </div>
+
+        <div class="info-box">
+            坚持学习，你正在掌握前端开发的核心技能！
+        </div>
+    </div>
+
+    <!-- 导航 -->
+    <div class="nav-links">
+        <a href="03-inheritance.html">⬅️ 上一课：继承</a>
+        <a href="../roadmap.html">返回路线图</a>
+        <a href="../03-layout/01-flexbox.html">下一课：Flexbox ➡️</a>
+    </div>
+
+</body>
+
+</html>

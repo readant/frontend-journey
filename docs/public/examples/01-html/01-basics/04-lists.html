@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML列表</title>
+    <style>
+        .demo-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+
+        .code-note {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        .hint {
+            color: #6c757d;
+            margin-left: 10px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>HTML列表示例</h1>
+    <!-- 
+    ul是unordered lists的缩写 (无序列表)
+
+    li是list item的缩写 （列表项目）
+
+    ol是ordered lists的缩写（有序列表）
+
+    dl是definition lists的英文缩写 (自定义列表)
+
+    dt是definition term的缩写 (自定义列表组)
+
+    dd是definition description的缩写（自定义列表描述）
+
+    nl是navigation lists的英文缩写 （导航列表）
+
+    tr是table row的缩写 （表格中的一行）
+
+    th是table header cell的缩写 （表格中的表头）
+
+    td是table data cell的缩写 （表格中的一个单元格）
+    -->
+    <!-- ============================================
+         1. 无序列表 ul - unordered list
+         ============================================ -->
+    <section class="demo-section">
+        <h2>1. 无序列表 &lt;ul&gt;</h2>
+        <p><small>ul：Unordered List，无序列表，项目之间没有先后关系，默认显示圆点</small></p>
+
+        <h3>购物清单：</h3>
+
+        <!-- li：List Item,列表项,必须放在 ul 或 ol 内部 -->
+        <ul>
+            <li>苹果</li>
+            <li>香蕉</li>
+            <li>橙子</li>
+            <li>西瓜</li>
+        </ul>
+
+        <!--
+          嵌套列表：列表可以嵌套,形成层级结构
+          注意：li 内部可以包含另一个 ul/ol,但不能直接包含其他块级元素
+        -->
+        <h3>嵌套列表：</h3>
+        <ul>
+            <li>水果
+                <ul>
+                    <li>苹果</li>
+                    <li>香蕉</li>
+                </ul>
+            </li>
+            <li>蔬菜
+                <ul>
+                    <li>白菜</li>
+                    <li>萝卜</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- ============================================
+         2. 有序列表 ol - ordered list
+         ============================================ -->
+    <section class="demo-section">
+        <h2>2. 有序列表 &lt;ol&gt;</h2>
+        <p><small>ol：Ordered List，有序列表，项目有先后顺序，默认显示数字编号</small></p>
+
+        <!--
+          ol 常用属性：
+          - start：起始编号（数字）,如 start="10" 从10开始
+          - type：编号类型
+            "1" = 数字（默认）
+            "A" = 大写字母
+            "a" = 小写字母
+            "I" = 大写罗马数字
+            "i" = 小写罗马数字
+          - reversed：倒序排列
+        -->
+        <h3>学习步骤：</h3>
+        <ol>
+            <li>学习 HTML 基础</li>
+            <li>学习 CSS 样式</li>
+            <li>学习 JavaScript 语法</li>
+            <li>做综合项目</li>
+        </ol>
+
+        <h3>自定义起始编号（start="10"）：</h3>
+        <!-- start="10" 表示从第10个开始编号 -->
+        <ol start="10">
+            <li>第十步</li>
+            <li>第十一步</li>
+            <li>第十二步</li>
+        </ol>
+
+        <h3>不同编号类型（type="A"）：</h3>
+        <!-- type="A" 使用大写字母编号：A, B, C... -->
+        <ol type="A">
+            <li>选项A</li>
+            <li>选项B</li>
+            <li>选项C</li>
+        </ol>
+
+        <!--
+          li 的 value 属性：指定当前项的编号值
+          - 后续项目会自动递增
+          - 可用于跳过某些编号或重新开始
+        -->
+        <h3>指定起始值（value 属性）：</h3>
+        <ol>
+            <li>第一步</li>
+            <li value="5">第五步（跳过2-4,value指定为5）</li>
+            <li>第六步（自动从5+1=6开始）</li>
+        </ol>
+    </section>
+
+    <!-- ============================================
+         3. 定义列表 dl - definition list
+         ============================================ -->
+    <section class="demo-section">
+        <h2>3. 定义列表 &lt;dl&gt;</h2>
+        <p><small>dl：Definition List，dt=术语，dd=定义，常用于术语表、FAQ、词汇表</small></p>
+
+        <h3>前端技术术语：</h3>
+        <dl>
+            <!-- dt：术语,浏览器默认加粗 -->
+            <dt>HTML</dt>
+            <!-- dd：定义,浏览器默认缩进显示 -->
+            <dd>HyperText Markup Language,超文本标记语言,用于构建网页结构</dd>
+
+            <dt>CSS</dt>
+            <dd>Cascading Style Sheets,层叠样式表,用于美化网页样式</dd>
+
+            <dt>JavaScript</dt>
+            <dd>一种编程语言,用于实现网页的交互功能</dd>
+        </dl>
+    </section>
+
+    <!-- ============================================
+         4. 菜单列表 menu
+         ============================================ -->
+    <section class="demo-section">
+        <h2>4. 菜单列表 &lt;menu&gt;</h2>
+        <p><small>menu：HTML5 新增标签，用于一组交互式命令，如工具栏、右键菜单</small></p>
+
+        <menu>
+            <!-- 每个 li 包含一个可执行的按钮 -->
+            <li><button onclick="alert('复制')">复制</button></li>
+            <li><button onclick="alert('粘贴')">粘贴</button></li>
+            <li><button onclick="alert('剪切')">剪切</button></li>
+        </menu>
+    </section>
+
+</body>
+
+</html>

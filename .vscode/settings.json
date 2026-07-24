@@ -16,5 +16,16 @@
 	},
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode" // JavaScript文件使用Prettier格式化
-	}
+	},
+
+	// markdownlint 配置
+	"markdownlint.config": {
+		// 自定义规则
+		"MD013": false, // 禁用行长度限制（对中文文档不太友好）
+		"MD033": false, // 允许内联 HTML
+		"MD041": false, // 不要求第一行是标题
+		"MD024": false, // 允许重复标题
+		"MD029": false  // 标题编号不要求有序
+	},
+	"markdownlint.run": "onType"  // 输入时自动检查
 }

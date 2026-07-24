@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>统一建模语言理论考试 - Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #18181b;
+            --ink-secondary: #52525b;
+            --ink-muted: #a1a1aa;
+            --surface: #ffffff;
+            --surface-subtle: #fafafa;
+            --border: #e4e4e7;
+            --accent: #2563eb;
+            --accent-light: #eff6ff;
+            --font: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --ink: #fafafa;
+                --ink-secondary: #a1a1aa;
+                --ink-muted: #71717a;
+                --surface: #09090b;
+                --surface-subtle: #18181b;
+                --border: #27272a;
+                --accent: #60a5fa;
+                --accent-light: #1e293b;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--surface-subtle);
+            color: var(--ink);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 780px;
+            margin: 40px auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .exam-header {
+            padding: 48px 56px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .exam-header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .exam-meta {
+            font-size: 14px;
+            color: var(--ink-secondary);
+        }
+
+        .exam-meta p {
+            margin-bottom: 4px;
+        }
+
+        /* Student Info */
+        .student-info {
+            padding: 32px 56px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .info-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .info-field input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: var(--font);
+            color: var(--ink);
+            background: var(--surface);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .info-field input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        /* Section */
+        .exam-section {
+            padding: 36px 56px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .exam-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .section-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .section-head h2 {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .section-head .score {
+            font-size: 12px;
+            color: var(--ink-muted);
+            margin-left: auto;
+        }
+
+        /* Question */
+        .question {
+            margin-bottom: 24px;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .question-text {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .blank-line {
+            display: inline-block;
+            min-width: 180px;
+            border-bottom: 1.5px solid var(--ink);
+            margin-left: 8px;
+        }
+
+        /* Options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-left: 4px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .option-label:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .option-label input[type="radio"],
+        .option-label input[type="checkbox"] {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        /* Judge */
+        .judge-row {
+            display: flex;
+            gap: 16px;
+            padding-left: 4px;
+        }
+
+        .judge-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .judge-option:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .judge-option input[type="radio"] {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Textarea */
+        .answer-box {
+            width: 100%;
+            min-height: 140px;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: var(--font);
+            color: var(--ink);
+            background: var(--surface);
+            resize: vertical;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            line-height: 1.7;
+        }
+
+        .answer-box:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        /* Submit */
+        .submit-area {
+            padding: 32px 56px 48px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            padding: 12px 40px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: var(--font);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .exam-section {
+                animation: fadeUp 0.4s ease-out both;
+            }
+
+            .exam-section:nth-child(2) { animation-delay: 0.05s; }
+            .exam-section:nth-child(3) { animation-delay: 0.1s; }
+            .exam-section:nth-child(4) { animation-delay: 0.15s; }
+            .exam-section:nth-child(5) { animation-delay: 0.2s; }
+            .exam-section:nth-child(6) { animation-delay: 0.25s; }
+
+            @keyframes fadeUp {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page {
+                margin: 0;
+                border-radius: 0;
+                border: none;
+            }
+
+            .exam-header {
+                padding: 32px 24px;
+            }
+
+            .student-info,
+            .exam-section,
+            .submit-area {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .judge-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body { background: #fff; }
+            .page { border: none; margin: 0; }
+            .submit-btn { display: none; }
+            .option-label:hover,
+            .judge-option:hover { border-color: var(--border); background: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- Header -->
+        <div class="exam-header">
+            <h1>统一建模语言理论考试</h1>
+            <div class="exam-meta">
+                <p>考试科目：统一建模语言</p>
+                <p>时间：100分钟</p>
+            </div>
+        </div>
+
+        <!-- Student Info -->
+        <div class="student-info">
+            <div class="info-grid">
+                <div class="info-field">
+                    <label>班级（必填）</label>
+                    <input type="text" placeholder="请输入班级">
+                </div>
+                <div class="info-field">
+                    <label>学号（必填）</label>
+                    <input type="text" placeholder="请输入学号">
+                </div>
+                <div class="info-field">
+                    <label>姓名（必填）</label>
+                    <input type="text" placeholder="请输入姓名">
+                </div>
+            </div>
+        </div>
+
+        <!-- 一、填空题 -->
+        <div class="exam-section">
+            <div class="section-head">
+                <span class="section-num">一</span>
+                <h2>填空题</h2>
+                <span class="score">每空5分，共20分</span>
+            </div>
+            <div class="question">
+                <p class="question-text">1. UML的全称是<span class="blank-line"></span></p>
+            </div>
+            <div class="question">
+                <p class="question-text">2. 对象最突出的特征是<span class="blank-line"></span></p>
+            </div>
+        </div>
+
+        <!-- 二、选择题 -->
+        <div class="exam-section">
+            <div class="section-head">
+                <span class="section-num">二</span>
+                <h2>选择题</h2>
+                <span class="score">每题10分，共20分</span>
+            </div>
+            <div class="question">
+                <p class="question-text">1. UML与软件工程的关系是</p>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="q1"> (A) UML就是软件工程</label>
+                    <label class="option-label"><input type="radio" name="q1"> (B) UML参与到软件工程中软件开发过程的几个阶段</label>
+                    <label class="option-label"><input type="radio" name="q1"> (C) UML与软件工程无关</label>
+                    <label class="option-label"><input type="radio" name="q1"> (D) UML是软件工程的一部分</label>
+                </div>
+            </div>
+            <div class="question">
+                <p class="question-text">2. Java语言支持：</p>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="q2"> (A) 单继承</label>
+                    <label class="option-label"><input type="radio" name="q2"> (B) 多继承</label>
+                    <label class="option-label"><input type="radio" name="q2"> (C) 单继承和多继承都支持</label>
+                    <label class="option-label"><input type="radio" name="q2"> (D) 单继承和多继承都不支持</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 三、多项选择题 -->
+        <div class="exam-section">
+            <div class="section-head">
+                <span class="section-num">三</span>
+                <h2>多项选择题</h2>
+                <span class="score">每题10分，共20分</span>
+            </div>
+            <div class="question">
+                <p class="question-text">1. 用例的粒度分为以下哪三种</p>
+                <div class="options">
+                    <label class="option-label"><input type="checkbox"> (A) 概述级</label>
+                    <label class="option-label"><input type="checkbox"> (B) 需求级</label>
+                    <label class="option-label"><input type="checkbox"> (C) 用户目标级</label>
+                    <label class="option-label"><input type="checkbox"> (D) 子功能级</label>
+                </div>
+            </div>
+            <div class="question">
+                <p class="question-text">2. 类图由以下哪三部分组成:</p>
+                <div class="options">
+                    <label class="option-label"><input type="checkbox"> (A) 名称(Name)</label>
+                    <label class="option-label"><input type="checkbox"> (B) 属性(Attribute)</label>
+                    <label class="option-label"><input type="checkbox"> (C) 操作(Operation)</label>
+                    <label class="option-label"><input type="checkbox"> (D) 方法(Function)</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 四、判断题 -->
+        <div class="exam-section">
+            <div class="section-head">
+                <span class="section-num">四</span>
+                <h2>判断题</h2>
+                <span class="score">每题10分，共20分</span>
+            </div>
+            <div class="question">
+                <p class="question-text">1. 用例图只是用于和客户交流和沟通的，用于确定需求。</p>
+                <div class="judge-row">
+                    <label class="judge-option"><input type="radio" name="j1"> 对</label>
+                    <label class="judge-option"><input type="radio" name="j1"> 错</label>
+                </div>
+            </div>
+            <div class="question">
+                <p class="question-text">2. 在状态图中终止状态在一个状态图中允许有任意多个。</p>
+                <div class="judge-row">
+                    <label class="judge-option"><input type="radio" name="j2"> 对</label>
+                    <label class="judge-option"><input type="radio" name="j2"> 错</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 五、简答题 -->
+        <div class="exam-section">
+            <div class="section-head">
+                <span class="section-num">五</span>
+                <h2>简答题</h2>
+                <span class="score">每题20分，共20分</span>
+            </div>
+            <div class="question">
+                <p class="question-text">1. 什么是模型以及模型的表现形式</p>
+                <textarea class="answer-box" placeholder="请在此作答..."></textarea>
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-area">
+            <button class="submit-btn" onclick="alert('分数计算功能待实现')">计算分数</button>
+        </div>
+
+    </div>
+</body>
+
+</html>

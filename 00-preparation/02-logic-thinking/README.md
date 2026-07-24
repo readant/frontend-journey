@@ -1,38 +1,40 @@
-# Logic and Thinking
+# 逻辑思维训练
 
-Programming is not just about writing code, it's a way of thinking. This directory helps you build the logical thinking foundation needed for programming.
+[返回首页](../../README.md) | [返回准备阶段](../README.md)
 
-## Directory Structure
+编程不只是写代码，更是一种思维方式。本目录帮助你建立编程所需的逻辑思维基础。
+
+## 目录结构
 
 ```
 02-logic-thinking/
-├── 01-logic-basics/          # Logical thinking training
-├── 02-algorithm-intro/       # Basic algorithm knowledge
-└── 03-programming-thinking/  # Programming thinking development
+├── 01-logic-basics/          # 逻辑思维训练
+├── 02-algorithm-intro/       # 基础算法知识
+└── 03-programming-thinking/  # 编程思维培养
 ```
 
-## Learning Objectives
+## 学习目标
 
-### Logic Basics
+### 逻辑基础
 
-- Understand logical operations (AND, OR, NOT)
-- Master conditional judgment and logical reasoning
-- Learn truth tables and logical expressions
+- 理解逻辑运算（与、或、非）
+- 掌握条件判断和逻辑推理
+- 学习真值表和逻辑表达式
 
-### Algorithm Introduction
+### 算法入门
 
-- Understand basic algorithm concepts
-- Master common algorithm ideas (recursion, iteration, divide and conquer)
-- Learn time complexity and space complexity
+- 理解基础算法概念
+- 掌握常见算法思想（递归、迭代、分治）
+- 了解时间复杂度和空间复杂度
 
-### Programming Thinking
+### 编程思维
 
-- Develop problem decomposition skills
-- Learn abstract thinking and pattern recognition
-- Master debugging and problem-solving techniques
+- 培养问题分解能力
+- 学习抽象思维和模式识别
+- 掌握调试和问题解决技巧
 
-## Learning Resources
+## 推荐资源
 
-- **Books**: "Grokking Algorithms", "Programming Pearls"
-- **Online Courses**: freeCodeCamp algorithm courses
-- **Practice Platforms**: LeetCode, HackerRank
+- **书籍**：《算法图解》、《编程珠玑》
+- **在线课程**：freeCodeCamp 算法课程
+- **练习平台**：LeetCode、HackerRank
