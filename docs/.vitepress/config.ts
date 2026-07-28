@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Frontend Journey',
   description: '前端学习笔记 - 从零开始的前端学习旅程',
+  titleTemplate: ':pageTitle | Frontend Journey',
 
   // GitHub Pages 部署配置
   base: '/frontend-journey/',
@@ -48,17 +49,18 @@ export default defineConfig({
       ],
       '/02-css/': [
         {
-          text: 'CSS 学习',
+          text: 'CSS 核心知识体系',
           items: [
             { text: '概览', link: '/02-css/' },
-            { text: '基础入门', link: '/02-css/01-basics/' },
-            { text: '核心概念', link: '/02-css/02-core/' },
-            { text: '现代布局', link: '/02-css/03-layout/' },
-            { text: '视觉效果', link: '/02-css/04-visual/' },
-            { text: '动画交互', link: '/02-css/05-animation/' },
-            { text: '高级特性', link: '/02-css/06-advanced/' },
-            { text: '性能优化', link: '/02-css/07-optimization/' },
-            { text: '实战案例', link: '/02-css/08-practice/' },
+            { text: '基础语法与机制', link: '/02-css/01-basics/' },
+            { text: '选择器', link: '/02-css/02-selectors/' },
+            { text: '盒子模型', link: '/02-css/03-box-model/' },
+            { text: '布局与定位', link: '/02-css/04-layout-positioning/' },
+            { text: '视觉样式与美化', link: '/02-css/05-visual-styling/' },
+            { text: '变换与动画', link: '/02-css/06-transform-animation/' },
+            { text: '响应式设计', link: '/02-css/07-responsive/' },
+            { text: '工程化与现代 CSS', link: '/02-css/08-modern-css/' },
+            { text: '设计模式与实战', link: '/02-css/09-design-patterns/' },
           ]
         }
       ],

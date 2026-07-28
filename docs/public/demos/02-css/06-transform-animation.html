@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第6章 · 变换与动画 - 交互式演示</title>
+<style>
+  :root {
+    --primary: #6366f1;
+    --primary-light: #818cf8;
+    --primary-dark: #4f46e5;
+    --accent: #f472b6;
+    --bg: #0f172a;
+    --bg-card: #1e293b;
+    --bg-elevated: #334155;
+    --bg-hover: #3b4a63;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --border: #475569;
+    --border-light: #64748b;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.5);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  [data-theme="light"] {
+    --bg: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-elevated: #f1f5f9;
+    --bg-hover: #e2e8f0;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+    --border: #e2e8f0;
+    --border-light: #cbd5e1;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.12);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 20px 32px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.15);
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .back-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+  }
+
+  .header h1 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .theme-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), transform var(--transition);
+    font-size: 18px;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(20deg);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 6px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    flex: 1;
+    min-width: 160px;
+    padding: 12px 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+    white-space: nowrap;
+    font-family: inherit;
+  }
+
+  .tab:hover {
+    color: var(--text);
+    background: var(--bg-hover);
+  }
+
+  .tab.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  }
+
+  .panel {
+    display: none;
+    animation: fadeInUp 0.4s ease;
+  }
+
+  .panel.active {
+    display: block;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+  }
+
+  .card-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(180deg, var(--primary), var(--accent));
+    border-radius: 2px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  .controls-section {
+    margin-bottom: 24px;
+  }
+
+  .controls-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .controls-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .controls-label .value {
+    color: var(--primary-light);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    background: var(--bg-elevated);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--bg-elevated);
+    border-radius: 3px;
+    outline: none;
+    transition: background var(--transition);
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.6);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+  }
+
+  .preview-area {
+    background: var(--bg-elevated);
+    border-radius: var(--radius-sm);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px dashed var(--border-light);
+  }
+
+  .preview-area.perspective {
+    perspective: 800px;
+  }
+
+  .transform-card {
+    width: 140px;
+    height: 140px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    transform-style: preserve-3d;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+    transition: transform 0.15s ease;
+    user-select: none;
+  }
+
+  .transform-card::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: inherit;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.4;
+  }
+
+  .transform-card {
+    position: relative;
+  }
+
+  .code-output {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+    border: 1px solid #30363d;
+    margin-top: 16px;
+  }
+
+  .code-output .css-property { color: #79c0ff; }
+  .code-output .css-value { color: #a5d6ff; }
+  .code-output .css-comment { color: #8b949e; font-style: italic; }
+  .code-output .css-selector { color: #ff7b72; }
+  .code-output .css-brace { color: #e6edf3; }
+
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+  }
+
+  .btn-secondary {
+    background: var(--bg-elevated);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-hover);
+    border-color: var(--primary);
+  }
+
+  .btn-accent {
+    background: linear-gradient(135deg, var(--accent), #ec4899);
+    color: white;
+  }
+
+  .btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(244, 114, 182, 0.4);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-elevated);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color var(--transition);
+  }
+
+  select:hover, select:focus {
+    border-color: var(--primary);
+    outline: none;
+  }
+
+  select option {
+    background: var(--bg-card);
+    color: var(--text);
+  }
+
+  .transition-box {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .transition-box.hovered {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    transform: scale(1.2) rotate(15deg);
+    border-radius: 50%;
+    box-shadow: 0 12px 32px rgba(244, 114, 182, 0.5);
+  }
+
+  .transition-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .transition-compare-item {
+    text-align: center;
+  }
+
+  .transition-compare-item .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  .transition-demo-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    background: var(--primary);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    transition-property: transform, background-color;
+  }
+
+  .transition-demo-box:hover {
+    transform: translateX(60px) scale(1.1);
+    background: var(--accent);
+  }
+
+  .timing-linear { transition-timing-function: linear; }
+  .timing-ease { transition-timing-function: ease; }
+  .timing-ease-in { transition-timing-function: ease-in; }
+  .timing-ease-out { transition-timing-function: ease-out; }
+  .timing-ease-in-out { transition-timing-function: ease-in-out; }
+  .timing-bounce { transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+  .timeline-container {
+    background: var(--bg-elevated);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .timeline {
+    position: relative;
+    height: 60px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .timeline-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  .timeline-progress {
+    position: absolute;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 2px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+  }
+
+  .keyframe-marker {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .keyframe-dot {
+    width: 24px;
+    height: 24px;
+    background: var(--primary);
+    border: 3px solid var(--bg);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.5);
+    transition: transform var(--transition), background var(--transition);
+  }
+
+  .keyframe-marker:hover .keyframe-dot {
+    transform: scale(1.2);
+  }
+
+  .keyframe-marker.active .keyframe-dot {
+    background: var(--accent);
+    transform: scale(1.3);
+  }
+
+  .keyframe-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    background: var(--bg-elevated);
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .keyframe-properties {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  .keyframe-prop-row {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .keyframe-prop-row:last-child {
+    border-bottom: none;
+  }
+
+  .keyframe-prop-name {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .keyframe-prop-value {
+    font-size: 13px;
+    color: var(--primary-light);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    text-align: right;
+  }
+
+  .animation-preview-area {
+    background: var(--bg-elevated);
+    border-radius: var(--radius-sm);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border: 1px dashed var(--border-light);
+  }
+
+  .animation-ball {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .gallery-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .gallery-preview {
+    height: 140px;
+    background: var(--bg-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery-preview-element {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 10px;
+  }
+
+  .gallery-info {
+    padding: 16px;
+  }
+
+  .gallery-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .gallery-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .gallery-controls {
+    display: flex;
+    gap: 8px;
+  }
+
+  .gallery-controls .btn {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .bounce {
+    animation: bounce 1s infinite;
+  }
+
+  .pulse {
+    animation: pulse 1.5s infinite;
+  }
+
+  .shake {
+    animation: shake 0.8s infinite;
+  }
+
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .typewriter {
+    animation: typing 2s steps(20) infinite alternate, blink 0.7s step-end infinite;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-30px); }
+    60% { transform: translateY(-15px); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4); }
+    50% { transform: scale(1.15); box-shadow: 0 12px 36px rgba(244, 114, 182, 0.5); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-12px) rotate(2deg); }
+    75% { transform: translateY(8px) rotate(-2deg); }
+  }
+
+  .typewriter-container {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 16px;
+    color: var(--primary-light);
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid var(--primary);
+    animation: typing 2s steps(15, end) infinite alternate, blink 0.7s step-end infinite;
+    padding: 0 4px;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 140px; }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
+
+  .custom-keyframe-ball {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+  }
+
+  .info-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-elevated);
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .section-description {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  .slider-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .slider-group { grid-template-columns: 1fr; }
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+
+  .checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    box-shadow: var(--shadow-lg);
+    font-size: 14px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition), transform var(--transition);
+    pointer-events: none;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .toast.success { border-left: 4px solid var(--success); }
+  .toast.info { border-left: 4px solid var(--primary); }
+  .toast.warning { border-left: 4px solid var(--warning); }
+
+  .fadeIn { animation: fadeInUp 0.5s ease; }
+
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: pulse 2s infinite;
+  }
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="javascript:history.back()" class="back-link">← 返回</a>
+      <h1>第6章 · 变换与动画</h1>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">🌙</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="transform">🎯 变换实验室</button>
+    <button class="tab" data-tab="transition">🔄 过渡演示</button>
+    <button class="tab" data-tab="keyframe">🎬 关键帧编辑器</button>
+    <button class="tab" data-tab="theater">🎨 动画剧场</button>
+  </nav>
+
+  <!-- Tab 1: Transform Lab -->
+  <section class="panel active" id="panel-transform">
+    <div class="section-description">
+      调整下方滑块，实时预览 2D/3D 变换效果。查看生成的 CSS 代码。
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">变换预览</div>
+        <div class="preview-area perspective" id="transformPreview">
+          <div class="transform-card" id="transformCard">变换我</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="resetTransform()">🔄 重置</button>
+          <button class="btn btn-secondary" onclick="togglePerspective()">👁️ 透视: <span id="perspectiveLabel">开</span></button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">变换控制</div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>平移 X</span><span class="value" id="translateXVal">0px</span></div>
+          <input type="range" id="translateX" min="-150" max="150" value="0" step="1">
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>平移 Y</span><span class="value" id="translateYVal">0px</span></div>
+          <input type="range" id="translateY" min="-150" max="150" value="0" step="1">
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>旋转 (Z轴)</span><span class="value" id="rotateVal">0deg</span></div>
+          <input type="range" id="rotate" min="-180" max="180" value="0" step="1">
+        </div>
+
+        <div class="slider-group">
+          <div class="controls-section">
+            <div class="controls-label"><span>缩放 X</span><span class="value" id="scaleXVal">1</span></div>
+            <input type="range" id="scaleX" min="0.2" max="3" value="1" step="0.1">
+          </div>
+          <div class="controls-section">
+            <div class="controls-label"><span>缩放 Y</span><span class="value" id="scaleYVal">1</span></div>
+            <input type="range" id="scaleY" min="0.2" max="3" value="1" step="0.1">
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <div class="controls-section">
+            <div class="controls-label"><span>倾斜 X</span><span class="value" id="skewXVal">0deg</span></div>
+            <input type="range" id="skewX" min="-45" max="45" value="0" step="1">
+          </div>
+          <div class="controls-section">
+            <div class="controls-label"><span>倾斜 Y</span><span class="value" id="skewYVal">0deg</span></div>
+            <input type="range" id="skewY" min="-45" max="45" value="0" step="1">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="slider-group">
+          <div class="controls-section">
+            <div class="controls-label"><span>3D 旋转 X</span><span class="value" id="rotateXVal">0deg</span></div>
+            <input type="range" id="rotateX" min="-90" max="90" value="0" step="1">
+          </div>
+          <div class="controls-section">
+            <div class="controls-label"><span>3D 旋转 Y</span><span class="value" id="rotateYVal">0deg</span></div>
+            <input type="range" id="rotateY" min="-90" max="90" value="0" step="1">
+          </div>
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>Z 轴平移</span><span class="value" id="translateZVal">0px</span></div>
+          <input type="range" id="translateZ" min="-200" max="300" value="0" step="1">
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>transform-origin</span></div>
+          <select id="transformOrigin">
+            <option value="center center">center center (默认)</option>
+            <option value="top left">top left</option>
+            <option value="top right">top right</option>
+            <option value="bottom left">bottom left</option>
+            <option value="bottom right">bottom right</option>
+            <option value="50% 0%">50% 0%</option>
+            <option value="0% 100%">0% 100%</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">生成的 CSS 代码</div>
+      <div class="code-output" id="transformCode"></div>
+      <button class="btn btn-secondary" style="margin-top: 12px;" onclick="copyCode('transformCode')">📋 复制代码</button>
+    </div>
+  </section>
+
+  <!-- Tab 2: Transition Demo -->
+  <section class="panel" id="panel-transition">
+    <div class="section-description">
+      鼠标悬停或点击下方方块，观察不同过渡属性的效果差异。
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">交互式过渡</div>
+        <div class="preview-area" style="min-height: 260px; cursor: pointer;" id="transitionArea" onclick="toggleTransitionBox()">
+          <div class="transition-box" id="transitionBox">悬停/点击</div>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px;">
+          点击方块切换状态，或直接悬停预览
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">过渡属性控制</div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>transition-property</span></div>
+          <select id="transitionProperty">
+            <option value="all">all (所有属性)</option>
+            <option value="transform">transform</option>
+            <option value="background-color">background-color</option>
+            <option value="border-radius">border-radius</option>
+            <option value="box-shadow">box-shadow</option>
+          </select>
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>transition-duration</span><span class="value" id="durationVal">0.5s</span></div>
+          <input type="range" id="transitionDuration" min="0" max="3000" value="500" step="50">
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>transition-timing-function</span></div>
+          <select id="transitionTiming">
+            <option value="linear">linear (匀速)</option>
+            <option value="ease" selected>ease (默认)</option>
+            <option value="ease-in">ease-in (先慢后快)</option>
+            <option value="ease-out">ease-out (先快后慢)</option>
+            <option value="ease-in-out">ease-in-out (对称)</option>
+            <option value="cubic-bezier(0.68, -0.55, 0.265, 1.55)">cubic-bezier (弹性)</option>
+            <option value="steps(4, end)">steps(4, end) (分步)</option>
+          </select>
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>transition-delay</span><span class="value" id="delayVal">0s</span></div>
+          <input type="range" id="transitionDelay" min="0" max="2000" value="0" step="100">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">缓动函数对比</div>
+      <p class="section-description">悬停每个方块查看不同 timing-function 的效果</p>
+      <div class="transition-compare">
+        <div class="transition-compare-item">
+          <div class="label">linear</div>
+          <div class="transition-demo-box timing-linear">→</div>
+        </div>
+        <div class="transition-compare-item">
+          <div class="label">ease</div>
+          <div class="transition-demo-box timing-ease">→</div>
+        </div>
+        <div class="transition-compare-item">
+          <div class="label">ease-in</div>
+          <div class="transition-demo-box timing-ease-in">→</div>
+        </div>
+        <div class="transition-compare-item">
+          <div class="label">ease-out</div>
+          <div class="transition-demo-box timing-ease-out">→</div>
+        </div>
+        <div class="transition-compare-item">
+          <div class="label">ease-in-out</div>
+          <div class="transition-demo-box timing-ease-in-out">→</div>
+        </div>
+        <div class="transition-compare-item">
+          <div class="label">bounce</div>
+          <div class="transition-demo-box timing-bounce">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">生成的 CSS 代码</div>
+      <div class="code-output" id="transitionCode"></div>
+      <button class="btn btn-secondary" style="margin-top: 12px;" onclick="copyCode('transitionCode')">📋 复制代码</button>
+    </div>
+  </section>
+
+  <!-- Tab 3: Keyframe Editor -->
+  <section class="panel" id="panel-keyframe">
+    <div class="section-description">
+      定义关键帧 (0%, 50%, 100%) 的不同属性值，实时预览动画效果并生成 CSS 代码。
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">时间线编辑</div>
+        <div class="timeline-container">
+          <div class="timeline">
+            <div class="timeline-track"></div>
+            <div class="timeline-progress" id="keyframeProgress" style="width: 0%;"></div>
+            <div class="keyframe-marker active" data-keyframe="0" style="left: 0%;" onclick="selectKeyframe(0)">
+              <div class="keyframe-dot"></div>
+              <div class="keyframe-label">0%</div>
+            </div>
+            <div class="keyframe-marker" data-keyframe="1" style="left: 50%;" onclick="selectKeyframe(1)">
+              <div class="keyframe-dot"></div>
+              <div class="keyframe-label">50%</div>
+            </div>
+            <div class="keyframe-marker" data-keyframe="2" style="left: 100%;" onclick="selectKeyframe(2)">
+              <div class="keyframe-dot"></div>
+              <div class="keyframe-label">100%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="keyframe-properties" id="keyframeProperties">
+          <div class="keyframe-prop-row">
+            <span class="keyframe-prop-name">opacity</span>
+            <input type="range" id="kfOpacity" min="0" max="1" value="1" step="0.1" oninput="updateKeyframeProp()">
+            <span class="keyframe-prop-value" id="kfOpacityVal">1</span>
+          </div>
+          <div class="keyframe-prop-row">
+            <span class="keyframe-prop-name">translateX</span>
+            <input type="range" id="kfTranslateX" min="-100" max="100" value="0" step="1" oninput="updateKeyframeProp()">
+            <span class="keyframe-prop-value" id="kfTranslateXVal">0px</span>
+          </div>
+          <div class="keyframe-prop-row">
+            <span class="keyframe-prop-name">translateY</span>
+            <input type="range" id="kfTranslateY" min="-100" max="100" value="0" step="1" oninput="updateKeyframeProp()">
+            <span class="keyframe-prop-value" id="kfTranslateYVal">0px</span>
+          </div>
+          <div class="keyframe-prop-row">
+            <span class="keyframe-prop-name">scale</span>
+            <input type="range" id="kfScale" min="0.2" max="2.5" value="1" step="0.1" oninput="updateKeyframeProp()">
+            <span class="keyframe-prop-value" id="kfScaleVal">1</span>
+          </div>
+          <div class="keyframe-prop-row">
+            <span class="keyframe-prop-name">rotate</span>
+            <input type="range" id="kfRotate" min="-180" max="180" value="0" step="1" oninput="updateKeyframeProp()">
+            <span class="keyframe-prop-value" id="kfRotateVal">0deg</span>
+          </div>
+          <div class="keyframe-prop-row">
+            <span class="keyframe-prop-name">background Hue</span>
+            <input type="range" id="kfHue" min="0" max="360" value="240" step="1" oninput="updateKeyframeProp()">
+            <span class="keyframe-prop-value" id="kfHueVal">240°</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">动画预览</div>
+        <div class="animation-preview-area" id="keyframePreview">
+          <div class="custom-keyframe-ball" id="keyframeBall"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>animation-name</span></div>
+          <input type="text" id="animName" value="customAnimation" style="width: 100%; padding: 10px 12px; background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;">
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>animation-duration</span><span class="value" id="animDurationVal">2s</span></div>
+          <input type="range" id="animDuration" min="0.5" max="5" value="2" step="0.1">
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>animation-timing-function</span></div>
+          <select id="animTiming">
+            <option value="linear">linear</option>
+            <option value="ease" selected>ease</option>
+            <option value="ease-in">ease-in</option>
+            <option value="ease-out">ease-out</option>
+            <option value="ease-in-out">ease-in-out</option>
+            <option value="cubic-bezier(0.68, -0.55, 0.265, 1.55)">cubic-bezier (弹性)</option>
+          </select>
+        </div>
+
+        <div class="slider-group">
+          <div class="controls-section">
+            <div class="controls-label"><span>iteration-count</span></div>
+            <select id="animIteration">
+              <option value="1">1 次</option>
+              <option value="2">2 次</option>
+              <option value="3" selected>3 次</option>
+              <option value="5">5 次</option>
+              <option value="infinite">无限循环</option>
+            </select>
+          </div>
+          <div class="controls-section">
+            <div class="controls-label"><span>direction</span></div>
+            <select id="animDirection">
+              <option value="normal" selected>normal</option>
+              <option value="reverse">reverse</option>
+              <option value="alternate">alternate</option>
+              <option value="alternate-reverse">alternate-reverse</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="controls-section">
+          <div class="controls-label"><span>fill-mode</span></div>
+          <select id="animFill">
+            <option value="none">none</option>
+            <option value="forwards" selected>forwards</option>
+            <option value="backwards">backwards</option>
+            <option value="both">both</option>
+          </select>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="playKeyframe()">▶ 播放</button>
+          <button class="btn btn-secondary" onclick="pauseKeyframe()">⏸ 暂停</button>
+          <button class="btn btn-secondary" onclick="resetKeyframe()">🔄 重置</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">生成的 CSS 代码</div>
+      <div class="code-output" id="keyframeCode"></div>
+      <button class="btn btn-secondary" style="margin-top: 12px;" onclick="copyCode('keyframeCode')">📋 复制代码</button>
+    </div>
+  </section>
+
+  <!-- Tab 4: Animation Theater -->
+  <section class="panel" id="panel-theater">
+    <div class="section-description">
+      精选预制作动画集。点击播放按钮观看效果，可同时观察多个动画。
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-preview">
+          <div class="gallery-preview-element" id="gallery-bounce"></div>
+        </div>
+        <div class="gallery-info">
+          <div class="gallery-name">弹跳 Bounce</div>
+          <div class="gallery-desc">模拟弹簧弹跳效果，多次衰减</div>
+          <div class="gallery-controls">
+            <button class="btn btn-primary" onclick="toggleGalleryAnim('bounce', 'gallery-bounce')">▶ 播放</button>
+            <button class="btn btn-secondary" onclick="resetGalleryAnim('gallery-bounce')">🔄</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview">
+          <div class="gallery-preview-element" id="gallery-pulse"></div>
+        </div>
+        <div class="gallery-info">
+          <div class="gallery-name">脉冲 Pulse</div>
+          <div class="gallery-desc">呼吸灯效果，循环缩放</div>
+          <div class="gallery-controls">
+            <button class="btn btn-primary" onclick="toggleGalleryAnim('pulse', 'gallery-pulse')">▶ 播放</button>
+            <button class="btn btn-secondary" onclick="resetGalleryAnim('gallery-pulse')">🔄</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview">
+          <div class="gallery-preview-element" id="gallery-shake"></div>
+        </div>
+        <div class="gallery-info">
+          <div class="gallery-name">震动 Shake</div>
+          <div class="gallery-desc">快速左右震动，适合错误提示</div>
+          <div class="gallery-controls">
+            <button class="btn btn-primary" onclick="toggleGalleryAnim('shake', 'gallery-shake')">▶ 播放</button>
+            <button class="btn btn-secondary" onclick="resetGalleryAnim('gallery-shake')">🔄</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview">
+          <div class="gallery-preview-element" id="gallery-float"></div>
+        </div>
+        <div class="gallery-info">
+          <div class="gallery-name">浮动 Float</div>
+          <div class="gallery-desc">缓慢上下浮动，自然优雅</div>
+          <div class="gallery-controls">
+            <button class="btn btn-primary" onclick="toggleGalleryAnim('float', 'gallery-float')">▶ 播放</button>
+            <button class="btn btn-secondary" onclick="resetGalleryAnim('gallery-float')">🔄</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview">
+          <div class="typewriter-container" id="gallery-typewriter">Hello World!</div>
+        </div>
+        <div class="gallery-info">
+          <div class="gallery-name">打字机 Typewriter</div>
+          <div class="gallery-desc">模拟打字机逐字显示效果</div>
+          <div class="gallery-controls">
+            <button class="btn btn-primary" onclick="toggleGalleryAnim('typewriter', 'gallery-typewriter')">▶ 播放</button>
+            <button class="btn btn-secondary" onclick="resetGalleryAnim('gallery-typewriter')">🔄</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview" style="flex-direction: column; gap: 8px;">
+          <div style="width: 200px; height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden;">
+            <div id="gallery-progress" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 4px;"></div>
+          </div>
+          <span style="font-size: 12px; color: var(--text-muted);" id="gallery-progress-text">0%</span>
+        </div>
+        <div class="gallery-info">
+          <div class="gallery-name">进度条 Progress</div>
+          <div class="gallery-desc">无限循环的加载动画</div>
+          <div class="gallery-controls">
+            <button class="btn btn-primary" onclick="toggleGalleryAnim('progress', 'gallery-progress')">▶ 播放</button>
+            <button class="btn btn-secondary" onclick="resetGalleryAnim('gallery-progress')">🔄</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <div class="card-title">批量控制</div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="playAllGallery()">▶ 全部播放</button>
+        <button class="btn btn-secondary" onclick="pauseAllGallery()">⏸ 全部暂停</button>
+        <button class="btn btn-secondary" onclick="resetAllGallery()">🔄 全部重置</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  const state = {
+    keyframes: [
+      { opacity: 1, translateX: 0, translateY: 0, scale: 1, rotate: 0, hue: 240 },
+      { opacity: 0.8, translateX: 50, translateY: -40, scale: 1.3, rotate: 45, hue: 320 },
+      { opacity: 1, translateX: 0, translateY: 0, scale: 1, rotate: 0, hue: 240 }
+    ],
+    currentKeyframe: 0,
+    isPerspectiveOn: true,
+    keyframePlaying: false,
+    keyframeProgress: 0,
+    keyframeDuration: 2000,
+    keyframeStartTime: 0,
+    keyframeRafId: null
+  };
+
+  function $(id) { return document.getElementById(id); }
+
+  function showToast(message, type) {
+    const toast = $('toast');
+    toast.textContent = message;
+    toast.className = 'toast show ' + (type || 'info');
+    setTimeout(() => { toast.className = 'toast'; }, 2000);
+  }
+
+  function toggleTheme() {
+    const body = document.body;
+    const current = body.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    body.setAttribute('data-theme', next);
+    const btn = document.querySelector('.theme-toggle');
+    btn.textContent = next === 'light' ? '☀️' : '🌙';
+    showToast('主题已切换', 'success');
+  }
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      $('panel-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  function updateTransform() {
+    const tx = $('translateX').value;
+    const ty = $('translateY').value;
+    const rot = $('rotate').value;
+    const sx = $('scaleX').value;
+    const sy = $('scaleY').value;
+    const skx = $('skewX').value;
+    const sky = $('skewY').value;
+    const rx = $('rotateX').value;
+    const ry = $('rotateY').value;
+    const tz = $('translateZ').value;
+    const origin = $('transformOrigin').value;
+
+    $('translateXVal').textContent = tx + 'px';
+    $('translateYVal').textContent = ty + 'px';
+    $('rotateVal').textContent = rot + 'deg';
+    $('scaleXVal').textContent = parseFloat(sx).toFixed(1);
+    $('scaleYVal').textContent = parseFloat(sy).toFixed(1);
+    $('skewXVal').textContent = skx + 'deg';
+    $('skewYVal').textContent = sky + 'deg';
+    $('rotateXVal').textContent = rx + 'deg';
+    $('rotateYVal').textContent = ry + 'deg';
+    $('translateZVal').textContent = tz + 'px';
+
+    const card = $('transformCard');
+    const transform = `translate(${tx}px, ${ty}px) translateZ(${tz}px) rotate(${rot}deg) rotateX(${rx}deg) rotateY(${ry}deg) scale(${sx}, ${sy}) skew(${skx}deg, ${sky}deg)`;
+    card.style.transform = transform;
+    card.style.transformOrigin = origin;
+
+    const code = `.card {
+  <span class="css-property">transform</span>: <span class="css-value">translate(${tx}px, ${ty}px) translateZ(${tz}px)
+    rotate(${rot}deg) rotateX(${rx}deg) rotateY(${ry}deg)
+    scale(${sx}, ${sy}) skew(${skx}deg, ${sky}deg)</span>;
+  <span class="css-property">transform-origin</span>: <span class="css-value">${origin}</span>;
+  <span class="css-property">transform-style</span>: <span class="css-value">preserve-3d</span>;
+}`;
+    $('transformCode').innerHTML = code;
+  }
+
+  ['translateX','translateY','rotate','scaleX','scaleY','skewX','skewY','rotateX','rotateY','translateZ','transformOrigin']
+    .forEach(id => {
+      const el = $(id);
+      if (el) el.addEventListener('input', updateTransform);
+    });
+
+  window.resetTransform = function() {
+    const defaults = {
+      translateX: 0, translateY: 0, rotate: 0,
+      scaleX: 1, scaleY: 1, skewX: 0, skewY: 0,
+      rotateX: 0, rotateY: 0, translateZ: 0
+    };
+    Object.keys(defaults).forEach(k => { $(k).value = defaults[k]; });
+    $('transformOrigin').value = 'center center';
+    updateTransform();
+    showToast('已重置', 'info');
+  };
+
+  window.togglePerspective = function() {
+    state.isPerspectiveOn = !state.isPerspectiveOn;
+    const preview = $('transformPreview');
+    if (state.isPerspectiveOn) {
+      preview.classList.add('perspective');
+      $('perspectiveLabel').textContent = '开';
+    } else {
+      preview.classList.remove('perspective');
+      $('perspectiveLabel').textContent = '关';
+    }
+  };
+
+  function updateTransition() {
+    const property = $('transitionProperty').value;
+    const duration = $('transitionDuration').value / 1000;
+    const timing = $('transitionTiming').value;
+    const delay = $('transitionDelay').value / 1000;
+
+    $('durationVal').textContent = duration + 's';
+    $('delayVal').textContent = delay + 's';
+
+    const box = $('transitionBox');
+    box.style.transitionProperty = property;
+    box.style.transitionDuration = duration + 's';
+    box.style.transitionTimingFunction = timing;
+    box.style.transitionDelay = delay + 's';
+
+    const timingLabel = timing.replace('cubic-bezier(0.68, -0.55, 0.265, 1.55)', 'cubic-bezier(弹性)');
+    const code = `.demo-box {
+  <span class="css-property">transition-property</span>: <span class="css-value">${property}</span>;
+  <span class="css-property">transition-duration</span>: <span class="css-value">${duration}s</span>;
+  <span class="css-property">transition-timing-function</span>: <span class="css-value">${timingLabel}</span>;
+  <span class="css-property">transition-delay</span>: <span class="css-value">${delay}s</span>;
+
+  <span class="css-comment">/* 简写 */</span>
+  <span class="css-property">transition</span>: <span class="css-value">${property} ${duration}s ${timing} ${delay}s</span>;
+}`;
+    $('transitionCode').innerHTML = code;
+  }
+
+  ['transitionProperty','transitionDuration','transitionTiming','transitionDelay']
+    .forEach(id => { $(id).addEventListener('input', updateTransition); });
+
+  window.toggleTransitionBox = function() {
+    $('transitionBox').classList.toggle('hovered');
+  };
+
+  const transitionBox = $('transitionBox');
+  transitionBox.addEventListener('mouseenter', () => transitionBox.classList.add('hovered'));
+  transitionBox.addEventListener('mouseleave', () => transitionBox.classList.remove('hovered'));
+
+  window.selectKeyframe = function(index) {
+    state.currentKeyframe = index;
+    document.querySelectorAll('.keyframe-marker').forEach((m, i) => {
+      m.classList.toggle('active', i === index);
+    });
+    const kf = state.keyframes[index];
+    $('kfOpacity').value = kf.opacity;
+    $('kfTranslateX').value = kf.translateX;
+    $('kfTranslateY').value = kf.translateY;
+    $('kfScale').value = kf.scale;
+    $('kfRotate').value = kf.rotate;
+    $('kfHue').value = kf.hue;
+    updateKeyframeProp(true);
+  };
+
+  window.updateKeyframeProp = function(silent) {
+    const kf = state.keyframes[state.currentKeyframe];
+    kf.opacity = parseFloat($('kfOpacity').value);
+    kf.translateX = parseInt($('kfTranslateX').value);
+    kf.translateY = parseInt($('kfTranslateY').value);
+    kf.scale = parseFloat($('kfScale').value);
+    kf.rotate = parseInt($('kfRotate').value);
+    kf.hue = parseInt($('kfHue').value);
+
+    $('kfOpacityVal').textContent = kf.opacity.toFixed(1);
+    $('kfTranslateXVal').textContent = kf.translateX + 'px';
+    $('kfTranslateYVal').textContent = kf.translateY + 'px';
+    $('kfScaleVal').textContent = kf.scale.toFixed(1);
+    $('kfRotateVal').textContent = kf.rotate + 'deg';
+    $('kfHueVal').textContent = kf.hue + '°';
+
+    if (!silent) {
+      const ball = $('keyframeBall');
+      ball.style.opacity = kf.opacity;
+      ball.style.transform = `translate(${kf.translateX}px, ${kf.translateY}px) scale(${kf.scale}) rotate(${kf.rotate}deg)`;
+      ball.style.filter = `hue-rotate(${kf.hue}deg)`;
+    }
+    generateKeyframeCode();
+  };
+
+  $('animDuration').addEventListener('input', function() {
+    $('animDurationVal').textContent = parseFloat(this.value).toFixed(1) + 's';
+    state.keyframeDuration = parseFloat(this.value) * 1000;
+  });
+
+  ['animTiming','animIteration','animDirection','animFill','animName'].forEach(id => {
+    $(id).addEventListener('change', generateKeyframeCode);
+  });
+
+  function generateKeyframeCode() {
+    const name = $('animName').value || 'customAnimation';
+    const dur = parseFloat($('animDuration').value).toFixed(1) + 's';
+    const timing = $('animTiming').value;
+    const iteration = $('animIteration').value;
+    const direction = $('animDirection').value;
+    const fill = $('animFill').value;
+
+    const percents = ['0%', '50%', '100%'];
+    let kfCode = '';
+    state.keyframes.forEach((kf, i) => {
+      kfCode += `
+    <span class="css-selector">${percents[i]}</span> <span class="css-brace">{</span>
+      <span class="css-property">opacity</span>: <span class="css-value">${kf.opacity}</span>;
+      <span class="css-property">transform</span>: <span class="css-value">translate(${kf.translateX}px, ${kf.translateY}px) scale(${kf.scale}) rotate(${kf.rotate}deg)</span>;
+      <span class="css-property">filter</span>: <span class="css-value">hue-rotate(${kf.hue}deg)</span>;
+    <span class="css-brace">}</span>`;
+    });
+
+    const code = `<span class="css-comment">@keyframes 定义</span>
+<span class="css-atrule">@keyframes</span> <span class="css-selector">${name}</span> <span class="css-brace">{</span>${kfCode}
+<span class="css-brace">}</span>
+
+<span class="css-comment">/* 应用到元素 */</span>
+<span class="css-selector">.animated-element</span> <span class="css-brace">{</span>
+  <span class="css-property">animation-name</span>: <span class="css-value">${name}</span>;
+  <span class="css-property">animation-duration</span>: <span class="css-value">${dur}</span>;
+  <span class="css-property">animation-timing-function</span>: <span class="css-value">${timing}</span>;
+  <span class="css-property">animation-iteration-count</span>: <span class="css-value">${iteration}</span>;
+  <span class="css-property">animation-direction</span>: <span class="css-value">${direction}</span>;
+  <span class="css-property">animation-fill-mode</span>: <span class="css-value">${fill}</span>;
+<span class="css-brace">}</span>`;
+
+    $('keyframeCode').innerHTML = code;
+  }
+
+  function applyKeyframeAnimation() {
+    const ball = $('keyframeBall');
+    const kfs = state.keyframes;
+    const name = $('animName').value || 'customAnimation';
+    const dur = parseFloat($('animDuration').value);
+    const timing = $('animTiming').value;
+    const iteration = $('animIteration').value;
+    const direction = $('animDirection').value;
+    const fill = $('animFill').value;
+
+    const animName = `kf-${Date.now()}`;
+
+    const style = document.createElement('style');
+    const kfDef = `@keyframes ${animName} {
+      0% {
+        opacity: ${kfs[0].opacity};
+        transform: translate(${kfs[0].translateX}px, ${kfs[0].translateY}px) scale(${kfs[0].scale}) rotate(${kfs[0].rotate}deg);
+        filter: hue-rotate(${kfs[0].hue}deg);
+      }
+      50% {
+        opacity: ${kfs[1].opacity};
+        transform: translate(${kfs[1].translateX}px, ${kfs[1].translateY}px) scale(${kfs[1].scale}) rotate(${kfs[1].rotate}deg);
+        filter: hue-rotate(${kfs[1].hue}deg);
+      }
+      100% {
+        opacity: ${kfs[2].opacity};
+        transform: translate(${kfs[2].translateX}px, ${kfs[2].translateY}px) scale(${kfs[2].scale}) rotate(${kfs[2].rotate}deg);
+        filter: hue-rotate(${kfs[2].hue}deg);
+      }
+    }`;
+    style.textContent = kfDef;
+    document.head.appendChild(style);
+
+    ball.style.animation = 'none';
+    ball.offsetHeight;
+    ball.style.animation = `${animName} ${dur}s ${timing} ${iteration} ${direction} ${fill}`;
+    ball.dataset.animName = animName;
+    ball.dataset.styleId = style;
+  }
+
+  window.playKeyframe = function() {
+    applyKeyframeAnimation();
+    state.keyframePlaying = true;
+    state.keyframeStartTime = performance.now();
+    animateKeyframeProgress();
+    showToast('动画已播放', 'success');
+  };
+
+  window.pauseKeyframe = function() {
+    const ball = $('keyframeBall');
+    if (state.keyframePlaying) {
+      ball.style.animationPlayState = 'paused';
+      state.keyframePlaying = false;
+      if (state.keyframeRafId) cancelAnimationFrame(state.keyframeRafId);
+      showToast('已暂停', 'info');
+    } else {
+      ball.style.animationPlayState = 'running';
+      state.keyframePlaying = true;
+      animateKeyframeProgress();
+      showToast('已继续', 'success');
+    }
+  };
+
+  window.resetKeyframe = function() {
+    const ball = $('keyframeBall');
+    ball.style.animation = 'none';
+    ball.style.opacity = state.keyframes[0].opacity;
+    ball.style.transform = `translate(0, 0) scale(1) rotate(0deg)`;
+    ball.style.filter = 'hue-rotate(240deg)';
+    $('keyframeProgress').style.width = '0%';
+    state.keyframePlaying = false;
+    if (state.keyframeRafId) cancelAnimationFrame(state.keyframeRafId);
+    showToast('已重置', 'info');
+  };
+
+  function animateKeyframeProgress() {
+    if (!state.keyframePlaying) return;
+    const elapsed = (performance.now() - state.keyframeStartTime) / 1000;
+    const dur = parseFloat($('animDuration').value);
+    const iteration = $('animIteration').value;
+
+    let progress;
+    if (iteration === 'infinite') {
+      progress = (elapsed % dur) / dur;
+    } else {
+      const totalDur = dur * parseInt(iteration);
+      progress = Math.min(elapsed / totalDur, 1);
+      if (progress >= 1) {
+        state.keyframePlaying = false;
+        progress = 1;
+      }
+    }
+    $('keyframeProgress').style.width = (progress * 100) + '%';
+
+    if (state.keyframePlaying) {
+      state.keyframeRafId = requestAnimationFrame(animateKeyframeProgress);
+    }
+  }
+
+  const galleryState = {};
+
+  window.toggleGalleryAnim = function(name, id) {
+    const el = $(id);
+    const btn = event.target;
+
+    if (name === 'progress') {
+      toggleProgressAnimation(el, btn);
+      return;
+    }
+
+    if (galleryState[id] === 'playing') {
+      el.style.animationPlayState = 'paused';
+      galleryState[id] = 'paused';
+      btn.textContent = '▶ 播放';
+      showToast('已暂停', 'info');
+    } else {
+      el.classList.remove('bounce', 'pulse', 'shake', 'float', 'typewriter');
+      void el.offsetWidth;
+      el.classList.add(name);
+      el.style.animationPlayState = 'running';
+      galleryState[id] = 'playing';
+      btn.textContent = '⏸ 暂停';
+      showToast('播放动画', 'success');
+    }
+  };
+
+  window.resetGalleryAnim = function(id) {
+    const el = $(id);
+    el.style.animation = 'none';
+    el.classList.remove('bounce', 'pulse', 'shake', 'float', 'typewriter');
+    galleryState[id] = 'idle';
+    const item = el.closest('.gallery-item');
+    if (item) {
+      const btn = item.querySelector('.btn-primary');
+      if (btn) btn.textContent = '▶ 播放';
+    }
+    if (id === 'gallery-progress') {
+      el.style.width = '0%';
+      $('gallery-progress-text').textContent = '0%';
+    }
+    showToast('已重置', 'info');
+  };
+
+  window.resetAllGallery = function() {
+    ['gallery-bounce','gallery-pulse','gallery-shake','gallery-float','gallery-typewriter','gallery-progress']
+      .forEach(id => resetGalleryAnim(id));
+  };
+
+  window.playAllGallery = function() {
+    const anims = [
+      { name: 'bounce', id: 'gallery-bounce' },
+      { name: 'pulse', id: 'gallery-pulse' },
+      { name: 'shake', id: 'gallery-shake' },
+      { name: 'float', id: 'gallery-float' },
+      { name: 'typewriter', id: 'gallery-typewriter' }
+    ];
+    anims.forEach(({ name, id }) => {
+      const el = $(id);
+      el.classList.remove('bounce', 'pulse', 'shake', 'float', 'typewriter');
+      void el.offsetWidth;
+      el.classList.add(name);
+      el.style.animationPlayState = 'running';
+      galleryState[id] = 'playing';
+      const item = el.closest('.gallery-item');
+      if (item) {
+        const btn = item.querySelector('.btn-primary');
+        if (btn) btn.textContent = '⏸ 暂停';
+      }
+    });
+    startProgressAnimation();
+    showToast('全部播放', 'success');
+  };
+
+  window.pauseAllGallery = function() {
+    Object.keys(galleryState).forEach(id => {
+      const el = $(id);
+      if (el && galleryState[id] === 'playing') {
+        el.style.animationPlayState = 'paused';
+        galleryState[id] = 'paused';
+        const item = el.closest('.gallery-item');
+        if (item) {
+          const btn = item.querySelector('.btn-primary');
+          if (btn) btn.textContent = '▶ 播放';
+        }
+      }
+    });
+    if (galleryProgressState.playing) {
+      galleryProgressState.playing = false;
+    }
+    showToast('全部暂停', 'info');
+  };
+
+  const galleryProgressState = { playing: false, rafId: null, startTime: 0 };
+
+  function toggleProgressAnimation(el, btn) {
+    if (galleryProgressState.playing) {
+      galleryProgressState.playing = false;
+      if (galleryProgressState.rafId) cancelAnimationFrame(galleryProgressState.rafId);
+      btn.textContent = '▶ 播放';
+      showToast('已暂停', 'info');
+    } else {
+      startProgressAnimation();
+      btn.textContent = '⏸ 暂停';
+      showToast('播放中', 'success');
+    }
+  }
+
+  function startProgressAnimation() {
+    galleryProgressState.playing = true;
+    galleryProgressState.startTime = performance.now();
+    animateProgress();
+  }
+
+  function animateProgress() {
+    if (!galleryProgressState.playing) return;
+    const elapsed = (performance.now() - galleryProgressState.startTime) / 1000;
+    const duration = 3;
+    const progress = (elapsed % duration) / duration;
+    const width = Math.sin(progress * Math.PI) * 100;
+    $('gallery-progress').style.width = width + '%';
+    $('gallery-progress-text').textContent = Math.round(width) + '%';
+
+    galleryProgressState.rafId = requestAnimationFrame(animateProgress);
+  }
+
+  window.copyCode = function(id) {
+    const el = $(id);
+    const text = el.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('代码已复制到剪贴板', 'success');
+    }).catch(() => {
+      showToast('复制失败', 'warning');
+    });
+  };
+
+  updateTransform();
+  updateTransition();
+  selectKeyframe(0);
+  generateKeyframeCode();
+
+})();
+</script>
+
+</body>
+</html>
