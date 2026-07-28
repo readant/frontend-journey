@@ -34,4 +34,8 @@
 
 所有 HTML 案例文件都可以直接在浏览器中打开运行：
 
-- [案例文件列表](/frontend-journey/examples/01-html/)
+- [基础入门 - Hello World](/examples/01-html/01-basics/01-hello-world.html)
+- [语义化标签 - 布局示例](/examples/01-html/02-advanced/01-semantic-layout.html)
+- [表单元素 - 基础表单](/examples/01-html/03-forms/01-basic-form.html)
+- [多媒体标签 - 视频音频](/examples/01-html/04-media/01-video-audio.html)
+- [实战项目 - 个人简历](/examples/01-html/05-projects/01-personal-resume-basic.html)

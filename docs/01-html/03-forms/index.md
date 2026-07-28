@@ -103,4 +103,4 @@
 
 ## 在线演示
 
-查看本模块的 HTML 案例文件：[案例演示](/frontend-journey/examples/01-html/03-forms/)
+查看本模块的 HTML 案例文件：[案例演示](/examples/01-html/03-forms/01-basic-form.html)

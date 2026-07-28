@@ -50,4 +50,4 @@ section = 有独立主题的内容分区（文章的"引言"、"正文"、"结�
 
 ## 在线演示
 
-查看本模块的 HTML 案例文件：[案例演示](/frontend-journey/examples/01-html/02-advanced/)
+查看本模块的 HTML 案例文件：[案例演示](/examples/01-html/02-advanced/01-semantic-layout.html)

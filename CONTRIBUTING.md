@@ -8,7 +8,7 @@
 
 如果你发现了 bug 或有改进建议：
 
-1. 检查 [Issues](https://github.com/your-username/frontend-journey/issues) 看是否已有相关问题
+1. 检查 [Issues](https://github.com/readant/frontend-journey/issues) 看是否已有相关问题
 2. 如果没有，创建一个新的 Issue，包含：
    - 清晰的问题描述
    - 复现步骤（如果适用）
@@ -25,14 +25,14 @@
    ```
 3. **提交更改**
    ```bash
-   git commit -m "添加: 简短描述你的更改"
+   git commit -m "feat: 简短描述你的更改"
    ```
-   提交信息格式建议：
-   - `添加:` 新功能
-   - `修复:` bug 修复
-   - `更新:` 改进现有功能
-   - `文档:` 文档更新
-   - `样式:` 代码格式调整（不影响功能）
+   提交信息格式建议（Conventional Commits）：
+   - `feat:` 新功能
+   - `fix:` bug 修复
+   - `refactor:` 重构/改进现有功能
+   - `docs:` 文档更新
+   - `style:` 代码格式调整（不影响功能）
 
 4. **推送到你的 Fork**
    ```bash
@@ -111,7 +111,6 @@
 
 如果你有任何问题，可以通过以下方式联系我们：
 
-- 在 Issues 中提问
-- 发送邮件到 your.email@example.com
+- 在 [GitHub Issues](https://github.com/readant/frontend-journey/issues) 中提问
 
 感谢你的贡献！

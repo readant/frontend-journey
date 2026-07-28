@@ -71,4 +71,4 @@
 
 ## 在线演示
 
-查看本模块的 HTML 案例文件：[案例演示](/frontend-journey/examples/01-html/05-projects/)
+查看本模块的 HTML 案例文件：[案例演示](/examples/01-html/05-projects/01-personal-resume-basic.html)

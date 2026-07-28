@@ -110,4 +110,4 @@ const ctx = canvas.getContext('2d');  // 获取 2D 绘图上下文
 
 ## 在线演示
 
-查看本模块的 HTML 案例文件：[案例演示](/frontend-journey/examples/01-html/04-media/)
+查看本模块的 HTML 案例文件：[案例演示](/examples/01-html/04-media/01-video-audio.html)
