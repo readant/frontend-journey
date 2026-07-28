@@ -37,7 +37,7 @@ frontend-journey/
 │   ├── .vitepress/
 │   │   ├── config.ts           # 站点配置（导航/侧边栏/主题）
 │   │   └── theme/              # 自定义主题
-│   ├── 00-preparation/         # 基础准备（4 个章节）
+│   ├── 00-preparation/         # 基础准备（3 个章节）
 │   ├── 01-html/                # HTML 学习（5 个章节）
 │   ├── 02-css/                 # CSS 核心知识体系（9 个章节）
 │   ├── public/
