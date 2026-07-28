@@ -338,7 +338,7 @@ title: 09. 设计模式与问题解决
 ```css
 /* 胶囊形状 */
 .capsule {
-    border-radius: 50%;
+    border-radius: 999px;
 }
 
 /* 叶子形状 */

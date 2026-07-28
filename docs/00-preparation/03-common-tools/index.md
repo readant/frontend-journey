@@ -41,3 +41,35 @@
 | 检查 | ESLint | 代码规范检查 |
 | 搜索 | fzf | 模糊搜索 |
 | 搜索 | ripgrep | 快速全文搜索 |
+
+## 速查语法
+
+### 常用命令行（PowerShell）
+
+| 操作 | 命令 | 简写 |
+|------|------|------|
+| 查看目录 | `Get-ChildItem` | `ls` |
+| 切换目录 | `Set-Location` | `cd` |
+| 新建目录 | `New-Item -ItemType Directory` | `mkdir` |
+| 删除 | `Remove-Item` | `del` |
+| 清屏 | `Clear-Host` | `cls` |
+| 查看文件 | `Get-Content` | `cat` |
+
+### 前端工具速查
+
+| 类别 | 工具 | 用途 |
+|------|------|------|
+| 包管理 | npm / pnpm | 安装第三方库 |
+| 格式化 | Prettier | 保存时自动格式化 |
+| 检查 | ESLint | 代码规范检查 |
+| 接口测试 | Postman / Apifox | 调试 HTTP 接口 |
+| 浏览器扩展 | DevTools、Lighthouse | 调试与性能分析 |
+
+### npm 常用命令
+
+```bash
+npm install          # 安装项目依赖
+npm install <pkg>    # 添加依赖
+npm install -D <pkg> # 添加开发依赖
+npm run dev          # 运行 dev 脚本
+```

@@ -23,7 +23,9 @@ h1 { font-size: 24px; }
 ```css
 .highlight { background: yellow; }
 .text-bold { font-weight: bold; }
+```
 
+```html
 <!-- 多类名叠加 -->
 <p class="highlight text-bold">文字</p>
 ```

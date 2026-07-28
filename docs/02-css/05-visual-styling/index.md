@@ -241,9 +241,6 @@ filter: blur() / brightness() / contrast() / grayscale() / drop-shadow()
 backdrop-filter: blur() (毛玻璃)
 mix-blend-mode: multiply/screen/overlay
 
-### clip-path 形状
-circle() / polygon() / inset() / ellipse() / path()
-
 ---
 
 ::: info 互动演示

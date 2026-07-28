@@ -58,16 +58,53 @@
 
 ## 案例索引
 
-| 案例文件 | 配套文档 | 说明 |
-|----------|----------|------|
-| `01-personal-resume.html` | `01-personal-resume.md` | 个人简历完整项目 |
-| `02-simple-blog.html` | `02-simple-blog.md` | 简易博客首页完整项目 |
+| 案例文件 | 说明 |
+|----------|------|
+| `01-personal-resume-basic.html` | 个人简历完整项目 |
+| `02-simple-blog-advanced.html` | 简易博客首页完整项目 |
+
+## 速查语法
+
+### 简历结构模板
+
+```html
+<main class="resume">
+  <header><h1>姓名</h1><p>联系方式</p></header>
+  <section><h2>教育背景</h2><table>...</table></section>
+  <section><h2>工作经历</h2><article>...</article></section>
+  <section><h2>技能</h2><div class="tags"><span>HTML</span></div></section>
+</main>
+```
+
+### 博客结构模板
+
+```html
+<body>
+  <header><nav>...</nav></header>
+  <main>
+    <article><h2>标题</h2><time>日期</time><p>摘要</p></article>
+    <aside><section><h3>分类</h3></section></aside>
+  </main>
+  <footer>...</footer>
+</body>
+```
+
+### 项目自检清单
+
+- [ ] 使用了至少 5 种语义标签
+- [ ] 表格有 `<thead>`/`<tbody>`
+- [ ] 所有图片有 `alt`
+- [ ] 链接新窗口有 `rel="noopener"`
+- [ ] 移动端 viewport 已设置
+- [ ] 页面在 375px 宽度下不溢出
+
+---
 
 ## 参考资源
 
 - [MDN - CSS 布局](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout)
 - [MDN - Flexbox](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_flexible_box_layout)
-- [Google - 简历设计指南](https://developers.google.com/tech-writing)
+- [Google - 技术写作指南](https://developers.google.com/tech-writing)
 
 ## 在线演示
 

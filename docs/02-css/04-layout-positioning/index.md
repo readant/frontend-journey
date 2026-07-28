@@ -25,7 +25,7 @@ title: 04. 布局与定位
 | `block` | 块级显示 |
 | `inline` | 行内显示 |
 | `inline-block` | 行内块显示 |
-| `none` | 不渲染（占据空间） |
+| `none` | 不渲染（不占据空间） |
 | `flex` | 弹性容器 |
 | `grid` | 网格容器 |
 
@@ -291,7 +291,7 @@ flex-grow | flex-shrink | flex-basis | flex | order
 
 ### Grid 核心
 grid-template-columns | grid-template-rows | gap | grid-area | grid-column | grid-row
-fr 比例单位, repeat() 重复, auto-fit/minmax 自适应
+fr 比例单位（进阶: repeat()/minmax()/auto-fit）
 
 ---
 

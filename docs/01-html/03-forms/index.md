@@ -89,11 +89,65 @@
 
 ## 案例索引
 
-| 案例文件 | 配套文档 | 说明 |
-|----------|----------|------|
-| `01-basic-form.html` | `01-basic-form.md` | 基础表单 + 分组 + 无障碍 |
-| `02-html5-forms.html` | `02-html5-forms.md` | HTML5 新 input 类型全景 |
-| `03-form-validation.html` | `03-form-validation.md` | 验证属性 + 正则 + 实战 |
+| 案例文件 | 说明 |
+|----------|------|
+| `01-basic-form.html` | 基础表单 + 分组 + 无障碍 |
+| `02-html5-forms.html` | HTML5 新 input 类型全景 |
+| `03-form-validation.html` | 验证属性 + 正则 + 实战 |
+
+## 速查语法
+
+### 表单骨架
+
+```html
+<form action="/api/login" method="post">
+  <fieldset>
+    <legend>分组标题</legend>
+    <label for="user">用户名：</label>
+    <input type="text" id="user" name="user" required>
+  </fieldset>
+  <button type="submit">提交</button>
+</form>
+```
+
+### input 类型速查
+
+| type | 用途 | type | 用途 |
+|------|------|------|------|
+| `text` | 文本 | `password` | 密码 |
+| `email` | 邮箱（自动验证） | `url` | 网址 |
+| `number` | 数字 | `tel` | 电话 |
+| `date`/`time` | 日期/时间 | `checkbox` | 复选 |
+| `radio` | 单选 | `file` | 文件 |
+| `hidden` | 隐藏 | `range` | 滑块 |
+| `color` | 颜色 | `submit`/`reset`/`button` | 按钮 |
+
+### 验证属性
+
+| 属性 | 作用 |
+|------|------|
+| `required` | 必填 |
+| `minlength`/`maxlength` | 字符长度 |
+| `min`/`max`/`step` | 数值范围与步长 |
+| `pattern` | 正则（无需 `/.../`） |
+| `novalidate` | form 级禁用验证 |
+
+### 其他控件
+
+```html
+<select name="city"><option value="bj">北京</option></select>
+<textarea rows="4" maxlength="200"></textarea>
+<button type="submit|reset|button">按钮</button>
+```
+
+### 易错点
+
+- radio 同组必须 `name` 相同才互斥
+- label 的 `for` 必须等于 input 的 `id`
+- `disabled` 不提交值，`readonly` 提交值
+- 文件上传 form 必须 `enctype="multipart/form-data"`
+
+---
 
 ## 参考资源
 

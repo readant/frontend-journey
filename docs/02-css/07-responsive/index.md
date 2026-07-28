@@ -196,10 +196,10 @@ and / or(,) / not / only
 @container (min-width: 400px) { ... }
 ```
 
-### 响应式工具
-- clamp(min, ideal, max) 响应式字号
-- repeat(auto-fit/fill, minmax(min, 1fr)) 自适应网格
-- srcset/sizes 响应式图片
+### 进阶工具（正文未展开，了解即可）
+- `clamp(min, ideal, max)` 响应式字号
+- `repeat(auto-fit, minmax(min, 1fr))` 自适应网格
+- `srcset`/`sizes` 响应式图片
 
 
 ---

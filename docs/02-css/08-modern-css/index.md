@@ -369,13 +369,13 @@ div.container > ul.nav > li > a > span { }
 /* JS: element.style.setProperty('--var', 'value') */
 ```
 
-### Sass/Less 对比
-| 功能 | Sass | Less |
-|-----|------|------|
-| 变量 | $var | @var |
-| 混入 | @mixin/@include | .mix() |
-| 继承 | @extend | &:extend |
-| 函数 | @function | 无 |
+### Sass/Less/Stylus 对比
+| 功能 | Sass | Less | Stylus |
+|-----|------|------|--------|
+| 变量 | $var | @var | var = |
+| 混入 | @mixin/@include | .mix() | 函数调用 |
+| 继承 | @extend | &:extend | @extend |
+| 函数 | @function | 无 | 支持 |
 
 ### BEM 命名
 block__element--modifier

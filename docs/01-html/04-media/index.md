@@ -95,11 +95,61 @@ const ctx = canvas.getContext('2d');  // 获取 2D 绘图上下文
 
 ## 案例索引
 
-| 案例文件 | 配套文档 | 说明 |
-|----------|----------|------|
-| `01-video-audio.html` | `01-video-audio.md` | 视频音频标签详解 |
-| `02-canvas.html` | `02-canvas.md` | Canvas 绘图 API 详解 |
-| `03-new-tags.html` | `03-new-tags.md` | HTML5 新交互标签详解 |
+| 案例文件 | 说明 |
+|----------|------|
+| `01-video-audio.html` | 视频音频标签详解 |
+| `02-canvas.html` | Canvas 绘图 API 详解 |
+| `03-new-tags.html` | HTML5 新交互标签详解 |
+
+## 速查语法
+
+### 视频与音频
+
+```html
+<video controls autoplay muted loop poster="cover.jpg" width="600" playsinline>
+  <source src="v.mp4" type="video/mp4">
+  浏览器不支持 video
+</video>
+<audio controls preload="metadata">
+  <source src="a.mp3" type="audio/mpeg">
+</audio>
+```
+
+### 媒体属性
+
+| 属性 | 作用 |
+|------|------|
+| `controls` | 显示控件 |
+| `autoplay` + `muted` | 自动播放（须静音） |
+| `loop` | 循环 |
+| `poster` | 封面（仅 video） |
+| `preload` | `none`/`metadata`/`auto` |
+| `playsinline` | iOS 内联播放 |
+
+### Canvas 基础
+
+```html
+<canvas id="c" width="600" height="400"></canvas>
+<script>
+const ctx = document.getElementById('c').getContext('2d');
+ctx.fillRect(10, 10, 100, 50);
+ctx.beginPath();
+ctx.arc(50, 50, 30, 0, Math.PI * 2);
+ctx.fill();
+</script>
+```
+
+### HTML5 新交互标签
+
+| 标签 | 作用 |
+|------|------|
+| `<details>` + `<summary>` | 折叠面板 |
+| `<dialog>` | 原生对话框 |
+| `<progress>` | 进度条 |
+| `<meter>` | 度量条 |
+| `<template>` | 模板（不渲染） |
+
+---
 
 ## 参考资源
 

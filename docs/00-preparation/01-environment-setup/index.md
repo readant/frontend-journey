@@ -30,3 +30,37 @@
 3. **第三步**：安装 Git 并配置 GitHub
 4. **第四步**：安装 Node.js 和包管理器
 5. **第五步**：了解构建工具（Webpack/Vite）
+
+## 速查语法
+
+### 必装清单
+
+| 工具 | 下载地址 | 验证命令 |
+|------|---------|---------|
+| VS Code | code.visualstudio.com | `code -v` |
+| Chrome | google.com/chrome | 访问 chrome://version |
+| Git | git-scm.com | `git --version` |
+| Node.js LTS | nodejs.org | `node -v` / `npm -v` |
+
+### Git 初始配置
+
+```bash
+git config --global user.name "你的名字"
+git config --global user.email "你的邮箱"
+git config --global init.defaultBranch main
+```
+
+### npm 国内镜像
+
+```bash
+npm config set registry https://registry.npmmirror.com
+```
+
+### 常用命令
+
+| 操作 | 命令 |
+|------|------|
+| 初始化项目 | `npm init -y` |
+| 安装依赖 | `npm install <pkg>` |
+| 安装开发依赖 | `npm install -D <pkg>` |
+| 运行脚本 | `npm run <script>` |

@@ -81,7 +81,7 @@
 
 | 难点 | 说明 | 对应案例 |
 |------|------|----------|
-| meta viewport 写法 | 必须精确写 `width=device-width, initial-scale=1.0`，多一个空格都会失效 | `02-document-structure.html` |
+| meta viewport 写法 | 标准写法 `width=device-width, initial-scale=1.0`，逗号分隔各属性 | `02-document-structure.html` |
 | `<strong>` vs `<b>` | strong 有语义（重要性），b 只是视觉加粗，应优先用 strong | `03-text-tags.html` |
 | `<a>` 的 target="_blank" 安全问题 | 新窗口打开的页面可通过 `window.opener` 访问原页面，需加 `rel="noopener noreferrer"` | `05-links-and-images.html` |
 | colspan/rowspan 行数计算 | 合并后总列数必须等于该行应有的列数，否则表格错位 | `06-tables.html` |
@@ -89,14 +89,77 @@
 
 ## 案例索引
 
-| 案例文件 | 配套文档 | 说明 |
-|----------|----------|------|
-| `01-hello-world.html` | - | 极简入门，第一个网页 |
-| `02-document-structure.html` | `02-document-structure.md` | 文档结构 + meta 标签详解 |
-| `03-text-tags.html` | - | 文本标签全景演示 |
-| `04-lists.html` | - | 三种列表对比 |
-| `05-links-and-images.html` | `05-links-and-images.md` | 链接与图片详解 |
-| `06-tables.html` | `06-tables.md` | 表格结构与合并详解 |
+| 案例文件 | 说明 |
+|----------|------|
+| `01-hello-world.html` | 极简入门，第一个网页 |
+| `02-document-structure.html` | 文档结构 + meta 标签详解 |
+| `03-text-tags.html` | 文本标签全景演示 |
+| `04-lists.html` | 三种列表对比 |
+| `05-links-and-images.html` | 链接与图片详解 |
+| `06-tables.html` | 表格结构与合并详解 |
+
+## 速查语法
+
+### 文档骨架
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面标题</title>
+</head>
+<body>
+  <!-- 可见内容 -->
+</body>
+</html>
+```
+
+### 常用文本标签
+
+| 标签 | 语义 | 标签 | 语义 |
+|------|------|------|------|
+| `<h1>`~`<h6>` | 标题层级 | `<strong>` | 重要（加粗） |
+| `<p>` | 段落 | `<em>` | 强调（斜体） |
+| `<br>` | 换行 | `<hr>` | 主题分隔 |
+| `<del>`/`<ins>` | 删除/插入 | `<mark>` | 高亮 |
+| `<code>`+`<pre>` | 代码块 | `<blockquote>` | 引用 |
+
+### 列表
+
+```html
+<ul><li>无序</li></ul>
+<ol><li>有序</li></ol>
+<dl><dt>术语</dt><dd>定义</dd></dl>
+```
+
+### 链接与图片
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener">外链</a>
+<a href="#section">页内锚点</a>
+<img src="a.jpg" alt="描述" loading="lazy">
+```
+
+### 表格
+
+```html
+<table>
+  <thead><tr><th scope="col">姓名</th></tr></thead>
+  <tbody><tr><td colspan="2">合并 2 列</td></tr></tbody>
+</table>
+```
+
+### HTML 实体
+
+| 实体 | 字符 | 实体 | 字符 |
+|------|------|------|------|
+| `&lt;` | < | `&gt;` | > |
+| `&amp;` | & | `&nbsp;` | 空格 |
+| `&copy;` | © | `&quot;` | " |
+
+---
 
 ## 参考资源
 
