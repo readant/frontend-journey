@@ -7,42 +7,42 @@
     <style>
         /* ================================================
            CSS 盒模型 (Box Model)
-           
+
            核心概念：
            每个HTML元素都是一个矩形盒子，由4部分组成：
-           
+
            ┌─────────────────────────────┐
-           │          Margin             │  外边距：与其他元素的距离
+           │          Margin             │  Margin 外边距：与其他元素的距离
            │  ┌───────────────────────┐  │
-           │  │       Border          │  │  边框：元素的边框线
+           │  │       Border          │  │  Border 边框：元素的边框线
            │  │  ┌─────────────────┐  │  │
-           │  │  │     Padding     │  │  │  内边距：内容与边框的间距
+           │  │  │     Padding     │  │  │  Padding 内边距：内容与边框的间距
            │  │  │  ┌───────────┐  │  │  │
-           │  │  │  │  Content  │  │  │  │  内容：实际内容区域
+           │  │  │  │  Content  │  │  │  │  COntent 内容：实际内容区域
            │  │  │  └───────────┘  │  │  │
            │  │  └─────────────────┘  │  │
            │  └───────────────────────┘  │
            └─────────────────────────────┘
-           
+
            box-sizing 属性决定 width/height 的计算方式：
-           
+
            1. content-box（默认）：
               width/height 只包含 content
               实际宽度 = width + padding-left + padding-right + border-left + border-right
               实际高度 = height + padding-top + padding-bottom + border-top + border-bottom
-           
+
            2. border-box（推荐）：
               width/height 包含 content + padding + border
               实际宽度 = width（已包含padding和border）
               内容宽度 = width - padding-left - padding-right - border-left - border-right
-           
+
            推荐：全局设置 box-sizing: border-box
-           
+
            Margin 合并（外边距塌陷）：
            - 垂直相邻的 margin 会合并，取较大的值而非累加
            - 父子元素的 margin-top 也可能合并
            - 解决方案：使用 padding、border 或 BFC
-           
+
            ================================================ */
 
         * {
@@ -255,7 +255,7 @@
     <div class="section">
         <h2>1. 盒模型结构</h2>
         <p class="demo-label">从外到内：Margin → Border → Padding → Content</p>
-        
+
         <div class="box-model-visual">
             <div class="margin-area">
                 <div class="border-area">
@@ -273,7 +273,7 @@
     <div class="section">
         <h2>2. box-sizing 对比</h2>
         <p class="demo-label">两个盒子都设置 width: 250px, padding: 20px, border: 8px</p>
-        
+
         <div class="demo-row">
             <div class="demo-item">
                 <p class="demo-label">content-box（默认）</p>
@@ -281,7 +281,7 @@
                     实际宽度: 298px
                 </div>
             </div>
-            
+
             <div class="demo-item">
                 <p class="demo-label">border-box（推荐）</p>
                 <div class="border-box-demo">
@@ -295,7 +295,7 @@
     <div class="section">
         <h2>3. 相同设置，不同结果</h2>
         <p class="demo-label">两个盒子：width: 200px, padding: 15px, border: 5px</p>
-        
+
         <div class="demo-row">
             <div class="demo-item">
                 <p class="demo-label">content-box: 实际宽度 240px</p>
@@ -303,7 +303,7 @@
                     200 + 15×2 + 5×2
                 </div>
             </div>
-            
+
             <div class="demo-item">
                 <p class="demo-label">border-box: 实际宽度 200px</p>
                 <div class="size-box" style="box-sizing: border-box;">
@@ -317,12 +317,12 @@
     <div class="section">
         <h2>4. Margin 合并现象</h2>
         <p class="demo-label">两个盒子的 margin 都是 20px，但间距只有 20px</p>
-        
+
         <div class="merge-demo">
             <div class="merge-box">margin: 20px 0</div>
             <div class="merge-box">margin: 20px 0</div>
         </div>
-        
+
         <div class="info-box">
             坚持学习，每一个概念都是进步的阶梯
         </div>
@@ -331,14 +331,14 @@
     <!-- 实际应用 -->
     <div class="section">
         <h2>5. 实际应用</h2>
-        
+
         <div class="card">
             <div class="card-title">卡片组件</div>
             <div class="card-content">
                 通过合理的 padding、margin 和 border 设计，可以创建出美观的卡片组件。
             </div>
         </div>
-        
+
         <div class="info-box">
             每一行代码都是你成为优秀开发者的基石，加油！
         </div>

@@ -376,6 +376,8 @@ body {
     display: -webkit-box;            /* 启用弹性盒子 */
     -webkit-line-clamp: 2;           /* 最多显示2行 */
     -webkit-box-orient: vertical;    /* 垂直方向 */
+    line-clamp: 2;                   /* 标准属性，提高兼容性 */
+    box-orient: vertical;
     margin-bottom: 8px;
 }
 

@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盒子模型 · 交互式演示</title>
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-light: #dbeafe;
+    --primary-dark: #1d4ed8;
+    --text: #1f2937;
+    --text-secondary: #6b7280;
+    --bg: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border: #e5e7eb;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
+    --radius: 10px;
+    --radius-lg: 14px;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, Consolas, monospace;
+
+    --c-content: #3b82f6;
+    --c-content-bg: rgba(59, 130, 246, 0.15);
+    --c-padding: #10b981;
+    --c-padding-bg: rgba(16, 185, 129, 0.15);
+    --c-border: #f59e0b;
+    --c-border-bg: rgba(245, 158, 11, 0.15);
+    --c-margin: #ef4444;
+    --c-margin-bg: rgba(239, 68, 68, 0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --border: #334155;
+      --primary-light: #1e3a5f;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    backdrop-filter: blur(8px);
+  }
+
+  .page-header .left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.15s;
+    background: var(--bg-secondary);
+  }
+  .back-link:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: var(--primary-light);
+  }
+
+  .page-header h1 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+  }
+  .page-header h1 .chapter {
+    color: var(--text-secondary);
+    font-weight: 400;
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 32px 80px;
+  }
+
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    margin: 0 0 6px;
+    font-weight: 700;
+  }
+  .section-title .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .section-desc {
+    color: var(--text-secondary);
+    margin: 0 0 24px;
+    font-size: 14px;
+  }
+
+  .panel {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+
+  /* ===== Section 1: Box Model Visualizer ===== */
+  .viz-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .control-group {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .control-group h3 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .control-group h3 .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+  }
+  .control-group.content h3 .dot { background: var(--c-content); }
+  .control-group.padding h3 .dot { background: var(--c-padding); }
+  .control-group.border h3 .dot { background: var(--c-border); }
+  .control-group.margin h3 .dot { background: var(--c-margin); }
+
+  .control-row {
+    display: grid;
+    grid-template-columns: 56px 1fr 52px;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .control-row:last-child { margin-bottom: 0; }
+  .control-row label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+  }
+  .control-row input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--bg-tertiary);
+    outline: none;
+    cursor: pointer;
+  }
+  .control-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  }
+  .control-row input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+  }
+  .control-row .value {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--text);
+    text-align: right;
+    font-weight: 600;
+  }
+
+  .viz-stage {
+    background:
+      linear-gradient(45deg, var(--bg-tertiary) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--bg-tertiary) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--bg-tertiary) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--bg-tertiary) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, 10px 0;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    overflow: auto;
+  }
+
+  .box-model {
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .bm-margin {
+    background: var(--c-margin-bg);
+    border: 2px dashed var(--c-margin);
+    border-radius: 6px;
+    padding: var(--m-t, 20px) var(--m-r, 20px) var(--m-b, 20px) var(--m-l, 20px);
+    position: relative;
+    transition: all 0.2s ease;
+    min-width: 60px;
+    min-height: 60px;
+  }
+  .bm-margin .bm-label {
+    position: absolute;
+    font-size: 11px;
+    color: var(--c-margin);
+    font-weight: 700;
+    font-family: var(--font-mono);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .bm-margin .bm-label.t { top: 2px; left: 50%; transform: translateX(-50%); }
+  .bm-margin .bm-label.b { bottom: 2px; left: 50%; transform: translateX(-50%); }
+  .bm-margin .bm-label.l { left: 2px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left center; }
+  .bm-margin .bm-label.r { right: 2px; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: right center; }
+
+  .bm-border {
+    background: var(--c-border-bg);
+    border: 2px solid var(--c-border);
+    border-radius: 4px;
+    padding: var(--b-t, 4px) var(--b-r, 4px) var(--b-b, 4px) var(--b-l, 4px);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .bm-border::before {
+    content: 'B';
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--c-border);
+    font-weight: 700;
+    font-family: var(--font-mono);
+  }
+
+  .bm-padding {
+    background: var(--c-padding-bg);
+    border: 1px dashed var(--c-padding);
+    border-radius: 3px;
+    padding: var(--p-t, 15px) var(--p-r, 15px) var(--p-b, 15px) var(--p-l, 15px);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .bm-padding::before {
+    content: 'P';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--c-padding);
+    font-weight: 700;
+    font-family: var(--font-mono);
+  }
+
+  .bm-content {
+    background: var(--c-content);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    text-align: center;
+    min-width: var(--cw, 80px);
+    min-height: var(--ch, 60px);
+  }
+
+  .bm-size-display {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .bm-size-display .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    color: var(--text-secondary);
+  }
+  .bm-size-display .row .lbl { color: var(--text-secondary); }
+  .bm-size-display .row .val { color: var(--text); font-weight: 600; }
+  .bm-size-display .row.total {
+    border-top: 1px dashed var(--border);
+    margin-top: 6px;
+    padding-top: 8px;
+    color: var(--primary);
+    font-weight: 700;
+  }
+  .bm-size-display .row.total .val { color: var(--primary); }
+
+  /* ===== Section 2: Box Sizing Toggle ===== */
+  .sizing-panel {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: start;
+  }
+  .sizing-toggle-wrap {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  .sizing-toggle-wrap h3 {
+    font-size: 13px;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+  }
+
+  .tab-toggle {
+    display: flex;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius);
+    padding: 4px;
+    gap: 4px;
+  }
+  .tab-toggle button {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-mono);
+  }
+  .tab-toggle button.active {
+    background: var(--bg);
+    color: var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  }
+
+  .sizing-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .sizing-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+  .sizing-box .label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .sizing-box .box-visual {
+    display: inline-block;
+    background: var(--c-content-bg);
+    border: 2px solid var(--c-border);
+    padding: 12px;
+    transition: all 0.3s ease;
+    vertical-align: middle;
+  }
+  .sizing-box .box-visual .inner {
+    background: var(--c-content);
+    height: 30px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .sizing-box .dim {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .sizing-formula {
+    background: var(--code-bg, #1e293b);
+    color: var(--code-text, #e2e8f0);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-top: 16px;
+    overflow-x: auto;
+  }
+  .sizing-formula .hl { color: #60a5fa; }
+  .sizing-formula .kw { color: #f472b6; }
+  .sizing-formula .cm { color: #64748b; }
+
+  /* ===== Section 3: Margin Collapsing ===== */
+  .collapse-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .collapse-demo {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .collapse-demo h3 {
+    font-size: 14px;
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .collapse-demo h3 .tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .collapse-stage {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 30px 20px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+  .collapse-box {
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    position: relative;
+    transition: all 0.25s ease;
+  }
+  .collapse-box.a {
+    background: #6366f1;
+    margin-bottom: var(--mb-a, 30px);
+  }
+  .collapse-box.b {
+    background: #8b5cf6;
+    margin-top: var(--mt-b, 50px);
+  }
+  .collapse-box.h {
+    background: #06b6d4;
+    margin-right: var(--mr-a, 30px);
+  }
+  .collapse-box.b2 {
+    background: #3b82f6;
+    margin-left: var(--ml-b, 50px);
+  }
+
+  .collapse-info {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+  }
+  .collapse-info .actual {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+  .collapse-info .rule {
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+
+  .collapse-controls {
+    display: grid;
+    gap: 12px;
+  }
+  .collapse-control {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .collapse-control label {
+    display: block;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  .collapse-control .slider-row {
+    display: grid;
+    grid-template-columns: 1fr 56px;
+    align-items: center;
+    gap: 8px;
+  }
+  .collapse-control input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--bg-tertiary);
+    cursor: pointer;
+  }
+  .collapse-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--primary); cursor: pointer;
+  }
+  .collapse-control .val {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* ===== Section 4: Calculator ===== */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .calc-inputs {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .calc-results {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+
+  .calc-results table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  .calc-results th, .calc-results td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .calc-results th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+  .calc-results td.val {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-align: right;
+  }
+  .calc-results tr.total td {
+    border-top: 2px solid var(--primary);
+    border-bottom: none;
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 14px;
+  }
+  .calc-results tr.total td.val {
+    color: var(--primary);
+  }
+
+  .preset-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .preset-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: var(--font-mono);
+  }
+  .preset-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+  }
+
+  .calc-visual {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .page-header { padding: 12px 16px; flex-wrap: wrap; }
+    .container { padding: 20px 16px 60px; }
+    .viz-grid, .sizing-panel, .collapse-panel, .calc-grid {
+      grid-template-columns: 1fr;
+    }
+    .sizing-compare { grid-template-columns: 1fr; }
+    .legend { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="left">
+    <a href="javascript:history.back()" class="back-link">
+      <span>←</span> 返回
+    </a>
+    <h1><span class="chapter">第 3 章</span>盒子模型 · 交互式演示</h1>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--c-content)"></span>Content</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--c-padding)"></span>Padding</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--c-border)"></span>Border</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--c-margin)"></span>Margin</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Section 1: Visualizer -->
+  <section class="section" id="s1">
+    <h2 class="section-title"><span class="num">1</span> 盒子模型可视化</h2>
+    <p class="section-desc">拖动滑块调整 content、padding、border、margin 的值，右侧实时显示盒子模型的视觉结构。</p>
+
+    <div class="panel">
+      <div class="viz-grid">
+        <!-- Controls -->
+        <div>
+          <div class="control-group content">
+            <h3><span class="dot"></span>Content 内容</h3>
+            <div class="control-row">
+              <label>宽</label>
+              <input type="range" id="cw" min="20" max="300" value="120">
+              <span class="value" id="cw-v">120px</span>
+            </div>
+            <div class="control-row">
+              <label>高</label>
+              <input type="range" id="ch" min="20" max="250" value="90">
+              <span class="value" id="ch-v">90px</span>
+            </div>
+          </div>
+
+          <div class="control-group padding">
+            <h3><span class="dot"></span>Padding 内边距</h3>
+            <div class="control-row">
+              <label>上</label>
+              <input type="range" id="pt" min="0" max="60" value="15">
+              <span class="value" id="pt-v">15px</span>
+            </div>
+            <div class="control-row">
+              <label>右</label>
+              <input type="range" id="pr" min="0" max="60" value="15">
+              <span class="value" id="pr-v">15px</span>
+            </div>
+            <div class="control-row">
+              <label>下</label>
+              <input type="range" id="pb" min="0" max="60" value="15">
+              <span class="value" id="pb-v">15px</span>
+            </div>
+            <div class="control-row">
+              <label>左</label>
+              <input type="range" id="pl" min="0" max="60" value="15">
+              <span class="value" id="pl-v">15px</span>
+            </div>
+          </div>
+
+          <div class="control-group border">
+            <h3><span class="dot"></span>Border 边框</h3>
+            <div class="control-row">
+              <label>上</label>
+              <input type="range" id="bt" min="0" max="30" value="4">
+              <span class="value" id="bt-v">4px</span>
+            </div>
+            <div class="control-row">
+              <label>右</label>
+              <input type="range" id="br" min="0" max="30" value="4">
+              <span class="value" id="br-v">4px</span>
+            </div>
+            <div class="control-row">
+              <label>下</label>
+              <input type="range" id="bb" min="0" max="30" value="4">
+              <span class="value" id="bb-v">4px</span>
+            </div>
+            <div class="control-row">
+              <label>左</label>
+              <input type="range" id="bl" min="0" max="30" value="4">
+              <span class="value" id="bl-v">4px</span>
+            </div>
+          </div>
+
+          <div class="control-group margin">
+            <h3><span class="dot"></span>Margin 外边距</h3>
+            <div class="control-row">
+              <label>上</label>
+              <input type="range" id="mt" min="0" max="80" value="20">
+              <span class="value" id="mt-v">20px</span>
+            </div>
+            <div class="control-row">
+              <label>右</label>
+              <input type="range" id="mr" min="0" max="80" value="20">
+              <span class="value" id="mr-v">20px</span>
+            </div>
+            <div class="control-row">
+              <label>下</label>
+              <input type="range" id="mb" min="0" max="80" value="20">
+              <span class="value" id="mb-v">20px</span>
+            </div>
+            <div class="control-row">
+              <label>左</label>
+              <input type="range" id="ml" min="0" max="80" value="20">
+              <span class="value" id="ml-v">20px</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualization -->
+        <div>
+          <div class="viz-stage">
+            <div class="box-model" id="boxModel">
+              <div class="bm-margin" id="bmMargin">
+                <span class="bm-label t" id="bm-mt-label">margin-top: 20px</span>
+                <span class="bm-label b" id="bm-mb-label">margin-bottom: 20px</span>
+                <span class="bm-label l" id="bm-ml-label">margin-left: 20px</span>
+                <span class="bm-label r" id="bm-mr-label">margin-right: 20px</span>
+                <div class="bm-border" id="bmBorder">
+                  <div class="bm-padding" id="bmPadding">
+                    <div class="bm-content" id="bmContent">120 × 90</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bm-size-display" id="sizeDisplay">
+            <div class="row"><span class="lbl">Content</span><span class="val" id="d-content">120 × 90 px</span></div>
+            <div class="row"><span class="lbl">Padding</span><span class="val" id="d-padding">30 × 30 px</span></div>
+            <div class="row"><span class="lbl">Border</span><span class="val" id="d-border">8 × 8 px</span></div>
+            <div class="row"><span class="lbl">Margin</span><span class="val" id="d-margin">40 × 40 px</span></div>
+            <div class="row total"><span>总尺寸 (content-box)</span><span class="val" id="d-total">198 × 168 px</span></div>
+            <div class="row" style="margin-top:4px"><span class="lbl">总尺寸 (border-box)</span><span class="val" id="d-total-bb" style="color:var(--success)">158 × 138 px</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Box Sizing Toggle -->
+  <section class="section" id="s2">
+    <h2 class="section-title"><span class="num">2</span> 标准 / 怪异盒模型切换</h2>
+    <p class="section-desc">通过 box-sizing 属性切换盒模型模式，直观对比两种模式下 width/height 的计算差异。</p>
+
+    <div class="panel">
+      <div class="sizing-panel">
+        <div>
+          <div class="sizing-toggle-wrap">
+            <h3>Box Sizing 模式</h3>
+            <div class="tab-toggle" id="sizingToggle">
+              <button class="active" data-mode="content-box">content-box（标准）</button>
+              <button data-mode="border-box">border-box（怪异）</button>
+            </div>
+          </div>
+
+          <div style="margin-top:16px">
+            <div class="control-group">
+              <h3 style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:var(--c-content)"></span>目标宽度 / 内边距 / 边框</h3>
+              <div class="control-row">
+                <label>width</label>
+                <input type="range" id="sz-w" min="40" max="300" value="160">
+                <span class="value" id="sz-w-v">160px</span>
+              </div>
+              <div class="control-row">
+                <label>padding</label>
+                <input type="range" id="sz-p" min="0" max="40" value="20">
+                <span class="value" id="sz-p-v">20px</span>
+              </div>
+              <div class="control-row">
+                <label>border</label>
+                <input type="range" id="sz-b" min="0" max="20" value="6">
+                <span class="value" id="sz-b-v">6px</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="sizing-compare">
+            <div class="sizing-box" id="boxContent">
+              <div class="label">content-box</div>
+              <div class="box-visual" id="svContentBox">
+                <div class="inner" id="svContentInner"></div>
+              </div>
+              <div class="dim" id="svContentDim">实际宽度: 212px</div>
+            </div>
+            <div class="sizing-box" id="boxBorder">
+              <div class="label">border-box</div>
+              <div class="box-visual" id="svBorderBox">
+                <div class="inner" id="svBorderInner"></div>
+              </div>
+              <div class="dim" id="svBorderDim">实际宽度: 160px</div>
+            </div>
+          </div>
+
+          <div class="sizing-formula" id="sizingFormula">
+<span class="cm">/* content-box 模式下 */</span>
+width: <span class="hl">160px</span>;       <span class="cm">/* 仅内容 */</span>
+padding: <span class="hl">20px</span>;     <span class="cm">/* 左右各 20 */</span>
+border: <span class="hl">6px</span>;       <span class="cm">/* 左右各 6 */</span>
+<span class="cm">/* 实际宽度 = 160 + 20*2 + 6*2 = </span><span class="kw">212px</span><span class="cm"> */</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Margin Collapsing -->
+  <section class="section" id="s3">
+    <h2 class="section-title"><span class="num">3</span> 外边距合并演示</h2>
+    <p class="section-desc">调整相邻元素的 margin 值，观察垂直方向（发生合并）与水平方向（不合并）的区别。</p>
+
+    <div class="panel">
+      <div class="collapse-panel">
+        <!-- Vertical collapsing -->
+        <div class="collapse-demo">
+          <h3>垂直合并 <span class="tag">会合并</span></h3>
+          <div class="collapse-stage">
+            <div class="collapse-box a" id="vBoxA" style="width:120px;height:60px">
+              A<br>margin-bottom: <span id="vAmb">30</span>px
+            </div>
+            <div class="collapse-box b" id="vBoxB" style="width:120px;height:60px">
+              B<br>margin-top: <span id="vBmt">50</span>px
+            </div>
+          </div>
+          <div class="collapse-info">
+            <div class="actual">实际间距 = <span id="vActual">50px</span>（取较大值）</div>
+            <div class="rule" id="vRule">两个正值合并：取 max(30, 50) = 50px</div>
+          </div>
+        </div>
+
+        <!-- Horizontal (no collapsing) -->
+        <div class="collapse-demo">
+          <h3>水平方向 <span class="tag" style="background:#dcfce7;color:#16a34a">不合并</span></h3>
+          <div class="collapse-stage" style="flex-direction:row;align-items:center;justify-content:center">
+            <div class="collapse-box h" id="hBoxA" style="width:100px;height:60px">
+              A<br>margin-right: <span id="hAmr">30</span>px
+            </div>
+            <div class="collapse-box b2" id="hBoxB" style="width:100px;height:60px">
+              B<br>margin-left: <span id="hBml">50</span>px
+            </div>
+          </div>
+          <div class="collapse-info">
+            <div class="actual">实际间距 = <span id="hActual">80px</span>（两者相加）</div>
+            <div class="rule">水平方向 margin 不合并：30 + 50 = 80px</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Collapse controls -->
+      <div style="margin-top:20px" class="collapse-controls">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="collapse-control">
+            <label>元素 A · margin-bottom</label>
+            <div class="slider-row">
+              <input type="range" id="mbA" min="-50" max="100" value="30">
+              <span class="val" id="mbA-v">30px</span>
+            </div>
+          </div>
+          <div class="collapse-control">
+            <label>元素 B · margin-top</label>
+            <div class="slider-row">
+              <input type="range" id="mtB" min="-50" max="100" value="50">
+              <span class="val" id="mtB-v">50px</span>
+            </div>
+          </div>
+          <div class="collapse-control">
+            <label>元素 A · margin-right（水平）</label>
+            <div class="slider-row">
+              <input type="range" id="mrA" min="0" max="100" value="30">
+              <span class="val" id="mrA-v">30px</span>
+            </div>
+          </div>
+          <div class="collapse-control">
+            <label>元素 B · margin-left（水平）</label>
+            <div class="slider-row">
+              <input type="range" id="mlB" min="0" max="100" value="50">
+              <span class="val" id="mlB-v">50px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Calculator -->
+  <section class="section" id="s4">
+    <h2 class="section-title"><span class="num">4</span> 尺寸计算器</h2>
+    <p class="section-desc">输入各组成部分的数值，自动计算标准盒模型与怪异盒模型下的总尺寸。</p>
+
+    <div class="panel">
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="control-group content">
+            <h3><span class="dot"></span>Content 内容</h3>
+            <div class="control-row">
+              <label>width</label>
+              <input type="range" id="calc-cw" min="10" max="400" value="150">
+              <span class="value" id="calc-cw-v">150px</span>
+            </div>
+            <div class="control-row">
+              <label>height</label>
+              <input type="range" id="calc-ch" min="10" max="300" value="100">
+              <span class="value" id="calc-ch-v">100px</span>
+            </div>
+          </div>
+          <div class="control-group padding">
+            <h3><span class="dot"></span>Padding 内边距（四边相同）</h3>
+            <div class="control-row">
+              <label>padding</label>
+              <input type="range" id="calc-p" min="0" max="80" value="20">
+              <span class="value" id="calc-p-v">20px</span>
+            </div>
+          </div>
+          <div class="control-group border">
+            <h3><span class="dot"></span>Border 边框（四边相同）</h3>
+            <div class="control-row">
+              <label>border</label>
+              <input type="range" id="calc-b" min="0" max="40" value="6">
+              <span class="value" id="calc-b-v">6px</span>
+            </div>
+          </div>
+          <div class="control-group margin">
+            <h3><span class="dot"></span>Margin 外边距（四边相同）</h3>
+            <div class="control-row">
+              <label>margin</label>
+              <input type="range" id="calc-m" min="0" max="100" value="15">
+              <span class="value" id="calc-m-v">15px</span>
+            </div>
+          </div>
+
+          <div class="preset-row">
+            <button class="preset-btn" data-w="200" data-h="150" data-p="20" data-b="2" data-m="10">示例 1</button>
+            <button class="preset-btn" data-w="300" data-h="80" data-p="0" data-b="0" data-m="0">纯内容</button>
+            <button class="preset-btn" data-w="120" data-h="120" data-p="30" data-b="15" data-m="5">大边框</button>
+            <button class="preset-btn" data-w="250" data-h="200" data-p="40" data-b="8" data-m="24">卡片布局</button>
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <h3 style="margin:0 0 6px;font-size:16px">计算结果</h3>
+          <p style="margin:0 0 12px;font-size:13px;color:var(--text-secondary)">基于当前输入值的尺寸明细</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>组成部分</th>
+                <th style="text-align:right">宽度贡献</th>
+                <th style="text-align:right">高度贡献</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Content</td>
+                <td class="val" id="r-cw">150px</td>
+                <td class="val" id="r-ch">100px</td>
+              </tr>
+              <tr>
+                <td>Padding (×2)</td>
+                <td class="val" id="r-pw">40px</td>
+                <td class="val" id="r-ph">40px</td>
+              </tr>
+              <tr>
+                <td>Border (×2)</td>
+                <td class="val" id="r-bw">12px</td>
+                <td class="val" id="r-bh">12px</td>
+              </tr>
+              <tr>
+                <td>Margin (×2)</td>
+                <td class="val" id="r-mw">30px</td>
+                <td class="val" id="r-mh">30px</td>
+              </tr>
+              <tr class="total">
+                <td>总尺寸 (content-box)</td>
+                <td class="val" id="r-tw">232px</td>
+                <td class="val" id="r-th">182px</td>
+              </tr>
+              <tr style="background:var(--bg-tertiary)">
+                <td>总尺寸 (border-box)</td>
+                <td class="val" id="r-tw-bb" style="color:var(--success);font-weight:700">192px</td>
+                <td class="val" id="r-th-bb" style="color:var(--success);font-weight:700">152px</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="calc-visual" id="calcVisual">
+            <div class="box-model">
+              <div class="bm-margin" id="cvMargin" style="--m-t:15px;--m-r:15px;--m-b:15px;--m-l:15px">
+                <div class="bm-border" id="cvBorder" style="--b-t:6px;--b-r:6px;--b-b:6px;--b-l:6px">
+                  <div class="bm-padding" id="cvPadding" style="--p-t:20px;--p-r:20px;--p-b:20px;--p-l:20px">
+                    <div class="bm-content" id="cvContent" style="min-width:150px;min-height:100px">150 × 100</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+
+  function bindSlider(id, onChange) {
+    var el = $(id);
+    if (!el) return;
+    el.addEventListener('input', function () {
+      onChange(parseInt(el.value, 10));
+    });
+  }
+
+  // ===== Section 1: Visualizer =====
+  var ids = ['cw','ch','pt','pr','pb','pl','bt','br','bb','bl','mt','mr','mb','ml'];
+  var state = {};
+  ids.forEach(function (id) { state[id] = 0; });
+
+  function updateBox() {
+    var cw = state.cw, ch = state.ch;
+    var pt = state.pt, pr = state.pr, pb = state.pb, pl = state.pl;
+    var bt = state.bt, br = state.br, bb = state.bb, bl = state.bl;
+    var mt = state.mt, mr = state.mr, mb = state.mb, ml = state.ml;
+
+    var bmMargin = $('bmMargin');
+    bmMargin.style.setProperty('--m-t', mt + 'px');
+    bmMargin.style.setProperty('--m-r', mr + 'px');
+    bmMargin.style.setProperty('--m-b', mb + 'px');
+    bmMargin.style.setProperty('--m-l', ml + 'px');
+
+    var bmBorder = $('bmBorder');
+    bmBorder.style.setProperty('--b-t', bt + 'px');
+    bmBorder.style.setProperty('--b-r', br + 'px');
+    bmBorder.style.setProperty('--b-b', bb + 'px');
+    bmBorder.style.setProperty('--b-l', bl + 'px');
+
+    var bmPadding = $('bmPadding');
+    bmPadding.style.setProperty('--p-t', pt + 'px');
+    bmPadding.style.setProperty('--p-r', pr + 'px');
+    bmPadding.style.setProperty('--p-b', pb + 'px');
+    bmPadding.style.setProperty('--p-l', pl + 'px');
+
+    var bmContent = $('bmContent');
+    bmContent.style.setProperty('--cw', cw + 'px');
+    bmContent.style.setProperty('--ch', ch + 'px');
+    bmContent.textContent = cw + ' × ' + ch;
+
+    $('bm-mt-label').textContent = 'margin-top: ' + mt + 'px';
+    $('bm-mb-label').textContent = 'margin-bottom: ' + mb + 'px';
+    $('bm-ml-label').textContent = 'margin-left: ' + ml + 'px';
+    $('bm-mr-label').textContent = 'margin-right: ' + mr + 'px';
+
+    var padH = pl + pr, padV = pt + pb;
+    var borH = bl + br, borV = bt + bb;
+    var marH = ml + mr, marV = mt + mb;
+
+    $('d-content').textContent = cw + ' × ' + ch + ' px';
+    $('d-padding').textContent = padH + ' × ' + padV + ' px';
+    $('d-border').textContent = borH + ' × ' + borV + ' px';
+    $('d-margin').textContent = marH + ' × ' + marV + ' px';
+
+    var totalCW = cw + padH + borH + marH;
+    var totalCH = ch + padV + borV + marV;
+    $('d-total').textContent = totalCW + ' × ' + totalCH + ' px';
+
+    var totalBB_W = cw + padH + borH;
+    var totalBB_H = ch + padV + borV;
+    $('d-total-bb').textContent = totalBB_W + ' × ' + totalBB_H + ' px';
+  }
+
+  ids.forEach(function (id) {
+    bindSlider(id, function (val) {
+      state[id] = val;
+      $(id + '-v').textContent = val + 'px';
+      updateBox();
+    });
+  });
+
+  // ===== Section 2: Sizing toggle =====
+  var sizingMode = 'content-box';
+  var szState = { w: 160, p: 20, b: 6 };
+
+  function updateSizing() {
+    var w = szState.w, p = szState.p, b = szState.b;
+
+    $('svContentBox').style.width = w + 'px';
+    $('svContentBox').style.padding = p + 'px';
+    $('svContentBox').style.borderWidth = b + 'px';
+    $('svContentInner').style.width = (w - p * 2 - b * 2) + 'px';
+    $('svContentInner').style.height = '30px';
+
+    $('svBorderBox').style.width = w + 'px';
+    $('svBorderBox').style.padding = p + 'px';
+    $('svBorderBox').style.borderWidth = b + 'px';
+    $('svBorderInner').style.width = '100%';
+    $('svBorderInner').style.height = '30px';
+    $('svBorderInner').style.boxSizing = 'border-box';
+
+    $('svContentDim').textContent = '实际宽度: ' + (w + p * 2 + b * 2) + 'px';
+    $('svBorderDim').textContent = '实际宽度: ' + w + 'px';
+
+    var formula, hl = w + p * 2 + b * 2;
+    if (sizingMode === 'content-box') {
+      formula = '<span class="cm">/* content-box 模式下 */</span>\n' +
+        'width: <span class="hl">' + w + 'px</span>;       <span class="cm">/* 仅内容 */</span>\n' +
+        'padding: <span class="hl">' + p + 'px</span>;     <span class="cm">/* 左右各 ' + p + ' */</span>\n' +
+        'border: <span class="hl">' + b + 'px</span>;       <span class="cm">/* 左右各 ' + b + ' */</span>\n' +
+        '<span class="cm">/* 实际宽度 = ' + w + ' + ' + (p * 2) + ' + ' + (b * 2) + ' = </span><span class="kw">' + hl + 'px</span><span class="cm"> */</span>';
+    } else {
+      formula = '<span class="cm">/* border-box 模式下 */</span>\n' +
+        'width: <span class="hl">' + w + 'px</span>;       <span class="cm">/* 已含 padding + border */</span>\n' +
+        'padding: <span class="hl">' + p + 'px</span>;     <span class="cm">/* 自动从 width 扣除 */</span>\n' +
+        'border: <span class="hl">' + b + 'px</span>;       <span class="cm">/* 自动从 width 扣除 */</span>\n' +
+        '<span class="cm">/* 实际宽度 = </span><span class="kw">' + w + 'px</span><span class="cm">（不变） */</span>\n' +
+        '<span class="cm">/* 内容宽度 = ' + w + ' - ' + (p * 2) + ' - ' + (b * 2) + ' = </span><span class="kw">' + Math.max(0, w - p * 2 - b * 2) + 'px</span><span class="cm"> */</span>';
+    }
+    $('sizingFormula').innerHTML = formula;
+  }
+
+  $('sizingToggle').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    var btns = $('sizingToggle').querySelectorAll('button');
+    btns.forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    sizingMode = btn.dataset.mode;
+    updateSizing();
+  });
+
+  bindSlider('sz-w', function (v) { szState.w = v; $('sz-w-v').textContent = v + 'px'; updateSizing(); });
+  bindSlider('sz-p', function (v) { szState.p = v; $('sz-p-v').textContent = v + 'px'; updateSizing(); });
+  bindSlider('sz-b', function (v) { szState.b = v; $('sz-b-v').textContent = v + 'px'; updateSizing(); });
+
+  // ===== Section 3: Margin collapsing =====
+  var colState = { mbA: 30, mtB: 50, mrA: 30, mlB: 50 };
+
+  function updateCollapse() {
+    $('vBoxA').style.setProperty('--mb-a', colState.mbA + 'px');
+    $('vBoxB').style.setProperty('--mt-b', colState.mtB + 'px');
+    $('hBoxA').style.setProperty('--mr-a', colState.mrA + 'px');
+    $('hBoxB').style.setProperty('--ml-b', colState.mlB + 'px');
+
+    $('vAmb').textContent = colState.mbA;
+    $('vBmt').textContent = colState.mtB;
+    $('hAmr').textContent = colState.mrA;
+    $('hBml').textContent = colState.mlB;
+
+    var a = colState.mbA, b = colState.mtB;
+    var actual, rule;
+    if (a >= 0 && b >= 0) {
+      actual = Math.max(a, b);
+      rule = '两个正值合并：max(' + a + ', ' + b + ') = ' + actual + 'px';
+    } else if (a < 0 && b < 0) {
+      actual = Math.min(a, b);
+      rule = '两个负值合并：取绝对值较大的负值 = ' + actual + 'px';
+    } else {
+      actual = a + b;
+      rule = '一正一负：' + a + ' + (' + b + ') = ' + actual + 'px';
+    }
+    $('vActual').textContent = actual + 'px';
+    $('vRule').textContent = rule;
+
+    var hTotal = colState.mrA + colState.mlB;
+    $('hActual').textContent = hTotal + 'px';
+  }
+
+  bindSlider('mbA', function (v) { colState.mbA = v; $('mbA-v').textContent = v + 'px'; updateCollapse(); });
+  bindSlider('mtB', function (v) { colState.mtB = v; $('mtB-v').textContent = v + 'px'; updateCollapse(); });
+  bindSlider('mrA', function (v) { colState.mrA = v; $('mrA-v').textContent = v + 'px'; updateCollapse(); });
+  bindSlider('mlB', function (v) { colState.mlB = v; $('mlB-v').textContent = v + 'px'; updateCollapse(); });
+
+  // ===== Section 4: Calculator =====
+  var calcState = { cw: 150, ch: 100, p: 20, b: 6, m: 15 };
+
+  function updateCalc() {
+    var cw = calcState.cw, ch = calcState.ch;
+    var p = calcState.p, b = calcState.b, m = calcState.m;
+
+    $('r-cw').textContent = cw + 'px';
+    $('r-ch').textContent = ch + 'px';
+    $('r-pw').textContent = (p * 2) + 'px';
+    $('r-ph').textContent = (p * 2) + 'px';
+    $('r-bw').textContent = (b * 2) + 'px';
+    $('r-bh').textContent = (b * 2) + 'px';
+    $('r-mw').textContent = (m * 2) + 'px';
+    $('r-mh').textContent = (m * 2) + 'px';
+
+    var tw = cw + p * 2 + b * 2 + m * 2;
+    var th = ch + p * 2 + b * 2 + m * 2;
+    $('r-tw').textContent = tw + 'px';
+    $('r-th').textContent = th + 'px';
+
+    var twBB = cw + p * 2 + b * 2;
+    var thBB = ch + p * 2 + b * 2;
+    $('r-tw-bb').textContent = twBB + 'px';
+    $('r-th-bb').textContent = thBB + 'px';
+
+    $('cvMargin').style.setProperty('--m-t', m + 'px');
+    $('cvMargin').style.setProperty('--m-r', m + 'px');
+    $('cvMargin').style.setProperty('--m-b', m + 'px');
+    $('cvMargin').style.setProperty('--m-l', m + 'px');
+    $('cvBorder').style.setProperty('--b-t', b + 'px');
+    $('cvBorder').style.setProperty('--b-r', b + 'px');
+    $('cvBorder').style.setProperty('--b-b', b + 'px');
+    $('cvBorder').style.setProperty('--b-l', b + 'px');
+    $('cvPadding').style.setProperty('--p-t', p + 'px');
+    $('cvPadding').style.setProperty('--p-r', p + 'px');
+    $('cvPadding').style.setProperty('--p-b', p + 'px');
+    $('cvPadding').style.setProperty('--p-l', p + 'px');
+    $('cvContent').style.minWidth = cw + 'px';
+    $('cvContent').style.minHeight = ch + 'px';
+    $('cvContent').textContent = cw + ' × ' + ch;
+  }
+
+  bindSlider('calc-cw', function (v) { calcState.cw = v; $('calc-cw-v').textContent = v + 'px'; updateCalc(); });
+  bindSlider('calc-ch', function (v) { calcState.ch = v; $('calc-ch-v').textContent = v + 'px'; updateCalc(); });
+  bindSlider('calc-p', function (v) { calcState.p = v; $('calc-p-v').textContent = v + 'px'; updateCalc(); });
+  bindSlider('calc-b', function (v) { calcState.b = v; $('calc-b-v').textContent = v + 'px'; updateCalc(); });
+  bindSlider('calc-m', function (v) { calcState.m = v; $('calc-m-v').textContent = v + 'px'; updateCalc(); });
+
+  document.querySelectorAll('.preset-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      calcState.cw = parseInt(btn.dataset.w, 10);
+      calcState.ch = parseInt(btn.dataset.h, 10);
+      calcState.p = parseInt(btn.dataset.p, 10);
+      calcState.b = parseInt(btn.dataset.b, 10);
+      calcState.m = parseInt(btn.dataset.m, 10);
+
+      $('calc-cw').value = calcState.cw; $('calc-cw-v').textContent = calcState.cw + 'px';
+      $('calc-ch').value = calcState.ch; $('calc-ch-v').textContent = calcState.ch + 'px';
+      $('calc-p').value = calcState.p; $('calc-p-v').textContent = calcState.p + 'px';
+      $('calc-b').value = calcState.b; $('calc-b-v').textContent = calcState.b + 'px';
+      $('calc-m').value = calcState.m; $('calc-m-v').textContent = calcState.m + 'px';
+      updateCalc();
+    });
+  });
+
+  // Init
+  ids.forEach(function (id) {
+    state[id] = parseInt($(id).value, 10);
+    $(id + '-v').textContent = state[id] + 'px';
+  });
+  updateBox();
+  updateSizing();
+  updateCollapse();
+  updateCalc();
+})();
+</script>
+
+</body>
+</html>

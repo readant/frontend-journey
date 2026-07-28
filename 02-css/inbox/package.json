@@ -1,0 +1,17 @@
+{
+  "name": "css-core-notes",
+  "version": "1.0.0",
+  "description": "CSS 核心知识体系 - 系统化学习笔记",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "serve": "node build.js && npx serve dist/ -l 3000",
+    "clean": "rm -rf dist/"
+  },
+  "dependencies": {
+    "marked": "^12.0.0"
+  },
+  "keywords": ["css", "notes", "learning", "frontend"],
+  "author": "",
+  "license": "MIT"
+}
