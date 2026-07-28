@@ -168,31 +168,43 @@ margin: 0 auto;               /* 水平居中（需要固定宽度） */
 - 兄弟元素间的间距用 `margin` 是合理的
 - 父子元素间距优先用 `padding`
 :::
+
+### BFC（块级格式化上下文）
+
+BFC 是一个独立的渲染区域，内部元素的布局不影响外部。
+
+**创建 BFC 的条件**：
+| 属性 | 值 |
+|------|-----|
+| `float` | 非 `none` |
+| `position` | `absolute` / `fixed` |
+| `display` | `flow-root` / `flex` / `grid` / `inline-block` |
+| `overflow` | 非 `visible`（如 `hidden`/`auto`） |
+| `contain` | `layout` / `paint` / `strict` |
+
+**BFC 的特性**：
+1. 内部元素的 margin 不会与外部合并
+2. BFC 区域不会与浮动元素重叠
+3. 计算 BFC 高度时，浮动子元素也会参与计算
+
+**推荐方式**：用 `display: flow-root` 创建 BFC（无副作用，专为此设计）。
+
+```css
+.container {
+  display: flow-root; /* 创建 BFC，清除内部浮动 */
+}
+```
+
+::: tip BFC 应用场景
+- **清除浮动**：父元素设 `display: flow-root`
+- **防止 margin 合并**：给元素创建 BFC
+- **自适应两栏布局**：侧栏浮动，主栏设 BFC 不重叠
+:::
 ---
 
-## 速查语法
-
-### 盒模型公式
-- 标准(content-box): width = content, 总宽 = width + padding*2 + border*2 + margin*2
-- 怪异(border-box): width = content + padding + border, 总宽 = width + margin*2
-
-### 核心属性
-| 属性 | 可否负 | 背景填充 |
-|-----|-------|---------|
-| content | 否 | 是 |
-| padding | 否 | 是 |
-| border | 否 | 是 |
-| margin | 是 | 否 |
-
-### margin 合并
-- 规则: 正值取大，一正一负相减，负取绝对大
-- 场景: 相邻兄弟/父子/空元素
-- 解决: padding替代 / border阻隔 / overflow:hidden / flex布局
-
-### 最佳实践
-```css
-*, *::before, *::after { box-sizing: border-box; }
-```
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 ---
 

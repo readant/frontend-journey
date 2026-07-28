@@ -83,6 +83,71 @@ const ctx = canvas.getContext('2d');  // 获取 2D 绘图上下文
 | `<template>` | HTML 模板 | 不渲染，JS 克隆后插入 DOM |
 | `<mark>` | 高亮文本 | 静态高亮显示 |
 
+### 响应式图片
+
+```html
+<!-- picture + source：按屏幕宽度选择不同图片 -->
+<picture>
+  <source media="(max-width: 600px)" srcset="small.jpg">
+  <source media="(max-width: 1200px)" srcset="medium.jpg">
+  <img src="large.jpg" alt="描述">
+</picture>
+
+<!-- img 的 srcset/sizes：按分辨率选择 -->
+<img
+  src="default.jpg"
+  srcset="small.jpg 480w, medium.jpg 800w, large.jpg 1200w"
+  sizes="(max-width: 600px) 100vw, 50vw"
+  alt="响应式图片">
+```
+
+| 方案 | 适用场景 |
+|------|---------|
+| `<picture>` + `<source>` | 不同屏幕加载不同图片（艺术指导） |
+| `<img srcset sizes>` | 同一图片不同分辨率（高密度屏适配） |
+
+### 字幕与音轨
+
+```html
+<video controls>
+  <source src="video.mp4" type="video/mp4">
+  <track kind="subtitles" src="subs.zh.vtt" srclang="zh" label="中文字幕" default>
+  <track kind="captions" src="caps.en.vtt" srclang="en" label="English captions">
+</video>
+```
+
+| kind 值 | 用途 |
+|---------|------|
+| `subtitles` | 翻译字幕 |
+| `captions` | 隐藏式字幕（含音效描述） |
+| `descriptions` | 视频描述（供屏幕阅读器） |
+| `chapters` | 章节导航 |
+
+### 内联 SVG
+
+```html
+<svg width="100" height="100" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="40" fill="blue" />
+  <rect x="10" y="10" width="30" height="30" fill="red" />
+</svg>
+```
+
+- SVG 是矢量图形，放大不失真
+- 可用 CSS 控制样式（`fill`、`stroke`）
+- 适合图标、图表、简单图形
+
+### 嵌入内容
+
+```html
+<!-- iframe 嵌入第三方页面 -->
+<iframe src="https://example.com" width="600" height="400" loading="lazy"></iframe>
+```
+
+::: warning iframe 安全
+嵌入第三方内容时，添加 `sandbox` 属性限制权限：
+`<iframe src="..." sandbox="allow-scripts allow-same-origin">`
+:::
+
 ## 重难点总结
 
 | 难点 | 说明 | 对应案例 |
@@ -101,53 +166,9 @@ const ctx = canvas.getContext('2d');  // 获取 2D 绘图上下文
 | `02-canvas.html` | Canvas 绘图 API 详解 |
 | `03-new-tags.html` | HTML5 新交互标签详解 |
 
-## 速查语法
-
-### 视频与音频
-
-```html
-<video controls autoplay muted loop poster="cover.jpg" width="600" playsinline>
-  <source src="v.mp4" type="video/mp4">
-  浏览器不支持 video
-</video>
-<audio controls preload="metadata">
-  <source src="a.mp3" type="audio/mpeg">
-</audio>
-```
-
-### 媒体属性
-
-| 属性 | 作用 |
-|------|------|
-| `controls` | 显示控件 |
-| `autoplay` + `muted` | 自动播放（须静音） |
-| `loop` | 循环 |
-| `poster` | 封面（仅 video） |
-| `preload` | `none`/`metadata`/`auto` |
-| `playsinline` | iOS 内联播放 |
-
-### Canvas 基础
-
-```html
-<canvas id="c" width="600" height="400"></canvas>
-<script>
-const ctx = document.getElementById('c').getContext('2d');
-ctx.fillRect(10, 10, 100, 50);
-ctx.beginPath();
-ctx.arc(50, 50, 30, 0, Math.PI * 2);
-ctx.fill();
-</script>
-```
-
-### HTML5 新交互标签
-
-| 标签 | 作用 |
-|------|------|
-| `<details>` + `<summary>` | 折叠面板 |
-| `<dialog>` | 原生对话框 |
-| `<progress>` | 进度条 |
-| `<meter>` | 度量条 |
-| `<template>` | 模板（不渲染） |
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/html) 中，方便开发时快速查阅。
+:::
 
 ---
 

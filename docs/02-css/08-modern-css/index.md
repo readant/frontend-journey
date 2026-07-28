@@ -294,6 +294,64 @@ padding = width / 2
 - 团队项目：SMACSS + BEM 结合
 - React/Vue 项目：CSS Modules + BEM
 :::
+
+### 现代 CSS 方案
+
+**Tailwind CSS（原子化/Utility-First）**
+
+通过组合工具类快速构建界面，无需写自定义 CSS：
+
+```html
+<button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+  按钮
+</button>
+```
+
+- 优点：开发快、CSS 体积小（按需生成）、设计系统统一
+- 缺点：HTML 中类名密集，学习成本
+
+**CSS Modules**
+
+CSS 文件局部化，类名自动加 hash，避免全局冲突：
+
+```css
+/* Button.module.css */
+.btn { padding: 10px; }
+```
+
+```jsx
+import styles from './Button.module.css'
+<button className={styles.btn}>按钮</button>
+```
+
+**@layer（Cascade Layers）**
+
+CSS 原生层叠层，控制不同来源样式的优先级：
+
+```css
+@layer base, components, utilities;
+
+@layer base {
+  h1 { font-size: 2rem; }
+}
+
+@layer components {
+  .btn { padding: 10px; }
+}
+
+@layer utilities {
+  .text-center { text-align: center; }
+}
+```
+
+优先级：`utilities > components > base`（后声明的层优先级更高）。
+
+| 方案 | 适用场景 |
+|------|---------|
+| Tailwind CSS | 快速开发、设计系统统一 |
+| CSS Modules | 组件化项目（React/Vue） |
+| CSS-in-JS | 动态样式、主题切换 |
+| `@layer` | 控制样式优先级（原生支持） |
 ---
 
 ## 8.4 性能优化
@@ -360,36 +418,9 @@ div.container > ul.nav > li > a > span { }
 
 ---
 
-## 速查语法
-
-### CSS 变量
-```css
-:root { --color: #3498db; }
-.el { color: var(--color, #333); }
-/* JS: element.style.setProperty('--var', 'value') */
-```
-
-### Sass/Less/Stylus 对比
-| 功能 | Sass | Less | Stylus |
-|-----|------|------|--------|
-| 变量 | $var | @var | var = |
-| 混入 | @mixin/@include | .mix() | 函数调用 |
-| 继承 | @extend | &:extend | @extend |
-| 函数 | @function | 无 | 支持 |
-
-### BEM 命名
-block__element--modifier
-例: card__title--large
-
-### OOCSS 结构+皮肤分离
-### SMACSS Base/Layout/Module/State/Theme 分层
-
-### 性能优化
-- 压缩工具: cssnano, clean-css
-- 减少重排: 修改 transform/opacity > color > width/top
-- 关键CSS内联(~14KB)
-- content-visibility: auto
-- 选择器深度不超过3层
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 ---
 

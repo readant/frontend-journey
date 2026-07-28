@@ -98,66 +98,9 @@
 | `05-links-and-images.html` | 链接与图片详解 |
 | `06-tables.html` | 表格结构与合并详解 |
 
-## 速查语法
-
-### 文档骨架
-
-```html
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>页面标题</title>
-</head>
-<body>
-  <!-- 可见内容 -->
-</body>
-</html>
-```
-
-### 常用文本标签
-
-| 标签 | 语义 | 标签 | 语义 |
-|------|------|------|------|
-| `<h1>`~`<h6>` | 标题层级 | `<strong>` | 重要（加粗） |
-| `<p>` | 段落 | `<em>` | 强调（斜体） |
-| `<br>` | 换行 | `<hr>` | 主题分隔 |
-| `<del>`/`<ins>` | 删除/插入 | `<mark>` | 高亮 |
-| `<code>`+`<pre>` | 代码块 | `<blockquote>` | 引用 |
-
-### 列表
-
-```html
-<ul><li>无序</li></ul>
-<ol><li>有序</li></ol>
-<dl><dt>术语</dt><dd>定义</dd></dl>
-```
-
-### 链接与图片
-
-```html
-<a href="https://example.com" target="_blank" rel="noopener">外链</a>
-<a href="#section">页内锚点</a>
-<img src="a.jpg" alt="描述" loading="lazy">
-```
-
-### 表格
-
-```html
-<table>
-  <thead><tr><th scope="col">姓名</th></tr></thead>
-  <tbody><tr><td colspan="2">合并 2 列</td></tr></tbody>
-</table>
-```
-
-### HTML 实体
-
-| 实体 | 字符 | 实体 | 字符 |
-|------|------|------|------|
-| `&lt;` | < | `&gt;` | > |
-| `&amp;` | & | `&nbsp;` | 空格 |
-| `&copy;` | © | `&quot;` | " |
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/html) 中，方便开发时快速查阅。
+:::
 
 ---
 

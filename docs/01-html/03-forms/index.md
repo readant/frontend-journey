@@ -77,6 +77,63 @@
 
 **注意：** placeholder 不是 label 的替代品！它在输入后消失，且屏幕阅读器不会优先朗读。
 
+### 下拉选择与文本域
+
+```html
+<!-- 下拉选择 -->
+<select name="city">
+  <option value="bj">北京</option>
+  <option value="sh" selected>上海</option>
+  <optgroup label="浙江省">
+    <option value="hz">杭州</option>
+    <option value="nb">宁波</option>
+  </optgroup>
+</select>
+
+<!-- 多行文本 -->
+<textarea name="bio" rows="4" cols="40" maxlength="200" placeholder="自我介绍"></textarea>
+```
+
+| 元素 | 关键属性 | 说明 |
+|------|----------|------|
+| `<select>` | `name`, `multiple`, `size` | multiple 可多选（按 Ctrl/Cmd 点击） |
+| `<option>` | `value`, `selected`, `disabled` | selected 设默认选中 |
+| `<optgroup>` | `label`, `disabled` | 选项分组 |
+| `<textarea>` | `rows`, `cols`, `maxlength`, `placeholder`, `resize` | resize: none/both/horizontal/vertical |
+
+### 按钮与补全列表
+
+```html
+<!-- 三种 button 类型 -->
+<button type="submit">提交</button>
+<button type="reset">重置</button>
+<button type="button">普通按钮</button>
+
+<!-- input 关联自动补全 -->
+<input list="browsers" name="browser">
+<datalist id="browsers">
+  <option value="Chrome">
+  <option value="Firefox">
+  <option value="Safari">
+</datalist>
+```
+
+| 元素 | 说明 |
+|------|------|
+| `<button type="submit">` | 提交表单（默认） |
+| `<button type="reset">` | 重置表单为初始值 |
+| `<button type="button">` | 不触发任何行为，需 JS 绑定事件 |
+| `<datalist>` | 为 input 提供自动补全选项列表 |
+
+::: tip button vs input type="submit"
+`<button>` 内部可放 HTML（图标、样式更灵活），`<input type="submit">` 只能用 value 设文字。优先用 `<button>`。
+:::
+
+::: warning disabled vs readonly
+- `disabled`：禁用控件，**值不会提交**，不响应任何事件
+- `readonly`：只读，**值会提交**，可聚焦可复制
+:::
+
 ## 重难点总结
 
 | 难点 | 说明 | 对应案例 |
@@ -95,57 +152,9 @@
 | `02-html5-forms.html` | HTML5 新 input 类型全景 |
 | `03-form-validation.html` | 验证属性 + 正则 + 实战 |
 
-## 速查语法
-
-### 表单骨架
-
-```html
-<form action="/api/login" method="post">
-  <fieldset>
-    <legend>分组标题</legend>
-    <label for="user">用户名：</label>
-    <input type="text" id="user" name="user" required>
-  </fieldset>
-  <button type="submit">提交</button>
-</form>
-```
-
-### input 类型速查
-
-| type | 用途 | type | 用途 |
-|------|------|------|------|
-| `text` | 文本 | `password` | 密码 |
-| `email` | 邮箱（自动验证） | `url` | 网址 |
-| `number` | 数字 | `tel` | 电话 |
-| `date`/`time` | 日期/时间 | `checkbox` | 复选 |
-| `radio` | 单选 | `file` | 文件 |
-| `hidden` | 隐藏 | `range` | 滑块 |
-| `color` | 颜色 | `submit`/`reset`/`button` | 按钮 |
-
-### 验证属性
-
-| 属性 | 作用 |
-|------|------|
-| `required` | 必填 |
-| `minlength`/`maxlength` | 字符长度 |
-| `min`/`max`/`step` | 数值范围与步长 |
-| `pattern` | 正则（无需 `/.../`） |
-| `novalidate` | form 级禁用验证 |
-
-### 其他控件
-
-```html
-<select name="city"><option value="bj">北京</option></select>
-<textarea rows="4" maxlength="200"></textarea>
-<button type="submit|reset|button">按钮</button>
-```
-
-### 易错点
-
-- radio 同组必须 `name` 相同才互斥
-- label 的 `for` 必须等于 input 的 `id`
-- `disabled` 不提交值，`readonly` 提交值
-- 文件上传 form 必须 `enctype="multipart/form-data"`
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/html) 中，方便开发时快速查阅。
+:::
 
 ---
 

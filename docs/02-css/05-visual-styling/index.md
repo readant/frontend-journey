@@ -217,29 +217,9 @@ box-shadow: [offset-x] [offset-y] [blur] [spread] [color] [inset];
 
 ---
 
-## 速查语法
-
-### 字体属性
-font-family / font-size / font-weight(normal/bold/100-900) / line-height / letter-spacing
-
-### 背景
-background-color / background-image / background-repeat / background-position / background-size(cover/contain) / background-attachment
-
-### 渐变
-- 线性: linear-gradient(dir, color1, color2)
-- 径向: radial-gradient(shape, color1, color2)
-- 锥形: conic-gradient(c1, c2, ...)
-
-### 边框圆角
-border / border-radius(px/%) / box-shadow(x y blur spread color inset)
-
-### 表格
-border-collapse: collapse / table-layout: fixed
-
-### 滤镜
-filter: blur() / brightness() / contrast() / grayscale() / drop-shadow()
-backdrop-filter: blur() (毛玻璃)
-mix-blend-mode: multiply/screen/overlay
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 ---
 

@@ -159,6 +159,62 @@ li:only-child { ... }                 /* 独生子元素 */
 #section:target { background: yellow; }  /* URL 锚点指向的元素 */
 ```
 
+### 焦点与表单伪类
+
+| 伪类 | 作用 |
+|------|------|
+| `:focus` | 元素获得焦点 |
+| `:focus-within` | 元素或其子元素获得焦点（用于父容器高亮） |
+| `:focus-visible` | 键盘聚焦时高亮（鼠标点击不高亮） |
+| `:checked` | 选中的 radio/checkbox |
+| `:disabled` / `:enabled` | 禁用/可用状态 |
+| `:valid` / `:invalid` | 表单验证通过/失败 |
+| `:required` / `:placeholder-shown` | 必填项/占位符正在显示 |
+
+### 结构伪类（of-type 系列）
+
+| 伪类 | 作用 |
+|------|------|
+| `:nth-of-type(n)` | 同类型元素中第 n 个 |
+| `:first-of-type` | 同类型第一个 |
+| `:last-of-type` | 同类型最后一个 |
+| `:only-of-type` | 同类型唯一一个 |
+
+::: tip :nth-child vs :nth-of-type
+`nth-child` 不区分标签类型（所有子元素一起数），`nth-of-type` 只数同标签类型的元素。例如 `p:nth-child(2)` 要求 p 是父元素的第 2 个子元素；`p:nth-of-type(2)` 要求 p 是第 2 个 `<p>` 元素。
+:::
+
+### 现代选择器（CSS4+）
+
+```css
+/* :is() —— 匹配列表中任意一个，权重取最大值 */
+:is(h1, h2, h3) { color: blue; }
+
+/* :where() —— 同 :is()，但权重为 0 */
+:where(h1, h2, h3) { color: blue; }
+
+/* :has() —— 父选择器（匹配包含特定子元素的父元素） */
+div:has(> img) { padding: 10px; }       /* 包含 img 的 div */
+card:has(.badge) { border-color: gold; }  /* 含 .badge 的 card */
+```
+
+| 选择器 | 权重 | 用途 |
+|--------|------|------|
+| `:is()` | 取参数中最大权重 | 简化多选择器 |
+| `:where()` | **0**（始终为 0） | 低权重覆盖 |
+| `:has()` | 参数权重 + 1 个类 | 父元素选择 |
+
+::: warning :has() 浏览器支持
+`:has()` 已被主流浏览器支持（2023 起），但旧版浏览器不兼容。生产环境使用前查 [caniuse.com](https://caniuse.com/css-has)。
+:::
+
+### 补充属性选择器
+
+| 语法 | 匹配规则 |
+|------|---------|
+| `[attr~=val]` | val 是空格分隔列表中的一个词 |
+| `[attr|=val]` | 等于 val 或以 val- 开头（用于 lang） |
+
 ---
 
 ## 2.5 伪元素
@@ -199,32 +255,9 @@ li:only-child { ... }                 /* 独生子元素 */
 
 ---
 
-## 速查语法
-
-### 选择器速查
-| 类型 | 语法 | 权重 |
-|-----|------|-----|
-| 通配 | `*` | 0 |
-| 标签 | `p` | 1 |
-| 类 | `.class` | 10 |
-| ID | `#id` | 100 |
-| 后代 | `div p` | 1+1 |
-| 子代 | `div > p` | 1+1 |
-| 相邻兄弟 | `h1 + p` | 1+1 |
-| 通用兄弟 | `h1 ~ p` | 1+1 |
-| 属性 | `[attr=val]` | 10 |
-| 伪类 | `:hover` `:nth-child(n)` | 10 |
-| 伪元素 | `::before` `::after` | 1 |
-
-### 伪类要点
-- LVHA 顺序: link→visited→hover→active
-- nth-child: n/odd/even/3n+1
-- 结构: first-child/last-child/only-child
-- 目标: :target (URL锚点)
-
-### 伪元素要点
-- ::before/::after 需 content 属性
-- 应用场景: 装饰/三角形/清除浮动/图标
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 
 ---

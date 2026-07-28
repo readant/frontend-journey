@@ -169,37 +169,59 @@ title: 07. 响应式设计
 }
 ```
 
+### 偏好媒体查询
+
+```css
+/* 暗色模式 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+}
+
+/* 减少动画（无障碍） */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 触摸设备 */
+@media (hover: none) and (pointer: coarse) {
+  /* 触摸设备专用样式 */
+}
+```
+
+| 媒体特性 | 用途 |
+|---------|------|
+| `prefers-color-scheme` | 暗色/亮色模式适配 |
+| `prefers-reduced-motion` | 减少动画（前庭障碍用户） |
+| `hover` | 是否支持悬停（触摸设备为 none） |
+| `pointer` | 指针精度（coarse 触摸 / fine 鼠标） |
+
+### 动态视口单位
+
+移动端 `100vh` 会包含地址栏，导致内容被遮挡。使用动态视口单位解决：
+
+| 单位 | 含义 |
+|------|------|
+| `dvh` | 动态视口高度（地址栏显隐时自动调整） |
+| `svh` | 小视口高度（地址栏显示时） |
+| `lvh` | 大视口高度（地址栏隐藏时） |
+
+```css
+.fullscreen {
+  height: 100dvh; /* 推荐：动态适配 */
+}
+```
+
 ---
 
-## 速查语法
-
-### viewport 设置
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-### 媒体查询
-```css
-@media screen and (min-width: 768px) { ... }
-@media screen and (max-width: 767px) { ... }
-```
-
-### 逻辑操作符
-and / or(,) / not / only
-
-### 断点策略
-- Mobile First: 默认移动端, min-width 向上
-- Desktop First: 默认桌面端, max-width 向下
-- 常用断点: 768px / 1024px / 1440px
-
-### 容器查询
-```css
-.container { container-type: inline-size; }
-@container (min-width: 400px) { ... }
-```
-
-### 进阶工具（正文未展开，了解即可）
-- `clamp(min, ideal, max)` 响应式字号
-- `repeat(auto-fit, minmax(min, 1fr))` 自适应网格
-- `srcset`/`sizes` 响应式图片
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 
 ---

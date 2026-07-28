@@ -219,31 +219,9 @@ title: 06. 变换与动画
 
 ---
 
-## 速查语法
-
-### 2D 变换
-transform: translate(x,y) | rotate(deg) | scale(n) | skewX(deg)
-
-### 3D 变换
-translate3d(x,y,z) | perspective(n) | rotateX/Y/Z | translateZ
-
-### 过渡
-transition: property duration timing-function delay;
-timing: linear/ease/ease-in-out/cubic-bezier/steps
-
-### 关键帧
-@keyframes name { from {} to {} }
-animation: name duration timing-function delay iteration direction fill-mode play-state;
-
-### animation 属性
-animation-name / duration / timing-function / delay / iteration-count(n/infinite)
-animation-direction(normal/reverse/alternate)
-animation-fill-mode(none/forwards/backwards/both)
-
-### 性能优化
-- 优先使用 transform/opacity (GPU加速)
-- will-change: transform
-- translateZ(0) 强制硬件加速
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 ---
 

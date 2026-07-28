@@ -18,6 +18,7 @@ export default defineConfig({
       { text: '准备阶段', link: '/00-preparation/' },
       { text: 'HTML', link: '/01-html/' },
       { text: 'CSS', link: '/02-css/' },
+      { text: '速查手册', link: '/cheatsheet/' },
     ],
 
     // 侧边栏
@@ -60,6 +61,17 @@ export default defineConfig({
             { text: '响应式设计', link: '/02-css/07-responsive/' },
             { text: '工程化与现代 CSS', link: '/02-css/08-modern-css/' },
             { text: '设计模式与实战', link: '/02-css/09-design-patterns/' },
+          ]
+        }
+      ],
+      '/cheatsheet/': [
+        {
+          text: '速查手册',
+          items: [
+            { text: '总览', link: '/cheatsheet/' },
+            { text: '准备阶段速查', link: '/cheatsheet/preparation' },
+            { text: 'HTML 速查', link: '/cheatsheet/html' },
+            { text: 'CSS 速查', link: '/cheatsheet/css' },
           ]
         }
       ],

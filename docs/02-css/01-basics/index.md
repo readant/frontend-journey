@@ -161,32 +161,9 @@ h1 {
 
 ---
 
-## 速查语法
-
-### 引入方式
-| 方式 | 语法 |
-|-----|------|
-| 内联 | `<p style="color:red">` |
-| 内部 | `<style>p{color:red}</style>` |
-| 外部 | `<link rel="stylesheet" href="style.css">` |
-| @import | `@import url("style.css");` |
-
-### 优先级权重
-`!important` > 内联(1000) > ID(100) > 类/伪类/属性(10) > 元素/伪元素(1) > 通配(0)
-
-### 可继承属性
-字体/文本/列表/可见性：font-*, color, text-*, list-style, visibility, cursor
-
-### 常用单位
-- 字体: rem (推荐), em (嵌套放大)
-- 视口: vw, vh, vmin, vmax
-- 绝对: px, %, cm/mm/in
-- 颜色: HEX(#fff), RGB/RGBA, HSL/HSLA
-
-### 关键机制
-- 层叠：权重高→后写优
-- 继承：子元素默认继承父元素可继承属性
-- 强制：inherit / initial / unset
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 ---
 

@@ -11,7 +11,7 @@ title: 04. 布局与定位
 
 ### 行内元素
 - 不独占一行，从左向右排列
-- 常见: `span`, `a`, `strong`, `em`, `img`, `input`
+- 常见: `span`, `a`, `strong`, `em`
 - 默认 `display: inline`
 
 ### 行内块元素
@@ -161,6 +161,13 @@ bottom: 0;
 left: 0;
 ```
 
+### BFC 与布局
+
+BFC（块级格式化上下文）影响浮动清除和 margin 合并，详见 [盒模型章节](/02-css/03-box-model/#bfc-块级格式化上下文)。
+
+- **清除浮动**：父元素 `display: flow-root`（推荐）或 `overflow: hidden`
+- **sticky 失效排查**：父级 `overflow` 非 `visible` 会导致 `position: sticky` 失效
+
 ### z-index 与层叠上下文
 
 #### z-index
@@ -257,41 +264,9 @@ left: 0;
 
 ---
 
-## 速查语法
-
-### 文档流
-- 块级: div/h1/p/ul, 独占一行, display:block
-- 行内: span/a/strong, 不独占一行, display:inline
-- 行内块: img/input, 可设宽高, display:inline-block
-
-### float 属性
-float: left/right/none; 清除: clear: both;
-经典Clearfix:
-```css
-.clearfix::after { content:""; display:block; clear:both; }
-```
-
-### position 属性
-| 值 | 脱流 | 参考 | 场景 |
-|---|-----|------|-----|
-| static | 否 | — | 默认 |
-| relative | 否 | 自身 | 微调/父容器 |
-| absolute | 是 | 最近定位祖先 | 弹窗/下拉/角标 |
-| fixed | 是 | 视口 | 固定导航/返回顶部 |
-| sticky | 否 | 视口+父容器 | 吸顶/目录跟随 |
-
-### z-index 规则
-同级z-index大者在上; 父级创建层叠上下文后子级无法突破
-
-### Flexbox 容器属性
-flex-direction | justify-content | align-items | flex-wrap | gap
-
-### Flexbox 项目属性
-flex-grow | flex-shrink | flex-basis | flex | order
-
-### Grid 核心
-grid-template-columns | grid-template-rows | gap | grid-area | grid-column | grid-row
-fr 比例单位（进阶: repeat()/minmax()/auto-fit）
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 ---
 

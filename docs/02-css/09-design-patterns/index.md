@@ -175,6 +175,59 @@ title: 09. 设计模式与问题解决
 .hg-footer { grid-area: footer; }
 ```
 
+### 双飞翼布局
+
+与圣杯布局类似，但通过在主内容区嵌套一层容器来解决中间栏定位问题：
+
+```html
+<div class="container">
+  <div class="center"><div class="content">主内容</div></div>
+  <div class="left">左侧栏</div>
+  <div class="right">右侧栏</div>
+</div>
+```
+
+```css
+.container { display: flex; }
+.center { flex: 1; }
+.content { margin: 0 200px; } /* 用 margin 让出左右栏空间 */
+.left { width: 200px; order: -1; }
+.right { width: 200px; }
+```
+
+::: tip 圣杯 vs 双飞翼
+- **圣杯布局**：用 padding + position 让位，DOM 结构简单
+- **双飞翼布局**：主区嵌套一层 + margin 让位，避免 position
+- 现代开发中两者都被 Flexbox/Grid 取代，了解原理即可
+:::
+
+### Sticky Footer
+
+底部始终贴在视口底部，内容不足时也不会上浮：
+
+```css
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main { flex: 1; }        /* 主内容区弹性填充 */
+footer { flex-shrink: 0; } /* 底部不压缩 */
+```
+
+### 等高布局
+
+多列等高是常见需求：
+
+```css
+/* 方案 1：Flexbox（推荐） */
+.row { display: flex; }
+.col { flex: 1; }  /* 自动等高 */
+
+/* 方案 2：Grid */
+.row { display: grid; grid-template-columns: repeat(3, 1fr); }
+```
+
 ---
 
 ## 9.3 清除浮动
@@ -400,39 +453,9 @@ title: 09. 设计模式与问题解决
 
 ---
 
-## 速查语法
-
-### 水平垂直居中
-```css
-/* Flex */
-.parent { display:flex; justify-content:center; align-items:center; }
-/* Grid */
-.parent { display:grid; place-items:center; }
-/* 绝对定位+translate */
-.child { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
-/* margin auto */
-.child { position:absolute; top:0;left:0;right:0;bottom:0; margin:auto; width:100px; height:100px; }
-/* table-cell */
-.parent { display:table; } .child { display:table-cell; vertical-align:middle; text-align:center; }
-```
-
-### 三栏布局
-Flex: 侧栏固定 + 主栏flex:1
-Grid: grid-template-columns: 200px 1fr 200px + grid-template-areas
-
-### 三角形
-```css
-.tri { width:0; height:0; border-left:Xpx solid transparent; border-right:Xpx solid transparent; border-bottom:Ypx solid color; }
-```
-
-### Clearfix
-```css
-.clearfix::after { content:""; display:block; clear:both; }
-```
-
-### 自定义形状
-clip-path: polygon() / circle() / inset() / path()
-border-radius 组合 (胶囊/叶子/花瓣)
+::: tip 速查手册
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+:::
 
 
 ---
