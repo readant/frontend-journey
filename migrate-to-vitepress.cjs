@@ -34,8 +34,11 @@ function convertCallouts(content) {
   return result;
 }
 
-function stripFirstH1(content) {
-  return content.replace(/^#\s+.+\r?\n+/m, '');
+function extractTitleAndStripH1(content) {
+  const match = content.match(/^#\s+(.+)\r?\n+/m);
+  const title = match ? match[1].trim() : '';
+  const stripped = content.replace(/^#\s+.+\r?\n+/m, '');
+  return { title, content: stripped };
 }
 
 function ensureDir(dirPath) {
@@ -51,9 +54,12 @@ function migrateChapter(chapter) {
     return;
   }
 
-  let content = fs.readFileSync(srcMd, 'utf-8');
-  content = stripFirstH1(content);
-  content = convertCallouts(content);
+  let raw = fs.readFileSync(srcMd, 'utf-8');
+  const { title, content: stripped } = extractTitleAndStripH1(raw);
+  let content = convertCallouts(stripped);
+
+  const frontmatter = title ? `---\ntitle: ${title}\n---\n\n` : '';
+  content = frontmatter + content;
 
   content += `\n\n---\n\n::: info 互动演示\n本章配套了交互式演示文件，可直观体验所学概念：\n\n[🎮 打开 ${chapter.title} 演示](/demos/02-css/${chapter.file}.html)\n:::\n`;
 

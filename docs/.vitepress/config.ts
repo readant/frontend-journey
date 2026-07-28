@@ -3,7 +3,6 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Frontend Journey',
   description: '前端学习笔记 - 从零开始的前端学习旅程',
-  titleTemplate: (pageTitle, siteTitle) => pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle,
 
   // GitHub Pages 部署配置
   base: '/frontend-journey/',
