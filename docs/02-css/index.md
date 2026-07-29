@@ -3,7 +3,7 @@
 系统化、可扩展的 CSS 学习笔记 · 9 大章节 · 50+ 知识点 · 速查语法
 
 <div class="chapter-grid">
-<a href="/02-css/01-basics/" class="chapter-card">
+<a href="./01-basics/" class="chapter-card">
   <div class="chapter-num">01</div>
   <div class="chapter-info">
     <h3>基础语法与机制</h3>
@@ -11,7 +11,7 @@
   </div>
   <div class="chapter-arrow">→</div>
 </a>
-<a href="/02-css/02-selectors/" class="chapter-card">
+<a href="./02-selectors/" class="chapter-card">
   <div class="chapter-num">02</div>
   <div class="chapter-info">
     <h3>选择器</h3>
@@ -19,7 +19,7 @@
   </div>
   <div class="chapter-arrow">→</div>
 </a>
-<a href="/02-css/03-box-model/" class="chapter-card">
+<a href="./03-box-model/" class="chapter-card">
   <div class="chapter-num">03</div>
   <div class="chapter-info">
     <h3>盒子模型</h3>
@@ -27,7 +27,7 @@
   </div>
   <div class="chapter-arrow">→</div>
 </a>
-<a href="/02-css/04-layout-positioning/" class="chapter-card">
+<a href="./04-layout-positioning/" class="chapter-card">
   <div class="chapter-num">04</div>
   <div class="chapter-info">
     <h3>布局与定位</h3>
@@ -35,7 +35,7 @@
   </div>
   <div class="chapter-arrow">→</div>
 </a>
-<a href="/02-css/05-visual-styling/" class="chapter-card">
+<a href="./05-visual-styling/" class="chapter-card">
   <div class="chapter-num">05</div>
   <div class="chapter-info">
     <h3>视觉样式与美化</h3>
@@ -43,7 +43,7 @@
   </div>
   <div class="chapter-arrow">→</div>
 </a>
-<a href="/02-css/06-transform-animation/" class="chapter-card">
+<a href="./06-transform-animation/" class="chapter-card">
   <div class="chapter-num">06</div>
   <div class="chapter-info">
     <h3>变换与动画</h3>
@@ -51,7 +51,7 @@
   </div>
   <div class="chapter-arrow">→</div>
 </a>
-<a href="/02-css/07-responsive/" class="chapter-card">
+<a href="./07-responsive/" class="chapter-card">
   <div class="chapter-num">07</div>
   <div class="chapter-info">
     <h3>响应式设计</h3>
@@ -59,7 +59,7 @@
   </div>
   <div class="chapter-arrow">→</div>
 </a>
-<a href="/02-css/08-modern-css/" class="chapter-card">
+<a href="./08-modern-css/" class="chapter-card">
   <div class="chapter-num">08</div>
   <div class="chapter-info">
     <h3>工程化与现代 CSS</h3>
@@ -67,7 +67,7 @@
   </div>
   <div class="chapter-arrow">→</div>
 </a>
-<a href="/02-css/09-design-patterns/" class="chapter-card">
+<a href="./09-design-patterns/" class="chapter-card">
   <div class="chapter-num">09</div>
   <div class="chapter-info">
     <h3>设计模式与实战</h3>
