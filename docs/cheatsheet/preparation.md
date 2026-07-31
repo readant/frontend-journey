@@ -9,7 +9,7 @@ title: 准备阶段速查
 ### 必装清单
 
 | 工具 | 下载地址 | 验证命令 |
-|------|---------|---------|
+| ------ | --------- | --------- |
 | VS Code | code.visualstudio.com | `code -v` |
 | Chrome | google.com/chrome | 访问 chrome://version |
 | Git | git-scm.com | `git --version` |
@@ -32,7 +32,7 @@ npm config set registry https://registry.npmmirror.com
 ### 常用命令
 
 | 操作 | 命令 |
-|------|------|
+| ------ | ------ |
 | 初始化项目 | `npm init -y` |
 | 安装依赖 | `npm install <pkg>` |
 | 安装开发依赖 | `npm install -D <pkg>` |
@@ -43,7 +43,7 @@ npm config set registry https://registry.npmmirror.com
 ### 逻辑运算对照
 
 | 运算 | JS 运算符 | 要点 |
-|------|----------|------|
+| ------ | ---------- | ------ |
 | 与 AND | `&&` | 全真才真 |
 | 或 OR | `\|\|` | 一真即真 |
 | 非 NOT | `!` | 真假互换 |
@@ -52,7 +52,7 @@ npm config set registry https://registry.npmmirror.com
 ### 复杂度速记
 
 | 复杂度 | 名称 | 典型算法 |
-|-------|------|---------|
+| ------- | ------ | --------- |
 | O(1) | 常数 | 数组取下标 |
 | O(log n) | 对数 | 二分查找 |
 | O(n) | 线性 | 单层循环 |
@@ -70,7 +70,7 @@ npm config set registry https://registry.npmmirror.com
 ### 常用命令行（PowerShell）
 
 | 操作 | 命令 | 简写 |
-|------|------|------|
+| ------ | ------ | ------ |
 | 查看目录 | `Get-ChildItem` | `ls` |
 | 切换目录 | `Set-Location` | `cd` |
 | 新建目录 | `New-Item -ItemType Directory` | `mkdir` |
@@ -81,7 +81,7 @@ npm config set registry https://registry.npmmirror.com
 ### 前端工具速查
 
 | 类别 | 工具 | 用途 |
-|------|------|------|
+| ------ | ------ | ------ |
 | 包管理 | npm / pnpm | 安装第三方库 |
 | 格式化 | Prettier | 保存时自动格式化 |
 | 检查 | ESLint | 代码规范检查 |

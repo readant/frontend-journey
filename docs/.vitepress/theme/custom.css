@@ -13,9 +13,254 @@
   --vp-c-brand-soft: rgba(100, 108, 255, 0.16);
 }
 
-/* 代码块样式 */
+/* ========== 代码块美化 ========== */
+
+/* 行内代码 */
+.vp-doc :not(pre) > code {
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  background-color: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  border: 1px solid var(--vp-c-divider);
+  transition: background-color 0.25s;
+}
+
+.vp-doc :not(pre) > code:hover {
+  background-color: var(--vp-c-brand-soft);
+}
+
+/* 代码块容器 */
 .vp-doc div[class*='language-'] {
-  border-radius: 8px;
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #282c34;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.vp-doc div[class*='language-']:hover {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* 深色主题代码块 */
+.dark .vp-doc div[class*='language-'] {
+  background-color: #1e2128;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.dark .vp-doc div[class*='language-']:hover {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* 代码块 pre 元素 */
+.vp-doc div[class*='language-'] > pre {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  background: transparent;
+}
+
+/* 代码块 code 元素 */
+.vp-doc div[class*='language-'] > pre > code {
+  display: block;
+  padding: 0;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace;
+  font-size: inherit;
+  line-height: inherit;
+  background: transparent;
+  color: #abb2bf;
+}
+
+/* 复制按钮 */
+.vp-doc div[class*='language-'] .copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s, background-color 0.25s, color 0.25s;
+  z-index: 2;
+}
+
+.vp-doc div[class*='language-']:hover .copy {
+  opacity: 1;
+}
+
+.vp-doc div[class*='language-'] .copy:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.vp-doc div[class*='language-'] .copied {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  color: #98c379;
+  background: rgba(152, 195, 121, 0.1);
+  border: 1px solid rgba(152, 195, 121, 0.3);
+  border-radius: 6px;
+  z-index: 2;
+}
+
+/* 代码组样式 */
+.vp-doc .code-group {
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  background-color: var(--vp-c-bg-soft);
+}
+
+.dark .vp-doc .code-group {
+  background-color: #1e2128;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.vp-doc .code-group .code-group-header {
+  padding: 0.5rem 1rem;
+  background-color: var(--vp-c-bg-alt);
+  border-bottom: 1px solid var(--vp-c-divider);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+}
+
+.dark .vp-doc .code-group .code-group-header {
+  background-color: #2c313a;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.vp-doc .code-group .code-group-header .active {
+  color: var(--vp-c-brand-1);
+}
+
+.vp-doc .code-group .code-group-items {
+  padding: 0;
+}
+
+/* 代码块内滚动条 */
+.vp-doc div[class*='language-'] ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.vp-doc div[class*='language-'] ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.vp-doc div[class*='language-'] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.vp-doc div[class*='language-'] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* 代码高亮颜色优化 */
+.vp-doc div[class*='language-'] .token.comment,
+.vp-doc div[class*='language-'] .token.prolog,
+.vp-doc div[class*='language-'] .token.doctype,
+.vp-doc div[class*='language-'] .token.cdata {
+  color: #7f848e;
+  font-style: italic;
+}
+
+.vp-doc div[class*='language-'] .token.punctuation {
+  color: #abb2bf;
+}
+
+.vp-doc div[class*='language-'] .token.property,
+.vp-doc div[class*='language-'] .token.tag,
+.vp-doc div[class*='language-'] .token.boolean,
+.vp-doc div[class*='language-'] .token.number,
+.vp-doc div[class*='language-'] .token.constant,
+.vp-doc div[class*='language-'] .token.symbol {
+  color: #d19a66;
+}
+
+.vp-doc div[class*='language-'] .token.selector,
+.vp-doc div[class*='language-'] .token.attr-name,
+.vp-doc div[class*='language-'] .token.string,
+.vp-doc div[class*='language-'] .token.char,
+.vp-doc div[class*='language-'] .token.builtin {
+  color: #98c379;
+}
+
+.vp-doc div[class*='language-'] .token.operator,
+.vp-doc div[class*='language-'] .token.entity,
+.vp-doc div[class*='language-'] .token.url,
+.vp-doc div[class*='language-'] .language-css .token.string,
+.vp-doc div[class*='language-'] .style .token.string {
+  color: #56b6c2;
+}
+
+.vp-doc div[class*='language-'] .token.atrule,
+.vp-doc div[class*='language-'] .token.attr-value,
+.vp-doc div[class*='language-'] .token.keyword {
+  color: #c678dd;
+}
+
+.vp-doc div[class*='language-'] .token.function {
+  color: #61afef;
+}
+
+.vp-doc div[class*='language-'] .token.class-name {
+  color: #e5c07b;
+}
+
+.vp-doc div[class*='language-'] .token.regex,
+.vp-doc div[class*='language-'] .token.important,
+.vp-doc div[class*='language-'] .token.variable {
+  color: #e06c75;
+}
+
+.vp-doc div[class*='language-'] .token.important,
+.vp-doc div[class*='language-'] .token.bold {
+  font-weight: bold;
+}
+
+.vp-doc div[class*='language-'] .token.italic {
+  font-style: italic;
+}
+
+/* 行号样式 */
+.vp-doc div[class*='language-'] .line-numbers {
+  display: inline-block;
+  width: 1.5em;
+  margin-right: 1em;
+  text-align: right;
+  color: #4b5263;
+  border-right: 1px solid #3e4451;
+}
+
+.dark .vp-doc div[class*='language-'] .line-numbers {
+  color: #4b5263;
+  border-color: #3e4451;
 }
 
 /* 表格样式优化 */

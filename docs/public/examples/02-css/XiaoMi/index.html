@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <!-- 页面头部：包含元数据、标题、外部资源引用 -->
+    <meta charset="UTF-8">
+    <!-- 设置字符编码为UTF-8，支持中文显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 视口设置，使页面在移动端能正确缩放 -->
+    <title>小米官方旗舰店</title>
+
+    <!--
+        外部资源引用：
+        1. Font Awesome - 字体图标库，用于显示箭头、星星等图标
+        2. style.css - 自定义样式文件
+        3. favicon - 浏览器标签页的小图标
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://www.xiaomi.com/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <!--
+        ============================================
+        顶部导航栏结构：
+        ============================================
+        整体布局：flex布局，左边是店铺信息，右边是搜索框
+        - shop-info: 包含logo和店铺名称、评分
+        - search-box: 搜索输入框和搜索按钮
+    -->
+
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <!-- header-content: 限制最大宽度并居中，使用flex布局 -->
+        <div class="header-content">
+
+            <!-- 左侧：店铺信息区域 -->
+            <div class="shop-info">
+                <!-- 小米logo图片 -->
+                <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/99ca6d27-9967-41f8-acfd-e5dd820307e2.webp" alt="小米logo" class="logo">
+
+                <!-- 店铺详情：名称和评分 -->
+                <div class="shop-detail">
+                    <h1 class="shop-name">小米官方旗舰店</h1>
+
+                    <!-- 评分区域：星星图片 + 粉丝数 -->
+                    <div class="shop-rating">
+                        <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/2fe266c4-728d-4c2d-8bd6-b49c3b4d7b7e.png" alt="评分" class="stars-img">
+                        <span class="fans">5211万粉丝</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：搜索框区域 -->
+            <div class="search-box">
+                <!-- 搜索输入框：placeholder是默认提示文字 -->
+                <input type="text" placeholder="搜索宝贝~" class="search-input">
+                <!-- 文字搜索按钮（浅色描边样式） -->
+                <button class="search-btn-outline">搜索</button>
+                <!-- 橙色实心搜索按钮：点击跳转小米官网 -->
+                <button class="search-btn" onclick="window.open('https://www.xiaomi.com', '_blank')">搜索</button>
+            </div>
+        </div>
+    </header>
+
+    <!--
+        ============================================
+        主体内容布局：
+        ============================================
+        使用flex布局，左侧固定宽度边栏 + 右侧弹性商品区域
+        - aside: 侧边栏（HTML5语义化标签，表示辅助内容）
+        - section: 商品列表区域
+    -->
+
+    <!-- 主体内容 -->
+    <main class="main-container">
+
+        <!-- 左侧边栏：分类菜单 -->
+        <aside class="sidebar">
+            <!-- ul > li 结构，无序列表 -->
+            <ul class="menu-list">
+                <!-- 每个菜单项：span文字 + i图标(fa-chevron-down向下箭头) -->
+                <li class="menu-item">
+                    <span>全部宝贝</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>新品上架</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>手机</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>电视/盒子/空调</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>智能家电</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>智能设备</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>智能周边</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>8H系列</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>耳机、音响</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>电源插座</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>家用电器</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>水杯</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>米兔/生活周边</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+                <li class="menu-item">
+                    <span>优惠卷/其他活动</span>
+                    <i class="fas fa-chevron-down"></i>
+                </li>
+            </ul>
+        </aside>
+
+        <!--
+            ============================================
+            商品列表区域：
+            ============================================
+            使用CSS Grid网格布局，每行4个商品
+            每个商品卡片结构：
+            - product-img: 商品图片容器
+            - product-info: 商品信息（标题、标签、价格）
+
+            注意：商品标题使用 -webkit-line-clamp: 2 实现两行截断
+        -->
+
+        <!-- 商品列表 -->
+        <section class="product-grid">
+
+            <!-- 商品1：小米15 Ultra手机 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/36199405-338b-405b-8844-2176a5436823.webp" alt="小米15 Ultra">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">【可用数码消费券】小米15 Ulstra手机新品上市，搭配全新引擎，快来抢购吧</h3>
+                    <p class="product-tag">手机热销榜第10名</p>
+                    <div class="product-price">
+                        <span class="price">¥3845.2</span>
+                        <span class="sales">1万+人付款</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品2：小米智能音箱Pro -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/df038c76-7942-4bf9-a9b2-cef5fb16b88f.webp" alt="小米智能音箱Pro">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">小米智能音箱Pro超级小可爱同学ai大模型蓝牙音箱全新上映，快来抢购吧</h3>
+                    <p class="product-tag">小米家庭音响热卖榜第1名</p>
+                    <div class="product-price">
+                        <span class="price">¥283.5</span>
+                        <span class="sales">10万+人付款</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品3：REDMI Turbo 4 - 绿色标签（政府补贴） -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/91fecce6-3570-4775-81bb-be42f4d23928.webp" alt="REDMI Turbo 4">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">【可用数码消费券】 REDMI Turbo 4新品上市，像素全新升级，快来抢购吧</h3>
+                    <!-- 使用 tag-green 类显示绿色标签 -->
+                    <p class="product-tag tag-green">政府补贴15%</p>
+                    <div class="product-price">
+                        <span class="price">¥1294.07</span>
+                        <span class="sales">9万+人付款</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品4：小米REDMI电视机 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/b17a6199-e1d8-4c27-83ac-36b073c20717.webp" alt="小米REDMI电视机">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">【大存储升级款】 小米REDMI电视机A Pro75英寸大屏电视</h3>
+                    <p class="product-tag">小米LED电视热卖榜第1名</p>
+                    <div class="product-price">
+                        <span class="price">¥2781.57</span>
+                        <span class="sales">4万+人付款</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品5：REDMI K80手机 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/d8d7a664-f5c0-4507-99e9-e764a8da2c1c.webp" alt="REDMI K80">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">【支持家电数码消费券】 REDMI K80红米手机，快来抢购吧</h3>
+                    <p class="product-tag">OLED手机热卖榜第8名</p>
+                    <div class="product-price">
+                        <span class="price">¥2314.07</span>
+                        <span class="sales">20万+人付款</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品6：Xiaomi Buds 5 Pro耳机 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/0915d8b0-fcb4-4896-a992-de93d0e06e76.webp" alt="Xiaomi Buds 5 Pro">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">XiaomiBuds5Pro小米蓝牙耳机55dB深度降噪</h3>
+                    <p class="product-tag">小米耳机热卖榜第4名</p>
+                    <div class="product-price">
+                        <span class="price">¥802.57</span>
+                        <span class="sales">8000+人付款</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品7：米家胶囊咖啡机 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/afa8d3e1-bd31-4e7e-9f05-62f6bf43a0d7.webp" alt="米家胶囊咖啡机">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">小米官旗米家胶囊咖啡机S1家用办公小型全自动胶囊</h3>
+                    <p class="product-tag">胶囊咖啡机热卖榜第5名</p>
+                    <div class="product-price">
+                        <span class="price">¥381.65</span>
+                        <span class="sales">2万+人付款</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品8：米家空调 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/Pd6l2Z79z69Pml7M/img/b2411a99-aae9-48fc-b982-60671f4b0b1e.webp" alt="米家空调">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">【25款】 小米米家空调巨省电Pro1.5匹超一级能效</h3>
+                    <p class="product-tag">四川补贴空调回购榜第7名</p>
+                    <div class="product-price">
+                        <span class="price">¥2314.07</span>
+                        <span class="sales">7万+人付款</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</body>
+
+</html>

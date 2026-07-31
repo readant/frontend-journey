@@ -46,7 +46,7 @@ features:
 ## 学习资源
 
 | 类别 | 资源 | 说明 |
-|:-----|:-----|:-----|
+| :----- | :----- | :----- |
 | 官方文档 | [MDN Web Docs](https://developer.mozilla.org/zh-CN/) | 最权威的前端文档 |
 | 官方文档 | [W3School](https://www.w3school.com.cn/) | 在线教程和参考手册 |
 | 实践平台 | [freeCodeCamp](https://www.freecodecamp.org/) | 交互式编程学习 |
