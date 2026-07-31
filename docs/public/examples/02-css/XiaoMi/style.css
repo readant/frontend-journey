@@ -137,7 +137,9 @@ body {
     border-radius: 0;
     overflow: hidden;
     background-color: #fff;
+    border-radius: 10px;
 }
+
 
 /* 搜索输入框 */
 .search-input {
@@ -172,14 +174,23 @@ body {
     height: 36px;
     padding: 0 18px;
     margin: 3px;
-    background-color: #FE6700;
+    background-color:#E82F21;
     color: #fff;
     border: none;
     border-radius: 14px;
     cursor: pointer;
     font-size: 13px;
 }
-
+/* 搜索按钮旁边的提示文字 */
+.search-btn-outline {
+    margin: 3px;
+    color:#E82F21;
+    background-color: rgb(255,235,239);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 13px;
+}
 /* 搜索按钮悬停效果 */
 .search-btn:hover {
     background-color: #e55a00;
@@ -253,7 +264,7 @@ body {
 
 /* 菜单项悬停效果：背景变橙色，文字变白色 */
 .menu-item:hover {
-    background-color: #FE6700;       /* 橙色背景 */
+    background-color:#FD6700;       /* 橙色背景 */
     color: #fff;                     /* 白色文字 */
 }
 
@@ -388,7 +399,7 @@ body {
 */
 .product-tag {
     font-size: 12px;
-    color: #FE6700;                  /* 橙色 */
+    color: #F9DD8c ;                  /* 金色 */
     margin-bottom: 8px;
 }
 
@@ -411,7 +422,7 @@ body {
 .price {
     font-size: 20px;                 /* 大字号突出价格 */
     font-weight: bold;               /* 加粗 */
-    color: #FE6700;                  /* 橙色 */
+    color: #E82F21;                  /* 橙色 */
     margin-right: 10px;
 }
 
