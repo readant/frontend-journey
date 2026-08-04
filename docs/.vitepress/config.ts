@@ -12,6 +12,13 @@ export default defineConfig({
   // 忽略死链接检查（静态资源链接无法在构建时验证）
   ignoreDeadLinks: true,
 
+  // 预构建 markmap 相关依赖（d3 等 CJS 模块需要 Vite 处理）
+  vite: {
+    optimizeDeps: {
+      include: ['markmap-lib', 'markmap-view', 'd3'],
+    },
+  },
+
   // Markdown 配置：集成 vitepress-demo-plugin 交互式演示插件
   // 插件支持 vue/react/html 三种 demo 的代码展示 + 实时预览
   markdown: {

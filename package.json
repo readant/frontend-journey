@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
-    "preview": "vitepress preview docs"
+    "preview": "vitepress preview docs",
+    "gen:mindmap": "node scripts/gen-mindmap.mjs"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,10 @@
   "devDependencies": {
     "vitepress": "^1.6.4",
     "vitepress-demo-plugin": "^1.8.0"
+  },
+  "dependencies": {
+    "markmap-lib": "^0.18.12",
+    "markmap-view": "^0.18.12",
+    "yaml": "^2.9.0"
   }
 }

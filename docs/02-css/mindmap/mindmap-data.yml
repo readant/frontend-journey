@@ -1,0 +1,81 @@
+# CSS 思维导图数据源
+# 修改此文件后运行 npm run gen:mindmap 自动生成 mindmap/index.md
+
+title: CSS 知识体系
+
+branches:
+  - name: 基础
+    color: '#646cff'
+    link: ../
+    children:
+      - num: '01'
+        name: 核心概念
+        keys: 引入方式 · 层叠优先级 · 继承 · 单位 · display/overflow
+        link: ../01-basics/
+      - num: '02'
+        name: 选择器
+        keys: 基础 · 组合 · 属性 · 伪类 · 伪元素 · 权重计算
+        link: ../02-selectors/
+
+  - name: 视觉与排版
+    color: '#e8552d'
+    link: ../05-visual-styling/
+    children:
+      - num: '03'
+        name: 盒模型
+        keys: 标准/怪异 · 外边距合并 · border · outline · 阴影
+        link: ../03-box-model/
+      - num: '04'
+        name: 文本与字体
+        keys: font-family · @font-face · 文本属性 · 单/多行省略
+        link: ../05-visual-styling/#51-文本与字体
+      - num: '05'
+        name: 背景与渐变
+        keys: 背景七属性 · 精灵图 · 多重背景 · 三种渐变
+        link: ../05-visual-styling/#52-颜色与背景
+      - num: '06'
+        name: 链接 · 列表 · 表格
+        keys: LoVe HAte · cursor · 计数器 · 边框合并 · 斑马纹
+        link: ../05-visual-styling/
+
+  - name: 布局
+    color: '#0ea5e9'
+    link: ../04-layout-positioning/
+    children:
+      - num: '09'
+        name: 定位
+        keys: 5 种定位 · 子绝父相 · z-index · 层叠上下文
+        link: ../04-layout-positioning/#43-定位
+      - num: '10'
+        name: 浮动与 BFC
+        keys: float · 清除浮动 · BFC 触发条件与三大作用
+        link: ../04-layout-positioning/#42-浮动布局
+      - num: '11'
+        name: Flex 布局
+        keys: 一维布局 · 容器/项目属性 · flex:1 · margin:auto
+        link: ../04-layout-positioning/#44-flexbox-弹性布局
+      - num: '12'
+        name: Grid 布局
+        keys: 二维布局 · 命名区域 · auto-fill/auto-fit · 隐式网格
+        link: ../04-layout-positioning/#45-grid-网格布局
+
+  - name: 动效与进阶
+    color: '#16a34a'
+    link: ../06-transform-animation/
+    children:
+      - num: '13'
+        name: 变换与动画
+        keys: 过渡 · 关键帧 · 2D/3D 变换 · steps() 逐帧
+        link: ../06-transform-animation/
+      - num: '14'
+        name: 响应式设计
+        keys: 媒体查询 · 移动优先 · 断点 · 容器查询 · 深色模式
+        link: ../07-responsive/
+      - num: '15'
+        name: CSS3 新特性
+        keys: 变量 · 滤镜 · aspect-ratio · mask · clip-path · backdrop-filter
+        link: ../08-modern-css/#85-常用现代-css-属性速览
+      - num: '16'
+        name: 性能优化
+        keys: GPU 加速 · content-visibility · contain · 选择器优化
+        link: ../08-modern-css/#84-性能优化

@@ -1,9 +1,13 @@
 import DefaultTheme from 'vitepress/theme'
 import './custom.css'
+import Mindmap from './components/Mindmap.vue'
 
 export default {
   extends: DefaultTheme,
   enhanceApp({ app, router }) {
+    // 注册思维导图组件
+    app.component('Mindmap', Mindmap)
+
     const setupCodeLabels = () => {
       if (typeof document === 'undefined') return
       const blocks = document.querySelectorAll('.vp-doc div[class*="language-"]')
