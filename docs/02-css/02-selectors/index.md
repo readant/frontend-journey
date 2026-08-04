@@ -215,6 +215,20 @@ card:has(.badge) { border-color: gold; }  /* 含 .badge 的 card */
 | `[attr~=val]` | val 是空格分隔列表中的一个词 |
 | `[attr|=val]` | 等于 val 或以 val- 开头（用于 lang） |
 
+### 否定伪类 :not()
+
+```css
+p:not(.intro) { color: gray; }              /* 不含 .intro 类的 p */
+p:not(.active, .disabled) { }               /* CSS4：排除多个条件 */
+li:not(:first-child) { border-top: 1px solid #ccc; }  /* 除第一个外 */
+```
+
+::: danger :not() 的三个限制
+- 不能嵌套另一个 `:not()`
+- 参数只能是**简单选择器**（标签、类、ID、伪类、属性选择器）
+- `:not()` 本身**不增加权重**，权重由括号内的参数决定
+:::
+
 ---
 
 ## 2.5 伪元素

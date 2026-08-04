@@ -291,3 +291,32 @@
 .vp-doc a:hover {
   border-bottom-color: var(--vp-c-brand-1);
 }
+
+/* ========== 侧边栏三分区样式 ========== */
+
+/* 分区标题（📚 学习之路 / ⚡ 速查补给站 / 🚀 实战项目） */
+.VPSidebar .VPSidebarItem.level-0.is-group > .item {
+  padding: 0.25rem 0 0.5rem;
+}
+
+.VPSidebar .VPSidebarItem.level-0.is-group > .item .text {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--vp-c-brand-1);
+  letter-spacing: 0.02em;
+}
+
+/* 分区之间的分隔线，形成清晰的层级分区 */
+.VPSidebar .VPSidebarItem.level-0 + .VPSidebarItem.level-0 {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 2px solid var(--vp-c-divider);
+}
+
+/* 分区内的分类标题（布局 layout / 样式 style / 数据 data） */
+.VPSidebar .VPSidebarItem.level-1.is-group > .item .text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  letter-spacing: 0.03em;
+}

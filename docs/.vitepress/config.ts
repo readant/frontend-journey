@@ -31,58 +31,28 @@ export default defineConfig({
       { text: '准备阶段', link: '/00-preparation/' },
       { text: 'HTML', link: '/01-html/' },
       { text: 'CSS', link: '/02-css/' },
+      { text: 'JavaScript', link: '/03-js/' },
+      { text: '思维导图', link: '/02-css/mindmap/' },
       { text: '速查手册', link: '/cheatsheet/' },
     ],
 
-    // 侧边栏
+    // 侧边栏：全局三分区结构（学习之路 → 速查补给站 → 实战项目）
     sidebar: {
-      '/00-preparation/': [
+      '/': [
         {
-          text: '基础准备',
+          // 顶部区域：核心学习路线
+          text: '📚 学习之路',
           items: [
-            { text: '概览', link: '/00-preparation/' },
-            { text: '环境搭建', link: '/00-preparation/01-environment-setup/' },
-            { text: '逻辑思维', link: '/00-preparation/02-logic-thinking/' },
-            { text: '通用工具', link: '/00-preparation/03-common-tools/' },
+            { text: 'HTML 学习', link: '/01-html/' },
+            { text: 'CSS 学习', link: '/02-css/' },
+            { text: 'JavaScript 学习', link: '/03-js/' },
           ]
-        }
-      ],
-      '/01-html/': [
+        },
         {
-          text: 'HTML 学习',
+          // 中部区域：速查补给站（layout / style / data 三大分类）
+          text: '⚡ 速查补给站',
           items: [
-            { text: '概览', link: '/01-html/' },
-            { text: '基础入门', link: '/01-html/01-basics/' },
-            { text: '语义化标签', link: '/01-html/02-advanced/' },
-            { text: '表单元素', link: '/01-html/03-forms/' },
-            { text: '多媒体标签', link: '/01-html/04-media/' },
-            { text: '实战项目', link: '/01-html/05-projects/' },
-          ]
-        }
-      ],
-      '/02-css/': [
-        {
-          text: 'CSS 核心知识体系',
-          items: [
-            { text: '概览', link: '/02-css/' },
-            { text: '基础语法与机制', link: '/02-css/01-basics/' },
-            { text: '选择器', link: '/02-css/02-selectors/' },
-            { text: '盒子模型', link: '/02-css/03-box-model/' },
-            { text: '布局与定位', link: '/02-css/04-layout-positioning/' },
-            { text: '视觉样式与美化', link: '/02-css/05-visual-styling/' },
-            { text: '变换与动画', link: '/02-css/06-transform-animation/' },
-            { text: '响应式设计', link: '/02-css/07-responsive/' },
-            { text: '工程化与现代 CSS', link: '/02-css/08-modern-css/' },
-            { text: '设计模式与实战', link: '/02-css/09-design-patterns/' },
-            { text: '交互式演示示例', link: '/02-css/demo-showcase' },
-          ]
-        }
-      ],
-      '/cheatsheet/': [
-        {
-          text: '速查手册',
-          items: [
-            { text: '总览', link: '/cheatsheet/' },
+            { text: '速查总览', link: '/cheatsheet/' },
             {
               text: '布局 layout',
               collapsed: false,
@@ -107,34 +77,27 @@ export default defineConfig({
               ]
             },
             {
-              text: '动效 effect',
+              text: '数据与 JS data',
               collapsed: false,
               items: [
-                { text: '过渡 transition', link: '/cheatsheet/effect/transition' },
-                { text: '关键帧动画', link: '/cheatsheet/effect/animation' },
-                { text: '变换 transform', link: '/cheatsheet/effect/transform' },
-              ]
-            },
-            {
-              text: 'HTML',
-              collapsed: false,
-              items: [
-                { text: '语义化标签', link: '/cheatsheet/html/semantic' },
-                { text: '表单与交互', link: '/cheatsheet/html/forms' },
-                { text: '多媒体与 Canvas', link: '/cheatsheet/html/media' },
-              ]
-            },
-            {
-              text: '工具 tools',
-              collapsed: false,
-              items: [
-                { text: 'Git', link: '/cheatsheet/tools/git' },
-                { text: 'npm', link: '/cheatsheet/tools/npm' },
-                { text: '命令行与调试', link: '/cheatsheet/tools/cli' },
+                { text: '变量与类型', link: '/cheatsheet/data/variable-type' },
+                { text: '函数与闭包', link: '/cheatsheet/data/function-closure' },
+                { text: '对象与原型', link: '/cheatsheet/data/object-prototype' },
+                { text: '数组方法', link: '/cheatsheet/data/array-unique' },
+                { text: '异步与 Promise', link: '/cheatsheet/data/promise' },
+                { text: 'ES 模块', link: '/cheatsheet/data/module' },
+                { text: '错误与调试', link: '/cheatsheet/data/error-debug' },
               ]
             },
           ]
-        }
+        },
+        {
+          // 底部区域：实战项目
+          text: '🚀 实战项目',
+          items: [
+            { text: '项目总览', link: '/projects/' },
+          ]
+        },
       ],
     },
 

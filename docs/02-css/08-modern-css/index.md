@@ -76,6 +76,10 @@ document.documentElement.style.setProperty('--user-color', 'red');
 - 深色/浅色模式切换
 - 组件样式 token
 
+::: tip CSS 变量 vs 预处理器变量
+CSS 变量（自定义属性）是**原生运行时变量**，可在浏览器中通过 JS 动态修改（实现主题切换）；Sass/Less 变量在**编译时**就已固定，无法运行时改变。
+:::
+
 ---
 
 ## 8.2 预处理器核心概念
@@ -415,6 +419,57 @@ div.container > ul.nav > li > a > span { }
 <link rel="stylesheet" href="critical.css">
 <link rel="stylesheet" href="non-critical.css" media="print" onload="this.media='all'">
 ```
+
+### 性能优化注意事项
+
+::: warning 不要滥用合成层
+`transform: translateZ(0)` 会强制创建合成层，滥用会消耗大量 GPU 内存，反而降低性能。只在需要动画的元素上使用。
+:::
+
+::: warning will-change 使用原则
+- 不要对大量元素设置 `will-change`（消耗内存）
+- 不要在默认状态常驻设置，应触发前动态添加、动画结束后移除
+- `will-change` 是优化建议而非指令，浏览器可能忽略
+:::
+
+::: warning content-visibility 需配合 contain-intrinsic-size
+对屏幕外内容使用 `content-visibility: auto` 时，**必须**同时设置 `contain-intrinsic-size` 预估高度，否则滚动条会在内容渲染时跳动（Layout Shift）。首屏内容不要设置 `auto`。
+:::
+
+---
+
+## 8.5 常用现代 CSS 属性速览
+
+```css
+/* 固定宽高比（替代 padding-bottom hack） */
+.video { aspect-ratio: 16 / 9; }
+.square { aspect-ratio: 1; }
+
+/* 遮罩：白色显示、黑色隐藏（需 -webkit- 前缀） */
+.mask {
+  -webkit-mask: linear-gradient(to bottom, #000, transparent);
+  mask: linear-gradient(to bottom, #000, transparent);
+}
+
+/* 表单控件配色 */
+input[type="checkbox"] { accent-color: #3498db; }
+
+/* 点击穿透 */
+.overlay { pointer-events: none; }
+
+/* 禁止选中 */
+.no-select { user-select: none; }
+
+/* 声明支持的配色方案，自动适配控件/滚动条 */
+:root { color-scheme: light dark; }
+```
+
+::: tip 现代属性要点
+- `aspect-ratio` 是原生方案，替代传统 `padding-bottom: 56.25%` hack，防布局跳动
+- `mask` 需同时写 `-webkit-` 前缀兼容 Safari / 旧版 Chrome
+- `pointer-events: none` 常用于遮罩层/水印，让点击穿透到下层
+- `color-scheme` 配合 `prefers-color-scheme` 使用效果最佳
+:::
 
 ---
 

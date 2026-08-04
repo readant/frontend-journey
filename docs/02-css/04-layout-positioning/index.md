@@ -77,6 +77,28 @@ title: 04. 布局与定位
 }
 ```
 
+#### 方案五：双伪元素 clearfix（业界推荐）
+```css
+.clearfix::before,
+.clearfix::after {
+    content: "";
+    display: table;
+}
+.clearfix::after {
+    clear: both;
+}
+```
+
+::: tip 双伪元素方案的优势
+- `::before` 同时防止**顶部外边距合并**
+- `::after` 清除浮动
+- 不引入额外 HTML 元素，兼容性好
+:::
+
+::: warning 浮动高度塌陷
+当子元素全部浮动时，父元素无法被撑开，高度变为 0。清除浮动的底层原理是让父元素创建 **BFC**（块级格式化上下文），`overflow: hidden` 会裁剪溢出内容，现代推荐 `display: flow-root`。
+:::
+
 ### clear 属性
 | 值 | 说明 |
 |---|------|
@@ -220,6 +242,38 @@ BFC（块级格式化上下文）影响浮动清除和 margin 合并，详见 [�
 | `order` | 数字（默认0） | 排列顺序 |
 | `align-self` | auto/flex-start/flex-end/center/stretch | 单独对齐 |
 
+::: tip flex 简写速记
+- `flex: 1` = `flex: 1 1 0%`（从 0 开始等分剩余空间，实现真正等宽）
+- `flex: auto` = `flex: 1 1 auto`（按内容分配）
+- `flex: none` = `flex: 0 0 auto`（固定不变）
+:::
+
+::: danger flex 子项 min-height 陷阱
+flex 子项默认 `min-height: auto`，即最小高度不小于内容高度。当容器高度不足时子项**无法收缩**，长文本会撑破容器。解法：
+
+```css
+.item {
+    flex: 1 1 0%;
+    min-height: 0;   /* 允许子项收缩 */
+    overflow: auto;  /* 内容溢出时滚动 */
+}
+```
+
+在 `flex-direction: column` 的容器中尤其常见（如聊天列表、弹窗内容区）。
+:::
+
+### margin: auto 在 flex 中的特殊用法
+
+flex 容器中，设置 `margin: auto` 的项会自动占据对应方向的**剩余空间**，比 `justify-content` 更精确：
+
+```css
+.nav { display: flex; }
+.logo { margin-right: auto; }   /* 把右侧剩余空间推给菜单 */
+
+.centered { display: flex; }
+.centered .item { margin: auto; }  /* 四向自动占据剩余空间，实现居中 */
+```
+
 ---
 
 ## 4.5 Grid 网格布局
@@ -261,6 +315,39 @@ BFC（块级格式化上下文）影响浮动清除和 margin 合并，详见 [�
     grid-column: start / middle;
 }
 ```
+
+### auto-fill vs auto-fit
+
+两者都用于自适应轨道数量，区别在于**空轨道是否保留**：
+
+```css
+.container {
+    /* auto-fill：保留空轨道，容器未满时右侧留白 */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    /* auto-fit：折叠空轨道，项目拉伸填满 */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+```
+
+::: tip 组合用法
+`auto-fill` / `auto-fit` + `minmax` 可以**无需任何媒体查询**就实现响应式网格：容器变宽自动加列、变窄自动减列。
+:::
+
+### 隐式网格与 dense 填充
+
+项目超出显式轨道数量时，会自动创建**隐式轨道**：
+
+```css
+.container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, auto);  /* 隐式行最小 100px，可内容撑开 */
+    grid-auto-flow: dense;                /* 密集填充，自动填补空缺 */
+}
+```
+
+::: warning dense 的可访问性代价
+`grid-auto-flow: dense` 会改变项目的**视觉顺序**以填满空白，可能造成 DOM 顺序与显示顺序不一致，影响键盘导航与屏幕阅读器体验，慎用。
+:::
 
 ---
 

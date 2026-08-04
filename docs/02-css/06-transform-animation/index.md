@@ -202,6 +202,41 @@ title: 06. 变换与动画
 | `backwards` | 起始样式 | 当前样式 |
 | `both` | 起始样式 | 最终样式 |
 
+::: danger @keyframes 中的 !important 无效
+在 `@keyframes` 规则内部声明的 `!important` **会被忽略**，不要试图用它提升关键帧优先级。
+:::
+
+::: danger 动画优先级高于过渡
+同一元素上 `animation` 与 `transition` 作用于同一属性时，**动画优先**。动画运行期间，过渡对该属性不生效。
+:::
+
+::: warning 入场动画务必设置 fill-mode
+入场动画不写 `forwards` / `both` 时，动画结束后元素会**回到初始样式**（闪现回起点）。延迟期还想保持起始帧则用 `backwards`。
+:::
+
+### steps() 逐帧动画（精灵图）
+
+`steps(n)` 将动画划分为 n 段"跳变"，常用于精灵图（Sprite Sheet）逐帧播放：
+
+```css
+.sprite {
+    width: 100px;
+    height: 100px;
+    background: url('sprite.png') 0 0 no-repeat;
+    animation: spriteAnim 0.8s steps(4, end) infinite;  /* 4 帧精灵图 */
+}
+
+@keyframes spriteAnim {
+    from { background-position: 0 0; }
+    to   { background-position: -400px 0; }  /* 总宽度 = 帧数 × 帧宽 */
+}
+```
+
+::: tip steps() 技巧
+- `steps(1)` 等价于 `step-end`（直接跳到终点）；`steps(1, start)` 等价于 `step-start`
+- 精灵图动画中步数 = 帧数 - 1 区间，背景图从 0 移动到总宽度
+:::
+
 ### 性能优化
 ```css
 /* 使用 transform 和 opacity 触发 GPU 加速 */

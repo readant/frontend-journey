@@ -77,6 +77,10 @@ title: 03. 盒子模型
 - 盒子的核心内容区域
 - 文本、图像、子元素等在此区域内
 
+::: warning 行内元素不可设宽高
+行内元素（`display: inline`）无法设置 `width` / `height`，尺寸由内容决定。需要设宽高时改用 `display: inline-block`。
+:::
+
 ### padding（内边距）
 - 属性: `padding-top/right/bottom/left`
 - 内容与边框之间的空间
@@ -94,6 +98,10 @@ padding: 10px 20px 10px 20px;  /* 上 右 下 左 */
 padding: 10px 20px;            /* 上下 左右 */
 padding: 10px;                 /* 四边相同 */
 ```
+
+::: tip padding 百分比基准
+`padding` 使用百分比时，**始终以父元素的宽度为基准**，与元素自身高度无关。这一特性常被用来实现固定宽高比容器。
+:::
 
 ### border（边框）
 - 属性: `border-width`, `border-style`, `border-color`
@@ -125,6 +133,37 @@ margin: 0 auto;               /* 水平居中（需要固定宽度） */
 | padding | `padding` | 否 | 是 |
 | border | `border` | 否 | 是 |
 | margin | `margin` | **是** | 否 |
+
+### outline 与 box-shadow
+
+`outline` 绘制在边框外部，**不占据空间**，不影响布局：
+
+```css
+input:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;  /* 与边框的距离 */
+}
+```
+
+**outline 与 border 的区别**：
+| 特性 | border | outline |
+|------|--------|---------|
+| 占据空间 | 是 | 否 |
+| 可单独设置各边 | 是 | 否 |
+| 受 border-radius 影响 | 是 | 否 |
+| 常用于 | 常规样式 | 聚焦/选中状态 |
+
+**box-shadow 参数**：`h-shadow v-shadow blur spread color inset`
+
+```css
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);       /* 外阴影 */
+box-shadow: 0 0 10px #ccc inset;                  /* 内阴影 */
+box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 8px 16px rgba(0,0,0,.1); /* 多重阴影 */
+```
+
+::: tip 阴影性能提示
+多重阴影和较大模糊值会增加渲染开销，性能敏感场景下避免大量使用。
+:::
 
 ---
 

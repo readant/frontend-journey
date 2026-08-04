@@ -2,6 +2,10 @@
 
 系统化、可扩展的 CSS 学习笔记 · 9 大章节 · 50+ 知识点 · 速查语法
 
+::: tip 知识地图
+学习前先看 [CSS 思维导图](./mindmap/) —— 以四大分支把握整个 CSS 知识脉络，学习中沿节点逐个攻破，复习时对着地图快速定位盲区。
+:::
+
 <div class="chapter-grid">
 <a href="./01-basics/" class="chapter-card">
   <div class="chapter-num">01</div>
@@ -141,6 +145,41 @@
 | 7 | [响应式设计](/02-css/07-responsive/) | 视口、媒体查询、断点策略、容器查询 |
 | 8 | [工程化与现代 CSS](/02-css/08-modern-css/) | CSS 变量、预处理器、方法论、性能优化 |
 | 9 | [设计模式与实战](/02-css/09-design-patterns/) | 居中方案、圣杯布局、Clearfix、自定义形状 |
+
+## 学习路线
+
+> 从零到实战的 7 阶段路线，沿此路径配合上方**章节**与[思维导图](./mindmap/)逐步推进。
+
+| 阶段 | 主题 | 对应章节 | 建议目标 |
+| --- | --- | --- | --- |
+| 一 | CSS 基础入门 | [01 基础语法与机制](/02-css/01-basics/) | 掌握语法结构与三种引入方式 |
+| 二 | 选择器与属性 | [02 选择器](/02-css/02-selectors/) | 熟练基础/复合选择器，吃透三大特性 |
+| 三 | 盒子模型与布局 | [03 盒子模型](/02-css/03-box-model/) · [04 布局与定位](/02-css/04-layout-positioning/) | 吃透盒模型，掌握浮动/定位/Flex/Grid |
+| 四 | 视觉样式与进阶技巧 | [05 视觉样式与美化](/02-css/05-visual-styling/) | 背景、渐变、精灵图、文字溢出处理 |
+| 五 | CSS3 新特性 | [06 变换与动画](/02-css/06-transform-animation/) · [08 现代 CSS](/02-css/08-modern-css/) | 圆角阴影、变换过渡、变量与滤镜 |
+| 六 | 响应式与移动端 | [07 响应式设计](/02-css/07-responsive/) | 视口、媒体查询、rem/vw 适配 |
+| 七 | 实战项目 | [09 设计模式与实战](/02-css/09-design-patterns/) | 独立完成 2+ 实战项目巩固所学 |
+
+### 自测清单
+
+- [ ] 理解三种引入方式及优先级
+- [ ] 熟练使用基础选择器和复合选择器
+- [ ] 掌握字体、文本、背景属性
+- [ ] 深刻理解盒子模型
+- [ ] 能使用浮动和定位实现常见布局
+- [ ] 掌握 Flex 布局
+- [ ] 了解 Grid 布局
+- [ ] 能使用 CSS3 实现过渡和动画
+- [ ] 了解移动端适配方案
+- [ ] 独立完成 2 个以上实战项目
+
+### 推荐资源
+
+- [MDN CSS 教程](https://developer.mozilla.org/zh-CN/docs/Learn/CSS)
+- [CSS-Tricks](https://css-tricks.com/)
+- [Learn CSS](https://web.dev/learn/css)
+- [Flexbox Froggy](https://flexboxfroggy.com/)（Flex 小游戏练习）
+- [Grid Garden](https://cssgridgarden.com/)（Grid 小游戏练习）
 
 ## 笔记规范
 

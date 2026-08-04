@@ -86,3 +86,5 @@ title: Grid 布局速查
 - **`grid-column: span 2` 只是跨列，不指定起始位置**时从当前自动位置开始
 - **子项默认 `stretch` 填满单元格**：想按内容高度需 `align-items: start`
 - **`grid-template-areas` 里每个区域名必须构成规则矩形**，不能出现 L 形空洞（无法表达时改用 `grid-column`/`grid-row` 手动指定）
+- **隐式网格**：项目超出显式轨道时自动创建，用 `grid-auto-rows` / `grid-auto-columns` 控制尺寸
+- **`grid-auto-flow: dense` 会打乱视觉顺序**：为填满空洞而重排项目，DOM 顺序与显示不一致，影响键盘导航与读屏，慎用

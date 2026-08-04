@@ -47,6 +47,75 @@ font-family: 'SF Mono', Monaco, Consolas, 'Liberation Mono', monospace;
 font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 ```
 
+::: tip 字体栈书写规范
+1. 字体名含空格或中文时**必须加引号**
+2. 通用字体族（`serif` / `sans-serif` / `monospace`）不加引号且放最后
+3. 先写西文字体，再写中文字体
+:::
+
+### @font-face 与 font-display
+
+```css
+@font-face {
+  font-family: "MyFont";
+  src: url('myfont.woff2') format('woff2'),
+       url('myfont.woff') format('woff');
+  font-display: swap;
+}
+```
+
+**font-display 加载策略**：控制字体加载期间的渲染行为（FOIT / FOUT）
+
+| 值 | 行为 |
+|----|------|
+| `block` | 短时间不可见等待字体（FOIT） |
+| `swap` | 立即用后备字体显示，加载后替换（FOUT） |
+| `fallback` | 短时间等待，超时永久使用后备 |
+| `optional` | 短暂等待，不阻塞渲染 |
+
+::: tip font-display 选择建议
+- **正文内容**：推荐 `swap`，保证文本始终可见，避免 FOIT
+- **图标字体**：推荐 `block`，避免图标缺失导致布局错乱
+- **装饰性字体**：推荐 `optional`
+:::
+
+::: warning 数值字重需字体支持
+并非所有字体都支持 100~900 全部字重，缺失时浏览器会近似匹配（如 `font-weight: 300` 可能渲染为 `400`）。
+:::
+
+### 行高与文本省略
+
+```css
+line-height: 1.5;      /* 推荐无单位，相对当前字号 */
+```
+
+::: tip 无单位行高
+使用无单位的 `line-height`（如 `1.5`），子元素继承时会按**自身** `font-size` 重新计算，避免继承错位。
+:::
+
+**单行省略（三件套缺一不可）**：
+```css
+.ellipsis {
+  white-space: nowrap;      /* 强制不换行 */
+  overflow: hidden;         /* 隐藏溢出 */
+  text-overflow: ellipsis;  /* 省略号 */
+}
+```
+
+**多行省略**：
+```css
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+```
+
+::: warning 多行省略兼容性
+`-webkit-line-clamp` 基于旧版 `-webkit-box` 实现，与现代 Flexbox / Grid 布局不兼容（元素本身若用了 flex 布局会受影响）。
+:::
+
 ---
 
 ## 5.2 颜色与背景
@@ -89,6 +158,34 @@ background:
     url('top-image.png') no-repeat top center,
     url('bottom-image.png') no-repeat bottom center,
     linear-gradient(to bottom, #ff6b6b, #feca57);
+```
+
+::: tip 多重背景叠加顺序
+先声明的背景在上层，后声明的在下层；最后一项常用纯色作为兜底背景色。
+:::
+
+::: warning background 简写注意
+1. 简写时未指定的属性会**重置为默认值**
+2. `position` 与 `size` 用 `/` 分隔（如 `center/cover`）
+3. 只改单个属性时用单属性写法更清晰
+:::
+
+### cover vs contain
+
+| 值 | 行为 | 副作用 |
+|----|------|--------|
+| `cover` | 图片完全覆盖容器 | **可能裁剪**图片 |
+| `contain` | 图片完整显示 | **可能留白** |
+
+### 文字渐变（background-clip: text）
+
+```css
+.gradient-text {
+  background: linear-gradient(45deg, #f00, #00f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;  /* 文字变透明，露出背景渐变 */
+}
 ```
 
 ---
@@ -214,6 +311,14 @@ box-shadow: [offset-x] [offset-y] [blur] [spread] [color] [inset];
     mix-blend-mode: exclusion;    /* 排除 */
 }
 ```
+
+::: tip drop-shadow vs box-shadow
+`filter: drop-shadow()` 会跟随元素的**实际形状**（包括透明 PNG 的轮廓），而 `box-shadow` 始终是盒子形状。不规则形状元素用 `drop-shadow` 更真实。
+:::
+
+::: warning backdrop-filter 性能
+`backdrop-filter`（毛玻璃）是 GPU 密集型操作，在移动设备上避免大面积使用，可配合 `will-change` 提示浏览器优化。
+:::
 
 ---
 

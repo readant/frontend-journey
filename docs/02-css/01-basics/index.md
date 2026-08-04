@@ -159,6 +159,35 @@ h1 {
 - 全屏背景/大尺寸 → `vh` / `vw`
 - 边框/阴影/小间距 → `px`
 
+### 常用函数
+```css
+/* calc() 动态计算 */
+.box {
+  width: calc(100% - 40px);
+  font-size: calc(1rem + 2vw);
+}
+
+/* var() 读取自定义变量 */
+.box { color: var(--primary, #333); }  /* 第二个参数为回退值 */
+
+/* attr() 获取元素属性值 */
+a::after { content: ' (' attr(href) ')'; }
+
+/* url() 引用资源 */
+background-image: url('bg.png');
+```
+
+### opacity 透明度
+
+::: warning opacity 的继承陷阱
+`opacity` 会影响子元素的透明度，且**无法单独撤销子元素**的透明度。如果只需透明背景，推荐使用 `rgba()` / `hsla()` 颜色值。
+:::
+
+```css
+.box { opacity: 0.5; }  /* 子元素也会跟着半透明 */
+.box { background: rgba(0, 0, 0, 0.5); }  /* 仅背景透明，子元素不受影响 */
+```
+
 ---
 
 ::: tip 速查手册

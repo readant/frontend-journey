@@ -77,3 +77,5 @@ title: 关键帧动画速查
 - **`@keyframes` 里只能写可插值属性**：写 `display` 等离散属性会跳变；百分比顺序不必严格 0→100，但必须含 0% 和 100%（或用 `from`/`to`）
 - **transform 在关键帧中要写全**：`transform: translateY(-30px)` 会覆盖其他变换，关键帧之间别混用 `rotate` 和 `translate` 简写，否则会互相覆盖
 - **动画与 transition 冲突**：同一属性同时设置 animation 和 transition，animation 优先；暂停用 `animation-play-state: paused`（配合 JS 控制）
+- **`@keyframes` 里的 `!important` 无效**：关键帧声明会被忽略，不要试图用它提升优先级
+- **`steps()` 逐帧动画**：`animation: x .8s steps(4, end) infinite` 配合精灵图背景位移（`background-position` 从 0 移到总宽度）实现帧动画；`steps(1)` = `step-end`

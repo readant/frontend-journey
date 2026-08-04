@@ -63,3 +63,10 @@ title: 浮动与清除速查
 - **浮动元素会脱离文档流但不脱离文本流**：所以文字会环绕它，这是图文环绕的原理
 - **`float` 会让元素变成块级盒子**：原本是 inline 的元素（如 `span`）也会支持设置宽高
 - **别用 float 做导航/布局**：对齐、间距、换行都不受控，请用 Flex / Grid
+- **双伪元素 clearfix（业界推荐）**：`::before` 防顶部外边距合并 + `::after` 清浮动
+```css
+.clearfix::before, .clearfix::after { content: ""; display: table; }
+.clearfix::after { clear: both; }
+```
+- **BFC 触发速查**：`float` / `position: absolute|fixed` / `overflow: hidden|auto|scroll` / `display: flow-root|flex|grid|inline-block|table-cell` / `contain: layout`
+- **BFC 三大作用**：包含浮动（清浮动）、阻止外边距合并、避免与浮动元素重叠（自适应两栏）

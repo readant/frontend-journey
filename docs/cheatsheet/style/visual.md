@@ -85,3 +85,6 @@ title: 背景与视觉美化速查
 - **`filter` 会创建层叠上下文**，且会让 `position: fixed` 的后代变成相对该元素定位（弹窗乱跑的坑）
 - **`backdrop-filter` 模糊的是"背后"内容，`filter: blur()` 模糊的是"自身"**，两者别混；毛玻璃要两个一起用（半透明背景 + backdrop-filter）
 - **多背景图**用逗号叠加：`background: url(a.jpg), linear-gradient(...)`，第一张在最上层
+- **文字渐变**：`background: linear-gradient(...)` + `background-clip: text` + `color: transparent` 三件套，记得写 `-webkit-background-clip` 前缀
+- **`background-origin` / `background-clip`**：origin 控制定位原点（padding-box 默认），clip 控制绘制区域（`clip: text` 是文字渐变关键）
+- **`background-attachment: local`**：背景随元素内容滚动（区别于 `scroll` 随页面、`fixed` 固定视口）

@@ -217,6 +217,49 @@ title: 07. 响应式设计
 }
 ```
 
+## 7.5 响应式字体
+
+```css
+/* clamp(MIN, PREFERRED, MAX)：字号随视口平滑缩放，两端受限 */
+h1 { font-size: clamp(1.5rem, 4vw, 3rem); }
+p  { font-size: clamp(1rem, 2vw, 1.25rem); }
+
+/* 结合 CSS 变量统一管理 */
+:root {
+  --fluid-h1: clamp(1.75rem, 4vw, 3rem);
+  --fluid-body: clamp(1rem, 1.5vw, 1.125rem);
+}
+```
+
+::: tip clamp() 的优势
+纯 `vw` 单位在极端小屏/大屏上会过小或过大；`clamp()` 限制最小/最大字号，实现平滑缩放。
+:::
+
+## 7.6 深色模式最佳实践
+
+```css
+/* 用 CSS 变量管理颜色，切换只需改变量 */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1a2e;
+    --text-color: #eeeeee;
+  }
+  img { opacity: 0.8; }          /* 图片降透明度，避免刺眼 */
+  img:hover { opacity: 1; }
+}
+```
+
+::: tip 深色模式要点
+- 使用 CSS 变量管理颜色，切换时只修改变量值
+- 配合 `color-scheme: light dark` 让浏览器自动调整表单控件/滚动条样式
+- 配合 `prefers-reduced-motion: reduce` 关停动画，尊重无障碍偏好
+:::
+
 ---
 
 ::: tip 速查手册
