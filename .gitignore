@@ -1,6 +1,11 @@
 # Dependencies
 node_modules/
 
+# 包管理器锁文件（本项目使用 npm，仅保留 package-lock.json）
+pnpm-lock.yaml
+yarn.lock
+yarn.lock.*
+
 # Editor directories and files
 .vscode/
 !.vscode/settings.json
@@ -18,6 +23,8 @@ desktop.ini
 *.log
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # Build outputs
 dist/
@@ -29,9 +36,17 @@ build/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
 
+# Vite 依赖预构建缓存（markmap/d3 等 CJS 依赖预构建产物）
+node_modules/.vite/
+
+# TypeScript 构建信息
+*.tsbuildinfo
+
 # Temporary files
 *.tmp
 *.temp
+*.bak
+*.orig
 
 # Environment variables
 .env
