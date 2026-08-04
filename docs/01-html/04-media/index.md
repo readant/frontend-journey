@@ -167,7 +167,7 @@ const ctx = canvas.getContext('2d');  // 获取 2D 绘图上下文
 | `03-new-tags.html` | HTML5 新交互标签详解 |
 
 ::: tip 速查手册
-本章核心语法已收录到独立的 [速查手册](/cheatsheet/html) 中，方便开发时快速查阅。
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/) 中，方便开发时快速查阅。
 :::
 
 ---

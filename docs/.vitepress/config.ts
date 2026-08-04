@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress'
+import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
+import path from 'path'
 
 export default defineConfig({
   title: 'Frontend Journey',
@@ -9,6 +11,17 @@ export default defineConfig({
 
   // 忽略死链接检查（静态资源链接无法在构建时验证）
   ignoreDeadLinks: true,
+
+  // Markdown 配置：集成 vitepress-demo-plugin 交互式演示插件
+  // 插件支持 vue/react/html 三种 demo 的代码展示 + 实时预览
+  markdown: {
+    config(md) {
+      md.use(vitepressDemoPlugin, {
+        // demoDir: 指定 demo 文件的根目录，配置后 <demo> 标签可使用相对该目录的路径
+        demoDir: path.resolve(__dirname, '../public/demos'),
+      })
+    },
+  },
 
   // 主题配置
   themeConfig: {
@@ -61,6 +74,7 @@ export default defineConfig({
             { text: '响应式设计', link: '/02-css/07-responsive/' },
             { text: '工程化与现代 CSS', link: '/02-css/08-modern-css/' },
             { text: '设计模式与实战', link: '/02-css/09-design-patterns/' },
+            { text: '交互式演示示例', link: '/02-css/demo-showcase' },
           ]
         }
       ],
@@ -69,9 +83,56 @@ export default defineConfig({
           text: '速查手册',
           items: [
             { text: '总览', link: '/cheatsheet/' },
-            { text: '准备阶段速查', link: '/cheatsheet/preparation' },
-            { text: 'HTML 速查', link: '/cheatsheet/html' },
-            { text: 'CSS 速查', link: '/cheatsheet/css' },
+            {
+              text: '布局 layout',
+              collapsed: false,
+              items: [
+                { text: 'Flex 布局', link: '/cheatsheet/layout/flex' },
+                { text: 'Grid 布局', link: '/cheatsheet/layout/grid' },
+                { text: '定位与层级', link: '/cheatsheet/layout/position' },
+                { text: '浮动与清除', link: '/cheatsheet/layout/float' },
+                { text: '水平垂直居中', link: '/cheatsheet/layout/centering' },
+              ]
+            },
+            {
+              text: '样式 style',
+              collapsed: false,
+              items: [
+                { text: '选择器与权重', link: '/cheatsheet/style/selector' },
+                { text: '盒模型', link: '/cheatsheet/style/box-model' },
+                { text: '字体与单位', link: '/cheatsheet/style/typography' },
+                { text: '背景与视觉美化', link: '/cheatsheet/style/visual' },
+                { text: '响应式设计', link: '/cheatsheet/style/responsive' },
+                { text: 'CSS 工程化', link: '/cheatsheet/style/engineering' },
+              ]
+            },
+            {
+              text: '动效 effect',
+              collapsed: false,
+              items: [
+                { text: '过渡 transition', link: '/cheatsheet/effect/transition' },
+                { text: '关键帧动画', link: '/cheatsheet/effect/animation' },
+                { text: '变换 transform', link: '/cheatsheet/effect/transform' },
+              ]
+            },
+            {
+              text: 'HTML',
+              collapsed: false,
+              items: [
+                { text: '语义化标签', link: '/cheatsheet/html/semantic' },
+                { text: '表单与交互', link: '/cheatsheet/html/forms' },
+                { text: '多媒体与 Canvas', link: '/cheatsheet/html/media' },
+              ]
+            },
+            {
+              text: '工具 tools',
+              collapsed: false,
+              items: [
+                { text: 'Git', link: '/cheatsheet/tools/git' },
+                { text: 'npm', link: '/cheatsheet/tools/npm' },
+                { text: '命令行与调试', link: '/cheatsheet/tools/cli' },
+              ]
+            },
           ]
         }
       ],

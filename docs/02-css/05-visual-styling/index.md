@@ -218,7 +218,7 @@ box-shadow: [offset-x] [offset-y] [blur] [spread] [color] [inset];
 ---
 
 ::: tip 速查手册
-本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/) 中，方便开发时快速查阅。
 :::
 
 ---

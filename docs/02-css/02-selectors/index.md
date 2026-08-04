@@ -256,7 +256,7 @@ card:has(.badge) { border-color: gold; }  /* 含 .badge 的 card */
 ---
 
 ::: tip 速查手册
-本章核心语法已收录到独立的 [速查手册](/cheatsheet/css) 中，方便开发时快速查阅。
+本章核心语法已收录到独立的 [速查手册](/cheatsheet/) 中，方便开发时快速查阅。
 :::
 
 
