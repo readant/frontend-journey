@@ -12,10 +12,17 @@
     "type": "git",
     "url": "git+https://github.com/readant/frontend-journey.git"
   },
-  "keywords": ["frontend", "learning", "html", "css", "javascript"],
+  "keywords": [
+    "frontend",
+    "learning",
+    "html",
+    "css",
+    "javascript"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "vitepress": "^1.6.4"
+    "vitepress": "^1.6.4",
+    "vitepress-demo-plugin": "^1.8.0"
   }
 }
