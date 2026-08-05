@@ -1,31 +1,41 @@
 {
-	// 编辑器基础设置
-	"editor.tabSize": 2, // 制表符宽度设为2个字符
-	"editor.insertSpaces": false, // 使用制表符（Tab）而不是空格进行缩进
-	"editor.formatOnSave": true, // 保存文件时自动格式化代码
+  // ========== 编辑器核心设置 ==========
+  "editor.tabSize": 2, // Tab 键宽度为 2 个字符
+  "editor.insertSpaces": true, //  按 Tab 插入空格（与 Prettier/EC 保持一致）
+  "editor.detectIndentation": false, // 锁定缩进模式，不自动猜测（避免冲突）
+  "editor.formatOnSave": true, // 保存时自动格式化
 
-	// 格式化工具设置
-	"editor.defaultFormatter": "esbenp.prettier-vscode", // 使用Prettier作为默认格式化工具
+  // ========== 全局格式化工具 ==========
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
 
-	// 语言特定格式化设置
-	"[html]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode" // HTML文件使用Prettier格式化
-	},
-	"[css]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode" // CSS文件使用Prettier格式化
-	},
-	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode" // JavaScript文件使用Prettier格式化
-	},
+  // ========== 语言特定优化 ==========
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" //
+  },
 
-	// markdownlint 配置
-	"markdownlint.config": {
-		// 自定义规则
-		"MD013": false, // 禁用行长度限制（对中文文档不太友好）
-		"MD033": false, // 允许内联 HTML
-		"MD041": false, // 不要求第一行是标题
-		"MD024": false, // 允许重复标题
-		"MD029": false  // 标题编号不要求有序
-	},
-	"markdownlint.run": "onType"  // 输入时自动检查
+  // ========== Markdown 笔记专用设置 ==========
+  // 针对你学习笔记的 markdownlint 规则放宽
+  "markdownlint.config": {
+    "MD013": false, // 禁用行长度限制（对中文笔记友好）
+    "MD033": false, // 允许内联 HTML（方便贴示例）
+    "MD041": false, // 不强制第一行是标题
+    "MD024": false, // 允许重复标题
+    "MD029": false // 列表编号不要求有序
+  },
+  "markdownlint.run": "onType", // 输入时实时检查
+
+  // Markdown 文件保存时不要让 Prettier 乱动表格或硬换行
+  //（结合 Prettier 里 proseWrap: "always" 已经很友好）
+  "[markdown]": {
+    "editor.formatOnSave": true // 保留格式化（默认 true，显式写出来便于理解）
+  }
 }
