@@ -1,55 +1,69 @@
+# 工作流名称：部署到 GitHub Pages
 name: Deploy to GitHub Pages
 
+# 触发条件
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches: [main] # 仅当推送到 main 分支时触发
+  workflow_dispatch: # 支持在 Actions 页面手动触发
 
+# 工作流所需的权限（最小化授权原则）
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read # 读取仓库内容（构建需要）
+  pages: write # 写入 GitHub Pages 部署
+  id-token: write # 用于 OIDC 身份认证（deploy-pages 需要）
 
+# 并发控制：同一时间只运行一个 Pages 部署
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: false # 不取消进行中的部署，避免部署中断
 
 jobs:
+  # 任务一：构建站点
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # 运行环境：Ubuntu 最新版
     steps:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # 拉取完整历史（lastUpdated 等功能需要）
 
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
-          cache: npm
+          node-version: 24 # Node.js 24 运行时（官方当前 LTS 标准）
+          cache: npm # 缓存 npm 依赖，加快安装速度
+
+      - name: Cache VitePress
+        uses: actions/cache@v4
+        with:
+          path: docs/.vitepress/cache # 缓存 VitePress 构建缓存，加速重复构建
+          key: ${{ runner.os }}-vitepress-${{ hashFiles('docs/**', 'package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vitepress-
 
       - name: Setup Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@v6 # 配置 Pages 环境（官方最新稳定版）
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci # 按 lockfile 精确安装依赖
 
       - name: Build with VitePress
-        run: npm run build
+        run: npm run build # 构建 VitePress 站点
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: docs/.vitepress/dist
+          path: docs/.vitepress/dist # 上传构建产物目录
 
+  # 任务二：部署到 GitHub Pages（依赖构建任务成功）
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
+      url: ${{ steps.deployment.outputs.page_url }} # 部署完成后的访问地址
+    needs: build # 等待 build 任务完成
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v5 # 将产物发布到 Pages
