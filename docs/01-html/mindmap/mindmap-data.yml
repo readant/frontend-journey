@@ -1,0 +1,89 @@
+# HTML 思维导图数据源
+# 修改此文件后运行 npm run gen:mindmap 自动生成 mindmap-content.md
+
+title: HTML 知识体系
+
+branches:
+  - name: 文档与结构
+    color: '#646cff'
+    link: ../01-document-structure/
+    children:
+      - num: '01'
+        name: 文档骨架
+        keys: DOCTYPE · lang · charset · viewport · head meta 家族
+        link: ../01-document-structure/
+      - num: '02'
+        name: 解析与渲染
+        keys: 解析容错 · 渲染管线 · CSS/JS 加载阻塞 · script 属性
+        link: ../01-document-structure/
+      - num: '03'
+        name: 布局语义标签
+        keys: header/nav/main · article/section · footer · 文档大纲
+        link: ../02-semantic-tags/
+      - num: '04'
+        name: 文本 · 列表 · 表格
+        keys: 文本语义 · ul/ol 列表 · 表格结构与语义
+        link: ../02-semantic-tags/
+
+  - name: 表单与交互
+    color: '#e8552d'
+    link: ../03-forms-validation/
+    children:
+      - num: '05'
+        name: 表单基础
+        keys: form 结构 · action/method · 提交机制 · enctype
+        link: ../03-forms-validation/
+      - num: '06'
+        name: input 类型全景
+        keys: 文本类 · 选择类 · 日期类 · 文件 · 隐藏域
+        link: ../03-forms-validation/
+      - num: '07'
+        name: 验证体系
+        keys: required/pattern · 约束验证 API · :invalid · 前端体验非安全防线
+        link: ../03-forms-validation/
+      - num: '08'
+        name: 细节与陷阱
+        keys: label 关联 · disabled vs readonly · radio 互斥靠 name · 文件上传编码
+        link: ../03-forms-validation/
+
+  - name: 媒体与资源
+    color: '#0ea5e9'
+    link: ../04-media-assets/
+    children:
+      - num: '09'
+        name: 图片
+        keys: img · srcset/sizes · 格式选择 · 懒加载 · CLS/LCP
+        link: ../04-media-assets/
+      - num: '10'
+        name: 视频与音频
+        keys: video/audio · source 多格式回退 · 自动播放策略 · 预加载权衡
+        link: ../04-media-assets/
+      - num: '11'
+        name: Canvas 与 SVG
+        keys: 位图 vs 矢量 · 绘图 API · 内联 SVG · 场景选择
+        link: ../04-media-assets/
+      - num: '12'
+        name: iframe 与容器
+        keys: iframe 嵌入 · template · dialog · 沙箱属性
+        link: ../04-media-assets/
+
+  - name: SEO 与无障碍
+    color: '#16a34a'
+    link: ../05-seo-a11y/
+    children:
+      - num: '13'
+        name: SEO 基础
+        keys: 爬虫机制 · title/description · 结构化数据 JSON-LD
+        link: ../05-seo-a11y/
+      - num: '14'
+        name: 可访问性基础
+        keys: 屏幕阅读器 · 图片 alt · 键盘导航 · 焦点管理
+        link: ../05-seo-a11y/
+      - num: '15'
+        name: ARIA
+        keys: 三种角色 · aria-* 属性 · 语义优先于 ARIA
+        link: ../05-seo-a11y/
+      - num: '16'
+        name: 落地清单
+        keys: SEO 与 A11y 共同清单 · 常见误区 · 快速自测
+        link: ../05-seo-a11y/

@@ -1,45 +1,59 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { Transformer } from 'markmap-lib'
-import { Markmap } from 'markmap-view'
-import mindmapContent from '../../../02-css/mindmap/mindmap-content.md?raw'
+import { ref, onMounted, onBeforeUnmount, nextTick, computed } from "vue";
+import { Transformer } from "markmap-lib";
+import { Markmap } from "markmap-view";
+// 静态导入各模块的思维导图内容（?raw 由 Vite 编译期处理，避免 glob 对 .md 文件匹配不可靠）
+import cssContent from "../../../02-css/mindmap/mindmap-content.md?raw";
+import htmlContent from "../../../01-html/mindmap/mindmap-content.md?raw";
+import jsContent from "../../../03-js/mindmap/mindmap-content.md?raw";
 
-const svgRef = ref<SVGSVGElement>()
-let mm: Markmap | null = null
-const errMsg = ref('')
+// 组件支持通过 topic prop 选择渲染哪个模块的思维导图（默认 css）
+// 用法: <Mindmap topic="html" />  /  <Mindmap topic="js" />
+const props = withDefaults(defineProps<{ topic?: string }>(), { topic: "css" });
+
+// 按 topic 选择对应模块的内容
+const contents: Record<string, string> = { css: cssContent, html: htmlContent, js: jsContent };
+const mindmapContent = computed(() => contents[props.topic] ?? "");
+
+const svgRef = ref<SVGSVGElement>();
+let mm: Markmap | null = null;
+const errMsg = ref("");
 
 onMounted(async () => {
   try {
     // 等待 DOM 完全渲染
-    await nextTick()
-    const svgEl = document.querySelector('.mindmap-svg') as SVGSVGElement
-    if (!svgEl) throw new Error('SVG 元素未找到')
-    const transformer = new Transformer()
-    const { root } = transformer.transform(mindmapContent)
-    mm = Markmap.create(svgEl, {
-      duration: 400,
-      maxWidth: 320,
-      spacingHorizontal: 80,
-      spacingVertical: 16,
-      paddingX: 12,
-      autoFit: true,
-    }, root)
+    await nextTick();
+    const svgEl = document.querySelector(".mindmap-svg") as SVGSVGElement;
+    if (!svgEl) throw new Error("SVG 元素未找到");
+    if (!mindmapContent.value) throw new Error("思维导图数据为空，请先运行 npm run gen:mindmap");
+    const transformer = new Transformer();
+    const { root } = transformer.transform(mindmapContent.value);
+    mm = Markmap.create(
+      svgEl,
+      {
+        duration: 400,
+        maxWidth: 320,
+        spacingHorizontal: 80,
+        spacingVertical: 16,
+        paddingX: 12,
+        autoFit: true,
+      },
+      root
+    );
   } catch (e: any) {
-    errMsg.value = e?.message || String(e)
-    console.error('[Mindmap] 渲染失败:', e)
+    errMsg.value = e?.message || String(e);
+    console.error("[Mindmap] 渲染失败:", e);
   }
-})
+});
 
 onBeforeUnmount(() => {
-  mm?.destroy()
-})
+  mm?.destroy();
+});
 </script>
 
 <template>
   <ClientOnly>
-    <div v-if="errMsg" class="mindmap-error">
-      思维导图渲染失败: {{ errMsg }}
-    </div>
+    <div v-if="errMsg" class="mindmap-error">思维导图渲染失败: {{ errMsg }}</div>
     <div v-show="!errMsg" class="mindmap-wrapper">
       <svg ref="svgRef" class="mindmap-svg" />
     </div>

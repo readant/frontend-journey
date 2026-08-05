@@ -1,0 +1,101 @@
+# JavaScript 思维导图数据源
+# 修改此文件后运行 npm run gen:mindmap 自动生成 mindmap-content.md
+
+title: JavaScript 知识体系
+
+branches:
+  - name: 语言核心
+    color: '#646cff'
+    link: ../01-foundation/
+    children:
+      - num: '01'
+        name: 变量与类型
+        keys: let/const/var · 数据类型 · 类型转换 · 表达式与运算符
+        link: ../01-foundation/
+      - num: '02'
+        name: 函数定义
+        keys: 声明/表达式/箭头/IIFE · 提升差异 · 参数进阶
+        link: ../02-functions/
+      - num: '03'
+        name: 作用域与闭包
+        keys: 作用域链 · 闭包本质 · 计数器/防抖 · TDZ
+        link: ../02-functions/
+      - num: '04'
+        name: this 绑定
+        keys: 四种规则 · 丢失 this · call/apply/bind · 箭头函数
+        link: ../02-functions/
+
+  - name: 数据与结构
+    color: '#e8552d'
+    link: ../03-objects/
+    children:
+      - num: '05'
+        name: 对象
+        keys: 创建方式 · 属性操作 · 遍历 · 不可变性
+        link: ../03-objects/
+      - num: '06'
+        name: 原型与 class
+        keys: 原型链 · new 原理 · 继承与 super · 多态
+        link: ../03-objects/
+      - num: '07'
+        name: 深浅拷贝
+        keys: 浅拷贝 · structuredClone · JSON 三坑 · 循环引用
+        link: ../03-objects/
+      - num: '08'
+        name: 数组
+        keys: 增删改查 · map/filter/reduce · 去重/分组 · 遍历与迭代器
+        link: ../04-arrays/
+
+  - name: 异步与浏览器
+    color: '#0ea5e9'
+    link: ../05-async/
+    children:
+      - num: '09'
+        name: 事件循环
+        keys: 单线程 · 微/宏任务 · 执行顺序 · queueMicrotask
+        link: ../05-async/
+      - num: '10'
+        name: Promise
+        keys: 状态机 · then/catch/finally · all/race/any · 错误必须 catch
+        link: ../05-async/
+      - num: '11'
+        name: async/await
+        keys: 同步风格 · try/catch · 演进对比 · await 微任务
+        link: ../05-async/
+      - num: '12'
+        name: fetch 与并发
+        keys: GET/POST · res.ok · 串行 vs 并行 · 超时控制
+        link: ../05-async/
+      - num: '13'
+        name: DOM 操作
+        keys: 查询 · 修改节点 · 属性与类名 · XSS 安全
+        link: ../06-dom-api/
+      - num: '14'
+        name: 事件机制
+        keys: 事件流 · 捕获/冒泡 · 事件委托 · 性能优化
+        link: ../06-dom-api/
+
+  - name: 工程与防错
+    color: '#16a34a'
+    link: ../07-es-modules/
+    children:
+      - num: '15'
+        name: ES 模块
+        keys: export/import · 动态导入 · import.meta
+        link: ../07-es-modules/
+      - num: '16'
+        name: 模块机制
+        keys: 静态分析 · tree-shaking · 严格模式 · 循环依赖
+        link: ../07-es-modules/
+      - num: '17'
+        name: ESM vs CJS
+        keys: 语法差异 · 实时引用 vs 拷贝 · 浏览器支持
+        link: ../07-es-modules/
+      - num: '18'
+        name: 错误处理
+        keys: try/catch · 异步错误 · 全局兜底 · 自定义错误
+        link: ../08-error-debug/
+      - num: '19'
+        name: 调试方法论
+        keys: Console 全家桶 · 断点调试 · Source Map · 五步法
+        link: ../08-error-debug/
