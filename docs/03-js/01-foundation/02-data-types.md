@@ -104,6 +104,7 @@ const v = null;
 console.log(v === null);      // true（唯一可靠方式）
 console.log(!v && typeof v === "object"); // true 的兜底写法
 ```
+
 :::
 
 ## 字面量写法速览

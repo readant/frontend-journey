@@ -13,7 +13,7 @@ module.exports = {
   singleQuote: false, // 使用双引号
 
   // 尾逗号
-  trailingComma: "es5", // 在ES5语法允许的地方添加尾逗号
+  trailingComma: "all", // 在ES5语法允许的地方添加尾逗号
 
   // 行宽限制（放宽到100，更适合中文笔记和长链接）
   printWidth: 100,
