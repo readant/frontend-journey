@@ -102,6 +102,46 @@ SEO 让**搜索引擎**读懂页面，可访问性（A11y）让**所有人**（�
 | 颜色 | 不单靠颜色传达信息（配图标/文字） |
 | 触控 | 可点击区域 ≥ 44×44px |
 
+### 六、站外协作：robots.txt 与 sitemap
+
+页面之外的「搜索引擎沟通文件」：
+
+```text
+# robots.txt（站点根目录）：允许/禁止抓取
+User-agent: *
+Allow: /
+Disallow: /admin/
+Sitemap: https://example.com/sitemap.xml
+```
+
+```xml
+<!-- sitemap.xml：告诉搜索引擎所有页面地址与更新频率 -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+```
+
+| 文件 | 职责 | 注意 |
+| :--- | :--- | :--- |
+| `robots.txt` | 抓取规则声明 | 放站点根目录，配合 `meta robots` 页面级控制 |
+| `sitemap.xml` | 页面清单 | 帮助新页面更快被收录，更新后重新提交 |
+
+### 七、性能即 SEO（Core Web Vitals）
+
+搜索引擎把**用户体验指标**计入排名，三巨头：
+
+| 指标 | 含义 | 达标线 | 前端手段 |
+| :--- | :--- | :--- | :--- |
+| **LCP** | 首屏最大内容加载时间 | ≤ 2.5s | 首屏图 preload + 优化图片体积 |
+| **INP** | 交互响应延迟（2024 取代 FID） | ≤ 200ms | 长任务拆分、减少主线程阻塞 |
+| **CLS** | 布局偏移累计 | ≤ 0.1 | 图片/广告预留尺寸、字体 `font-display` |
+
+排查入口：DevTools → Performance / Lighthouse；线上用 PageSpeed Insights 或 CrUX 数据。
+
 ### 语法速查
 
 | 需求 | 写法 |

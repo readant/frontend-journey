@@ -257,13 +257,31 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     { text: "CSS 总览", link: "/3-reference/1-handbook/css/" },
+                    { text: "基础语法与机制", link: "/3-reference/1-handbook/css/basics" },
                     { text: "选择器", link: "/3-reference/1-handbook/css/selectors" },
                     { text: "盒模型", link: "/3-reference/1-handbook/css/box-model" },
-                    { text: "布局", link: "/3-reference/1-handbook/css/layout" },
+                    {
+                      text: "布局",
+                      link: "/3-reference/1-handbook/css/layout",
+                      collapsed: true,
+                      items: [
+                        { text: "布局总览", link: "/3-reference/1-handbook/css/layout" },
+                        {
+                          text: "文档流与定位",
+                          link: "/3-reference/1-handbook/css/layout/position",
+                        },
+                        { text: "浮动 float", link: "/3-reference/1-handbook/css/layout/float" },
+                        { text: "弹性布局 Flex", link: "/3-reference/1-handbook/css/layout/flex" },
+                        { text: "网格布局 Grid", link: "/3-reference/1-handbook/css/layout/grid" },
+                      ],
+                    },
                     { text: "文字与字体", link: "/3-reference/1-handbook/css/typography" },
                     { text: "颜色与背景", link: "/3-reference/1-handbook/css/color-bg" },
                     { text: "过渡与动画", link: "/3-reference/1-handbook/css/animation" },
                     { text: "响应式", link: "/3-reference/1-handbook/css/responsive" },
+                    { text: "移动 Web 适配", link: "/3-reference/1-handbook/css/mobile" },
+                    { text: "现代 CSS 与工程化", link: "/3-reference/1-handbook/css/modern-css" },
+                    { text: "设计模式与实战", link: "/3-reference/1-handbook/css/design-patterns" },
                   ],
                 },
                 {

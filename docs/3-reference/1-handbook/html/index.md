@@ -67,6 +67,34 @@ title: HTML 文档结构完整手册
 
 **CSS 放 head，JS 放 body 末尾 / 用 defer**。`<link rel="stylesheet">` 放 head 可避免「样式闪烁」。
 
+### 四、资源加载提示（preconnect / preload）
+
+提前「打招呼」让关键资源少排队：
+
+```html
+<!-- preconnect：提前建连（跨域字体、CDN、API） -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://api.example.com" />
+
+<!-- dns-prefetch：老浏览器的降级版，只提前解析 DNS -->
+<link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+<!-- preload：关键资源提前下载（首屏大图、字体、LCP 图） -->
+<link rel="preload" href="hero-1920.jpg" as="image" />
+
+<!-- prefetch：将来可能用到的资源，空闲时加载 -->
+<link rel="prefetch" href="next-page.html" />
+```
+
+| 提示 | 作用 | 什么时候用 |
+| :--- | :--- | :--- |
+| `preconnect` | 提前建立连接（含 TLS） | 确定要请求的跨域域名 |
+| `dns-prefetch` | 只提前解析 DNS | preconnect 的兼容降级 |
+| `preload` | 当前页**立即要用的关键资源** | LCP 图、字体、首屏脚本 |
+| `prefetch` | 下个页面/将来要用的资源 | 站内导航预测 |
+
+**注意**：`preload` 用错反而抢带宽——只给真正关键的首屏资源用。
+
 ### 语法速查
 
 | 标签 | 说明 |
@@ -80,6 +108,8 @@ title: HTML 文档结构完整手册
 | `<title>` | 标签页标题 |
 | `<script defer>` | 延迟执行脚本 |
 | `<link rel="stylesheet">` | 引入样式表 |
+| `<link rel="preconnect">` | 提前建立跨域连接 |
+| `<link rel="preload">` | 提前下载关键资源 |
 
 ### 常见用法
 

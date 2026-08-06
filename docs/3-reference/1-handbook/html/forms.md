@@ -95,6 +95,70 @@ input:valid {
 }
 ```
 
+### 五、表单数据序列化（FormData）
+
+用 JS 把表单数据整包取出、提交（告别手动拼字段）：
+
+```javascript
+const form = document.querySelector("#login-form");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();                       // 阻止原生提交
+  const data = new FormData(form);          // 收集全部带 name 的字段
+
+  // 方式一：手动取值
+  const email = data.get("email");
+
+  // 方式二：整包提交（含文件）
+  const res = await fetch("/api/login", {
+    method: "POST",
+    body: data,                             // 自动带 multipart 编码
+  });
+
+  // 方式三：转成普通对象（配合 JSON 接口）
+  const obj = Object.fromEntries(data.entries());
+  await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) });
+});
+```
+
+**文件上传**：
+
+```html
+<input type="file" accept="image/*" multiple />
+```
+
+```javascript
+const file = input.files[0];   // File 对象：有 name / size / type
+data.append("avatar", file);   // 直接塞进 FormData 随表单提交
+```
+
+**`enctype` 三态**：
+
+| 值 | 场景 |
+| :--- | :--- |
+| `application/x-www-form-urlencoded` | 默认，纯文本表单 |
+| `multipart/form-data` | **有文件时必用**（FormData 自动处理） |
+| `text/plain` | 基本不用 |
+
+### 六、移动端键盘优化
+
+```html
+<!-- inputmode：告诉浏览器调哪种键盘 -->
+<input type="text" inputmode="decimal" />  <!-- 带小数点的数字键盘 -->
+<input type="text" inputmode="url" />      <!-- 网址键盘 -->
+<input type="text" inputmode="search" />   <!-- 搜索键盘 -->
+
+<!-- enterkeyhint：回车键的文案 -->
+<input type="text" enterkeyhint="search" /> <!-- 回车显示「搜索」 -->
+<input type="text" enterkeyhint="done" />  <!-- 回车显示「完成」 -->
+
+<!-- autocomplete：浏览器自动填充（登录/地址必备） -->
+<input type="email" autocomplete="email" />
+<input type="password" autocomplete="current-password" />
+```
+
+移动端表单两大坑：`font-size < 16px` 聚焦时 iOS 自动放大页面；`type="number"` 在部分安卓不弹数字键盘——优先 `inputmode="decimal"`。
+
 ### 语法速查
 
 | 需求 | 写法 |

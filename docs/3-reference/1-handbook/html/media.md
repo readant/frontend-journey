@@ -50,6 +50,33 @@ title: HTML 音视频与图片完整手册
 </picture>
 ```
 
+**图片格式选型**：
+
+| 格式 | 特点 | 适用 |
+| :--- | :--- | :--- |
+| JPEG | 体积小、有损、无透明 | 照片、大图 |
+| PNG | 无损、支持透明 | 截图、带透明 logo |
+| **WebP** | 体积更小、有损/无损/透明都行 | **现代 Web 首选** |
+| **AVIF** | 压缩率再上一档 | 支持环境（新版 Chrome/FF/Safari） |
+| SVG | 矢量、任意缩放不失真、可 CSS 控制 | 图标、插画、logo |
+| GIF | 动画但体积大、色域低 | 小动画（新项目用 WebP 动画/视频替代） |
+
+**经验**：内容图片尽量输出 WebP/AVIF（用 `picture` 做旧浏览器降级）；图标与简单图形一律 SVG；照片用 JPEG/WebP。
+
+**懒加载细节**：
+
+```html
+<img src="thumb.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="..." />
+```
+
+| 属性 | 作用 |
+| :--- | :--- |
+| `loading="lazy"` | 滚动到视口附近才加载 |
+| `decoding="async"` | 异步解码，不阻塞渲染 |
+| `fetchpriority` | `high` 给 LCP 首屏大图 / `low` 给懒加载图 |
+
+**注意**：`loading="lazy"` 对首屏（LCP）图片反而有害——会推迟加载，首屏图不设 lazy、加 `fetchpriority="high"`。
+
 ### 二、视频与音频
 
 ```html

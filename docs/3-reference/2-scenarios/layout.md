@@ -33,7 +33,11 @@ title: 布局场景速查
 
 📖 手册章节：
 
-- [CSS 布局（float / position / flex / grid）](/3-reference/1-handbook/css/layout)
+- [CSS 布局总览](/3-reference/1-handbook/css/layout)（布局演进与选型口诀）
+- [文档流与定位（display / position）](/3-reference/1-handbook/css/layout/position)
+- [浮动 float](/3-reference/1-handbook/css/layout/float)
+- [弹性布局 Flex](/3-reference/1-handbook/css/layout/flex)
+- [网格布局 Grid](/3-reference/1-handbook/css/layout/grid)
 - [盒模型（border-box 与 margin 合并）](/3-reference/1-handbook/css/box-model)
 - [响应式设计（媒体查询与容器查询）](/3-reference/1-handbook/css/responsive)
 
