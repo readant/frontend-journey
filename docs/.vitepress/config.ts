@@ -48,9 +48,10 @@ export default defineConfig({
         ],
       },
       { text: "速查手册", link: "/cheatsheet/" },
+      { text: "知识星盘", link: "/3-reference/" },
     ],
 
-    // 侧边栏：全局三分区结构（学习之路 → 速查补给站 → 实战项目）
+    // 侧边栏：分区结构（学习之路 → 速查补给站 → 参考层 → 实战项目）
     sidebar: {
       "/": [
         {
@@ -226,6 +227,89 @@ export default defineConfig({
                 { text: "ES 模块", link: "/cheatsheet/data/module" },
                 { text: "错误与调试", link: "/cheatsheet/data/error-debug" },
               ],
+            },
+          ],
+        },
+        {
+          // 参考层：手册优先（内容本体）→ 场景索引（快速入口）→ 代码骨架（成品片段）→ 星盘（可视化导航）
+          text: "🕊️ 参考层",
+          items: [
+            { text: "🕊️ 知识星盘", link: "/3-reference/" },
+            { text: "参考层总览", link: "/3-reference/intro" },
+            {
+              text: "📖 知识手册",
+              collapsed: true,
+              items: [
+                {
+                  text: "HTML 手册",
+                  collapsed: true,
+                  items: [
+                    { text: "HTML 总览", link: "/3-reference/1-handbook/html/" },
+                    { text: "文档结构", link: "/3-reference/1-handbook/html/" },
+                    { text: "语义化标签", link: "/3-reference/1-handbook/html/semantic" },
+                    { text: "表单与验证", link: "/3-reference/1-handbook/html/forms" },
+                    { text: "音视频与图片", link: "/3-reference/1-handbook/html/media" },
+                    { text: "SEO 与可访问性", link: "/3-reference/1-handbook/html/seo" },
+                  ],
+                },
+                {
+                  text: "CSS 手册",
+                  collapsed: true,
+                  items: [
+                    { text: "CSS 总览", link: "/3-reference/1-handbook/css/" },
+                    { text: "选择器", link: "/3-reference/1-handbook/css/selectors" },
+                    { text: "盒模型", link: "/3-reference/1-handbook/css/box-model" },
+                    { text: "布局", link: "/3-reference/1-handbook/css/layout" },
+                    { text: "文字与字体", link: "/3-reference/1-handbook/css/typography" },
+                    { text: "颜色与背景", link: "/3-reference/1-handbook/css/color-bg" },
+                    { text: "过渡与动画", link: "/3-reference/1-handbook/css/animation" },
+                    { text: "响应式", link: "/3-reference/1-handbook/css/responsive" },
+                  ],
+                },
+                {
+                  text: "JS 手册",
+                  collapsed: true,
+                  items: [
+                    { text: "JS 总览", link: "/3-reference/1-handbook/js/" },
+                    { text: "变量与类型", link: "/3-reference/1-handbook/js/variables" },
+                    { text: "运算符", link: "/3-reference/1-handbook/js/operators" },
+                    { text: "函数", link: "/3-reference/1-handbook/js/functions" },
+                    { text: "数组", link: "/3-reference/1-handbook/js/array" },
+                    { text: "对象与原型", link: "/3-reference/1-handbook/js/object" },
+                    { text: "闭包", link: "/3-reference/1-handbook/js/closure" },
+                    { text: "异步", link: "/3-reference/1-handbook/js/async" },
+                    { text: "DOM 操作", link: "/3-reference/1-handbook/js/dom" },
+                    { text: "事件系统", link: "/3-reference/1-handbook/js/event" },
+                  ],
+                },
+                {
+                  text: "工程化手册",
+                  collapsed: true,
+                  items: [
+                    { text: "工程化总览", link: "/3-reference/1-handbook/engineering/" },
+                    { text: "Git 版本控制", link: "/3-reference/1-handbook/engineering/git" },
+                    { text: "npm 包管理", link: "/3-reference/1-handbook/engineering/npm" },
+                    { text: "构建工具", link: "/3-reference/1-handbook/engineering/build-tools" },
+                  ],
+                },
+              ],
+            },
+            {
+              text: "🔍 场景索引",
+              collapsed: true,
+              items: [
+                { text: "场景索引总览", link: "/3-reference/2-scenarios/" },
+                { text: "布局场景", link: "/3-reference/2-scenarios/layout" },
+                { text: "对齐场景", link: "/3-reference/2-scenarios/align" },
+                { text: "异步场景", link: "/3-reference/2-scenarios/async" },
+                { text: "数据处理", link: "/3-reference/2-scenarios/data" },
+                { text: "事件场景", link: "/3-reference/2-scenarios/event" },
+              ],
+            },
+            {
+              text: "📦 代码骨架",
+              collapsed: true,
+              items: [{ text: "骨架总览", link: "/3-reference/3-patterns/" }],
             },
           ],
         },
