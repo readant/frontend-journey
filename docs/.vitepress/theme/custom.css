@@ -30,14 +30,20 @@
   background-color: var(--vp-c-brand-soft);
 }
 
-/* 代码块容器 */
+/* 代码块容器：亮色模式用柔和浅色底（细点纹理 + 极浅渐变），深色模式走深底 */
 .vp-doc div[class*="language-"] {
   position: relative;
   margin: 1.5rem 0;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #282c34;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #f6f8fa;
+  background-image:
+    radial-gradient(rgba(30, 40, 60, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, #fbfcfe 0%, #f3f6fa 100%);
+  background-size:
+    18px 18px,
+    100% 100%;
+  border: 1px solid var(--vp-c-divider);
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.08),
     0 8px 24px rgba(0, 0, 0, 0.06);
@@ -53,6 +59,7 @@
 /* 深色主题代码块 */
 .dark .vp-doc div[class*="language-"] {
   background-color: #1e2128;
+  background-image: none;
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.3),
@@ -83,7 +90,11 @@
   font-size: inherit;
   line-height: inherit;
   background: transparent;
-  color: #abb2bf;
+  color: var(--shiki-light, #24292e);
+}
+
+.dark .vp-doc div[class*="language-"] > pre > code {
+  color: var(--shiki-dark, #abb2bf);
 }
 
 /* 复制按钮 */
@@ -93,9 +104,9 @@
   right: 0.5rem;
   padding: 0.25rem 0.6rem;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--vp-c-text-3);
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   cursor: pointer;
   opacity: 0;
@@ -111,8 +122,8 @@
 }
 
 .vp-doc div[class*="language-"] .copy:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-2);
 }
 
 .vp-doc div[class*="language-"] .copied {
@@ -121,9 +132,9 @@
   right: 0.5rem;
   padding: 0.25rem 0.6rem;
   font-size: 0.75rem;
-  color: #98c379;
-  background: rgba(152, 195, 121, 0.1);
-  border: 1px solid rgba(152, 195, 121, 0.3);
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-brand-1);
   border-radius: 6px;
   z-index: 2;
 }
@@ -176,89 +187,26 @@
 }
 
 .vp-doc div[class*="language-"] ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.18);
   border-radius: 3px;
 }
 
 .vp-doc div[class*="language-"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.dark .vp-doc div[class*="language-"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark .vp-doc div[class*="language-"] ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.35);
 }
 
-/* 代码高亮颜色优化 */
-.vp-doc div[class*="language-"] .token.comment,
-.vp-doc div[class*="language-"] .token.prolog,
-.vp-doc div[class*="language-"] .token.doctype,
-.vp-doc div[class*="language-"] .token.cdata {
-  color: #7f848e;
-  font-style: italic;
-}
-
-.vp-doc div[class*="language-"] .token.punctuation {
-  color: #abb2bf;
-}
-
-.vp-doc div[class*="language-"] .token.property,
-.vp-doc div[class*="language-"] .token.tag,
-.vp-doc div[class*="language-"] .token.boolean,
-.vp-doc div[class*="language-"] .token.number,
-.vp-doc div[class*="language-"] .token.constant,
-.vp-doc div[class*="language-"] .token.symbol {
-  color: #d19a66;
-}
-
-.vp-doc div[class*="language-"] .token.selector,
-.vp-doc div[class*="language-"] .token.attr-name,
-.vp-doc div[class*="language-"] .token.string,
-.vp-doc div[class*="language-"] .token.char,
-.vp-doc div[class*="language-"] .token.builtin {
-  color: #98c379;
-}
-
-.vp-doc div[class*="language-"] .token.operator,
-.vp-doc div[class*="language-"] .token.entity,
-.vp-doc div[class*="language-"] .token.url,
-.vp-doc div[class*="language-"] .language-css .token.string,
-.vp-doc div[class*="language-"] .style .token.string {
-  color: #56b6c2;
-}
-
-.vp-doc div[class*="language-"] .token.atrule,
-.vp-doc div[class*="language-"] .token.attr-value,
-.vp-doc div[class*="language-"] .token.keyword {
-  color: #c678dd;
-}
-
-.vp-doc div[class*="language-"] .token.function {
-  color: #61afef;
-}
-
-.vp-doc div[class*="language-"] .token.class-name {
-  color: #e5c07b;
-}
-
-.vp-doc div[class*="language-"] .token.regex,
-.vp-doc div[class*="language-"] .token.important,
-.vp-doc div[class*="language-"] .token.variable {
-  color: #e06c75;
-}
-
-.vp-doc div[class*="language-"] .token.important,
-.vp-doc div[class*="language-"] .token.bold {
-  font-weight: bold;
-}
-
-.vp-doc div[class*="language-"] .token.italic {
-  font-style: italic;
-}
-
-/* 亮色模式可读性修复：
-   代码块背景写死为深色 One Dark（两种主题一致），但 VitePress 亮色模式下
-   会把所有 span 用 --shiki-light(github-light 近黑系) 染色，导致「深底黑字」。
-   此规则让亮色模式也消费 --shiki-dark(github-dark) 配色，
-   既保证深底浅字可读，又保留语法高亮（与深色模式观感一致）。 */
-html:not(.dark) .vp-doc div[class*="language-"] pre code span {
-  color: var(--shiki-dark, #abb2bf);
-}
+/* 代码块配色说明：
+   本站 Shiki 以 cssVariables 模式输出（每个 span 内联 --shiki-light/--shiki-dark），
+   颜色由 VitePress 按主题消费：亮色模式取 --shiki-light（浅底深字），
+   深色模式取 --shiki-dark（深底浅字），无需也不应再写死 token 颜色。 */
 
 /* 行号样式 */
 .vp-doc div[class*="language-"] .line-numbers {
