@@ -57,6 +57,8 @@ x = { a: 1 }; // 变成对象 —— 依然合法
 
 ::: info 延伸阅读
 
-类型转换的底层算法（ToPrimitive / ToNumber）在 [MDN - 类型转换](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_precedence) 有更完整说明。
+类型转换的底层算法（ToPrimitive / ToNumber）在
+[MDN - 数据类型与数据结构](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures) 与
+[ECMA-262 规范 §7.1.1](https://tc39.es/ecma262/#sec-toprimitive) 有更完整说明。
 
 :::

@@ -4,6 +4,9 @@ title: 01.2 如何运行 JavaScript
 
 # 如何运行 JavaScript：代码写在哪、如何被执行
 
+::: tip 前置要求需要先掌握 [初识 JavaScript](/03-js/01-foundation/01-javascript-intro)
+中"程序 = 指令的有序集合"的概念。本页解决"代码写在哪、怎么让它跑起来"。:::
+
 ## 它是什么
 
 "代码写在哪、怎么让它跑起来"是每个新手的第一个现实问题。JavaScript 有**三种主流运行方式**，各有适用场景：

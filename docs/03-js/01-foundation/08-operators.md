@@ -4,13 +4,16 @@ title: 01.8 表达式与运算符
 
 # 表达式与运算符：短路、可选链、空值合并
 
+::: tip 前置要求需要先掌握上一页 [类型转换](/03-js/01-foundation/07-type-conversion)
+的隐式转换与假值规则。本页的短路求值、`??`、`?.` 都建立在这些规则之上。:::
+
 ## 它是什么
 
 **表达式（Expression）**是"会产生一个值"的代码片段：`1 + 2`、`x > 3`、`user?.name`。**运算符**就是连接它们的符号。掌握本节几个"现代运算符"，能让代码更短、更安全、更少崩溃。
 
 ```javascript
-const total = price * count;     // 算术表达式
-const ok = score >= 60;          // 比较表达式
+const total = price * count; // 算术表达式
+const ok = score >= 60; // 比较表达式
 const name = user?.name ?? "匿名"; // 安全取值表达式
 ```
 
@@ -18,12 +21,23 @@ const name = user?.name ?? "匿名"; // 安全取值表达式
 
 ```javascript
 // 算术
-1 + 2; 2 - 1; 3 * 4; 10 / 2; 7 % 3;   // 加减乘除、取余（% 常用于判断奇偶/循环取模）
-2 ** 3;                                // 8（幂运算）
-let n = 5; n++; n--; n += 2;           // 自增、自减、复合赋值
+1 + 2;
+2 - 1;
+3 * 4;
+10 / 2;
+7 % 3; // 加减乘除、取余（% 常用于判断奇偶/循环取模）
+2 ** 3; // 8（幂运算）
+let n = 5;
+n++;
+n--;
+n += 2; // 自增、自减、复合赋值
 
 // 比较（返回布尔值）
-5 > 3; 5 >= 5; 5 < 3; 3 === 3; 3 !== 4;
+5 > 3;
+5 >= 5;
+5 < 3;
+3 === 3;
+3 !== 4;
 ```
 
 ## 逻辑短路：&& 与 ||
@@ -36,7 +50,7 @@ let n = 5; n++; n--; n += 2;           // 自增、自减、复合赋值
 
 ```javascript
 const user = { name: "Alice" };
-user && user.name;        // "Alice"（user 为真，继续取 name）
+user && user.name; // "Alice"（user 为真，继续取 name）
 // 若 user 为 null：返回 null，不会报错
 
 // 经典用途：对象存在才调方法
@@ -48,24 +62,24 @@ data && render(data);
 适合"**取默认值**"场景（但有陷阱，见下文 `??`）：
 
 ```javascript
-const price = input || 0;     // 没传就用 0
+const price = input || 0; // 没传就用 0
 ```
 
-::: warning `||` 的陷阱
-`||` 会把所有**假值**（`0`、`""`、`NaN`）都当成"没有"。如果 `input` 是合法的 `0`，也会被替换成默认值。
+::: warning `||` 的陷阱 `||` 会把所有**假值**（`0`、`""`、`NaN`）都当成"没有"。如果 `input` 是合法的
+`0`，也会被替换成默认值。
 
 ```javascript
-const count = 0 || 10;        // 10  ← 0 被当成"没有"了！
+const count = 0 || 10; // 10  ← 0 被当成"没有"了！
 ```
-要"只拦截 null/undefined"用下面的 `??`。
-:::
+
+要"只拦截 null/undefined"用下面的 `??`。:::
 
 ### `!` 与 `!!`：转布尔
 
 ```javascript
-!true        // false
-!!"hi"       // true（把一个值转成布尔）
-!!0          // false
+!true; // false
+!!"hi"; // true（把一个值转成布尔）
+!!0; // false
 ```
 
 ## 空值合并 `??`：只拦 null/undefined
@@ -73,15 +87,13 @@ const count = 0 || 10;        // 10  ← 0 被当成"没有"了！
 `??` 的逻辑：**左边是 `null` 或 `undefined` 才取右边**。它是 `||` 的"精准版"：
 
 ```javascript
-const a = 0 ?? 10;        // 0    ← 0 是合法值，保留！
-const b = null ?? 10;     // 10
-const c = undefined ?? 10;// 10
-const d = "" ?? "默认";   // ""   ← 空字符串也保留
+const a = 0 ?? 10; // 0    ← 0 是合法值，保留！
+const b = null ?? 10; // 10
+const c = undefined ?? 10; // 10
+const d = "" ?? "默认"; // ""   ← 空字符串也保留
 ```
 
-::: danger `??` 不能和 `||`/`&&` 直接混用
-`a ?? b || c` 会语法报错，需要加括号：`(a ?? b) || c`。
-:::
+::: danger `??` 不能和 `||`/`&&` 直接混用 `a ?? b || c` 会语法报错，需要加括号：`(a ?? b) || c`。:::
 
 ## 可选链 `?.`：安全地链式取值
 
@@ -95,14 +107,14 @@ const name = user && user.profile && user.profile.name;
 const name = user?.profile?.name;
 
 // 配合调用方法、索引
-user?.profile?.getInfo?.();   // 方法不存在也不报错
-arr?.[0];                     // 数组索引也可用 ?.
+user?.profile?.getInfo?.(); // 方法不存在也不报错
+arr?.[0]; // 数组索引也可用 ?.
 ```
 
 ```javascript
 // 没写可选链 vs 写了可选链
-const address = user.address;        // user 为 null 时 → TypeError 崩溃 ❌
-const address = user?.address;       // user 为 null 时 → undefined ✅
+const address = user.address; // user 为 null 时 → TypeError 崩溃 ❌
+const address = user?.address; // user 为 null 时 → undefined ✅
 ```
 
 ## 三元运算符：简洁的条件赋值
@@ -118,9 +130,7 @@ if (score >= 60) {
 }
 ```
 
-::: tip 使用建议
-单层条件用三元（一行）；多层嵌套条件**不要**用三元（可读性差），用 `if/else` 或 `switch`。
-:::
+::: tip 使用建议单层条件用三元（一行）；多层嵌套条件**不要**用三元（可读性差），用 `if/else` 或 `switch`。:::
 
 ## 综合实战：安全链式取值 + 兜底
 
@@ -150,6 +160,7 @@ const id = event?.detail?.userId ?? -1;
 - `??` 只拦 `null`/`undefined`，比 `||` 更精准
 - `?.` 安全链式取值，配合 `??` 兜底，是防崩溃的黄金组合
 
-::: tip 速查卡片
-运算符速查见 [变量与数据类型速查](/cheatsheet/data/variable-type)。
-:::
+::: tip 速查卡片运算符速查见 [变量与数据类型速查](/cheatsheet/data/variable-type)。:::
+
+::: tip 下一步第一章到此结束！你已经会用变量"存数据"、用类型判断与转换"辨数据"、用运算符"算数据"。下一章
+[函数与闭包](/03-js/02-functions/) 将学会把动作打包成可复用的"机器"。:::
