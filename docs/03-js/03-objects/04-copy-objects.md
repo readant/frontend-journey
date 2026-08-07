@@ -51,7 +51,7 @@ console.log(arr[1]);               // [2, 3, 4] ❌ 嵌套数组仍共享
 
 ## 深拷贝：彻底独立
 
-**深拷贝（Deep Copy）**递归复制所有层级，嵌套对象也各自独立。首选现代浏览器原生的 **`structuredClone`**：
+<strong>深拷贝（Deep Copy）</strong>递归复制所有层级，嵌套对象也各自独立。首选现代浏览器原生的 **`structuredClone`**：
 
 ```javascript
 const original = { a: 1, nested: { b: 2 }, date: new Date(), arr: [1, 2] };

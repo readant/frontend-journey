@@ -38,8 +38,11 @@ parseFloat("3.14m"); // 3.14
 | **数字**   | `Number("") → 0`、`Number(" 42 ") → 42`（自动去空格）、`Number("abc") → NaN`、`Number(null) → 0`、`Number(undefined) → NaN`、`Number(true) → 1` |
 | **布尔**   | 只有 6 个**假值**：`false`、`0`、`""`（空串）、`null`、`undefined`、`NaN`；其余**全是真值**（含 `"0"`、`[]`、`{}`！）                           |
 
-::: warning 布尔转换最容易记反 `Boolean("0")` 是 `true`（非空字符串都是真）！`Boolean([])` 也是
-`true`（空数组是真值）。**只有空字符串、0、NaN、null、undefined、false 这 6 个是假值。** :::
+::: warning 布尔转换最容易记反
+
+`Boolean("0")` 是 `true`（非空字符串都是真）！`Boolean([])` 也是 `true`（空数组是真值）。**只有空字符串、0、NaN、null、undefined、false 这 6 个是假值。**
+
+:::
 
 ## 隐式转换（运算符触发）——最大的坑源
 

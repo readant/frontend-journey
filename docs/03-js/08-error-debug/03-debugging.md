@@ -74,7 +74,7 @@ function process(data) {
 ```
 
 ::: tip 断点的优势
-断点比 console.log 强在**"暂停时全部现场"**：那一刻所有变量的值、调用链、执行位置都是活的，可以任意检查。console.log 只能看到你"提前想到要打印"的东西。
+断点比 console.log 强在<strong>"暂停时全部现场"</strong>：那一刻所有变量的值、调用链、执行位置都是活的，可以任意检查。console.log 只能看到你"提前想到要打印"的东西。
 :::
 
 ## debugger 语句
