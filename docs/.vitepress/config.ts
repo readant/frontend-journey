@@ -116,10 +116,14 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     { text: "章节总览", link: "/03-js/02-functions/" },
-                    { text: "函数定义", link: "/03-js/02-functions/01-define-functions" },
-                    { text: "箭头函数", link: "/03-js/02-functions/02-arrow-functions" },
-                    { text: "作用域与闭包", link: "/03-js/02-functions/03-scope-closure" },
-                    { text: "this 绑定", link: "/03-js/02-functions/04-this-binding" },
+                    { text: "01 函数定义与调用", link: "/03-js/02-functions/01-define-functions" },
+                    { text: "02 参数传递", link: "/03-js/02-functions/02-parameters" },
+                    { text: "03 返回值", link: "/03-js/02-functions/03-return-value" },
+                    { text: "04 箭头函数", link: "/03-js/02-functions/04-arrow-functions" },
+                    { text: "05 作用域与词法环境", link: "/03-js/02-functions/05-scope" },
+                    { text: "06 闭包", link: "/03-js/02-functions/06-closure" },
+                    { text: "07 this 绑定", link: "/03-js/02-functions/07-this-binding" },
+                    { text: "08 阶梯练习", link: "/03-js/02-functions/08-exercises" },
                   ],
                 },
                 {
