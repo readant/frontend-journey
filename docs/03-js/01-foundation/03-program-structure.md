@@ -13,7 +13,7 @@ title: 01.3 程序的基本结构
 
 ## 它是什么
 
-任何 JS 程序，无论多复杂，都是由**语句（Statement）**组成的；而语句往往由**表达式（Expression）**拼装而成。先分清这两个词，再看分号、注释、代码块这些"约定俗成"的写法，你就拥有了阅读任何代码的能力。
+任何 JS 程序，无论多复杂，都是由<strong>语句（Statement）</strong>组成的；而语句往往由<strong>表达式（Expression）</strong>拼装而成。先分清这两个词，再看分号、注释、代码块这些"约定俗成"的写法，你就拥有了阅读任何代码的能力。
 
 ### 1. 表达式（Expression）——"会产生一个值"的片段
 
@@ -153,7 +153,7 @@ console.log(Name); // "A"
 console.log(name); // "B"
 ```
 
-**保留字（关键字）**不能用作变量名：`let`、`const`、`if`、`for`、`function`、`class`、`return`
+<strong>保留字（关键字）</strong>不能用作变量名：`let`、`const`、`if`、`for`、`function`、`class`、`return`
 等。这些词已被语言占用，当作变量名会直接报错：
 
 ```javascript

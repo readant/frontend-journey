@@ -25,7 +25,7 @@ title: 02.1 函数定义与调用
 - 你**拿到饮料**（这就是**输出**）
 - 无论多少人用、用多少次，机器不用重新造——**一台机器，无限次复用**
 
-JavaScript 里的**函数（function）**就是这个道理：
+JavaScript 里的<strong>函数（function）</strong>就是这个道理：
 
 ```javascript
 function buyDrink(code) {        // 投币入口：code 是"你按的按钮"
