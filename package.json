@@ -23,6 +23,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^26.1.2",
     "vitepress": "^1.6.4",
     "vitepress-demo-plugin": "^1.8.0"
   },
