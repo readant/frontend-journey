@@ -418,6 +418,23 @@ export const stars: StarNode[] = [
 
   // ==================== 🟨 雨林 · JavaScript（左下） ====================
   {
+    id: "intro",
+    name: "入门与运行",
+    en: "getting started",
+    level: 1,
+    rayCount: 12,
+    glowIntensity: 1,
+    constellation: "rain",
+    x: 10,
+    y: 60,
+    desc: "运行方式、网页引入形式、语句与表达式、交互 API —— 跑起第一行 JS 的起点",
+    phonetic: "get-ting star-ted",
+    mnemonic: "格廷·斯塔提德 —— 一切从「入门」出发",
+    code: 'console.log("Hello, JS!");\nalert("欢迎");\nF12 → Console 敲一句',
+    tags: ["入门", "运行", "控制台", "script", "console", "alert", "第一行代码", "怎么跑"],
+    links: ["let-const", "arrow-fn", "event-loop", "map-reduce"],
+  },
+  {
     id: "js-core",
     name: "JS 核心",
     en: "JavaScript",
@@ -430,6 +447,7 @@ export const stars: StarNode[] = [
     desc: "一切前端交互的引擎：变量、函数、对象、异步都从这里长出来",
     tags: ["javascript", "脚本", "核心", "基础", "语言"],
     links: [
+      "intro",
       "closure",
       "prototype",
       "promise",

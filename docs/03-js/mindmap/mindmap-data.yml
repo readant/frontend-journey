@@ -9,8 +9,8 @@ branches:
     link: ../01-foundation/
     children:
       - num: '01'
-        name: 变量与类型
-        keys: let/const/var · 数据类型 · 类型转换 · 表达式与运算符
+        name: 入门与变量
+        keys: 运行方式 · 语句/表达式/分号 · alert/console 交互 · let/const/var · 类型转换 · 运算符
         link: ../01-foundation/
       - num: '02'
         name: 函数定义

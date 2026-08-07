@@ -101,10 +101,14 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     { text: "章节总览", link: "/03-js/01-foundation/" },
-                    { text: "变量声明", link: "/03-js/01-foundation/01-variables" },
-                    { text: "数据类型", link: "/03-js/01-foundation/02-data-types" },
-                    { text: "类型转换", link: "/03-js/01-foundation/03-type-conversion" },
-                    { text: "表达式与运算符", link: "/03-js/01-foundation/04-operators" },
+                    { text: "初识 JavaScript", link: "/03-js/01-foundation/01-javascript-intro" },
+                    { text: "如何运行 JavaScript", link: "/03-js/01-foundation/02-how-to-run" },
+                    { text: "程序的基本结构", link: "/03-js/01-foundation/03-program-structure" },
+                    { text: "交互方式", link: "/03-js/01-foundation/04-interaction" },
+                    { text: "变量声明", link: "/03-js/01-foundation/05-variables" },
+                    { text: "数据类型", link: "/03-js/01-foundation/06-data-types" },
+                    { text: "类型转换", link: "/03-js/01-foundation/07-type-conversion" },
+                    { text: "表达式与运算符", link: "/03-js/01-foundation/08-operators" },
                   ],
                 },
                 {

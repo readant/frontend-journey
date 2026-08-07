@@ -39,7 +39,7 @@ features:
 3. HTML 进阶 → 表单、多媒体、实战项目
 4. CSS 基础 → 选择器、盒模型、Flexbox、Grid
 5. CSS 进阶 → 响应式设计、动画、高级特性
-6. JavaScript → 变量、函数、DOM 操作、异步编程
+6. JavaScript → 入门运行、变量、函数、DOM 操作、异步编程
 7. 实战项目 → 综合应用、项目部署
 ```
 

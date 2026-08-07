@@ -9,24 +9,32 @@ title: 01. 变量与基础
 JavaScript 是一门**动态类型**语言：变量本身不绑定类型，可以随时被赋值为任意类型。这和 Java、C 这类静态类型语言有本质区别，也是许多"诡异行为"的根源。
 
 ```javascript
-let x = 42;          // 数字
-x = "hello";         // 变成字符串 —— 合法！
-x = { a: 1 };        // 变成对象 —— 依然合法
+let x = 42; // 数字
+x = "hello"; // 变成字符串 —— 合法！
+x = { a: 1 }; // 变成对象 —— 依然合法
 ```
 
 ## 本章路线
 
-本章拆成 4 个知识点页面，建议按顺序学习：
+本章拆成 8 个知识点页面，建议按顺序学习：
 
-| 顺序 | 知识点 | 你将学会 |
-|:----:|--------|----------|
-| 1 | [变量声明](/03-js/01-foundation/01-variables) | `let` / `const` / `var` 的区别、作用域与暂时性死区、命名规范 |
-| 2 | [数据类型](/03-js/01-foundation/02-data-types) | 原始类型 vs 引用类型、`typeof` 运算符、`null` vs `undefined` |
-| 3 | [类型转换](/03-js/01-foundation/03-type-conversion) | 显式/隐式转换规则、`==` vs `===`、`NaN` 与浮点精度 |
-| 4 | [表达式与运算符](/03-js/01-foundation/04-operators) | 逻辑短路、可选链 `?.`、空值合并 `??`、三元运算符 |
+| 顺序 | 知识点                                                      | 你将学会                                                     |
+| :--: | ----------------------------------------------------------- | ------------------------------------------------------------ |
+|  1   | [初识 JavaScript](/03-js/01-foundation/01-javascript-intro) | 编程是什么、计算机如何执行代码、JS 能做什么                  |
+|  2   | [如何运行 JavaScript](/03-js/01-foundation/02-how-to-run)   | 浏览器控制台、`<script>` 标签、Node.js 三种运行方式          |
+|  3   | [程序的基本结构](/03-js/01-foundation/03-program-structure) | 语句 vs 表达式、分号与 ASI、注释、编写习惯                   |
+|  4   | [交互方式](/03-js/01-foundation/04-interaction)             | `alert`/`confirm`/`prompt`、`console.log` 全家桶             |
+|  5   | [变量声明](/03-js/01-foundation/05-variables)               | `let` / `const` / `var` 的区别、作用域与暂时性死区、命名规范 |
+|  6   | [数据类型](/03-js/01-foundation/06-data-types)              | 原始类型 vs 引用类型、`typeof` 运算符、`null` vs `undefined` |
+|  7   | [类型转换](/03-js/01-foundation/07-type-conversion)         | 显式/隐式转换规则、`==` vs `===`、`NaN` 与浮点精度           |
+|  8   | [表达式与运算符](/03-js/01-foundation/08-operators)         | 逻辑短路、可选链 `?.`、空值合并 `??`、三元运算符             |
 
 ## 学完你将能
 
+- 理解编程的本质：程序 = 指令的有序集合，JS 由引擎边读边执行
+- 用浏览器控制台、`<script>` 标签、Node.js 三种方式运行 JS
+- 分清语句与表达式，用分号、注释、缩进写出"规范可读"的代码
+- 用 `alert`/`confirm`/`prompt` 与用户交互、用 `console` 观察程序输出
 - 用 `const` 优先、`let` 兜底的正确姿势声明变量
 - 分清原始类型与引用类型的本质差异（按值 vs 按引用）
 - 看懂 JS 各种"诡异行为"（`"2" + 2`、`[] + []`）背后的转换规则
@@ -42,9 +50,13 @@ x = { a: 1 };        // 变成对象 —— 依然合法
 ## 关联速查
 
 ::: tip 速查卡片
+
 变量声明、类型表与强制转换规则的完整速查，见 [变量与数据类型速查](/cheatsheet/data/variable-type)。
+
 :::
 
 ::: info 延伸阅读
+
 类型转换的底层算法（ToPrimitive / ToNumber）在 [MDN - 类型转换](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_precedence) 有更完整说明。
+
 :::

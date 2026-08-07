@@ -1,5 +1,5 @@
 ---
-title: 01.1 变量声明
+title: 01.5 变量声明
 ---
 
 # 变量声明：let / const / var

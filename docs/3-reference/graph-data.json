@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "note": "知识星盘 · 精简导航数据（20 个核心节点）。每个节点的 link 指向 1-handbook 对应章节，点击星星即可跳转阅读。完整 52 节点展示数据见 star-map-data.ts。",
+  "note": "知识星盘 · 精简导航数据（21 个核心节点）。每个节点的 link 指向 1-handbook 对应章节，点击星星即可跳转阅读。完整 52 节点展示数据见 star-map-data.ts。",
   "constellations": [
     { "id": "morning", "name": "晨岛", "en": "HTML", "color": "#6ea8ff" },
     { "id": "cloud", "name": "云野", "en": "CSS", "color": "#34d399" },
@@ -127,6 +127,18 @@
       "desc": "媒体查询、断点策略与容器查询，一套代码适配多端",
       "tags": ["自适应", "手机", "媒体查询", "断点"],
       "link": "/3-reference/1-handbook/css/responsive"
+    },
+    {
+      "id": "intro",
+      "name": "入门与运行",
+      "en": "getting-started",
+      "level": 1,
+      "constellation": "rain",
+      "x": 6,
+      "y": 55,
+      "desc": "运行方式、网页引入形式、语句表达式与交互 API，跑起第一行 JS",
+      "tags": ["运行", "script", "控制台", "console", "alert", "入门"],
+      "link": "/3-reference/1-handbook/js/intro"
     },
     {
       "id": "variables",

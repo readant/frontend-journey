@@ -36,7 +36,8 @@
   // Markdown 文件保存时不要让 Prettier 乱动表格或硬换行
   //（结合 Prettier 里 proseWrap: "always" 已经很友好）
   "[markdown]": {
-    "editor.formatOnSave": true // 保留格式化（默认 true，显式写出来便于理解）
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // 保留格式化（默认 true，显式写出来便于理解）
   },
   "liveServer.settings.port": 5501
 }

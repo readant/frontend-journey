@@ -2,8 +2,8 @@
 
 ## 语言核心
 
-- [01 变量与类型](../01-foundation/)
-  - let/const/var · 数据类型 · 类型转换 · 表达式与运算符
+- [01 入门与变量](../01-foundation/)
+  - 运行方式 · 语句/表达式/分号 · alert/console 交互 · let/const/var · 类型转换 · 运算符
 - [02 函数定义](../02-functions/)
   - 声明/表达式/箭头/IIFE · 提升差异 · 参数进阶
 - [03 作用域与闭包](../02-functions/)
