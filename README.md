@@ -27,12 +27,13 @@
 这是一个边学边整理的学习笔记，基于 **VitePress**
 构建为静态站点，内容以 Markdown 为唯一数据源，配套 HTML 互动演示文件，实现"内容 + 展示"的有机结合。
 
-| 内容         | 说明                                          |
-| :----------- | :-------------------------------------------- |
-| **学习路线** | 从基础到进阶，一步步整理的学习路径            |
-| **笔记体系** | Markdown 笔记 + HTML 互动演示，每章含速查语法 |
-| **代码示例** | 每个知识点都有可运行的示例，边学边练          |
-| **目录结构** | 以 `docs/` 为唯一数据源，结构清晰可扩展       |
+| 内容         | 说明                                             |
+| :----------- | :----------------------------------------------- |
+| **学习路线** | 从基础到进阶，一步步整理的学习路径               |
+| **笔记体系** | Markdown 笔记 + HTML 互动演示，每章含速查语法    |
+| **代码示例** | 每个知识点都有可运行的示例，边学边练             |
+| **目录结构** | 以 `docs/` 为唯一数据源，结构清晰可扩展          |
+| **工程实践** | 搭建本知识库的架构、契约与决策记录（面向开发者） |
 
 ---
 
@@ -49,6 +50,7 @@ frontend-journey/
 │   ├── 02-css/                 # CSS 核心知识体系（9 个章节 + 思维导图）
 │   ├── 03-js/                  # JavaScript 学习（8 个章节 30 个子页 + 思维导图）
 │   ├── 3-reference/            # 📚 参考层：手册优先（知识手册 + 场景索引 + 知识星盘导航）
+│   ├── maintenance-guide/      # 🛠️ 仓库工程实践：搭建本知识库的架构/契约/数据 schema/决策案例
 │   ├── public/
 │   │   ├── assets/             # 图片等静态资源
 │   │   ├── demos/02-css/       # CSS 章节互动演示（9 个 HTML）
@@ -96,36 +98,37 @@ Pages 自动部署：[https://readant.github.io/frontend-journey/](https://reada
 
 ## 章节目录
 
-| 模块           | 章节                                                                                        | 内容                                                                 |
-| :------------- | :------------------------------------------------------------------------------------------ | :------------------------------------------------------------------- |
-| **准备阶段**   | [环境搭建](https://readant.github.io/frontend-journey/00-preparation/01-environment-setup/) | 编辑器、浏览器、Git、Node.js                                         |
-|                | [逻辑思维](https://readant.github.io/frontend-journey/00-preparation/02-logic-thinking/)    | 逻辑基础、算法入门、编程思维                                         |
-|                | [通用工具](https://readant.github.io/frontend-journey/00-preparation/03-common-tools/)      | 命令行、开发辅助、效率工具                                           |
-| **HTML**       | [文档结构](https://readant.github.io/frontend-journey/01-html/01-document-structure/)       | DOCTYPE、head 元数据、加载阻塞、渲染管线                             |
-|                | [语义化标签](https://readant.github.io/frontend-journey/01-html/02-semantic-tags/)          | 布局语义、文本语义、列表、表格、文档大纲                             |
-|                | [表单与验证](https://readant.github.io/frontend-journey/01-html/03-forms-validation/)       | 表单结构、input 类型、约束验证、label 关联                           |
-|                | [音视频与图片](https://readant.github.io/frontend-journey/01-html/04-media-assets/)         | 图片响应式、视频音频、Canvas、SVG、iframe                            |
-|                | [SEO 与可访问性](https://readant.github.io/frontend-journey/01-html/05-seo-a11y/)           | SEO meta、JSON-LD、ARIA、键盘导航                                    |
-|                | [🧠 思维导图](https://readant.github.io/frontend-journey/01-html/mindmap/)                  | HTML 知识体系全景导图（交互式）                                      |
-| **CSS**        | [基础语法与机制](https://readant.github.io/frontend-journey/02-css/01-basics/)              | 语法结构、引入方式、层叠优先级、继承性、单位                         |
-|                | [选择器](https://readant.github.io/frontend-journey/02-css/02-selectors/)                   | 基础/组合/属性/伪类/伪元素选择器                                     |
-|                | [盒子模型](https://readant.github.io/frontend-journey/02-css/03-box-model/)                 | 标准/怪异盒模型、外边距合并                                          |
-|                | [布局与定位](https://readant.github.io/frontend-journey/02-css/04-layout-positioning/)      | 文档流、浮动、定位、Flexbox、Grid                                    |
-|                | [视觉样式与美化](https://readant.github.io/frontend-journey/02-css/05-visual-styling/)      | 文本字体、颜色背景、边框圆角、滤镜                                   |
-|                | [变换与动画](https://readant.github.io/frontend-journey/02-css/06-transform-animation/)     | 2D/3D 变换、过渡、关键帧动画                                         |
-|                | [响应式设计](https://readant.github.io/frontend-journey/02-css/07-responsive/)              | 视口、媒体查询、断点策略、容器查询                                   |
-|                | [工程化与现代 CSS](https://readant.github.io/frontend-journey/02-css/08-modern-css/)        | CSS 变量、预处理器、方法论、性能优化                                 |
-|                | [设计模式与实战](https://readant.github.io/frontend-journey/02-css/09-design-patterns/)     | 居中方案、圣杯布局、Clearfix、自定义形状                             |
-|                | [🧠 思维导图](https://readant.github.io/frontend-journey/02-css/mindmap/)                   | CSS 知识体系全景导图（交互式）                                       |
-| **JavaScript** | [变量与基础](https://readant.github.io/frontend-journey/03-js/01-foundation/)               | 初识与运行、程序结构、交互方式、变量声明、数据类型、类型转换、运算符 |
-|                | [函数与闭包](https://readant.github.io/frontend-journey/03-js/02-functions/)                | 函数定义、箭头函数、作用域链、this 绑定                              |
-|                | [对象与原型](https://readant.github.io/frontend-journey/03-js/03-objects/)                  | 对象创建、原型链、class 语法、深浅拷贝                               |
-|                | [数组与方法](https://readant.github.io/frontend-journey/03-js/04-arrays/)                   | 增删改查、map/filter/reduce、遍历与迭代                              |
-|                | [异步编程](https://readant.github.io/frontend-journey/03-js/05-async/)                      | 事件循环、Promise、async/await、fetch 并发                           |
-|                | [DOM 操作与事件](https://readant.github.io/frontend-journey/03-js/06-dom-api/)              | 查询遍历、修改节点、事件机制、事件委托                               |
-|                | [ES 模块](https://readant.github.io/frontend-journey/03-js/07-es-modules/)                  | export/import、模块机制、ESM vs CommonJS                             |
-|                | [错误处理与调试](https://readant.github.io/frontend-journey/03-js/08-error-debug/)          | 错误基础、错误处理、调试方法论                                       |
-|                | [🧠 思维导图](https://readant.github.io/frontend-journey/03-js/mindmap/)                    | JavaScript 知识体系全景导图（交互式）                                |
+| 模块             | 章节                                                                                        | 内容                                                                 |
+| :--------------- | :------------------------------------------------------------------------------------------ | :------------------------------------------------------------------- |
+| **准备阶段**     | [环境搭建](https://readant.github.io/frontend-journey/00-preparation/01-environment-setup/) | 编辑器、浏览器、Git、Node.js                                         |
+|                  | [逻辑思维](https://readant.github.io/frontend-journey/00-preparation/02-logic-thinking/)    | 逻辑基础、算法入门、编程思维                                         |
+|                  | [通用工具](https://readant.github.io/frontend-journey/00-preparation/03-common-tools/)      | 命令行、开发辅助、效率工具                                           |
+| **HTML**         | [文档结构](https://readant.github.io/frontend-journey/01-html/01-document-structure/)       | DOCTYPE、head 元数据、加载阻塞、渲染管线                             |
+|                  | [语义化标签](https://readant.github.io/frontend-journey/01-html/02-semantic-tags/)          | 布局语义、文本语义、列表、表格、文档大纲                             |
+|                  | [表单与验证](https://readant.github.io/frontend-journey/01-html/03-forms-validation/)       | 表单结构、input 类型、约束验证、label 关联                           |
+|                  | [音视频与图片](https://readant.github.io/frontend-journey/01-html/04-media-assets/)         | 图片响应式、视频音频、Canvas、SVG、iframe                            |
+|                  | [SEO 与可访问性](https://readant.github.io/frontend-journey/01-html/05-seo-a11y/)           | SEO meta、JSON-LD、ARIA、键盘导航                                    |
+|                  | [🧠 思维导图](https://readant.github.io/frontend-journey/01-html/mindmap/)                  | HTML 知识体系全景导图（交互式）                                      |
+| **CSS**          | [基础语法与机制](https://readant.github.io/frontend-journey/02-css/01-basics/)              | 语法结构、引入方式、层叠优先级、继承性、单位                         |
+|                  | [选择器](https://readant.github.io/frontend-journey/02-css/02-selectors/)                   | 基础/组合/属性/伪类/伪元素选择器                                     |
+|                  | [盒子模型](https://readant.github.io/frontend-journey/02-css/03-box-model/)                 | 标准/怪异盒模型、外边距合并                                          |
+|                  | [布局与定位](https://readant.github.io/frontend-journey/02-css/04-layout-positioning/)      | 文档流、浮动、定位、Flexbox、Grid                                    |
+|                  | [视觉样式与美化](https://readant.github.io/frontend-journey/02-css/05-visual-styling/)      | 文本字体、颜色背景、边框圆角、滤镜                                   |
+|                  | [变换与动画](https://readant.github.io/frontend-journey/02-css/06-transform-animation/)     | 2D/3D 变换、过渡、关键帧动画                                         |
+|                  | [响应式设计](https://readant.github.io/frontend-journey/02-css/07-responsive/)              | 视口、媒体查询、断点策略、容器查询                                   |
+|                  | [工程化与现代 CSS](https://readant.github.io/frontend-journey/02-css/08-modern-css/)        | CSS 变量、预处理器、方法论、性能优化                                 |
+|                  | [设计模式与实战](https://readant.github.io/frontend-journey/02-css/09-design-patterns/)     | 居中方案、圣杯布局、Clearfix、自定义形状                             |
+|                  | [🧠 思维导图](https://readant.github.io/frontend-journey/02-css/mindmap/)                   | CSS 知识体系全景导图（交互式）                                       |
+| **JavaScript**   | [变量与基础](https://readant.github.io/frontend-journey/03-js/01-foundation/)               | 初识与运行、程序结构、交互方式、变量声明、数据类型、类型转换、运算符 |
+|                  | [函数与闭包](https://readant.github.io/frontend-journey/03-js/02-functions/)                | 函数定义、箭头函数、作用域链、this 绑定                              |
+|                  | [对象与原型](https://readant.github.io/frontend-journey/03-js/03-objects/)                  | 对象创建、原型链、class 语法、深浅拷贝                               |
+|                  | [数组与方法](https://readant.github.io/frontend-journey/03-js/04-arrays/)                   | 增删改查、map/filter/reduce、遍历与迭代                              |
+|                  | [异步编程](https://readant.github.io/frontend-journey/03-js/05-async/)                      | 事件循环、Promise、async/await、fetch 并发                           |
+|                  | [DOM 操作与事件](https://readant.github.io/frontend-journey/03-js/06-dom-api/)              | 查询遍历、修改节点、事件机制、事件委托                               |
+|                  | [ES 模块](https://readant.github.io/frontend-journey/03-js/07-es-modules/)                  | export/import、模块机制、ESM vs CommonJS                             |
+|                  | [错误处理与调试](https://readant.github.io/frontend-journey/03-js/08-error-debug/)          | 错误基础、错误处理、调试方法论                                       |
+|                  | [🧠 思维导图](https://readant.github.io/frontend-journey/03-js/mindmap/)                    | JavaScript 知识体系全景导图（交互式）                                |
+| **仓库工程实践** | [章节入口](https://readant.github.io/frontend-journey/maintenance-guide/)                   | ⚠️ 面向开发者：仓库架构、渲染铁律、配置规范、数据契约、决策记录      |
 
 ---
 
@@ -207,6 +210,6 @@ Pages 自动部署：[https://readant.github.io/frontend-journey/](https://reada
 
 学无止境，一起努力。如果觉得有帮助，点个 Star 鼓励一下吧 :)
 
-_Last updated: 2026-08-05_
+_Last updated: 2026-08-07_
 
 </div>

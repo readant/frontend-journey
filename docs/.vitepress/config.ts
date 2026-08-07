@@ -344,6 +344,35 @@ export default defineConfig({
           text: "🚀 实战项目",
           items: [{ text: "项目总览", link: "/projects/" }],
         },
+        {
+          // 仓库工程实践：VitePress 个人结构化知识库实践案例（docs/maintenance-guide/）
+          // 注意：VitePress 1.x sidebar 无 prefix 字段，等价实现 = items 的 link 统一以 /maintenance-guide/ 开头
+          text: "🛠️ 仓库工程实践",
+          collapsed: true,
+          items: [
+            { text: "实践案例入口", link: "/maintenance-guide/" },
+            { text: "仓库架构", link: "/maintenance-guide/00-overview/project-arch" },
+            { text: "渲染铁律", link: "/maintenance-guide/01-content-rules/render-rules" },
+            { text: "页面结构标准", link: "/maintenance-guide/01-content-rules/page-standard" },
+            { text: "改动影响面", link: "/maintenance-guide/01-content-rules/change-impact" },
+            { text: "站点配置", link: "/maintenance-guide/02-config-spec/site-config" },
+            { text: "主题与组件", link: "/maintenance-guide/02-config-spec/theme-component" },
+            { text: "格式化与 TS", link: "/maintenance-guide/02-config-spec/format-ts" },
+            { text: "gitignore 策略", link: "/maintenance-guide/02-config-spec/gitignore-spec" },
+            {
+              text: "GitHub 部署架构",
+              link: "/maintenance-guide/03-build-deploy-arch/github-deploy-arch",
+            },
+            { text: "依赖策略", link: "/maintenance-guide/03-build-deploy-arch/dependency-policy" },
+            { text: "思维导图模块", link: "/maintenance-guide/04-feature-modules/mindmap-spec" },
+            {
+              text: "知识星盘模块",
+              link: "/maintenance-guide/04-feature-modules/knowledge-star-spec",
+            },
+            { text: "提交规范", link: "/maintenance-guide/05-git-policy/commit-spec" },
+            { text: "决策记录", link: "/maintenance-guide/decision-records" },
+          ],
+        },
       ],
     },
 

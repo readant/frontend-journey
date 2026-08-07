@@ -61,7 +61,8 @@ node_modules/.vite/
 .deepseek/
 .mimocode/
 
-# 文档
+# 文档（私人维护手册，不公开）
 LEARNING-REVIEW.md
 CHANGELOG.md
+维护笔记/
 drafts/
