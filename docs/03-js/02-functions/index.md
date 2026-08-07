@@ -51,8 +51,15 @@ title: 02. 函数与闭包
 
 ## 关联速查
 
-::: tip 速查卡片函数与闭包的全部术语速查（定义 / 语法 / 场景 / 注意事项），见
-[JS 函数手册](/3-reference/1-handbook/js/functions) 与 [JS 闭包手册](/3-reference/1-handbook/js/closure)。:::
+::: tip 速查卡片
 
-::: info 延伸阅读作用域与闭包的规范细节，见
-[MDN - 闭包](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)。:::
+函数与闭包的全部术语速查（定义 / 语法 / 场景 / 注意事项），见 [JS 函数手册](/3-reference/1-handbook/js/functions) 与
+[JS 闭包手册](/3-reference/1-handbook/js/closure)。
+
+:::
+
+::: info 延伸阅读
+
+作用域与闭包的规范细节，见 [MDN - 闭包](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)。
+
+:::

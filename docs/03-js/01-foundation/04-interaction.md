@@ -4,8 +4,12 @@ title: 01.4 交互方式
 
 # 交互方式：与用户对话（alert/prompt/confirm）与开发者对话（console）
 
-::: tip 前置要求需要先掌握 [如何运行 JavaScript](/03-js/01-foundation/02-how-to-run) 的浏览器控制台操作。本页的主角
-`console` 与三个对话框都要在浏览器里运行。:::
+::: tip 前置要求
+
+需要先掌握 [如何运行 JavaScript](/03-js/01-foundation/02-how-to-run) 的浏览器控制台操作。本页的主角 `console`
+与三个对话框都要在浏览器里运行。
+
+:::
 
 ## 它是什么
 

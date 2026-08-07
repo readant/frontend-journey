@@ -4,8 +4,11 @@ title: 01.7 类型转换
 
 # 类型转换：显式转换、隐式转换与 == vs ===
 
-::: tip 前置要求需要先掌握上一页 [数据类型](/03-js/01-foundation/06-data-types) 的 8 种类型与
-`typeof`。本页讲"类型之间怎么互相转换"。:::
+::: tip 前置要求
+
+需要先掌握上一页 [数据类型](/03-js/01-foundation/06-data-types) 的 8 种类型与 `typeof`。本页讲"类型之间怎么互相转换"。
+
+:::
 
 ## 它是什么
 
@@ -86,7 +89,11 @@ null == 0      // false （null 只与 undefined 相等）
 "5" === 5; // false  严格相等：类型 + 值都要求相同
 ```
 
-::: danger 黄金法则 **永远使用严格相等 `===` / `!==`**，避免隐式转换带来的意外。这是所有 JS 风格指南的共同第一条。:::
+::: danger 黄金法则
+
+**永远使用严格相等 `===` / `!==`**，避免隐式转换带来的意外。这是所有 JS 风格指南的共同第一条。
+
+:::
 
 ## NaN：唯一不等于自己的值
 
@@ -103,8 +110,11 @@ Number.isNaN("abc"); // false（"abc" 不是 NaN）
 isNaN("abc"); // true  ← 老的全局 isNaN 会先把 "abc" 转成 NaN，坑！
 ```
 
-::: warning 老 isNaN 的坑全局 `isNaN("abc")` 会先把字符串转成数字，转失败得到 NaN，于是返回 true——**误判**。永远用
-`Number.isNaN()`。:::
+::: warning 老 isNaN 的坑
+
+全局 `isNaN("abc")` 会先把字符串转成数字，转失败得到 NaN，于是返回 true——**误判**。永远用 `Number.isNaN()`。
+
+:::
 
 ## 浮点精度陷阱
 
@@ -137,4 +147,8 @@ console.log((total / 100).toFixed(2)); // "0.30"
 - 隐式转换：`+` 遇字符串拼接，算术运算符转数字——容易踩坑
 - `===` 是黄金法则；`NaN` 用 `Number.isNaN()`；浮点比较用误差范围
 
-::: tip 速查卡片类型转换规则的完整速查，见 [变量与数据类型速查](/cheatsheet/data/variable-type)。:::
+::: tip 速查卡片
+
+类型转换规则的完整速查，见 [变量与数据类型速查](/cheatsheet/data/variable-type)。
+
+:::

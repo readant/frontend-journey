@@ -13,8 +13,12 @@ title: 02.7 this 绑定
 - 识别"丢失 this"的场景，并用 `call` / `apply` / `bind` / 箭头函数修复
 - 说清箭头函数为什么"没有自己的 this"
 
-::: tip 前置要求需要先掌握 [函数定义与调用](/03-js/02-functions/01-define-functions)（普通函数）与
-[箭头函数](/03-js/02-functions/04-arrow-functions)（词法 this）。:::
+::: tip 前置要求
+
+需要先掌握 [函数定义与调用](/03-js/02-functions/01-define-functions)（普通函数）与
+[箭头函数](/03-js/02-functions/04-arrow-functions)（词法 this）。
+
+:::
 
 ## 概念引入：this 就是"话筒"
 
@@ -143,9 +147,13 @@ const fn = user.say; // 把方法取出来存成变量
 fn(); // undefined（独立调用，this 丢失）
 ```
 
-::: danger 为什么会丢失 `fn()` 是"裸调用"，前面没有点，`this` 回到全局/undefined，自然读不到
+::: danger 为什么会丢失
+
+`fn()` 是"裸调用"，前面没有点，`this` 回到全局/undefined，自然读不到
 `user.name`。**把对象方法赋值给变量、作为回调传参（如
-`setTimeout(user.say)`、事件监听）都会丢失 this**——这是最常见的 this 大坑。:::
+`setTimeout(user.say)`、事件监听）都会丢失 this**——这是最常见的 this 大坑。
+
+:::
 
 事件监听场景（普通函数由框架"点调用"，this 是元素）：
 
@@ -202,9 +210,12 @@ button.addEventListener("click", () => {
 });
 ```
 
-::: danger 一句话选择在需要 `this`
-**动态指向调用者**的场景（对象方法、DOM 事件回调、构造函数）**不要用箭头函数**；在需要**继承外层 this**
-的场景（回调嵌套、定时器、Promise 链）**优先用箭头函数**。:::
+::: danger 一句话选择
+
+在需要 `this` **动态指向调用者**的场景（对象方法、DOM 事件回调、构造函数）**不要用箭头函数**；在需要**继承外层 this**
+的场景（回调嵌套、定时器、Promise 链）**优先用箭头函数**。
+
+:::
 
 ## 常见坑点
 
@@ -251,7 +262,12 @@ obj.show(); // ？
 1. `undefined`——`fn()` 是裸调用，this 丢失（指向全局/undefined），不是 user。
 2. `undefined`——箭头函数没有自己的 this，这里的 this 是定义时外层（全局/模块）。
 3. `call` 立即调用并指定 this；`bind` 返回一个永久锁定 this 的新函数，之后调用 this 不再改变。
-4. 普通函数——箭头函数的 this 是外层，取不到触发元素；要元素用普通函数或 `event.currentTarget`。:::
+4. 普通函数——箭头函数的 this 是外层，取不到触发元素；要元素用普通函数或 `event.currentTarget`。
 
-::: tip 速查卡片 this 四种绑定规则与 call/apply/bind 速查，见
-[JS 函数手册 · this 绑定](/3-reference/1-handbook/js/functions)。:::
+:::
+
+::: tip 速查卡片
+
+this 四种绑定规则与 call/apply/bind 速查，见 [JS 函数手册 · this 绑定](/3-reference/1-handbook/js/functions)。
+
+:::
