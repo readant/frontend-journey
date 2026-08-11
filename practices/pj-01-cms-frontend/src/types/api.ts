@@ -149,3 +149,28 @@ export interface ProductCategoryVO {
   createdAt: string
   children: ProductCategoryVO[]
 }
+
+// --- 操作日志模块类型 ---
+
+export interface OperationLogVO {
+  id: number
+  adminId: number | null
+  module: string
+  action: string
+  targetId: number | null
+  detail: string
+  ip: string
+  createdAt: string
+}
+
+// --- 数据看板模块类型 ---
+
+export interface DashboardStatsVO {
+  adminCount: number
+  categoryCount: number
+  articleCount: number
+  productCount: number
+  articleStatus: { draft: number; published: number }
+  productByCategory: Record<string, number>
+  recentArticleTrend: { days: string[]; counts: number[] }
+}
