@@ -43,3 +43,16 @@ title: 提交规范
 ## 与内容架构的关系
 
 提交类型与仓库的三层内容结构对应：`feat` 对应新增章节/模块，`refactor` 对应章节重构（如按[页面结构标准](../01-content-rules/page-standard.md)对齐），`docs` 对应说明性更新。这让 `git log` 可以直接反映知识库的演进路径。
+
+---
+
+## 实践层项目提交规范
+
+`practices/` 下的独立前端项目采用不同的提交规范，基于 Conventional Commits 标准，按路线图 Phase 分阶段提交：
+
+- **规则文件**：`.cursor/rules/git-commit.mdc`
+- **格式**：`<type>(<scope>): <中文描述>`
+- **scope**：使用项目目录名（如 `cms-frontend`、`ecommerce-frontend`）
+- **分阶段**：每个 Phase 内的每个 F 功能点独立提交
+
+详细规范见 `.cursor/rules/git-commit.mdc`。

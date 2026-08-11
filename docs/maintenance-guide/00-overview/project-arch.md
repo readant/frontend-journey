@@ -12,7 +12,7 @@ title: 仓库架构
 | :----- | :------------------------------------------ | :--------------------------------------- | :----------------- |
 | 学习层 | `docs/01-html`、`docs/02-css`、`docs/03-js` | 深度教学：原理、类比、符号课堂、阶梯练习 | 写"为什么会这样"   |
 | 参考层 | `docs/3-reference/`                         | 速查手册、场景索引、代码骨架、知识星盘   | 写"是什么、怎么查" |
-| 实战层 | `practices/`（规划）                        | HTML 实战案例，不部署线上                | 写"怎么用起来"     |
+| 实战层 | `practices/`（4 个独立前端项目） | Vue 3 + Vite + TypeScript 全栈前端实战 | 写"怎么用起来" |
 
 **分层动机**：学习层的每一页都在做教学推导（类比 → 示例 → 测验），篇幅长、上下文依赖强；速查内容需要"一句话直达"，两者混在一处会让学习者既要读长文又要找答案。分层后：
 
@@ -39,6 +39,12 @@ docs/
 ├── cheatsheet/               # 旧速查区（已并入 3-reference，不再新增）
 ├── maintenance-guide/        # 本实践案例章节
 └── index.md                  # 首页
+
+practices/
+├── pj-01-cms-frontend/       # 项目一：CMS 管理后台（Vue 3 + Vite + TS）
+├── pj-02-ecommerce-frontend/ # 项目二：电商前端（Vue 3 + Vite + TS）
+├── pj-03-community-frontend/ # 项目三：社区前端（Vue 3 + Vite + TS）
+└── pj-04-saas-frontend/      # 项目四：SaaS 工作台（Vue 3 + Vite + TS）
 ```
 
 ## 关键约束

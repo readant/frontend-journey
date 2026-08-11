@@ -33,7 +33,7 @@
 | **笔记体系** | Markdown 笔记 + HTML 互动演示，每章含速查语法    |
 | **代码示例** | 每个知识点都有可运行的示例，边学边练             |
 | **目录结构** | 以 `docs/` 为唯一数据源，结构清晰可扩展          |
-| **工程实践** | 搭建本知识库的架构、契约与决策记录（面向开发者） |
+| **实战项目** | practices/ 下 4 个独立 Vue 3 + Vite + TypeScript 全栈项目，与 backend-journey 一一对应 |
 
 ---
 
@@ -56,6 +56,12 @@ frontend-journey/
 │   │   ├── demos/02-css/       # CSS 章节互动演示（9 个 HTML）
 │   │   └── examples/01-html/   # HTML 案例文件
 │   └── index.md                # 站点首页
+├── practices/                  # 🚀 实战层：独立 Vue 3 + Vite + TypeScript 全栈项目
+│   ├── pj-01-cms-frontend/     # 项目一：CMS 管理后台（对应 backend-journey/bj-01-cms）
+│   ├── pj-02-ecommerce-frontend/ # 项目二：电商前端（对应 backend-journey/bj-02-ecommerce）
+│   ├── pj-03-community-frontend/ # 项目三：社区前端（对应 backend-journey/bj-03-community）
+│   └── pj-04-saas-frontend/    # 项目四：SaaS 工作台（对应 backend-journey/bj-04-saas）
+├── .cursor/rules/              # Cursor AI 规则（7 条，匹配 backend-journey 风格）
 ├── .github/workflows/deploy.yml # GitHub Actions 部署工作流
 ├── scripts/gen-mindmap.mjs     # 思维导图数据生成脚本（npm run gen:mindmap）
 ├── package.json                # 项目依赖（VitePress）
@@ -155,7 +161,7 @@ Pages 自动部署：[https://readant.github.io/frontend-journey/](https://reada
 | 01-html        | 已完成 | 100% | 2026-08-05 |
 | 02-css         | 已完成 | 100% | 2026-08-05 |
 | 03-javascript  | 已完成 | 100% | 2026-08-05 |
-| 04-projects    | 未开始 |  0%  | -          |
+| 04-projects    | 进行中 |  0%  | 2026-08-11 |
 | 05-reviews     | 未开始 |  0%  | -          |
 
 ---
