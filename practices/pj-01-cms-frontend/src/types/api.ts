@@ -114,3 +114,38 @@ export interface ArticleReq {
   status: number
   author?: string
 }
+
+// --- 产品模块类型 ---
+
+export interface ProductVO {
+  id: number
+  name: string
+  description: string
+  categoryId: number | null
+  coverImage: string
+  price: number
+  status: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ProductReq {
+  name: string
+  description?: string
+  categoryId?: number | null
+  coverImage?: string
+  price: number
+  status: number
+}
+
+// --- 产品分类模块类型 ---
+
+export interface ProductCategoryVO {
+  id: number
+  name: string
+  parentId: number | null
+  sortOrder: number
+  status: number
+  createdAt: string
+  children: ProductCategoryVO[]
+}
