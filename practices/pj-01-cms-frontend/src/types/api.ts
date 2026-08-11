@@ -67,3 +67,22 @@ export interface RoleVO {
   status: number
   createdAt: string
 }
+
+// --- 栏目模块类型 ---
+
+export interface CategoryVO {
+  id: number
+  name: string
+  parentId: number | null
+  sortOrder: number
+  status: number
+  createdAt: string
+  children: CategoryVO[]
+}
+
+export interface CategoryReq {
+  name: string
+  parentId?: number | null
+  sortOrder: number
+  status: number
+}
