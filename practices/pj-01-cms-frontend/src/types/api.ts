@@ -64,5 +64,6 @@ export interface RoleVO {
   name: string
   code: string
   description: string
-  createTime: string
+  status: number
+  createdAt: string
 }
