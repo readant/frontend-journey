@@ -1,0 +1,136 @@
+---
+description: "Vue/TypeScript编码规范：命名、Composition API、组件风格"
+globs: ["**/*.ts", "**/*.vue"]
+---
+
+# Vue/TypeScript编码规范
+
+##1.命名约定
+
+- **组件文件**:PascalCase(`UserProfile.vue`、`AdminTable.vue`)
+- **非组件文件**:kebab-case(`http.ts`、`user-store.ts`)
+- **变量/函数**:camelCase(`userList`、`fetchUserData`)
+- **常量**:UPPER_SNAKE_CASE(`MAX_PAGE_SIZE`、`API_BASE_URL`)
+- **类型/接口**:PascalCase加前缀(`UserVO`、`LoginReq`、`ApiResponse<T>`)
+- **Pinia store**:camelCase加`use`前缀+`Store`后缀(`useUserStore`、`useAppStore`)
+
+##2.Composition API强制规范
+
+所有组件必须使用`<script setup lang="ts">`，禁止Options API。
+
+```vue
+<!--正确-->
+<script setup lang="ts">
+import {ref,computed} from 'vue'
+
+const count = ref(0)
+const double = computed(()=>count.value*2)
+</script>
+
+<!--错误-Options API禁止-->
+<script lang="ts">
+export default{
+data(){return{count:0}},
+computed:{double(){return this.count*2}}
+}
+</script>
+```
+
+##3.TypeScript使用规范
+
+-所有函数参数和返回值必须显式声明类型
+-对象形状优先用`interface`而非`type`(Vue生态惯例)
+-使用泛型`defineProps<T>()`和`defineEmits<T>()`而非运行时声明
+
+```vue
+<!--正确-->
+<script setup lang="ts">
+interface UserVO{
+id:number
+username:string
+email:string
+}
+
+const props = defineProps<{
+user:UserVO
+showDetail?:boolean
+}>()
+
+const emit = defineEmits<{
+(e:'update',id:number):void
+}>()
+</script>
+
+<!--错误-运行时声明-->
+<script setup lang="ts">
+const props = defineProps({
+user:{type:Object,required:true},
+showDetail:{type:Boolean,default:false}
+})
+</script>
+```
+
+##4.模板风格
+
+```vue
+<!--正确-->
+<template>
+<div class="user-card">
+<el-card>
+<template #header>
+<span>{{user.name}}</span>
+</template>
+<p>{{user.bio}}</p>
+</el-card>
+</div>
+</template>
+
+<!--错误-内联样式和混乱结构-->
+<template>
+<div style="margin:10px;padding:5px">
+<el-card><span slot="header">{{user.name}}</span><p>{{user.bio}}</p></el-card>
+</div>
+</template>
+```
+
+##5.导入顺序
+
+按以下分组顺序导入，组间空行分隔：
+
+```typescript
+//1.Vue核心
+import {ref,computed,onMounted} from 'vue'
+import {useRouter} from 'vue-router'
+
+//2.第三方库
+import {ElMessage} from 'element-plus'
+import axios from 'axios'
+
+//3.本地组件
+import UserCard from './components/UserCard.vue'
+
+//4.本地composables/utils
+import {useAuth} from '@/composables/useAuth'
+import {formatDate} from '@/utils/format'
+```
+
+##6.Less/Style规则
+
+```vue
+<!--正确-scoped样式-->
+<style scoped lang="less">
+.user-card{
+margin-bottom:16px;
+
+.card-header{
+font-size:16px;
+font-weight:bold;
+}
+}
+</style>
+
+<!--错误-未使用scoped-->
+<style lang="less">
+.user-card{margin-bottom:16px;}
+</style>
+```

@@ -1,0 +1,159 @@
+---
+description: "API对接规范：Axios封装、拦截器、错误处理、JWT鉴权"
+globs: ["**/*.ts"]
+---
+
+# API对接规范
+
+##1.Axios实例封装
+
+每个项目必须在`src/utils/http.ts`中创建统一的Axios实例：
+
+```typescript
+import axios from 'axios'
+import {ElMessage} from 'element-plus'
+import router from '@/router'
+
+const http = axios.create({
+baseURL:import.meta.env.VITE_API_BASE_URL||'/api',
+timeout:10000,
+})
+
+//请求拦截器-JWT Token注入
+http.interceptors.request.use(
+(config)=>{
+const token = localStorage.getItem('access_token')
+if(token){
+config.headers.Authorization=`Bearer ${token}`
+}
+return config
+},
+(error)=>Promise.reject(error),
+)
+
+//响应拦截器-统一错误处理(匹配后端R<T>格式)
+http.interceptors.response.use(
+(response)=>{
+const res = response.data//后端返回{R<T>}格式:{code,msg,data}
+if(res.code!==200){
+ElMessage.error(res.msg||'请求失败')
+if(res.code===401){
+localStorage.removeItem('access_token')
+router.push('/login')
+}
+return Promise.reject(new Error(res.msg))
+}
+return res.data//成功时直接返回data部分
+},
+(error)=>{
+if(error.response){
+switch(error.response.status){
+case401:
+ElMessage.error('登录已过期，请重新登录')
+localStorage.removeItem('access_token')
+router.push('/login')
+break
+case403:
+ElMessage.error('没有权限')
+break
+case404:
+ElMessage.error('资源不存在')
+break
+case500:
+ElMessage.error('服务器错误')
+break
+default:
+ElMessage.error(`错误${error.response.status}`)
+}
+}else{
+ElMessage.error('网络错误')
+}
+return Promise.reject(error)
+},
+)
+
+export default http
+```
+
+##2.API模块组织模式
+
+按业务域在`src/apis/`下组织API调用：
+
+```typescript
+//src/apis/admin.ts(匹配后端/api/v1/admins)
+import http from '@/utils/http'
+import type{AdminVO,AdminCreateReq,AdminUpdateReq}from '@/types/admin'
+
+export const adminApi={
+list(params:PageParams){
+return http.get<PageResult<AdminVO>>('/api/v1/admins',{params})
+},
+getById(id:number){
+return http.get<AdminVO>(`/api/v1/admins/${id}`)
+},
+create(data:AdminCreateReq){
+return http.post<AdminVO>('/api/v1/admins',data)
+},
+update(id:number,data:AdminUpdateReq){
+return http.put<AdminVO>(`/api/v1/admins/${id}`,data)
+},
+delete(id:number){
+return http.delete(`/api/v1/admins/${id}`)
+},
+}
+```
+
+##3.API响应类型定义(匹配后端R<T>和PageResult)
+
+```typescript
+//src/types/api.ts
+
+//后端统一返回包装(匹配backend-journey的R<T>)
+export interface ApiResponse<T>{
+code:number//200=成功，其他=错误
+msg:string//响应消息
+data:T//实际数据载荷
+}
+
+//分页响应(匹配backend-journey的PageResult)
+export interface PageResult<T>{
+records:T[]
+total:number
+pageNum:number//从1开始
+pageSize:number//默认10，最大100
+}
+
+//分页请求参数(匹配后端分页约定)
+export interface PageParams{
+pageNum?:number//页码，从1开始
+pageSize?:number//每页条数，默认10，最大100
+}
+```
+
+##4.Vite代理配置(匹配后端context-path)
+
+```typescript
+//vite.config.ts-proxy配置匹配后端服务地址和context-path
+server:{
+port:3000,
+proxy:{
+'/api':{
+target:'http://localhost:8080',
+changeOrigin:true,
+//如果后端有context-path(如/spark)，取消下面注释：
+//rewrite:(path)=>'/spark'+path,
+},
+'/uploads':{
+target:'http://localhost:8080',
+changeOrigin:true,
+},
+},
+},
+```
+
+##5.JWT鉴权流程
+
+```
+登录页→POST/api/v1/auth/login→收到JWT Token→存入localStorage→
+Axios拦截器自动注入Token→后续请求携带Authorization头→
+401响应→拦截器清除Token→跳转登录页

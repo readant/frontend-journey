@@ -1,0 +1,81 @@
+---
+description: "测试规范：测试分层、Vitest结构、Mock规范"
+globs: ["**/*.test.ts", "**/*.spec.ts"]
+---
+
+#测试规范
+
+##1.测试分层
+
+```
+        ╱╲
+       ╱ ╲        E2E（少量）- Playwright/Cypress完整业务流程测试
+      ╱────╲     
+     ╱      ╲     集成测试（适中）- Component+Store组合测试(Vitest+@vue/test-utils)
+    ╱────────╲   
+   ╱          ╲   单元测试（大量）- Composables/Utils/Pinia纯逻辑验证(Vitest)
+╱________________╲ 
+```
+
+##2.覆盖优先级
+
+-**必须覆盖**：Composables可复用逻辑(含分支、异常、边界)
+-**必须覆盖**：工具函数(日期格式化、数据转换等)
+-**建议覆盖**：Pinia store的actions/getters核心逻辑
+-**可选**：简单展示型组件的渲染测试
+
+##3.测试框架
+
+-Vitest(Vite原生测试框架，兼容Jest API)
+-@vue/test-utils(Vue组件测试工具)
+-happy-dom(轻量DOM环境)
+
+##4.测试文件位置
+
+测试文件放在源码旁边，以`.test.ts`后缀命名：
+
+```
+src/
+├── utils/
+│   ├── format.ts          #工具函数源码
+│   └── format.test.ts     #单元测试(同目录放置)
+├── composables/
+│   ├── usePagination.ts   #composable源码  
+│   └── usePagination.test.ts#单元测试(同目录放置)
+├── stores/
+│   ├── userStore.ts       #Pinia store源码  
+│   └── userStore.test.ts   #store测试(需创建Pinia实例)
+└── components/
+    ├── UserCard.vue       #组件源码  
+    └── UserCard.test.ts    #组件渲染测试(@vue/test-utils mount)
+```
+
+##5.测试结构规范
+
+```typescript
+import {describe,it,expect} from 'vitest'
+import {mount} from '@vue/test-utils'
+
+describe('UserCard组件',()=>{
+it('传入用户信息时正确渲染用户名',()=>{
+const wrapper = mount(UserCard,{
+props:{user:{name:'张三',bio:'开发者'}},
+})
+expect(wrapper.text()).toContain('张三')
+expect(wrapper.text()).toContain('开发者')
+})
+
+it('未传入用户时显示占位文本',()=>{
+const wrapper = mount(UserCard,{
+props:{user:null},
+})
+expect(wrapper.text()).toContain('暂无用户数据')
+})
+})
+```
+
+##6.命名规范
+
+-测试类名(describe)：使用中文描述(`describe('用户卡片组件')`)
+-测试方法名(it)：使用中文描述(`it('传入用户信息时正确渲染用户名')`)
+-测试文件名匹配源码文件名(`format.ts`→`format.test.ts`)

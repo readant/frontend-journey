@@ -1,0 +1,146 @@
+---
+description: "Vue 3前端知识地图 + 学习进度追踪。AI每次开发前必须读取此文件判断当前阶段。"
+alwaysApply: true
+---
+
+# Vue 3前端知识地图
+
+四层知识体系，从底到顶。标注每个知识点在哪个项目首次出现。
+
+## 第一层：Vue 3核心基础
+
+| 知识点 | 首次出现 | 说明 |
+|--------|----------|------|
+| Vue 3项目搭建（Vite） | 项目一 | create-vue脚手架 |
+| 模板语法（插值、指令） | 项目一 | `{{ }}`、`v-bind`、`v-model` |
+| Composition API: ref() / reactive() | 项目一 | 响应式状态 |
+| Composition API: computed() | 项目一 | 派生状态 |
+| Composition API: watch() / watchEffect() | 项目一 | 副作用监听 |
+| 条件渲染（v-if / v-show） | 项目一 | DOM条件显示 |
+| 列表渲染（v-for） | 项目一 | :key绑定 |
+| 事件处理（v-on / @） | 项目一 | @click等事件绑定 |
+| Class与Style绑定 | 项目一 | :class / :style动态样式 |
+| Props / Emits | 项目一 | Props类型定义、emit事件 |
+| onMounted等生命周期 | 项目一 | setup内生命周期钩子 |
+| Template refs | 项目一 | ref属性获取DOM |
+
+## 第二层：Vue生态核心
+
+| 知识点 | 首次出现 | 说明 |
+|--------|----------|------|
+| Vue Router基础 | 项目一 | createRouter配置 |
+| Vue Router嵌套路由 | 项目一 | children子路由 |
+| Vue Router导航守卫 | 项目一 | beforeEach鉴权检查 |
+| Pinia store定义 | 项目一 | defineStore setup语法 |
+| Pinia actions / getters | 项目一 | store方法/派生数据 |
+| Element Plus容器布局 | 项目一 | el-container侧边栏布局 |
+| Element Plus表格/表单 | 项目一 | el-table / el-form |
+| Element Plus对话框/抽屉 | 项目一 | el-dialog / el-drawer |
+| Element Plus树形/级联 | 项目一 | el-tree / el-cascader |
+| Element Plus分页 | 项目一 | el-pagination |
+| Axios实例创建 | 项目一 | create实例配置 |
+| Axios拦截器 | 项目一 | request/response拦截 |
+| Axios错误处理 | 项目一 | HTTP状态码统一处理 |
+
+## 第三层：高级组件模式
+
+| 知识点 | 首次出现 | 说明 |
+|--------|----------|------|
+| v-model组件双向绑定 | 项目二 | defineModel |
+| Slots（默认/具名/作用域） | 项目二 | `<slot>`内容分发 |
+| Dynamic Components | 项目二 | `<component :is="">` |
+| Async Components | 项目二 | defineAsyncComponent懒加载 |
+| Provide / Inject | 项目二 |跨层级依赖注入 |
+| Composables自定义Hook | 项目二 | useXxx可复用逻辑提取 |
+| Transition动画 | 项目二 | enter/leave过渡效果 |
+| Teleport传送门 | 项目二 | Portal渲染 |
+| Suspense异步依赖 | 项目二 | async setup处理 |
+
+##第四层：工程化与性能
+
+|知识点|首次出现|说明|
+|---|---|---|
+| TypeScript泛型在Vue中应用 |项目二|泛型props、ref类型|
+|环境变量(import.meta.env)|项目二|dev/prod环境配置|
+|代码分割(路由懒加载)|项目二|路由级代码分割|
+|虚拟滚动|项目三|大数据列表优化|
+|防抖/节流工具函数|项目三|性能优化|
+|WebSocket集成|项目三|实时通知|
+|ECharts集成Vue|项目一|图表组件渲染|
+|Docker多阶段构建|项目四|前端容器化|
+
+---
+
+#学习进度追踪
+
+> AI每次教完新知识点后，必须更新下方表格。
+
+##当前状态
+
+- **当前项目**：pj-01-cms-frontend（兴华小组官网）
+- **当前阶段**：阶段一（语法锚定期）
+- **已完成功能**：无
+
+##知识点掌握情况
+
+|知识点|状态|首次出现|关联功能|
+|---|---|---|---|
+|Vue3项目搭建(Vite)|⬜未开始|项目一|脚手架搭建|
+
+###状态标记说明
+
+- ⬜未开始
+- 🔄本次学习中
+- ✅已掌握(能独立使用)
+- 🔁需复习
+
+---
+
+#Vue核心概念速查
+
+> AI在讲解新概念时，用通俗语言和生活化比喻来解释，不依赖其他框架经验。
+
+##模板语法
+
+```vue
+<template>
+<div>{{message}}</div>
+</template>
+
+<script setup lang="ts">
+const message = ref('Hello Vue!')
+</script>
+```
+
+**通俗理解**:`{{}}`就像Word文档里的占位符——你放在哪里，Vue就会自动把实际值填进去。
+
+##响应式状态(ref/reactive)
+
+```vue
+<script setup lang="ts">
+import {ref} from 'vue'
+
+const count = ref(0)//简单值包装器
+
+function increment(){
+count.value++//ref必须用.value访问
+}
+</script>
+```
+
+**通俗理解**:ref就像一个礼品盒——实际值放在盒子里(.value)，Vue会盯着这个盒子，里面的东西变了它就知道。
+
+##组件通信
+
+```vue
+<!--父组件-->
+<ChildComponent :title="pageTitle" @update="handleUpdate"/>
+
+<!--子组件-->
+<script setup lang="ts">
+const props = defineProps<{title:string}>()
+const emit = defineEmits<{update:[value:string]}>()
+</script>
+```
+
+**通俗理解**:Props就像家长递给孩子的纸条；Emits就像孩子举手告诉家长事情。
