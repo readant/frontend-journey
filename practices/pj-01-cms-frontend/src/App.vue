@@ -7,6 +7,8 @@ import { RouterView } from 'vue-router'
 </template>
 
 <style lang="less">
+@import '@/styles/variables.less';
+
 * {
   margin: 0;
   padding: 0;
@@ -15,6 +17,9 @@ import { RouterView } from 'vue-router'
 
 html, body, #app {
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 </style>
