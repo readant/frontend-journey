@@ -5,12 +5,13 @@ export interface ApiResponse<T> {
   data: T       // 实际数据载荷
 }
 
-// 分页响应（匹配 backend-journey 的 PageResult）
+// 分页响应（匹配 MyBatis-Plus Page 序列化字段）
 export interface PageResult<T> {
   records: T[]
   total: number
-  pageNum: number   // 从1开始
-  pageSize: number   // 默认10，最大100
+  size: number   // 每页条数
+  current: number // 当前页
+  pages: number   // 总页数
 }
 
 // 分页请求参数（匹配后端分页约定）
@@ -85,4 +86,31 @@ export interface CategoryReq {
   parentId?: number | null
   sortOrder: number
   status: number
+}
+
+// --- 文章模块类型 ---
+
+export interface ArticleVO {
+  id: number
+  title: string
+  summary: string
+  content: string
+  categoryId: number | null
+  categoryName: string
+  coverImage: string
+  status: number   // 0=草稿，1=已发布
+  author: string
+  viewCount: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ArticleReq {
+  title: string
+  summary?: string
+  content?: string
+  categoryId?: number | null
+  coverImage?: string
+  status: number
+  author?: string
 }
