@@ -32,6 +32,7 @@ export interface StarNode {
   phonetic?: string; // 音节拆分（e.g. "just-i-fy"）
   mnemonic?: string; // 中文谐音助记
   code?: string; // 代码示例
+  link?: string; // 对应手册章节（站点相对路径，与 graph-data.json 链接层同源；组件内拼 BASE_URL）
   tags: string[]; // 中文口语化标签（搜索用）
   links?: string[]; // 星轨连接关系（流向的子节点 id）
   /** 星芒射线数量（仅大/中星星生效，缺省按层级默认：大 12 / 中 8） */
@@ -98,6 +99,7 @@ export const stars: StarNode[] = [
     mnemonic: "赛曼提克 —— 有「语义」才赛高",
     code: "<header>页头</header>\n<nav>导航</nav>\n<article>正文</article>\n<footer>页脚</footer>",
     tags: ["语义化", "结构", "标签", "骨架", "意思清楚"],
+    link: "/3-reference/1-handbook/html/semantic",
     links: ["structure", "form", "media", "seo", "meta", "title", "alt"],
   },
   {
@@ -112,6 +114,7 @@ export const stars: StarNode[] = [
     phonetic: "doc-u-ment",
     mnemonic: "道库门特 —— 文档即「道」",
     tags: ["骨架", "文档", "结构", "头部", "头部信息"],
+    link: "/3-reference/1-handbook/html/index",
     links: ["title"],
   },
   {
@@ -124,6 +127,7 @@ export const stars: StarNode[] = [
     y: 30,
     desc: "收集用户输入并做校验：必填、格式、长度，前端拦一道，后端再拦一道",
     tags: ["表单", "输入", "提交", "校验", "必填"],
+    link: "/3-reference/1-handbook/html/forms",
     links: ["placeholder", "required", "input-type"],
   },
   {
@@ -138,6 +142,7 @@ export const stars: StarNode[] = [
     phonetic: "me-di-a",
     mnemonic: "米迪亚 —— 媒体是「米」",
     tags: ["图片", "视频", "音频", "播放", "嵌入"],
+    link: "/3-reference/1-handbook/html/media",
     links: ["alt", "video-audio", "iframe"],
   },
   {
@@ -152,6 +157,7 @@ export const stars: StarNode[] = [
     phonetic: "e-se-o",
     mnemonic: "E-SEO —— 搜索的「SEO」",
     tags: ["搜索", "排名", "优化", "描述", "收录"],
+    link: "/3-reference/1-handbook/html/seo",
     links: ["meta"],
   },
   {
@@ -167,6 +173,7 @@ export const stars: StarNode[] = [
     mnemonic: "普雷斯·霍尔德 —— 占「位」的持有者",
     code: '<input placeholder="请输入用户名" />',
     tags: ["占位", "灰色字", "提示文字", "示例"],
+    link: "/3-reference/1-handbook/html/forms",
   },
   {
     id: "required",
@@ -181,6 +188,7 @@ export const stars: StarNode[] = [
     mnemonic: "瑞奎尔德 —— 被「需要」的",
     code: '<input type="text" required />',
     tags: ["必填", "不能不填", "校验", "不能为空"],
+    link: "/3-reference/1-handbook/html/forms",
   },
   {
     id: "input-type",
@@ -193,6 +201,7 @@ export const stars: StarNode[] = [
     desc: "input 的 type 决定输入形态：text/password/email/number…",
     code: '<input type="email" />\n<input type="password" />',
     tags: ["输入框", "类型", "密码", "邮箱", "数字", "手机号"],
+    link: "/3-reference/1-handbook/html/forms",
   },
 
   {
@@ -206,6 +215,7 @@ export const stars: StarNode[] = [
     desc: "head 里的 meta 标签：描述、关键词、字符集，是页面的名片",
     code: '<meta charset="UTF-8" />\n<meta name="description" content="一句话介绍" />',
     tags: ["描述", "简介", "编码", "字符集", "关键词"],
+    link: "/3-reference/1-handbook/html/seo",
   },
   {
     id: "title",
@@ -218,6 +228,7 @@ export const stars: StarNode[] = [
     desc: "浏览器页签上显示的文字，也是 SEO 的重要一环",
     code: "<title>我的页面</title>",
     tags: ["标题", "页签", "名字"],
+    link: "/3-reference/1-handbook/html/index",
   },
   {
     id: "alt",
@@ -230,6 +241,7 @@ export const stars: StarNode[] = [
     desc: "图片无法显示时展示的文字，读屏软件也靠它朗读",
     code: '<img src="cat.png" alt="一只橘猫" />',
     tags: ["图片", "说明", "图挂了", "替代文字", "无障碍"],
+    link: "/3-reference/1-handbook/html/media",
   },
   {
     id: "video-audio",
@@ -242,6 +254,7 @@ export const stars: StarNode[] = [
     desc: "原生音视频标签，自带控制条与事件",
     code: '<video src="movie.mp4" controls></video>\n<audio src="bgm.mp3" controls></audio>',
     tags: ["视频", "音频", "播放", "控制条", "音乐"],
+    link: "/3-reference/1-handbook/html/media",
   },
   {
     id: "iframe",
@@ -256,6 +269,7 @@ export const stars: StarNode[] = [
     mnemonic: "爱·弗雷姆 —— 内嵌的「框」",
     code: '<iframe src="https://example.com"></iframe>',
     tags: ["内嵌", "嵌入", "地图", "第三方"],
+    link: "/3-reference/1-handbook/html/media",
   },
 
   // ==================== 🟩 云野 · CSS（右上） ====================
@@ -274,6 +288,7 @@ export const stars: StarNode[] = [
     mnemonic: "弗莱克斯盒子 —— 会伸缩的盒子",
     code: ".parent {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}",
     tags: ["横着排", "竖着放", "弹性", "对齐", "居中", "排均匀", "平分"],
+    link: "/3-reference/1-handbook/css/layout/flex",
     links: ["box-model", "grid", "position", "animation", "align-items", "gap", "flex-basis"],
   },
   {
@@ -289,6 +304,7 @@ export const stars: StarNode[] = [
     mnemonic: "盒子模特 —— 有棱有角",
     code: "* { box-sizing: border-box; }",
     tags: ["盒子", "内边距", "边框", "外边距", "尺寸", "宽度"],
+    link: "/3-reference/1-handbook/css/box-model",
     links: ["margin-collapse"],
   },
   {
@@ -304,6 +320,7 @@ export const stars: StarNode[] = [
     mnemonic: "格瑞德 —— 网格的「格」",
     code: ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 12px;\n}",
     tags: ["九宫格", "宫格", "二维", "行列", "卡片墙"],
+    link: "/3-reference/1-handbook/css/layout/grid",
   },
   {
     id: "position",
@@ -318,6 +335,7 @@ export const stars: StarNode[] = [
     mnemonic: "波西审 —— 摆放「位置」",
     code: ".top { position: sticky; top: 0; }",
     tags: ["定位", "悬浮", "吸顶", "固定", "参照物"],
+    link: "/3-reference/1-handbook/css/layout/position",
     links: ["z-index"],
   },
   {
@@ -330,6 +348,7 @@ export const stars: StarNode[] = [
     y: 48,
     desc: "关键帧驱动的自动动画：旋转、呼吸、循环、入场",
     tags: ["动画", "关键帧", "旋转", "呼吸", "循环"],
+    link: "/3-reference/1-handbook/css/animation",
     links: ["keyframes", "transform"],
   },
   {
@@ -343,6 +362,7 @@ export const stars: StarNode[] = [
     desc: "flex/grid 容器里，控制项目在交叉轴（默认竖轴）上的对齐",
     code: ".parent { display: flex; align-items: center; }",
     tags: ["垂直对齐", "上下居中", "对齐"],
+    link: "/3-reference/1-handbook/css/layout/flex",
   },
   {
     id: "gap",
@@ -355,6 +375,7 @@ export const stars: StarNode[] = [
     desc: "flex/grid 项目之间的统一间距，替代古老的 margin 方案",
     code: ".parent { display: flex; gap: 16px; }",
     tags: ["间距", "缝隙", "空隙", "隔开"],
+    link: "/3-reference/1-handbook/css/layout/flex",
   },
   {
     id: "flex-basis",
@@ -367,6 +388,7 @@ export const stars: StarNode[] = [
     desc: "弹性项目伸缩前的初始尺寸，flex 三兄弟之一",
     code: ".item { flex: 1 1 200px; }",
     tags: ["基础尺寸", "宽度", "弹性基准", "初始大小"],
+    link: "/3-reference/1-handbook/css/layout/flex",
   },
   {
     id: "margin-collapse",
@@ -378,6 +400,7 @@ export const stars: StarNode[] = [
     y: 40,
     desc: "垂直方向相邻的 margin 会合并取大值，新手必踩的坑",
     tags: ["外边距", "合并", "塌陷", "取大值"],
+    link: "/3-reference/1-handbook/css/box-model",
   },
   {
     id: "z-index",
@@ -390,6 +413,7 @@ export const stars: StarNode[] = [
     desc: "控制定位元素谁压谁，数字越大越靠上",
     code: ".modal { position: fixed; z-index: 100; }",
     tags: ["层叠", "压住", "盖住", "谁在上面", "遮挡"],
+    link: "/3-reference/1-handbook/css/layout/position",
   },
   {
     id: "keyframes",
@@ -402,6 +426,7 @@ export const stars: StarNode[] = [
     desc: "定义动画各阶段的状态，配合 animation 使用",
     code: "@keyframes spin {\n  to { transform: rotate(360deg); }\n}",
     tags: ["关键帧", "循环", "动画帧", "旋转动画"],
+    link: "/3-reference/1-handbook/css/animation",
   },
   {
     id: "transform",
@@ -414,6 +439,7 @@ export const stars: StarNode[] = [
     desc: "对元素做旋转/缩放/平移/倾斜，GPU 加速不重排",
     code: ".box:hover { transform: scale(1.1); }",
     tags: ["旋转", "缩放", "平移", "倾斜", "放大"],
+    link: "/3-reference/1-handbook/css/animation",
   },
 
   // ==================== 🟨 雨林 · JavaScript（左下） ====================
@@ -432,6 +458,7 @@ export const stars: StarNode[] = [
     mnemonic: "格廷·斯塔提德 —— 一切从「入门」出发",
     code: 'console.log("Hello, JS!");\nalert("欢迎");\nF12 → Console 敲一句',
     tags: ["入门", "运行", "控制台", "script", "console", "alert", "第一行代码", "怎么跑"],
+    link: "/3-reference/1-handbook/js/intro",
     links: ["let-const", "arrow-fn", "event-loop", "map-reduce"],
   },
   {
@@ -446,6 +473,7 @@ export const stars: StarNode[] = [
     y: 80,
     desc: "一切前端交互的引擎：变量、函数、对象、异步都从这里长出来",
     tags: ["javascript", "脚本", "核心", "基础", "语言"],
+    link: "/3-reference/1-handbook/js/intro",
     links: [
       "intro",
       "closure",
@@ -473,6 +501,7 @@ export const stars: StarNode[] = [
     mnemonic: "克楼热 —— 把变量「关」起来",
     code: "function counter() {\n  let n = 0;\n  return () => ++n;\n}",
     tags: ["闭包", "记住变量", "私有", "作用域", "计数器"],
+    link: "/3-reference/1-handbook/js/closure",
   },
   {
     id: "prototype",
@@ -485,6 +514,7 @@ export const stars: StarNode[] = [
     desc: "对象找属性找不到时，沿着 __proto__ 一路向上找，直到 null",
     code: "Array.prototype.myMethod = function () {}",
     tags: ["原型", "继承", "挂方法", "原型链", "__proto__"],
+    link: "/3-reference/1-handbook/js/object",
   },
   {
     id: "promise",
@@ -499,6 +529,7 @@ export const stars: StarNode[] = [
     mnemonic: "普拉米斯 —— 向你「许诺」",
     code: "fetch(url)\n  .then((r) => r.json())\n  .catch((e) => console.error(e));",
     tags: ["承诺", "异步", "回调", "链式", "then", "回调地狱"],
+    link: "/3-reference/1-handbook/js/async",
   },
   {
     id: "event-loop",
@@ -510,6 +541,7 @@ export const stars: StarNode[] = [
     y: 94,
     desc: "JS 单线程的调度中枢：同步先跑，微任务先于宏任务",
     tags: ["事件循环", "微任务", "宏任务", "顺序", "单线程"],
+    link: "/3-reference/1-handbook/js/async",
   },
   {
     id: "this-binding",
@@ -522,6 +554,7 @@ export const stars: StarNode[] = [
     desc: "this 指「谁调用它」，而不是「谁定义它」；箭头函数没有自己的 this",
     code: "btn.onclick = () => console.log(this); // 箭头函数 = 外层 this",
     tags: ["this", "指向", "调用者", "箭头函数"],
+    link: "/3-reference/1-handbook/js/functions",
   },
   {
     id: "let-const",
@@ -534,6 +567,7 @@ export const stars: StarNode[] = [
     desc: "ES6 块级作用域声明：let 可改、const 只读，告别 var 的坑",
     code: "let count = 0;\nconst MAX = 10;",
     tags: ["变量", "声明", "块级", "常量", "const"],
+    link: "/3-reference/1-handbook/js/variables",
   },
   {
     id: "arrow-fn",
@@ -546,6 +580,7 @@ export const stars: StarNode[] = [
     desc: "函数的简写形式，且不绑定自己的 this",
     code: "const add = (a, b) => a + b;",
     tags: ["箭头", "简写", "函数", "=>"],
+    link: "/3-reference/1-handbook/js/functions",
   },
   {
     id: "map-reduce",
@@ -558,6 +593,7 @@ export const stars: StarNode[] = [
     desc: "声明式遍历：map 加工、filter 过滤、reduce 累加，不污染原数组",
     code: "arr.map(x => x * 2)\n   .filter(x => x > 10)\n   .reduce((a, b) => a + b, 0)",
     tags: ["遍历", "加工", "累加", "过滤", "reduce"],
+    link: "/3-reference/1-handbook/js/array",
   },
   {
     id: "async-await",
@@ -570,6 +606,7 @@ export const stars: StarNode[] = [
     desc: "让异步代码长得像同步：await 会「暂停」函数直到 Promise 落定",
     code: "async function load() {\n  const data = await fetch(url);\n  return data.json();\n}",
     tags: ["等待", "暂停", "同步写法", "异步"],
+    link: "/3-reference/1-handbook/js/async",
   },
   {
     id: "event-delegation",
@@ -582,6 +619,7 @@ export const stars: StarNode[] = [
     desc: "把事件绑到父元素，靠冒泡捕获子元素触发，动态列表的救星",
     code: "list.onclick = (e) => {\n  if (e.target.closest('button')) { /* … */ }\n}",
     tags: ["事件委托", "冒泡", "代理", "动态列表"],
+    link: "/3-reference/1-handbook/js/event",
   },
 
   // ==================== ⬛ 暮土 · 工程化（右下） ====================
@@ -597,6 +635,7 @@ export const stars: StarNode[] = [
     y: 80,
     desc: "记录每次修改的快照，随时回退、多线并行、多人协作的基石",
     tags: ["版本控制", "回退", "快照", "提交", "历史"],
+    link: "/3-reference/1-handbook/engineering/git",
     links: ["npm", "build", "lint", "commit", "branch", "merge", "rebase", "gitignore"],
   },
   {
@@ -612,6 +651,7 @@ export const stars: StarNode[] = [
     mnemonic: "「嗯怕米」—— node 包管理器",
     code: "npm install lodash\nnpm run build",
     tags: ["包", "依赖", "安装", "脚手架", "npm"],
+    link: "/3-reference/1-handbook/engineering/npm",
     links: ["package-json", "node-modules"],
   },
   {
@@ -624,6 +664,7 @@ export const stars: StarNode[] = [
     y: 66,
     desc: "把源码打包成浏览器能用的产物：压缩、转译、拆包",
     tags: ["构建", "打包", "编译", "压缩", "vite"],
+    link: "/3-reference/1-handbook/engineering/build-tools",
   },
   {
     id: "lint",
@@ -635,6 +676,7 @@ export const stars: StarNode[] = [
     y: 93,
     desc: "用工具统一代码风格、拦截低级错误，团队协作的「宪法」",
     tags: ["规范", "检查", "报错", "格式", "eslint"],
+    link: "/3-reference/1-handbook/engineering/index",
   },
   {
     id: "commit",
@@ -647,6 +689,7 @@ export const stars: StarNode[] = [
     desc: "把一组改动存成一次快照，附上说明文字",
     code: 'git add .\ngit commit -m "feat: 新增登录页"',
     tags: ["提交", "保存", "快照", "记录"],
+    link: "/3-reference/1-handbook/engineering/git",
   },
   {
     id: "branch",
@@ -659,6 +702,7 @@ export const stars: StarNode[] = [
     desc: "从主线分出独立开发线，互不干扰，完事后合并回去",
     code: "git checkout -b feature/login",
     tags: ["分支", "新线", "隔离", "feature"],
+    link: "/3-reference/1-handbook/engineering/git",
   },
   {
     id: "merge",
@@ -671,6 +715,7 @@ export const stars: StarNode[] = [
     desc: "把一条分支的改动并回另一条分支",
     code: "git merge feature/login",
     tags: ["合并", "融合", "并回"],
+    link: "/3-reference/1-handbook/engineering/git",
   },
   {
     id: "rebase",
@@ -683,6 +728,7 @@ export const stars: StarNode[] = [
     desc: "把当前分支的提交「重放」到另一条基线上，历史更线性",
     code: "git rebase main",
     tags: ["变基", "重排", "历史", "线性"],
+    link: "/3-reference/1-handbook/engineering/git",
   },
   {
     id: "package-json",
@@ -694,6 +740,7 @@ export const stars: StarNode[] = [
     y: 84,
     desc: "项目的身份证：依赖列表、脚本命令、版本号都在这",
     tags: ["项目", "清单", "依赖列表", "scripts"],
+    link: "/3-reference/1-handbook/engineering/npm",
   },
   {
     id: "node-modules",
@@ -705,6 +752,7 @@ export const stars: StarNode[] = [
     y: 90,
     desc: "npm 安装的第三方代码存放处，体积巨大且可随时重建",
     tags: ["依赖", "目录", "很大", "不用提交", "node_modules"],
+    link: "/3-reference/1-handbook/engineering/npm",
   },
   {
     id: "gitignore",
@@ -717,6 +765,7 @@ export const stars: StarNode[] = [
     desc: "告诉 Git 哪些文件不要跟踪：node_modules、日志、构建产物",
     code: "node_modules/\n*.log\ndist/",
     tags: ["忽略", "排除", "不上传", "gitignore"],
+    link: "/3-reference/1-handbook/engineering/git",
   },
 ];
 

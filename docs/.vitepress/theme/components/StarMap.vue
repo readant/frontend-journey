@@ -10,7 +10,7 @@
  * - 搜索：输入中文大白话（如「横着排」），对应星星升起冲天光柱
  */
 import { ref, reactive, computed, onMounted, onBeforeUnmount, watch } from "vue";
-import { constellations, stars, starMap, type Constellation, type StarNode } from "./star-map-data";
+import { constellations, stars, starMap, type Constellation, type ConstellationId, type StarNode } from "./star-map-data";
 
 /** 全屏模式：供 3-Reference/index.md（layout: false 全屏星盘入口）使用，容器铺满视口 */
 const props = withDefaults(defineProps<{ fullscreen?: boolean }>(), { fullscreen: false });
@@ -39,6 +39,31 @@ const colorOf = (c: string) => constellations.find((k) => k.id === c)?.color ?? 
 const glowOf = (c: string) =>
   constellations.find((k) => k.id === c)?.glow ?? "rgba(255,255,255,.5)";
 const constellationOf = (c: string) => constellations.find((k) => k.id === c);
+
+/**
+ * 星座 → 参考层入口映射（修复「光之翼」面板深挖链接写死为 CSS 的问题）：
+ * handbook 指向所在域手册首页，scenario 指向该域最匹配的场景入口。
+ * HTML / 工程化暂无专属场景页，统一回落场景索引总页。
+ */
+const domainOf = (c: ConstellationId) =>
+  ({
+    morning: {
+      handbook: "3-reference/1-handbook/html/",
+      scenario: "3-reference/2-scenarios/",
+    },
+    cloud: {
+      handbook: "3-reference/1-handbook/css/",
+      scenario: "3-reference/2-scenarios/layout",
+    },
+    rain: {
+      handbook: "3-reference/1-handbook/js/",
+      scenario: "3-reference/2-scenarios/run",
+    },
+    dusk: {
+      handbook: "3-reference/1-handbook/engineering/",
+      scenario: "3-reference/2-scenarios/",
+    },
+  })[c];
 
 /** 聚焦后的飞行目标：桌面端飞到左侧区域中心，给右侧「光之翼」面板让位 */
 const focusTarget = computed(() => {
@@ -551,8 +576,12 @@ const focusedConstellation = computed(() =>
             <span v-for="t in focused.tags" :key="t" class="tag">{{ t }}</span>
           </div>
           <div class="wing-foot">
-            深挖：<a :href="base + '3-reference/1-handbook/css/'">📖 知识手册</a> ·
-            <a :href="base + '3-reference/2-scenarios/layout'">🔍 场景索引</a>
+            <a v-if="focused.link" :href="base + focused.link" class="wing-read">📖 阅读原文</a>
+            <template v-else>
+              <a :href="base + domainOf(focused.constellation).handbook">
+                📖 {{ focusedConstellation?.name }}知识手册</a> ·
+              <a :href="base + domainOf(focused.constellation).scenario">🔍 场景索引</a>
+            </template>
           </div>
         </aside>
       </transition>
@@ -1139,6 +1168,19 @@ const focusedConstellation = computed(() =>
 .wing-foot a {
   color: #a8b1ff;
   text-decoration: none;
+}
+
+.wing-read {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(168, 177, 255, 0.4);
+  background: rgba(168, 177, 255, 0.08);
+}
+
+.wing-read:hover {
+  background: rgba(168, 177, 255, 0.18);
 }
 
 .wing-foot a:hover {
