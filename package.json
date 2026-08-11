@@ -7,7 +7,8 @@
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "gen:mindmap": "node scripts/gen-mindmap.mjs"
+    "gen:mindmap": "node scripts/gen-mindmap.mjs",
+    "check:links": "node scripts/check-md-links.mjs"
   },
   "repository": {
     "type": "git",

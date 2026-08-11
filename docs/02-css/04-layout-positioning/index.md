@@ -185,7 +185,7 @@ left: 0;
 
 ### BFC 与布局
 
-BFC（块级格式化上下文）影响浮动清除和 margin 合并，详见 [盒模型章节](/02-css/03-box-model/#bfc-块级格式化上下文)。
+BFC（块级格式化上下文）影响浮动清除和 margin 合并，详见 [盒模型章节](/02-css/03-box-model/#bfc块级格式化上下文)。
 
 - **清除浮动**：父元素 `display: flow-root`（推荐）或 `overflow: hidden`
 - **sticky 失效排查**：父级 `overflow` 非 `visible` 会导致 `position: sticky` 失效

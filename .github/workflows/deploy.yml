@@ -48,6 +48,9 @@ jobs:
       - name: Install dependencies
         run: npm ci # 按 lockfile 精确安装依赖
 
+      - name: Check dead links
+        run: npm run check:links # 校验所有 markdown 本地链接，发现死链即中断构建
+
       - name: Build with VitePress
         run: npm run build # 构建 VitePress 站点
 
