@@ -30,7 +30,33 @@ for (const mod of modules) {
 
   // 读取 YAML 数据源
   const dataPath = join(MINDMAP_DIR, 'mindmap-data.yml')
-  const data = parse(readFileSync(dataPath, 'utf-8'))
+  let data
+  try {
+    data = parse(readFileSync(dataPath, 'utf-8'))
+  } catch (e) {
+    throw new Error(`[${mod}] 解析 ${dataPath} 失败: ${e.message}`)
+  }
+
+  // 校验数据源结构，出错时定位到具体模块与节点，避免静默生成畸形 Markdown
+  if (!data || typeof data !== 'object' || Array.isArray(data) || !Array.isArray(data.branches)) {
+    throw new Error(`[${mod}] 数据源缺少 branches 数组: ${dataPath}`)
+  }
+  data.branches.forEach((branch, bi) => {
+    const at = (field) => `[${mod}] branches[${bi}] 缺少 ${field}`
+    if (!branch || typeof branch !== 'object' || typeof branch.name !== 'string') {
+      throw new Error(at('name'))
+    }
+    if (!Array.isArray(branch.children)) {
+      throw new Error(at('children'))
+    }
+    branch.children.forEach((child, ci) => {
+      const cat = `[${mod}] branches[${bi}].children[${ci}] 缺少 `
+      if (!child || typeof child !== 'object') throw new Error(cat + '对象')
+      for (const key of ['num', 'name', 'link', 'keys']) {
+        if (typeof child[key] !== 'string' || !child[key]) throw new Error(cat + key)
+      }
+    })
+  })
 
   // 生成 markmap 格式的 Markdown（嵌套列表）
   let md = `# ${data.title}\n\n`
