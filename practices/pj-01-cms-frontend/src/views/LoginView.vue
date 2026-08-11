@@ -2,16 +2,35 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores/userStore'
+import type { LoginReq } from '@/types/api'
 
 const router = useRouter()
-const loginForm = ref({
+const userStore = useUserStore()
+
+const loginForm = ref<LoginReq>({
   username: '',
-  password: ''
+  password: '',
 })
 
-function handleLogin() {
-  ElMessage.success('登录成功（演示页面）')
-  router.push('/home')
+const loading = ref(false)
+
+async function handleLogin() {
+  if (!loginForm.value.username || !loginForm.value.password) {
+    ElMessage.warning('请输入用户名和密码')
+    return
+  }
+
+  loading.value = true
+  try {
+    await userStore.login(loginForm.value)
+    ElMessage.success('登录成功')
+    router.push('/dashboard')
+  } catch (error: any) {
+    ElMessage.error(error?.msg || '登录失败，请检查用户名和密码')
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -19,15 +38,17 @@ function handleLogin() {
   <div class="login-container">
     <div class="login-card">
       <h2 class="login-title">兴华小组官网 - 管理后台</h2>
-      <el-form :model="loginForm" label-width="80px">
+      <el-form :model="loginForm" label-width="80px" @keyup.enter="handleLogin">
         <el-form-item label="用户名">
           <el-input v-model="loginForm.username" placeholder="请输入用户名" />
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="loginForm.password" type="password" placeholder="请输入密码" />
+          <el-input v-model="loginForm.password" type="password" placeholder="请输入密码" show-password />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleLogin" style="width: 100%">登 录</el-button>
+          <el-button type="primary" :loading="loading" @click="handleLogin" style="width: 100%">
+            {{ loading ? '登录中...' : '登 录' }}
+          </el-button>
         </el-form-item>
       </el-form>
     </div>

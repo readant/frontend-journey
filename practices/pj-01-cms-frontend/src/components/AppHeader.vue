@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
+import { useUserStore } from '@/stores/userStore'
 
 const router = useRouter()
+const userStore = useUserStore()
 
 function handleLogout() {
   ElMessageBox.confirm('确定要退出登录吗？', '提示', {
@@ -10,7 +12,7 @@ function handleLogout() {
     cancelButtonText: '取消',
     type: 'warning',
   }).then(() => {
-    localStorage.removeItem('access_token')
+    userStore.logout()
     router.push('/login')
   })
 }
@@ -25,7 +27,7 @@ function handleLogout() {
       <el-dropdown @command="handleLogout">
         <span class="user-info">
           <el-icon><User /></el-icon>
-          <span>管理员</span>
+          <span>{{ userStore.username }}</span>
           <el-icon><ArrowDown /></el-icon>
         </span>
         <template #dropdown>

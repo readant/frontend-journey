@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
+import type { ApiResponse } from '@/types/api'
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
@@ -22,7 +23,7 @@ http.interceptors.request.use(
 // 响应拦截器 - 统一错误处理（匹配后端 R<T> 格式）
 http.interceptors.response.use(
   (response) => {
-    const res = response.data
+    const res = response.data as ApiResponse<unknown>
     if (res.code !== 200) {
       ElMessage.error(res.msg || '请求失败')
       if (res.code === 401) {
@@ -31,7 +32,7 @@ http.interceptors.response.use(
       }
       return Promise.reject(new Error(res.msg))
     }
-    return res.data
+    return res.data as any
   },
   (error) => {
     if (error.response) {
@@ -60,4 +61,21 @@ http.interceptors.response.use(
   },
 )
 
-export default http
+// 包装方法，提供正确的返回类型 Promise<T> 而非 Promise<AxiosResponse<T>>
+export function get<T>(url: string, params?: Record<string, unknown>): Promise<T> {
+  return http.get(url, { params }) as unknown as Promise<T>
+}
+
+export function post<T>(url: string, data?: unknown): Promise<T> {
+  return http.post(url, data) as unknown as Promise<T>
+}
+
+export function put<T>(url: string, data?: unknown): Promise<T> {
+  return http.put(url, data) as unknown as Promise<T>
+}
+
+export function del<T>(url: string): Promise<T> {
+  return http.delete(url) as unknown as Promise<T>
+}
+
+export default { get, post, put, del }
