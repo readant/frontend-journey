@@ -8,6 +8,35 @@ alwaysApply: false
 
 > 基于 Conventional Commits 标准，适配 practices/ 下独立项目的分阶段开发场景。每次提交对应路线图中的一个 Phase 或子功能 F，让 git log 成为项目演进的精确编年史。
 
+## 分支策略
+
+每个实践项目在独立分支上开发，完成后合并到 main：
+
+```
+main（稳定基线：docs/ + .cursor/rules/）
+│
+├── project/cms-frontend        # 项目一：兴华小组官网
+│   ├── feat: F1.1 脚手架搭建
+│   ├── feat: F1.2 布局导航
+│   ├── ...
+│   └── (项目完成后合并到 main)
+│
+├── project/ecommerce-frontend  # 项目二：电商前端
+│   └── ...
+│
+├── project/community-frontend  # 项目三：社区前端
+│   └── ...
+│
+└── project/saas-frontend       # 项目四：SaaS 工作台
+    └── ...
+```
+
+**分支规则**：
+- `project/<项目名>` 分支只包含该项目的代码变更
+- 每个 Phase 内的 F 功能点独立提交，提交信息带 Phase/F 编号
+- 一个项目全部开发完成后，合并回 `main`
+- `main` 分支只包含 `docs/`、`.cursor/rules/` 和已完成的实践项目
+
 ## 提交信息格式
 
 ```
