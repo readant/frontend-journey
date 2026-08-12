@@ -1,0 +1,25 @@
+# 依赖
+node_modules
+
+# 构建产物
+dist
+dist-ssr
+
+# 自动生成（unplugin-auto-import / unplugin-vue-components）
+auto-imports.d.ts
+components.d.ts
+
+# 日志
+logs
+*.log
+npm-debug.log*
+
+# 编辑器
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# 环境变量
+.env.local
+.env.*.local
