@@ -28,6 +28,7 @@ function openPortal() {
 <template>
   <div class="header-container">
     <div class="header-left">
+      <span class="header-dot"></span>
       <span class="header-title">兴华小组官网 - 管理后台</span>
     </div>
     <div class="header-right">
@@ -51,6 +52,8 @@ function openPortal() {
 </template>
 
 <style scoped lang="less">
+@import '@/styles/variables.less';
+
 .header-container {
   width: 100%;
   display: flex;
@@ -58,10 +61,24 @@ function openPortal() {
   align-items: center;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, @primary-color, @accent-color);
+  box-shadow: 0 0 8px rgba(59, 110, 245, 0.5);
+}
+
 .header-title {
   font-size: 16px;
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: @text-primary;
 }
 
 .user-info {
@@ -69,10 +86,14 @@ function openPortal() {
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  color: #666;
+  color: @text-secondary;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
 
   &:hover {
-    color: #409eff;
+    background: @primary-soft;
+    color: @primary-color;
   }
 }
 </style>
