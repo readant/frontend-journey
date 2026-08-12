@@ -1,10 +1,63 @@
 ---
-description: "Git 提交规范：基于 Conventional Commits，按项目阶段分次提交实践层代码"
-globs: ["practices/**"]
-alwaysApply: false
+description: "Git 提交规范：分支策略（全仓库）+ 实践层分阶段提交 + 学习层提交"
+alwaysApply: true
 ---
 
-# Git 提交规范（实践层）
+# Git 提交规范
+
+## 零. 分支策略（最高优先级，GitHub Flow）
+
+> **禁止直接在 `main` 上提交。** `main` 永远保持可发布、干净，任何改动都必须走分支合回。
+
+### 分支模型
+
+```
+main（唯一主干，永远可发布）
+  │
+  ├── feature/cms-xxx      ← 新功能：从 main 拉出
+  ├── fix/xxx              ← 修复：从 main 拉出
+  ├── refactor/xxx         ← 重构：从 main 拉出
+  └── docs/xxx             ← 文档：从 main 拉出
+```
+
+### 强制流程
+
+```bash
+# 1. 确保 main 最新
+git checkout main && git pull
+
+# 2. 拉取功能分支（命名含类型前缀）
+git checkout -b feature/xxx
+
+# 3. 在功能分支上开发，按规范拆分提交（见下文）
+
+# 4. 合回 main：用 --no-ff 保留分支历史
+git checkout main
+git merge --no-ff feature/xxx -m "Merge branch 'feature/xxx' into main"
+
+# 5. 推送 main，删除已合并的功能分支
+git push origin main
+git branch -d feature/xxx
+```
+
+### 分支命名
+
+- `feature/<描述>`：新功能（含 practices/ 各工程的 Phase/F 功能）
+- `fix/<描述>`：修复
+- `docs/<描述>`：文档 / 学习层内容
+- `refactor/<描述>`：重构
+
+### 禁止行为
+
+- ❌ 直接在 `main` 上 `git commit`
+- ❌ 在 `main` 上 `git add .` + 一次性提交
+- ❌ 提交后不推送、不清理已合并的功能分支
+- ❌ 功能分支长期不合并（应尽快合回，避免与 main 大幅分叉）
+- ❌ 在无关的后端仓库（如 backend-journey）执行 git 命令（必须用 `working_directory` 指到本仓库）
+
+---
+
+# 实践层提交规范
 
 > 基于 Conventional Commits 标准，适配 practices/ 下独立项目的分阶段开发场景。每次提交对应路线图中的一个 Phase 或子功能 F，让 git log 成为项目演进的精确编年史。
 
@@ -50,11 +103,17 @@ main（稳定基线：docs/ + .cursor/rules/）
 | `refactor` | 重构 | 重构组件、提取 composable、优化代码结构 |
 | `style` | 样式 | CSS/Less 调整、布局修改（不影响逻辑） |
 | `chore` | 杂项 | 依赖管理、配置文件、构建脚本 |
-| `docs` | 文档 | 项目 README、注释补充 |
+| `docs` | 文档 | 项目 README、注释补充、规则文件 |
 | `test` | 测试 | 新增或修改测试用例 |
 | `perf` | 性能 | 性能优化（虚拟滚动、防抖、懒加载） |
 
-**scope（作用域）**：使用项目目录名，如 `cms-frontend`、`ecommerce-frontend`。
+**scope（作用域）**：使用项目目录名，如 `cms-admin`、`cms-portal`、`ecommerce-frontend`（项目一拆分为后台 `cms-admin` 与门户 `cms-portal` 两个工程）。
+
+| scope | 说明 |
+|-------|------|
+| `cms-admin` / `cms-portal` / `ecommerce-frontend` / ... | 对应 practices/ 工程 |
+| `infrastructure` | 仓库基础设施（.gitignore、.cursor/rules/ 规则文件等） |
+| `learning` | 学习层 docs/ 笔记网站内容 |
 
 ## 分阶段提交策略
 
@@ -62,17 +121,17 @@ main（稳定基线：docs/ + .cursor/rules/）
 
 ```
 Phase 1：骨架搭建
-  commit 1: feat(cms-frontend): F1.1 项目初始化脚手架搭建
-  commit 2: feat(cms-frontend): F1.2 Element Plus 容器布局与侧边栏导航
-  commit 3: feat(cms-frontend): F1.3 Axios 封装与请求拦截器
-  commit 4: feat(cms-frontend): F1.4 Vue Router 嵌套路由与导航守卫
-  commit 5: feat(cms-frontend): F1.5 Pinia 用户 store 与应用 store
+  commit 1: feat(cms-admin): F1.1 项目初始化脚手架搭建
+  commit 2: feat(cms-admin): F1.2 Element Plus 容器布局与侧边栏导航
+  commit 3: feat(cms-admin): F1.3 Axios 封装与请求拦截器
+  commit 4: feat(cms-admin): F1.4 Vue Router 嵌套路由与导航守卫
+  commit 5: feat(cms-admin): F1.5 Pinia 用户 store 与应用 store
 
 Phase 2：管理员与权限
-  commit 6: feat(cms-frontend): F2.1 登录页面表单验证与 JWT 存储
-  commit 7: feat(cms-frontend): F2.2 管理员列表表格展示与分页
-  commit 8: feat(cms-frontend): F2.3 管理员新增/编辑表单对话框
-  commit 9: feat(cms-frontend): F2.4 角色管理 CRUD 与权限分配
+  commit 6: feat(cms-admin): F2.1 登录页面表单验证与 JWT 存储
+  commit 7: feat(cms-admin): F2.2 管理员列表表格展示与分页
+  commit 8: feat(cms-admin): F2.3 管理员新增/编辑表单对话框
+  commit 9: feat(cms-admin): F2.4 角色管理 CRUD 与权限分配
 ```
 
 ## 提交纪律
@@ -83,8 +142,8 @@ Phase 2：管理员与权限
 
 ```bash
 # 正确：只添加当前项目的变更
-git add practices/pj-01-cms-frontend/src/views/LoginView.vue
-git add practices/pj-01-cms-frontend/src/router/index.ts
+git add practices/pj-01-cms-admin/src/views/LoginView.vue
+git add practices/pj-01-cms-admin/src/router/index.ts
 
 # 错误：一次性添加所有项目
 git add practices/  # 禁止
@@ -94,10 +153,10 @@ git add practices/  # 禁止
 
 ```
 # 正确
-feat(cms-frontend): F2.1 登录页面表单验证与 JWT Token 存储
+feat(cms-admin): F2.1 登录页面表单验证与 JWT Token 存储
 
 # 错误：混入了不相关的内容
-feat(cms-frontend): F2.1 登录页面 + 修复侧边栏样式 + 更新依赖
+feat(cms-admin): F2.1 登录页面 + 修复侧边栏样式 + 更新依赖
 ```
 
 ### 3. 提交前自检清单
@@ -116,10 +175,10 @@ feat(cms-frontend): F2.1 登录页面 + 修复侧边栏样式 + 更新依赖
 
 ```
 # 正确
-feat(cms-frontend): F1.3 Axios 封装与请求/响应拦截器
+feat(cms-admin): F1.3 Axios 封装与请求/响应拦截器
 
 # 错误
-feat(cms-frontend): F1.3 Axios封装和请求拦截器还有响应拦截器和错误处理（太长）
+feat(cms-admin): F1.3 Axios封装和请求拦截器还有响应拦截器和错误处理（太长）
 ```
 
 ## PowerShell 环境适配
@@ -128,56 +187,56 @@ Windows PowerShell 下执行提交：
 
 ```powershell
 # 单行提交（推荐）
-git commit -m "feat(cms-frontend): F1.1 Vite + Vue 3 + TypeScript 脚手架搭建"
+git commit -m "feat(cms-admin): F1.1 Vite + Vue 3 + TypeScript 脚手架搭建"
 
 # 多行提交（需要详细说明时）
-git commit -m "feat(cms-frontend): F1.3 Axios 封装" `
+git commit -m "feat(cms-admin): F1.3 Axios 封装" `
           -m "- 创建 src/utils/http.ts Axios 实例" `
           -m "- 配置请求拦截器自动注入 JWT Token" `
           -m "- 配置响应拦截器统一错误处理"
 ```
 
-## Phase 完成标记
+## 学习层 / 规则文件提交
 
-每个 Phase 完成后，更新 `.cursor/rules/knowledge-map.mdc` 中的进度追踪表，并提交：
-
-```
-docs(cms-frontend): Phase 1 完成，更新知识地图进度追踪
-```
+- 学习层内容（docs/ 笔记）：`docs(learning): 更新 Vue 组件速查手册`
+- 规则文件 / 仓库配置：`chore(infrastructure): 更新 git 分支策略规则`
+- Phase 完成后更新知识地图：`docs(cms-admin): Phase 1 完成，更新知识地图进度追踪`
 
 ## 提交示例汇总
 
 ```bash
 # Phase 1：骨架搭建
-git commit -m "feat(cms-frontend): F1.1 Vite + Vue 3 + TypeScript 脚手架搭建"
-git commit -m "feat(cms-frontend): F1.2 Element Plus 容器布局与侧边栏导航"
-git commit -m "feat(cms-frontend): F1.3 Axios 封装与请求/响应拦截器"
-git commit -m "feat(cms-frontend): F1.4 Vue Router 嵌套路由与导航守卫"
-git commit -m "feat(cms-frontend): F1.5 Pinia 用户 store 与应用 store"
+git commit -m "feat(cms-admin): F1.1 Vite + Vue 3 + TypeScript 脚手架搭建"
+git commit -m "feat(cms-admin): F1.2 Element Plus 容器布局与侧边栏导航"
+git commit -m "feat(cms-admin): F1.3 Axios 封装与请求/响应拦截器"
+git commit -m "feat(cms-admin): F1.4 Vue Router 嵌套路由与导航守卫"
+git commit -m "feat(cms-admin): F1.5 Pinia 用户 store 与应用 store"
 
 # Phase 2：管理员与权限
-git commit -m "feat(cms-frontend): F2.1 登录页面表单验证与 JWT Token 存储"
-git commit -m "feat(cms-frontend): F2.2 管理员列表表格展示与分页搜索"
-git commit -m "feat(cms-frontend): F2.3 管理员新增/编辑表单对话框与校验规则"
-git commit -m "feat(cms-frontend): F2.4 角色管理 CRUD 与权限分配"
+git commit -m "feat(cms-admin): F2.1 登录页面表单验证与 JWT Token 存储"
+git commit -m "feat(cms-admin): F2.2 管理员列表表格展示与分页搜索"
+git commit -m "feat(cms-admin): F2.3 管理员新增/编辑表单对话框与校验规则"
+git commit -m "feat(cms-admin): F2.4 角色管理 CRUD 与权限分配"
 
 # Phase 3：内容管理核心
-git commit -m "feat(cms-frontend): F3.1 栏目管理树形表格与拖拽排序"
-git commit -m "feat(cms-frontend): F3.2 文章管理富文本编辑器与发布状态"
-git commit -m "feat(cms-frontend): F3.3 文章详情封面图上传与标签选择"
-git commit -m "feat(cms-frontend): F3.4 产品管理 CRUD 与多图片上传"
-git commit -m "feat(cms-frontend): F3.5 ECharts 数据看板统计卡片"
+git commit -m "feat(cms-admin): F3.1 栏目管理树形表格与拖拽排序"
+git commit -m "feat(cms-admin): F3.2 文章管理富文本编辑器与发布状态"
+git commit -m "feat(cms-admin): F3.3 文章详情封面图上传与标签选择"
+git commit -m "feat(cms-admin): F3.4 产品管理 CRUD 与多图片上传"
+git commit -m "feat(cms-admin): F3.5 ECharts 数据看板统计卡片"
 
 # Phase 4：完善与收尾
-git commit -m "feat(cms-frontend): F4.1 操作日志表格与筛选功能"
-git commit -m "feat(cms-frontend): F4.2 系统设置配置页面"
-git commit -m "feat(cms-frontend): F4.3 404/403/500 错误页面"
-git commit -m "docs(cms-frontend): F4.4 Phase 4 完成，更新知识地图进度追踪"
+git commit -m "feat(cms-admin): F4.1 操作日志表格与筛选功能"
+git commit -m "feat(cms-admin): F4.2 系统设置配置页面"
+git commit -m "feat(cms-admin): F4.3 404/403/500 错误页面"
+git commit -m "docs(cms-admin): F4.4 Phase 4 完成，更新知识地图进度追踪"
 
 # 其他类型示例
-git commit -m "fix(cms-frontend): 修复管理员编辑对话框表单验证未重置问题"
-git commit -m "refactor(cms-frontend): 提取 usePagination composable 复用分页逻辑"
-git commit -m "style(cms-frontend): 调整登录页面背景渐变与卡片阴影"
-git commit -m "chore(cms-frontend): 升级 element-plus 至 v2.9.6"
-git commit -m "test(cms-frontend): F2.2 新增管理员列表组件单元测试"
+git commit -m "fix(cms-admin): 修复管理员编辑对话框表单验证未重置问题"
+git commit -m "refactor(cms-admin): 提取 usePagination composable 复用分页逻辑"
+git commit -m "style(cms-admin): 调整登录页面背景渐变与卡片阴影"
+git commit -m "chore(cms-admin): 升级 element-plus 至 v2.9.6"
+git commit -m "test(cms-admin): F2.2 新增管理员列表组件单元测试"
+git commit -m "chore(infrastructure): 更新 git 分支策略规则"
+git commit -m "docs(learning): 更新 Vue 组件速查手册"
 ```

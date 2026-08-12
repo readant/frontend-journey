@@ -27,7 +27,8 @@ alwaysApply: true
 ```
 frontend-journey/
 ├── practices/
-│   ├── pj-01-cms-frontend/         # 项目一：兴华小组官网（内容型）", "old_string": "│   ├── pj-01-cms-frontend/         # 项目一：CMS 管理后台（内容型）", "path": "e:\\Projects0\\Trae\\frontend-journey\\.cursor\\rules\\core.mdc"}
+│   ├── pj-01-cms-admin/            # 项目一·后台：CMS 管理后台（内容管理）
+│   ├── pj-01-cms-portal/           # 项目一·前台：兴华小组官网门户
 │   ├── pj-02-ecommerce-frontend/   # 项目二：电商前端（交易型）
 │   ├── pj-03-community-frontend/   # 项目三：社区前端（社交型）
 │   └── pj-04-saas-frontend/        # 项目四：SaaS 工作台（工具型）
@@ -79,3 +80,23 @@ frontend-journey/
 4. **API 调用**：所有 HTTP 请求通过 `src/utils/http.ts` 的 Axios 封装
 5. **中文注释**：全文注释和解释使用简体中文
 6. **Vue 3 上限**：不使用 Vue 2 语法或已废弃的 API
+
+# 配套后端项目
+
+每个前端工程都有对应的后端实现，使用 Spring Boot + MyBatis-Plus（backend-journey 仓库）：
+
+| 前端工程 | 对应后端 | 对接说明 |
+|---------|---------|---------|
+| `practices/pj-01-cms-admin` | `backend-journey/bj-01-cms` | 管理后台 API（鉴权） |
+| `practices/pj-01-cms-portal` | `backend-journey/bj-01-cms` | 前台门户 API（无鉴权 site 接口） |
+| `practices/pj-02-ecommerce-frontend` | `backend-journey/bj-02-ecommerce` | 电商 API |
+| `practices/pj-03-community-frontend` | `backend-journey/bj-03-community` | 社区 API |
+| `practices/pj-04-saas-frontend` | `backend-journey/bj-04-saas` | SaaS API |
+
+**前后端协作铁律**：
+- 接口契约以后端为准：统一 `R<T>` 返回、`PageResult` 分页、`/api/v1/...` 路径，见 `api-integration.mdc`
+- 联调走 Vite proxy（`/api` → `http://localhost:8080`），不要跨域直连
+- 两个仓库是独立 git 仓库：**禁止在对方仓库里执行 git 命令**（必须用 `working_directory` 指到当前仓库）
+- 后端 API 变更（字段增删、路径调整）必须先对齐再适配，见 `api-integration.mdc` 前后端协作章节
+
+> 本地路径等私有信息见 `.cursor/rules/local.mdc`（已加入 .gitignore，仅本地可见）
