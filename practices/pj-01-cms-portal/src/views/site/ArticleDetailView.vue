@@ -51,6 +51,8 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="less">
+@import '@/styles/variables.less';
+
 .article-detail {
   min-height: 100%;
 }
@@ -58,73 +60,106 @@ onMounted(async () => {
 .detail-body {
   max-width: 860px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: 32px 24px 64px;
 }
 
 .page-header {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .article-title {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
-  color: #333;
-  margin: 0 0 16px;
+  color: var(--app-text);
+  margin: 0 0 20px;
+  line-height: 1.4;
 }
 
 .article-meta {
   display: flex;
   align-items: center;
-  gap: 16px;
-  color: #909399;
+  gap: 18px;
+  color: var(--app-text-3);
   font-size: 13px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--app-border);
 }
 
 .article-cover {
   width: 100%;
-  max-height: 360px;
+  max-height: 380px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 24px;
+  border-radius: var(--app-radius);
+  margin-bottom: 28px;
+  box-shadow: var(--app-shadow-sm);
 }
 
 // 富文本内容基础排版
 .article-content-html {
-  line-height: 1.8;
-  color: #333;
-  font-size: 15px;
+  line-height: 1.9;
+  color: var(--app-text);
+  font-size: 15.5px;
   word-break: break-word;
 
   :deep(img) {
     max-width: 100%;
-    border-radius: 4px;
+    border-radius: var(--app-radius-sm);
   }
 
   :deep(p) {
-    margin: 0 0 16px;
+    margin: 0 0 18px;
   }
 
   :deep(h1),
   :deep(h2),
   :deep(h3) {
-    margin: 24px 0 12px;
+    margin: 32px 0 14px;
+    line-height: 1.4;
+  }
+
+  :deep(a) {
+    color: @primary-color;
   }
 
   :deep(pre) {
-    background: #f6f8fa;
-    padding: 12px 16px;
-    border-radius: 6px;
+    background: #1f2733;
+    color: #e6eaf2;
+    padding: 16px 20px;
+    border-radius: var(--app-radius-sm);
     overflow-x: auto;
+    line-height: 1.7;
+  }
+
+  :deep(code) {
+    font-family: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
   }
 
   :deep(blockquote) {
-    border-left: 4px solid #409eff;
-    margin: 0 0 16px;
-    padding: 8px 16px;
-    background: #f0f7ff;
-    color: #666;
+    border-left: 4px solid @primary-color;
+    margin: 0 0 18px;
+    padding: 12px 20px;
+    background: var(--app-primary-soft);
+    border-radius: 0 var(--app-radius-sm) var(--app-radius-sm) 0;
+    color: var(--app-text-2);
+  }
+
+  :deep(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 18px;
+
+    th,
+    td {
+      border: 1px solid var(--app-border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background: #f6f8fc;
+    }
   }
 }
 </style>

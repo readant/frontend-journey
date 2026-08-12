@@ -13,10 +13,10 @@ const trendEl = ref<HTMLDivElement | null>(null)
 const statusEl = ref<HTMLDivElement | null>(null)
 
 const cards = ref([
-  { label: '管理员数', key: 'adminCount' as const, icon: '👤', value: 0 },
-  { label: '栏目数', key: 'categoryCount' as const, icon: '🗂️', value: 0 },
-  { label: '文章数', key: 'articleCount' as const, icon: '📄', value: 0 },
-  { label: '产品数', key: 'productCount' as const, icon: '📦', value: 0 },
+  { label: '管理员数', key: 'adminCount' as const, icon: '👤', value: 0, tint: '#eef3ff', accent: '#3b6ef5' },
+  { label: '栏目数', key: 'categoryCount' as const, icon: '🗂️', value: 0, tint: '#fdf3e7', accent: '#f59e0b' },
+  { label: '文章数', key: 'articleCount' as const, icon: '📄', value: 0, tint: '#e9faf0', accent: '#22c55e' },
+  { label: '产品数', key: 'productCount' as const, icon: '📦', value: 0, tint: '#fdeef0', accent: '#ef4444' },
 ])
 
 async function fetchData() {
@@ -52,7 +52,7 @@ function renderCharts() {
           type: 'bar',
           data: s.recentArticleTrend.counts,
           barWidth: '40%',
-          itemStyle: { color: '#409eff' },
+          itemStyle: { color: '#3b6ef5', borderRadius: [6, 6, 0, 0] },
         },
       ],
     })
@@ -73,8 +73,8 @@ function renderCharts() {
           radius: ['40%', '65%'],
           center: ['50%', '50%'],
           data: [
-            { name: '草稿', value: s.articleStatus.draft, itemStyle: { color: '#909399' } },
-            { name: '已发布', value: s.articleStatus.published, itemStyle: { color: '#67c23a' } },
+            { name: '草稿', value: s.articleStatus.draft, itemStyle: { color: '#94a3b8' } },
+            { name: '已发布', value: s.articleStatus.published, itemStyle: { color: '#22c55e' } },
           ],
         },
       ],
@@ -105,11 +105,11 @@ onBeforeUnmount(() => {
 
     <!-- 统计卡片 -->
     <div class="stat-cards">
-      <el-card v-for="card in cards" :key="card.key" class="stat-card">
+      <el-card v-for="card in cards" :key="card.key" class="stat-card" shadow="never">
         <div class="card-inner">
-          <span class="card-icon">{{ card.icon }}</span>
+          <span class="card-icon" :style="{ background: card.tint }">{{ card.icon }}</span>
           <div class="card-info">
-            <div class="card-value">{{ card.value }}</div>
+            <div class="card-value" :style="{ color: card.accent }">{{ card.value }}</div>
             <div class="card-label">{{ card.label }}</div>
           </div>
         </div>
@@ -129,9 +129,11 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="less">
+@import '@/styles/variables.less';
+
 .dashboard {
   h2 {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     font-size: 20px;
   }
 }
@@ -144,6 +146,13 @@ onBeforeUnmount(() => {
 }
 
 .stat-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--app-shadow);
+  }
+
   :deep(.el-card__body) {
     padding: 20px;
   }
@@ -156,18 +165,26 @@ onBeforeUnmount(() => {
 }
 
 .card-icon {
-  font-size: 32px;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .card-value {
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .card-label {
-  color: #909399;
+  color: @text-light;
   font-size: 13px;
-  margin-top: 2px;
+  margin-top: 6px;
 }
 
 .charts {
@@ -179,5 +196,15 @@ onBeforeUnmount(() => {
 .chart {
   width: 100%;
   height: 320px;
+}
+
+@media (max-width: 992px) {
+  .stat-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .charts {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

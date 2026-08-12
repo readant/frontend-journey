@@ -1,0 +1,174 @@
+/* ========== 全局设计令牌（现代渐变风） ========== */
+:root {
+  /* 品牌色阶 */
+  --app-primary: #3b6ef5;
+  --app-primary-deep: #2f58c4;
+  --app-primary-soft: #eef3ff;
+  --app-accent: #6d5df6;
+  --app-accent-2: #2dd4bf;
+
+  /* 中性色 */
+  --app-bg: #f6f8fc;
+  --app-card: #ffffff;
+  --app-text: #1f2733;
+  --app-text-2: #5a6472;
+  --app-text-3: #9aa3b2;
+  --app-border: #e6eaf2;
+  --app-border-strong: #d4dbe8;
+
+  /* 圆角与阴影 */
+  --app-radius: 12px;
+  --app-radius-sm: 8px;
+  --app-radius-lg: 20px;
+  --app-shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06);
+  --app-shadow: 0 6px 24px rgba(16, 24, 40, 0.08);
+  --app-shadow-lg: 0 16px 48px rgba(16, 24, 40, 0.14);
+
+  /* 字体 */
+  --app-font: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ========== Element Plus 主题覆盖 ========== */
+:root {
+  --el-color-primary: #3b6ef5;
+  --el-color-primary-light-3: #6f92f8;
+  --el-color-primary-light-5: #9cb6fa;
+  --el-color-primary-light-7: #c5d4fc;
+  --el-color-primary-light-8: #dbe4fd;
+  --el-color-primary-light-9: #eef3ff;
+  --el-color-primary-dark-2: #2f58c4;
+
+  --el-color-success: #22c55e;
+  --el-color-warning: #f59e0b;
+  --el-color-danger: #ef4444;
+  --el-color-error: #ef4444;
+  --el-color-info: #64748b;
+
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 6px;
+  --el-border-color: #e6eaf2;
+  --el-border-color-light: #e6eaf2;
+  --el-border-color-lighter: #eef1f7;
+  --el-text-color-primary: #1f2733;
+  --el-text-color-regular: #5a6472;
+  --el-text-color-secondary: #9aa3b2;
+  --el-fill-color-light: #f6f8fc;
+  --el-fill-color-lighter: #fafbfe;
+}
+
+/* ========== 全局基础 ========== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--app-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9d2e0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aeb9cb;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ========== 通用：页面 Hero（列表页 banner 统一） ========== */
+.page-hero {
+  position: relative;
+  color: #fff;
+  padding: 72px 24px;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 400px at 15% -20%, rgba(109, 93, 246, 0.55), transparent 60%),
+    radial-gradient(1000px 400px at 85% 120%, rgba(45, 212, 191, 0.35), transparent 60%),
+    linear-gradient(135deg, #2f58c4 0%, #3b6ef5 55%, #5a6cf5 100%);
+}
+
+/* 网格纹理，增强质感 */
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7), transparent 75%);
+}
+
+.page-hero h2 {
+  position: relative;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  letter-spacing: 1px;
+}
+
+.page-hero p {
+  position: relative;
+  font-size: 16px;
+  opacity: 0.88;
+  margin: 0;
+}
+
+/* ========== 通用：卡片 hover 提升 ========== */
+.hover-card {
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--app-radius);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--app-shadow-lg);
+  border-color: var(--app-border-strong);
+}
+
+/* ========== 通用：入场动画 ========== */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-card,
+  .rise-in {
+    transition: none;
+    animation: none;
+  }
+}

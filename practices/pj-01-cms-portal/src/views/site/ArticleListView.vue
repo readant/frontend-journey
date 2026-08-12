@@ -81,7 +81,7 @@ watch(
 
 <template>
   <div class="article-list" v-loading="loading">
-    <div class="page-banner">
+    <div class="page-hero">
       <h2>文章列表</h2>
       <p>兴华小组的学习笔记与成长记录</p>
     </div>
@@ -114,8 +114,8 @@ watch(
         <el-card
           v-for="item in articles"
           :key="item.id"
-          class="article-card"
-          shadow="hover"
+          class="article-card hover-card"
+          shadow="never"
           @click="router.push(`/articles/${item.id}`)"
         >
           <div class="article-cover" :style="coverStyle(item.coverImage)">
@@ -150,53 +150,33 @@ watch(
 </template>
 
 <style scoped lang="less">
+@import '@/styles/variables.less';
+
 .article-list {
   min-height: 100%;
-}
-
-.page-banner {
-  background: linear-gradient(135deg, #337ecc 0%, #409eff 100%);
-  color: #fff;
-  padding: 48px 24px;
-  text-align: center;
-
-  h2 {
-    font-size: 28px;
-    margin: 0 0 8px;
-  }
-
-  p {
-    opacity: 0.9;
-    margin: 0;
-  }
 }
 
 .list-body {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: 32px 24px 56px;
 }
 
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .article-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
 .article-card {
-  cursor: pointer;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
+  overflow: hidden;
 
   :deep(.el-card__body) {
     padding: 0;
@@ -204,39 +184,50 @@ watch(
 }
 
 .article-cover {
-  height: 150px;
+  height: 156px;
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.4s ease;
+}
+
+.article-card:hover .article-cover {
+  transform: scale(1.05);
 }
 
 .cover-text {
-  font-size: 36px;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 700;
   color: #fff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .article-body {
-  padding: 16px;
+  padding: 18px;
 }
 
 .article-title {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--app-text);
   margin: 0 0 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+.article-card:hover .article-title {
+  color: @primary-color;
 }
 
 .article-summary {
-  color: #909399;
+  color: var(--app-text-2);
   font-size: 13px;
-  margin: 0 0 12px;
+  line-height: 1.7;
+  margin: 0 0 14px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -250,13 +241,25 @@ watch(
 }
 
 .article-date {
-  color: #c0c4cc;
+  color: var(--app-text-3);
   font-size: 12px;
 }
 
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 40px;
+}
+
+@media (max-width: 992px) {
+  .article-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .article-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

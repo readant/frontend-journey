@@ -1,0 +1,139 @@
+/* ========== 全局设计令牌（管理后台·现代渐变风） ========== */
+:root {
+  /* 品牌色阶 */
+  --app-primary: #3b6ef5;
+  --app-primary-deep: #2f58c4;
+  --app-primary-soft: #eef3ff;
+  --app-accent: #6d5df6;
+  --app-accent-2: #2dd4bf;
+
+  /* 中性色 */
+  --app-bg: #f4f6fb;
+  --app-card: #ffffff;
+  --app-text: #1f2733;
+  --app-text-2: #5a6472;
+  --app-text-3: #9aa3b2;
+  --app-border: #e6eaf2;
+  --app-border-strong: #d4dbe8;
+
+  /* 圆角与阴影 */
+  --app-radius: 10px;
+  --app-radius-sm: 8px;
+  --app-shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06);
+  --app-shadow: 0 6px 24px rgba(16, 24, 40, 0.08);
+
+  /* 字体 */
+  --app-font: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ========== Element Plus 主题覆盖 ========== */
+:root {
+  --el-color-primary: #3b6ef5;
+  --el-color-primary-light-3: #6f92f8;
+  --el-color-primary-light-5: #9cb6fa;
+  --el-color-primary-light-7: #c5d4fc;
+  --el-color-primary-light-8: #dbe4fd;
+  --el-color-primary-light-9: #eef3ff;
+  --el-color-primary-dark-2: #2f58c4;
+
+  --el-color-success: #22c55e;
+  --el-color-warning: #f59e0b;
+  --el-color-danger: #ef4444;
+  --el-color-error: #ef4444;
+  --el-color-info: #64748b;
+
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 6px;
+  --el-border-color: #e6eaf2;
+  --el-border-color-light: #e6eaf2;
+  --el-border-color-lighter: #eef1f7;
+  --el-text-color-primary: #1f2733;
+  --el-text-color-regular: #5a6472;
+  --el-text-color-secondary: #9aa3b2;
+  --el-fill-color-light: #f6f8fc;
+  --el-fill-color-lighter: #fafbfe;
+}
+
+/* ========== 全局基础 ========== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--app-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9d2e0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aeb9cb;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ========== 通用：页面标题 ========== */
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 20px;
+  color: var(--app-text);
+
+  &::before {
+    content: '';
+    width: 4px;
+    height: 18px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #3b6ef5, #6d5df6);
+  }
+}
+
+/* ========== 通用：卡片 ========== */
+.el-card {
+  border-radius: var(--app-radius);
+  border-color: var(--app-border);
+}
+
+.el-card__header {
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+/* ========== 通用：表格 ========== */
+.el-table {
+  --el-table-header-bg-color: #f6f8fc;
+  --el-table-header-text-color: #5a6472;
+  --el-table-border-color: #eef1f7;
+  --el-table-row-hover-bg-color: #f6f9ff;
+  border-radius: var(--app-radius-sm);
+}
+
+.el-table th.el-table__cell {
+  font-weight: 600;
+}
+
+/* ========== 通用：分页 ========== */
+.el-pagination {
+  justify-content: flex-end;
+  margin-top: 16px;
+}

@@ -50,14 +50,12 @@ function handleMenuSelect(index: string) {
 <template>
   <div class="sidebar-container">
     <div class="sidebar-logo">
-      <h2>兴华小组</h2>
+      <span class="logo-badge">兴</span>
+      <h2>兴华小组后台</h2>
     </div>
     <el-menu
       :default-active="activeMenu"
       :router="false"
-      background-color="#304156"
-      text-color="#bfcbd9"
-      active-text-color="#409eff"
       @select="handleMenuSelect"
     >
       <template v-for="item in menuList" :key="item.path">
@@ -81,6 +79,8 @@ function handleMenuSelect(index: string) {
 </template>
 
 <style scoped lang="less">
+@import '@/styles/variables.less';
+
 .sidebar-container {
   height: 100%;
   display: flex;
@@ -88,15 +88,30 @@ function handleMenuSelect(index: string) {
 }
 
 .sidebar-logo {
-  height: 60px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  .logo-badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, @primary-color, @accent-color);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(59, 110, 245, 0.4);
+  }
 
   h2 {
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     margin: 0;
   }
@@ -105,5 +120,32 @@ function handleMenuSelect(index: string) {
 .el-menu {
   border-right: none;
   flex: 1;
+  padding: 8px 0;
+  --el-menu-bg-color: transparent;
+  --el-menu-text-color: #aeb9cb;
+  --el-menu-hover-text-color: #fff;
+  --el-menu-active-color: #fff;
+
+  :deep(.el-menu-item),
+  :deep(.el-sub-menu__title) {
+    margin: 2px 8px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  :deep(.el-menu-item.is-active) {
+    background: linear-gradient(90deg, rgba(59, 110, 245, 0.9), rgba(109, 93, 246, 0.75));
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(59, 110, 245, 0.35);
+  }
+
+  :deep(.el-menu-item:hover),
+  :deep(.el-sub-menu__title:hover) {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  :deep(.el-sub-menu .el-menu) {
+    background-color: transparent;
+  }
 }
 </style>
