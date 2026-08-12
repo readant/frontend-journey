@@ -66,3 +66,6 @@ LEARNING-REVIEW.md
 CHANGELOG.md
 维护笔记/
 drafts/
+
+# Cursor 本地私有配置
+.cursor/rules/local.mdc

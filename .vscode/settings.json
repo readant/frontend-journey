@@ -39,5 +39,11 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode" // 保留格式化（默认 true，显式写出来便于理解）
   },
-  "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+
+  // ========== npm 任务检测 ==========
+  // 关闭自动扫描：Cursor 检测器对「根目录 + 嵌套多工程」结构解析有 bug，
+  // 会误报"无法分析 package.json"（文件本身合法，已用 Node 严格解析验证）。
+  // 一键运行能力由 .vscode/tasks.json 显式声明兜底，不受影响。
+  "npm.autoDetect": "off"
 }
