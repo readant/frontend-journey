@@ -25,7 +25,7 @@ async function handleLogin() {
   try {
     await userStore.login(loginForm.value)
     ElMessage.success('登录成功')
-    router.push('/dashboard')
+    router.push('/admin/dashboard')
   } catch (error: any) {
     ElMessage.error(error?.msg || '登录失败，请检查用户名和密码')
   } finally {
@@ -49,6 +49,9 @@ async function handleLogin() {
           <el-button type="primary" :loading="loading" @click="handleLogin" style="width: 100%">
             {{ loading ? '登录中...' : '登 录' }}
           </el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-link type="info" @click="router.push('/')">返回官网首页</el-link>
         </el-form-item>
       </el-form>
     </div>

@@ -24,6 +24,9 @@ function handleLogout() {
       <span class="header-title">兴华小组官网 - 管理后台</span>
     </div>
     <div class="header-right">
+      <el-button text type="primary" @click="router.push('/')" style="margin-right: 16px">
+        返回首页
+      </el-button>
       <el-dropdown @command="handleLogout">
         <span class="user-info">
           <el-icon><User /></el-icon>
