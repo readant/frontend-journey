@@ -80,7 +80,7 @@ watch(
 
 <template>
   <div class="product-list" v-loading="loading">
-    <div class="page-banner">
+    <div class="page-hero">
       <h2>产品中心</h2>
       <p>兴华小组出品，用心打磨每一个作品</p>
     </div>
@@ -113,8 +113,8 @@ watch(
         <el-card
           v-for="item in products"
           :key="item.id"
-          class="product-card"
-          shadow="hover"
+          class="product-card hover-card"
+          shadow="never"
           @click="router.push(`/products/${item.id}`)"
         >
           <div class="product-cover" :style="coverStyle(item.coverImage)">
@@ -149,49 +149,27 @@ watch(
   min-height: 100%;
 }
 
-.page-banner {
-  background: linear-gradient(135deg, #e6a23c 0%, #f56c6c 100%);
-  color: #fff;
-  padding: 48px 24px;
-  text-align: center;
-
-  h2 {
-    font-size: 28px;
-    margin: 0 0 8px;
-  }
-
-  p {
-    opacity: 0.9;
-    margin: 0;
-  }
-}
-
 .list-body {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: 32px 24px 56px;
 }
 
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
 .product-card {
-  cursor: pointer;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
+  overflow: hidden;
 
   :deep(.el-card__body) {
     padding: 0;
@@ -199,23 +177,28 @@ watch(
 }
 
 .product-cover {
-  height: 160px;
+  height: 168px;
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-cover {
+  transform: scale(1.05);
 }
 
 .cover-text {
-  font-size: 40px;
-  font-weight: 600;
+  font-size: 44px;
+  font-weight: 700;
   color: #fff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .product-body {
-  padding: 14px 16px;
+  padding: 16px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -224,7 +207,7 @@ watch(
 .product-name {
   font-size: 15px;
   font-weight: 500;
-  color: #333;
+  color: var(--app-text);
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -232,9 +215,9 @@ watch(
 }
 
 .product-price {
-  color: #f56c6c;
-  font-weight: 600;
-  font-size: 16px;
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 17px;
   flex-shrink: 0;
   margin-left: 8px;
 }
@@ -242,6 +225,18 @@ watch(
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 40px;
+}
+
+@media (max-width: 992px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
