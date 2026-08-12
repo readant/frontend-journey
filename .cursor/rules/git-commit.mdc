@@ -7,17 +7,18 @@ alwaysApply: true
 
 ## 零. 分支策略（最高优先级，GitHub Flow）
 
-> **禁止直接在 `main` 上提交。** `main` 永远保持可发布、干净，任何改动都必须走分支合回。
+> **禁止直接在 `main` 上提交。** `main` 是唯一主干，永远保持**最新、可发布、干净**——任何改动都必须走短分支合回，绝不允许出现 main 落后于其他分支的情况（主次颠倒）。
 
 ### 分支模型
 
 ```
-main（唯一主干，永远可发布）
+main（唯一主干，永远最新、可发布）
   │
   ├── feature/cms-xxx      ← 新功能：从 main 拉出
   ├── fix/xxx              ← 修复：从 main 拉出
   ├── refactor/xxx         ← 重构：从 main 拉出
-  └── docs/xxx             ← 文档：从 main 拉出
+  ├── docs/xxx             ← 文档：从 main 拉出
+  └── chore/xxx            ← 基础设施/配置：从 main 拉出
 ```
 
 ### 强制流程
@@ -31,7 +32,7 @@ git checkout -b feature/xxx
 
 # 3. 在功能分支上开发，按规范拆分提交（见下文）
 
-# 4. 合回 main：用 --no-ff 保留分支历史
+# 4. 阶段性工作一完成立即合回 main（用 --no-ff 保留分支历史），禁止攒批
 git checkout main
 git merge --no-ff feature/xxx -m "Merge branch 'feature/xxx' into main"
 
@@ -46,13 +47,15 @@ git branch -d feature/xxx
 - `fix/<描述>`：修复
 - `docs/<描述>`：文档 / 学习层内容
 - `refactor/<描述>`：重构
+- `chore/<描述>`：仓库基础设施、规则、配置
 
 ### 禁止行为
 
 - ❌ 直接在 `main` 上 `git commit`
 - ❌ 在 `main` 上 `git add .` + 一次性提交
 - ❌ 提交后不推送、不清理已合并的功能分支
-- ❌ 功能分支长期不合并（应尽快合回，避免与 main 大幅分叉）
+- ❌ 功能分支长期不合并（**阶段性工作完成立即合回**，禁止让任何分支长期领先 main）
+- ❌ 建立 `project/<项目名>` 之类的长期开发分支（本项目只用短分支，见实践层说明）
 - ❌ 在无关的后端仓库（如 backend-journey）执行 git 命令（必须用 `working_directory` 指到本仓库）
 
 ---
@@ -63,32 +66,23 @@ git branch -d feature/xxx
 
 ## 分支策略
 
-每个实践项目在独立分支上开发，完成后合并到 main：
+> practices/ 各工程**不设长期分支**，统一走上面的 GitHub Flow 短分支：每个 Phase/F 功能从 main 拉 `feature/cms-xxx` 短分支，完成验证后立即合回 main 并删除分支。main 始终保持最新，git log 就是全仓库的精确编年史。
 
-```
-main（稳定基线：docs/ + .cursor/rules/）
-│
-├── project/cms-frontend        # 项目一：兴华小组官网
-│   ├── feat: F1.1 脚手架搭建
-│   ├── feat: F1.2 布局导航
-│   ├── ...
-│   └── (项目完成后合并到 main)
-│
-├── project/ecommerce-frontend  # 项目二：电商前端
-│   └── ...
-│
-├── project/community-frontend  # 项目三：社区前端
-│   └── ...
-│
-└── project/saas-frontend       # 项目四：SaaS 工作台
-    └── ...
+```bash
+# 项目一 Phase 2 示例
+git checkout main && git pull                    # 1. main 最新
+git checkout -b feature/cms-f2.1-login           # 2. 拉功能短分支
+# ... 开发 F2.1 并拆分提交 ...
+git checkout main                                # 3. 合回 main
+git merge --no-ff feature/cms-f2.1-login -m "Merge branch 'feature/cms-f2.1-login' into main"
+git push origin main                             # 4. 推送
+git branch -d feature/cms-f2.1-login             # 5. 删除已合并分支
 ```
 
 **分支规则**：
-- `project/<项目名>` 分支只包含该项目的代码变更
+- 分支名用 `feature/<项目>-<F编号>-<简述>`，只包含该功能点的代码变更
 - 每个 Phase 内的 F 功能点独立提交，提交信息带 Phase/F 编号
-- 一个项目全部开发完成后，合并回 `main`
-- `main` 分支只包含 `docs/`、`.cursor/rules/` 和已完成的实践项目
+- 功能完成且 `type-check` / `build` 通过后**立即**合回 main，不攒批、不长期持有
 
 ## 提交信息格式
 
