@@ -14,28 +14,28 @@ interface MenuItem {
 
 const menuList: MenuItem[] = [
   {
-    path: '/admin/dashboard',
+    path: '/dashboard',
     title: '数据看板',
     icon: 'Odometer',
   },
   {
-    path: '/admin/content',
+    path: '/content',
     title: '内容管理',
     icon: 'Document',
     children: [
-      { path: '/admin/content/categories', title: '栏目管理', icon: 'FolderOpened' },
-      { path: '/admin/content/articles', title: '文章管理', icon: 'Notebook' },
-      { path: '/admin/content/products', title: '产品管理', icon: 'Goods' },
+      { path: '/content/categories', title: '栏目管理', icon: 'FolderOpened' },
+      { path: '/content/articles', title: '文章管理', icon: 'Notebook' },
+      { path: '/content/products', title: '产品管理', icon: 'Goods' },
     ],
   },
   {
-    path: '/admin/system',
+    path: '/system',
     title: '系统管理',
     icon: 'Setting',
     children: [
-      { path: '/admin/system/admins', title: '管理员管理', icon: 'User' },
-      { path: '/admin/system/roles', title: '角色管理', icon: 'Key' },
-      { path: '/admin/system/logs', title: '操作日志', icon: 'List' },
+      { path: '/system/admins', title: '管理员管理', icon: 'User' },
+      { path: '/system/roles', title: '角色管理', icon: 'Key' },
+      { path: '/system/logs', title: '操作日志', icon: 'List' },
     ],
   },
 ]

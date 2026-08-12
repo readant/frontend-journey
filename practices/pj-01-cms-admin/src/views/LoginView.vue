@@ -8,6 +8,13 @@ import type { LoginReq } from '@/types/api'
 const router = useRouter()
 const userStore = useUserStore()
 
+// 门户网站独立部署，地址通过环境变量 VITE_PORTAL_URL 配置（默认本地开发地址）
+const portalUrl = import.meta.env.VITE_PORTAL_URL || 'http://localhost:3001'
+
+function openPortal() {
+  window.open(portalUrl, '_blank')
+}
+
 const loginForm = ref<LoginReq>({
   username: '',
   password: '',
@@ -25,7 +32,7 @@ async function handleLogin() {
   try {
     await userStore.login(loginForm.value)
     ElMessage.success('登录成功')
-    router.push('/admin/dashboard')
+    router.push('/dashboard')
   } catch (error: any) {
     ElMessage.error(error?.msg || '登录失败，请检查用户名和密码')
   } finally {
@@ -51,7 +58,7 @@ async function handleLogin() {
           </el-button>
         </el-form-item>
         <el-form-item>
-          <el-link type="info" @click="router.push('/')">返回官网首页</el-link>
+          <el-link type="info" @click="openPortal">返回官网首页</el-link>
         </el-form-item>
       </el-form>
     </div>

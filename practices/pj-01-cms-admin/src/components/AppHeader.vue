@@ -6,6 +6,9 @@ import { useUserStore } from '@/stores/userStore'
 const router = useRouter()
 const userStore = useUserStore()
 
+// 门户网站独立部署，地址通过环境变量 VITE_PORTAL_URL 配置（默认本地开发地址）
+const portalUrl = import.meta.env.VITE_PORTAL_URL || 'http://localhost:3001'
+
 function handleLogout() {
   ElMessageBox.confirm('确定要退出登录吗？', '提示', {
     confirmButtonText: '确定',
@@ -16,6 +19,10 @@ function handleLogout() {
     router.push('/login')
   })
 }
+
+function openPortal() {
+  window.open(portalUrl, '_blank')
+}
 </script>
 
 <template>
@@ -24,8 +31,8 @@ function handleLogout() {
       <span class="header-title">兴华小组官网 - 管理后台</span>
     </div>
     <div class="header-right">
-      <el-button text type="primary" @click="router.push('/')" style="margin-right: 16px">
-        返回首页
+      <el-button text type="primary" @click="openPortal" style="margin-right: 16px">
+        查看官网
       </el-button>
       <el-dropdown @command="handleLogout">
         <span class="user-info">

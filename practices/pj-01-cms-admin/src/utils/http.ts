@@ -4,7 +4,8 @@ import router from '@/router'
 import type { ApiResponse } from '@/types/api'
 
 const http = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  // 请求路径已含 /api 前缀（如 /api/v1/admins），baseURL 默认置空避免重复
+  baseURL: import.meta.env.VITE_API_BASE_URL || '',
   timeout: 10000,
 })
 
