@@ -157,3 +157,40 @@ changeOrigin:true,
 登录页→POST/api/v1/auth/login→收到JWT Token→存入localStorage→
 Axios拦截器自动注入Token→后续请求携带Authorization头→
 401响应→拦截器清除Token→跳转登录页
+
+##6.前后端协作
+
+> 前端仓库与 backend-journey 是两个独立 git 仓库，接口契约以后端为准。
+
+### 6.1 接口对齐流程（开发前先对齐，再写代码）
+
+```
+1. 确认后端接口已存在：路径 /api/v1/xxx、方法、请求/响应结构（R<T> 与 PageResult）
+2. 确认字段映射：前端 VO 类型与后端返回字段逐一对应（如 ArticleVO.title/summary/content/categoryId）
+3. 确认分页约定：pageNum 从 1 开始、pageSize 默认 10 最大 100
+4. 不确定的字段先 curl 实测，不要猜
+5. 后端尚无的接口 → 先与后端对齐设计再开发，禁止自造字段
+```
+
+### 6.2 联调验证
+
+```bash
+# 后端必须在 8080 运行（backend-journey/bj-01-cms，命令 mvn -q spring-boot:run）
+# 前端 dev 通过 Vite proxy 转发 /api → localhost:8080，浏览器同源无跨域
+
+# 直接验证后端接口（判断后端是否在跑，别只看进程列表）
+curl http://localhost:8080/api/v1/site/home
+```
+
+### 6.3 后端 API 变更适配
+
+- 后端升级接口（字段增删、类型变更、路径调整）会同步 `evolution.mdc` 的版本策略：
+  - **新增字段/接口** → 前端加类型定义即可，向后兼容
+  - **字段类型/语义变更、删除字段** → 破坏性变更，前端必须先确认适配方案再改代码
+- 遇到 `@Deprecated` 标记的旧接口，尽快迁移到新版本
+- 联调异常先分两端定位：curl 直接打后端接口，能通说明后端没问题，问题在前端代码/代理
+
+### 6.4 仓库纪律
+
+- ❌ 禁止在 backend-journey 仓库执行 git 命令（必须用 `working_directory` 指到当前仓库）
+- ❌ 禁止直接改后端代码来适配前端（前后端分离，接口契约对齐后由各自仓库提交）
