@@ -41,38 +41,33 @@ onMounted(async () => {
       <div class="hero-bg-image" aria-hidden="true"></div>
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="hero-inner rise-in">
-        <p class="hero-eyebrow">兴华学习小组 · 企业官网</p>
-        <h1 class="hero-title">用代码点亮学习之路</h1>
-        <p class="hero-subtitle">让每一次成长都有迹可循，沉淀每一份值得分享的知识</p>
+        <p class="hero-eyebrow">雄心工作室 · 学生创新团队</p>
+        <h1 class="hero-title">把想法做成作品</h1>
+        <p class="hero-subtitle">从需求到上线，我们用真实项目验证每一个想法，也把过程完整地记录下来</p>
         <div class="hero-actions">
-          <el-button type="primary" size="large" round @click="router.push('/articles')">
-            浏览文章
+          <el-button type="primary" size="large" round @click="router.push('/products')">
+            查看作品
           </el-button>
-          <el-button size="large" round plain class="hero-btn-secondary" @click="router.push('/products')">
-            查看产品
+          <el-button size="large" round plain class="hero-btn-secondary" @click="router.push('/articles')">
+            阅读动态
           </el-button>
         </div>
       </div>
-      <!-- 数据统计条 -->
+      <!-- 数据统计条：全部取自接口真实数据，不写死 -->
       <div class="hero-stats rise-in">
         <div class="stat-item">
           <strong>{{ categories.length }}</strong>
-          <span>内容栏目</span>
+          <span>作品方向</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
           <strong>{{ latestArticles.length }}+</strong>
-          <span>学习文章</span>
+          <span>技术文章</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
           <strong>{{ latestProducts.length }}+</strong>
-          <span>精选产品</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <strong>12</strong>
-          <span>小组成员</span>
+          <span>已发布作品</span>
         </div>
       </div>
     </section>

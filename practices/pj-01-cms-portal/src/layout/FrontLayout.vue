@@ -45,7 +45,7 @@ function handleMenuSelect(path: string) {
       <div class="header-inner">
         <div class="logo" @click="router.push('/')">
           <span class="logo-badge">兴</span>
-          <h1>兴华小组</h1>
+          <h1>雄心工作室</h1>
         </div>
         <el-menu
           class="site-menu"
@@ -73,9 +73,9 @@ function handleMenuSelect(path: string) {
         <div class="footer-col footer-about">
           <div class="footer-logo">
             <span class="footer-badge">兴</span>
-            <strong>兴华学习小组</strong>
+            <strong>雄心工作室</strong>
           </div>
-          <p>一群热爱编程的学习者组成的互助社区，以真实业务项目为主线，坚持分享、结对与复盘，让每一次成长都有迹可循。</p>
+          <p>由学生自主组建的创新团队，覆盖开发、竞赛与内容输出。我们把想法做成能上线的作品，也让每一次尝试都留下可追溯的记录。</p>
         </div>
         <div class="footer-col">
           <h4>快速导航</h4>
@@ -96,7 +96,7 @@ function handleMenuSelect(path: string) {
         </div>
       </div>
       <div class="footer-copyright">
-        <p>© {{ new Date().getFullYear() }} 兴华学习小组 · 用代码点亮学习之路 · 本站为学习演示项目</p>
+        <p>© {{ new Date().getFullYear() }} 雄心工作室 · 把想法做成作品</p>
       </div>
     </footer>
   </div>

@@ -83,7 +83,7 @@ watch(
   <div class="article-list" v-loading="loading">
     <div class="page-hero">
       <h2>文章列表</h2>
-      <p>兴华小组的学习笔记与成长记录</p>
+      <p>雄心工作室的技术笔记与项目复盘</p>
     </div>
 
     <div class="list-body">

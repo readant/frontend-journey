@@ -32,7 +32,7 @@ onMounted(async () => {
           <div class="product-main">
             <div class="product-cover">
               <img v-if="product.coverImage" :src="product.coverImage" alt="产品图" />
-              <div v-else class="cover-placeholder">兴华出品</div>
+              <div v-else class="cover-placeholder">雄心出品</div>
             </div>
             <div class="product-info">
               <h1 class="product-name">{{ product.name }}</h1>

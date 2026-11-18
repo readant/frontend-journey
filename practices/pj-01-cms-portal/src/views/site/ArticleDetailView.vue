@@ -31,7 +31,7 @@ onMounted(async () => {
         <h1 class="article-title">{{ article.title }}</h1>
         <div class="article-meta">
           <el-tag v-if="article.categoryName" size="small">{{ article.categoryName }}</el-tag>
-          <span>作者：{{ article.author || '兴华小组' }}</span>
+          <span>作者：{{ article.author || '雄心工作室' }}</span>
           <span>发布于：{{ article.createdAt?.slice(0, 10) }}</span>
           <span>阅读：{{ article.viewCount }}</span>
         </div>

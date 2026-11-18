@@ -29,7 +29,7 @@ function openPortal() {
   <div class="header-container">
     <div class="header-left">
       <span class="header-dot"></span>
-      <span class="header-title">兴华小组官网 - 管理后台</span>
+      <span class="header-title">雄心工作室 - 管理后台</span>
     </div>
     <div class="header-right">
       <el-button text type="primary" @click="openPortal" style="margin-right: 16px">

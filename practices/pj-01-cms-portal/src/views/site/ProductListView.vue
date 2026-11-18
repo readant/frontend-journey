@@ -82,7 +82,7 @@ watch(
   <div class="product-list" v-loading="loading">
     <div class="page-hero">
       <h2>产品中心</h2>
-      <p>兴华小组出品，用心打磨每一个作品</p>
+      <p>雄心工作室出品，用心打磨每一个作品</p>
     </div>
 
     <div class="list-body">

@@ -51,7 +51,7 @@ function handleMenuSelect(index: string) {
   <div class="sidebar-container">
     <div class="sidebar-logo">
       <span class="logo-badge">兴</span>
-      <h2>兴华小组后台</h2>
+      <h2>雄心工作室后台</h2>
     </div>
     <el-menu
       :default-active="activeMenu"

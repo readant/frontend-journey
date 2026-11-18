@@ -46,7 +46,7 @@ const router = createRouter({
 // 页面标题
 router.afterEach((to) => {
   const title = (to.meta.title as string) || ''
-  document.title = title ? `${title} - 兴华小组官网` : '兴华小组官网'
+  document.title = title ? `${title} - 雄心工作室` : '雄心工作室'
 })
 
 export default router

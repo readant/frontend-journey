@@ -48,7 +48,7 @@ async function handleLogin() {
       <div class="brand-inner">
         <div class="brand-logo">
           <span class="logo-badge">兴</span>
-          <span class="logo-text">兴华小组</span>
+          <span class="logo-text">雄心工作室</span>
         </div>
         <h1 class="brand-title">内容管理系统</h1>
         <p class="brand-desc">
