@@ -154,7 +154,7 @@ changeOrigin:true,
 ##5.JWT鉴权流程
 
 ```
-登录页→POST/api/v1/auth/login→收到JWT Token→存入localStorage→
+登录页→POST/api/v1/admins/login→收到JWT Token→存入localStorage→
 Axios拦截器自动注入Token→后续请求携带Authorization头→
 401响应→拦截器清除Token→跳转登录页
 

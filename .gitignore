@@ -69,3 +69,6 @@ drafts/
 
 # Cursor 本地私有配置
 .cursor/rules/local.mdc
+
+# AI 助手本地记忆（不入库）
+.workbuddy-ai/
