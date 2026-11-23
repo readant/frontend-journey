@@ -60,7 +60,7 @@ function handlePageChange(page: number) {
 }
 
 function coverStyle(url?: string) {
-  return url ? { backgroundImage: `url(${url})` } : { backgroundColor: '#fdf6ec' }
+  return url ? { backgroundImage: `url(${url})` } : {}
 }
 
 onMounted(() => {
@@ -81,16 +81,15 @@ watch(
 <template>
   <div class="product-list" v-loading="loading">
     <div class="page-hero">
-      <h2>产品中心</h2>
-      <p>雄心工作室出品，用心打磨每一个作品</p>
+      <h2>作品</h2>
+      <p>雄心工作室出品的工具、手册与组件库</p>
     </div>
 
-    <div class="list-body">
+    <div class="list-body page-shell">
       <!-- 分类筛选 -->
       <div class="filter-bar">
         <el-button
           :type="activeCategory === undefined ? 'primary' : 'default'"
-          round
           size="small"
           @click="handleCategorySelect()"
         >
@@ -100,7 +99,6 @@ watch(
           v-for="item in categories"
           :key="item.id"
           :type="activeCategory === item.id ? 'primary' : 'default'"
-          round
           size="small"
           @click="handleCategorySelect(item.id)"
         >
@@ -117,8 +115,8 @@ watch(
           shadow="never"
           @click="router.push(`/products/${item.id}`)"
         >
-          <div class="product-cover" :style="coverStyle(item.coverImage)">
-            <span v-if="!item.coverImage" class="cover-text">{{ item.name.slice(0, 1) }}</span>
+          <div class="product-cover media-ink" :style="coverStyle(item.coverImage)">
+            <span v-if="!item.coverImage" class="media-glyph">{{ item.name.slice(0, 1) }}</span>
           </div>
           <div class="product-body">
             <h3 class="product-name">{{ item.name }}</h3>
@@ -149,10 +147,11 @@ watch(
   min-height: 100%;
 }
 
+/* 横向留白交给 .page-shell，这里只负责纵向节奏，
+   否则会出现"标题 200、卡片 224"的错位。 */
 .list-body {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px 56px;
+  padding-top: 40px;
+  padding-bottom: 64px;
 }
 
 .filter-bar {
@@ -164,7 +163,11 @@ watch(
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* minmax(0, ...) 不能写成 1fr：grid item 的隐含 min-width 是 auto，
+     卡片标题是 nowrap，用 1fr 时会把整列撑破，导致整页横向溢出。 */
+  /* 三列而非四列：作品数是 6 的倍数时，四列会在末行留两个空位，
+     三列正好两整行，版面收得住。 */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -177,24 +180,18 @@ watch(
 }
 
 .product-cover {
-  height: 168px;
+  height: 200px;
+  overflow: hidden;
+  background-color: var(--ink-700);
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.4s ease;
 }
 
 .product-card:hover .product-cover {
-  transform: scale(1.05);
-}
-
-.cover-text {
-  font-size: 44px;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transform: scale(1.03);
 }
 
 .product-body {
@@ -215,9 +212,11 @@ watch(
 }
 
 .product-price {
-  color: #ef4444;
-  font-weight: 700;
-  font-size: 17px;
+  color: var(--glow);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.04em;
   flex-shrink: 0;
   margin-left: 8px;
 }
@@ -230,13 +229,17 @@ watch(
 
 @media (max-width: 992px) {
   .product-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
   .product-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .product-cover {
+    height: 200px;
   }
 }
 </style>

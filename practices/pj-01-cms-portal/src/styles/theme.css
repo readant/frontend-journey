@@ -1,76 +1,172 @@
-/* ========== 全局设计令牌（现代渐变风） ========== */
+/* ==========================================================================
+   全局设计令牌
+   语言：近黑底 / 细线分割 / 零圆角 / 单一冷色强调
+   注：所有圆角与阴影被显式归零，这是这套视觉的硬规则，
+       任何一处圆角都会破坏整体的秩序感。
+   ========================================================================== */
+
 :root {
-  /* 品牌色阶 */
-  --app-primary: #3b6ef5;
-  --app-primary-deep: #2f58c4;
-  --app-primary-soft: #eef3ff;
-  --app-accent: #6d5df6;
-  --app-accent-2: #2dd4bf;
+  /* 墨色阶 */
+  --ink-950: #050607;
+  --ink-900: #08090b;
+  --ink-800: #0d0f12;
+  --ink-700: #14171c;
+  --ink-600: #1c2027;
 
-  /* 中性色 */
-  --app-bg: #f6f8fc;
-  --app-card: #ffffff;
-  --app-text: #1f2733;
-  --app-text-2: #5a6472;
-  --app-text-3: #9aa3b2;
-  --app-border: #e6eaf2;
-  --app-border-strong: #d4dbe8;
+  /* 细线 */
+  --line: rgba(255, 255, 255, 0.092);
+  --line-strong: rgba(255, 255, 255, 0.18);
 
-  /* 圆角与阴影 */
-  --app-radius: 12px;
-  --app-radius-sm: 8px;
-  --app-radius-lg: 20px;
-  --app-shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06);
-  --app-shadow: 0 6px 24px rgba(16, 24, 40, 0.08);
-  --app-shadow-lg: 0 16px 48px rgba(16, 24, 40, 0.14);
+  /* 唯一强调色 */
+  --glow: #6fa0b8;
+  --glow-dim: rgba(111, 160, 184, 0.14);
+  --seal: #8c3a34;
+
+  /* 文字 */
+  --text-1: #e8e9ec;
+  --text-2: #9ba1aa;
+  --text-3: #6f757e;
+
+  /* 兼容旧变量名（其他页面仍在引用） */
+  --app-primary: var(--glow);
+  --app-primary-deep: #4f7c92;
+  --app-primary-soft: var(--glow-dim);
+  --app-accent: #88b3c6;
+  --app-accent-2: var(--glow);
+  --app-bg: var(--ink-900);
+  --app-card: var(--ink-800);
+  --app-text: var(--text-1);
+  --app-text-2: var(--text-2);
+  --app-text-3: var(--text-3);
+  --app-border: var(--line);
+  --app-border-strong: var(--line-strong);
+
+  /* 零圆角 / 零阴影 */
+  --app-radius: 0px;
+  --app-radius-sm: 0px;
+  --app-radius-lg: 0px;
+  --app-shadow-sm: none;
+  --app-shadow: none;
+  --app-shadow-lg: none;
+
+  /* 版心
+     全站只允许一套内容列宽：页眉、页脚、首屏、列表页、banner 标题
+     必须共用 --page-max / --page-pad，否则切换页面时内容会左右跳。 */
+  --page-max: 1280px;
+  --page-pad: 32px;
+  --page-content: calc(var(--page-max) - var(--page-pad) * 2);
 
   /* 字体 */
-  --app-font: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+  --font-sans: 'Inter', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Mono', 'Consolas', 'SFMono-Regular', monospace;
+  --app-font: var(--font-sans);
+
+  color-scheme: dark;
 }
 
-/* ========== Element Plus 主题覆盖 ========== */
+/* ==========================================================================
+   Element Plus 主题覆盖
+   默认的浅色底 + 圆角 + 阴影会直接毁掉这套语言，必须整体压暗并把圆角归零。
+   ========================================================================== */
 :root {
-  --el-color-primary: #3b6ef5;
-  --el-color-primary-light-3: #6f92f8;
-  --el-color-primary-light-5: #9cb6fa;
-  --el-color-primary-light-7: #c5d4fc;
-  --el-color-primary-light-8: #dbe4fd;
-  --el-color-primary-light-9: #eef3ff;
-  --el-color-primary-dark-2: #2f58c4;
+  --el-color-primary: #6fa0b8;
+  --el-color-primary-light-3: #8bb5c9;
+  --el-color-primary-light-5: #a6c7d7;
+  --el-color-primary-light-7: #c0d9e4;
+  --el-color-primary-light-8: rgba(111, 160, 184, 0.26);
+  --el-color-primary-light-9: rgba(111, 160, 184, 0.13);
+  --el-color-primary-dark-2: #4f7c92;
 
-  --el-color-success: #22c55e;
-  --el-color-warning: #f59e0b;
-  --el-color-danger: #ef4444;
-  --el-color-error: #ef4444;
-  --el-color-info: #64748b;
+  --el-color-success: #5f8f6a;
+  --el-color-success-light-9: rgba(95, 143, 106, 0.14);
+  --el-color-warning: #a98545;
+  --el-color-warning-light-9: rgba(169, 133, 69, 0.14);
+  --el-color-danger: #8c3a34;
+  --el-color-danger-light-9: rgba(140, 58, 52, 0.16);
+  --el-color-error: #8c3a34;
+  --el-color-info: #6d747d;
+  --el-color-info-light-9: rgba(109, 116, 125, 0.14);
 
-  --el-border-radius-base: 8px;
-  --el-border-radius-small: 6px;
-  --el-border-color: #e6eaf2;
-  --el-border-color-light: #e6eaf2;
-  --el-border-color-lighter: #eef1f7;
-  --el-text-color-primary: #1f2733;
-  --el-text-color-regular: #5a6472;
-  --el-text-color-secondary: #9aa3b2;
-  --el-fill-color-light: #f6f8fc;
-  --el-fill-color-lighter: #fafbfe;
+  --el-bg-color: var(--ink-800);
+  --el-bg-color-page: var(--ink-900);
+  --el-bg-color-overlay: var(--ink-700);
+
+  --el-text-color-primary: var(--text-1);
+  --el-text-color-regular: #c2c7cd;
+  --el-text-color-secondary: var(--text-2);
+  --el-text-color-placeholder: #5a5f67;
+  --el-text-color-disabled: #4a4f56;
+
+  --el-border-color: rgba(255, 255, 255, 0.12);
+  --el-border-color-light: rgba(255, 255, 255, 0.09);
+  --el-border-color-lighter: rgba(255, 255, 255, 0.06);
+  --el-border-color-extra-light: rgba(255, 255, 255, 0.04);
+  --el-border-color-dark: rgba(255, 255, 255, 0.18);
+  --el-border-color-darker: rgba(255, 255, 255, 0.22);
+
+  --el-fill-color: var(--ink-700);
+  --el-fill-color-light: var(--ink-700);
+  --el-fill-color-lighter: #101318;
+  --el-fill-color-extra-light: var(--ink-800);
+  --el-fill-color-dark: var(--ink-600);
+  --el-fill-color-darker: #22272f;
+  --el-fill-color-blank: var(--ink-800);
+
+  --el-mask-color: rgba(5, 6, 7, 0.86);
+
+  /* 圆角与阴影全部归零 */
+  --el-border-radius-base: 0px;
+  --el-border-radius-small: 0px;
+  --el-border-radius-round: 0px;
+  --el-border-radius-circle: 0px;
+  --el-box-shadow: none;
+  --el-box-shadow-light: none;
+  --el-box-shadow-lighter: none;
+  --el-box-shadow-dark: none;
+
+  --el-card-bg-color: var(--ink-800);
+  --el-card-border-color: var(--line);
+  --el-card-border-radius: 0px;
+  --el-card-padding: 20px;
 }
 
-/* ========== 全局基础 ========== */
+/* ==========================================================================
+   全局基础
+   ========================================================================== */
 html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--app-bg);
-  color: var(--app-text);
-  font-family: var(--app-font);
+  background: var(--ink-900);
+  color: var(--text-1);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
+}
+
+/* 注意：这里刻意不设 scroll-behavior: smooth。
+   一旦挂在 html 上，路由切换、锚点、分页的 scrollTo 全部变成逐帧动画，
+   叠加 sticky 页眉的 backdrop-filter 会明显卡顿，而且换页时会"从旧位置滑过去"。
+   需要平滑的地方（分页回顶）在组件里显式传 behavior: 'smooth'。 */
+
+/* 顶部一层极淡的冷光，避免纯黑死板 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(1200px 600px at 50% -10%, rgba(111, 160, 184, 0.06), transparent 60%);
 }
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(111, 160, 184, 0.28);
+  color: #fff;
 }
 
 /* 滚动条 */
@@ -80,80 +176,130 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c9d2e0;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #aeb9cb;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 
-/* ========== 通用：页面 Hero（列表页 banner 统一） ========== */
-.page-hero {
-  position: relative;
-  color: #fff;
-  padding: 72px 24px;
-  text-align: center;
-  overflow: hidden;
-  background:
-    radial-gradient(1200px 400px at 15% -20%, rgba(109, 93, 246, 0.55), transparent 60%),
-    radial-gradient(1000px 400px at 85% 120%, rgba(45, 212, 191, 0.35), transparent 60%),
-    linear-gradient(135deg, #2f58c4 0%, #3b6ef5 55%, #5a6cf5 100%);
+/* ==========================================================================
+   字体工具类
+   ========================================================================== */
+.font-serif {
+  font-family: var(--font-serif);
 }
 
-/* 网格纹理，增强质感 */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   通用：版心
+   全站唯一的内容列。页眉、页脚、首屏、列表页都复用它，
+   保证任何一个页面切换过去，文字的左边线都在同一根轴上。
+   ========================================================================== */
+.page-shell {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--page-pad);
+}
+
+@media (max-width: 900px) {
+  :root {
+    --page-pad: 20px;
+  }
+}
+
+/* ==========================================================================
+   通用：页面 Hero（列表页 / 详情页 banner 统一）
+   padding 用与 .page-shell 完全一致的公式算出左右留白，
+   否则标题会比下方卡片多缩进一个内边距，看起来"歪了一条线"。
+   ========================================================================== */
+.page-hero {
+  position: relative;
+  color: var(--text-1);
+  padding: 88px max(var(--page-pad), calc((100% - var(--page-content)) / 2)) 64px;
+  text-align: left;
+  overflow: hidden;
+  background: var(--ink-950);
+  border-bottom: 1px solid var(--line);
+}
+
+/* 背景细网格，只作极淡的底纹 */
 .page-hero::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7), transparent 75%);
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(ellipse at 20% 0%, rgba(0, 0, 0, 0.9), transparent 70%);
 }
 
 .page-hero h2 {
   position: relative;
-  font-size: 32px;
-  font-weight: 700;
-  margin: 0 0 12px;
-  letter-spacing: 1px;
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 500;
+  margin: 0 0 14px;
+  letter-spacing: 0.06em;
+  color: var(--text-1);
+}
+
+@media (max-width: 640px) {
+  .page-hero {
+    padding-top: 56px;
+    padding-bottom: 44px;
+  }
+
+  .page-hero h2 {
+    font-size: 28px;
+    letter-spacing: 0.04em;
+  }
 }
 
 .page-hero p {
   position: relative;
-  font-size: 16px;
-  opacity: 0.88;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--text-2);
   margin: 0;
+  text-transform: uppercase;
 }
 
-/* ========== 通用：卡片 hover 提升 ========== */
+/* ==========================================================================
+   通用：卡片 hover
+   暗底看不到阴影，改为边框亮度 + 背景微亮
+   ========================================================================== */
 .hover-card {
   cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: var(--app-radius);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--ink-800);
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .hover-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--app-shadow-lg);
-  border-color: var(--app-border-strong);
+  border-color: var(--line-strong);
+  background: var(--ink-700);
 }
 
-/* ========== 通用：入场动画 ========== */
+/* ==========================================================================
+   通用：入场动画
+   ========================================================================== */
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -162,7 +308,7 @@ body {
 }
 
 .rise-in {
-  animation: rise-in 0.5s ease both;
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -171,4 +317,115 @@ body {
     transition: none;
     animation: none;
   }
+}
+
+/* ==========================================================================
+   图像统一语言
+   站内封面来自内容库，素材来源与色调都不可控（多为彩色图库照片）。
+   与全站"墨色 + 单一冷蓝"的语言冲突，因此统一压成近黑白；
+   hover 时回收一部分饱和度，像旧照片被重新照亮。
+   ========================================================================== */
+:root {
+  --media-ink: grayscale(1) contrast(1.06) brightness(0.86);
+  --media-ink-hover: grayscale(0.42) contrast(1.03) brightness(0.98);
+}
+
+.media-ink {
+  filter: var(--media-ink);
+  transition:
+    filter 0.5s ease,
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hover-card:hover .media-ink,
+a:hover > .media-ink {
+  filter: var(--media-ink-hover);
+}
+
+/* 无封面时的占位：用标题首字做字模，而不是留一块纯色 */
+.media-glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-serif);
+  font-size: 44px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.1);
+  user-select: none;
+}
+
+/* ==========================================================================
+   Element Plus 细部对齐
+   默认的灰底方块、圆角胶囊在这套语言里都很跳，逐个压平。
+   ========================================================================== */
+.el-tag {
+  background: transparent;
+  border-color: var(--line);
+  border-radius: 0;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.el-button {
+  border-radius: 0;
+}
+
+/* 分页：去掉灰块，改成细线方块；当前页用冷蓝描边 */
+.el-pagination.is-background .el-pager li,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .btn-next {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.el-pagination.is-background .el-pager li:hover,
+.el-pagination.is-background .btn-prev:hover,
+.el-pagination.is-background .btn-next:hover {
+  border-color: var(--line-strong);
+  color: var(--text-1);
+}
+
+.el-pagination.is-background .el-pager li.is-active {
+  background: transparent;
+  border-color: var(--glow);
+  color: var(--glow);
+}
+
+/* 筛选按钮：默认实心主色块太抢，改成描边 + 选中时冷蓝细线 */
+.filter-bar .el-button {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.filter-bar .el-button:hover {
+  border-color: var(--line-strong);
+  color: var(--text-1);
+}
+
+.filter-bar .el-button--primary {
+  background: transparent;
+  border-color: var(--glow);
+  color: var(--glow);
+}
+
+/* 空态 */
+.el-empty__description p {
+  color: var(--text-3);
+  font-size: 13px;
+  letter-spacing: 0.08em;
 }

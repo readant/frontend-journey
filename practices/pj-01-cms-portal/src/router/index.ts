@@ -2,6 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+
+  /* 换页时必须自己管滚动位置。
+     浏览器默认会保留上一个页面的 scrollY，从首页底部点进列表页就会"落在半路"，
+     看起来像页面没加载好。后退时则还原历史位置，符合预期。 */
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition
+    if (to.hash) return { el: to.hash, top: 96 }
+    return { top: 0 }
+  },
+
   routes: [
     {
       // 前台门户：公开访问，无需登录

@@ -60,7 +60,7 @@ function handlePageChange(page: number) {
 }
 
 function coverStyle(url?: string) {
-  return url ? { backgroundImage: `url(${url})` } : { backgroundColor: '#d9e8ff' }
+  return url ? { backgroundImage: `url(${url})` } : {}
 }
 
 onMounted(() => {
@@ -86,7 +86,7 @@ watch(
       <p>雄心工作室的技术笔记与项目复盘</p>
     </div>
 
-    <div class="list-body">
+    <div class="list-body page-shell">
       <!-- 栏目筛选 -->
       <div class="filter-bar">
         <el-button
@@ -118,8 +118,8 @@ watch(
           shadow="never"
           @click="router.push(`/articles/${item.id}`)"
         >
-          <div class="article-cover" :style="coverStyle(item.coverImage)">
-            <span v-if="!item.coverImage" class="cover-text">{{ item.title.slice(0, 1) }}</span>
+          <div class="article-cover media-ink" :style="coverStyle(item.coverImage)">
+            <span v-if="!item.coverImage" class="media-glyph">{{ item.title.slice(0, 1) }}</span>
           </div>
           <div class="article-body">
             <h3 class="article-title">{{ item.title }}</h3>
@@ -157,9 +157,8 @@ watch(
 }
 
 .list-body {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px 56px;
+  padding-top: 40px;
+  padding-bottom: 64px;
 }
 
 .filter-bar {
@@ -171,7 +170,7 @@ watch(
 
 .article-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -185,23 +184,17 @@ watch(
 
 .article-cover {
   height: 156px;
+  overflow: hidden;
+  background-color: var(--ink-700);
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.4s ease;
 }
 
 .article-card:hover .article-cover {
-  transform: scale(1.05);
-}
-
-.cover-text {
-  font-size: 40px;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transform: scale(1.03);
 }
 
 .article-body {
@@ -210,12 +203,17 @@ watch(
 
 .article-title {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
+  line-height: 1.4;
   color: var(--app-text);
   margin: 0 0 8px;
-  white-space: nowrap;
+  /* 标题最多两行：单行 nowrap 会把长标题直接截断，
+     文章标题是这类卡片里信息量最大的部分，不该被省略号吃掉。 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  min-height: 44px;
   transition: color 0.2s;
 }
 
@@ -253,13 +251,13 @@ watch(
 
 @media (max-width: 992px) {
   .article-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
   .article-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 </style>

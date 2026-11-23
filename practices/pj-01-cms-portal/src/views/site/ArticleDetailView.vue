@@ -68,11 +68,13 @@ onMounted(async () => {
 }
 
 .article-title {
+  font-family: var(--font-serif);
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--app-text);
   margin: 0 0 20px;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .article-meta {
@@ -93,7 +95,7 @@ onMounted(async () => {
   object-fit: cover;
   border-radius: var(--app-radius);
   margin-bottom: 28px;
-  box-shadow: var(--app-shadow-sm);
+  filter: var(--media-ink);
 }
 
 // 富文本内容基础排版

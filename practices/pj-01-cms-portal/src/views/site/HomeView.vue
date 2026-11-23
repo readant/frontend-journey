@@ -1,22 +1,20 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
 import { siteApi } from '@/apis/site'
 import type { ArticleVO, CategoryVO, ProductVO } from '@/types/api'
-
-const router = useRouter()
+import figureNight from '@/assets/visuals/figure-night.webp'
 
 const loading = ref(false)
 const categories = ref<CategoryVO[]>([])
 const latestArticles = ref<ArticleVO[]>([])
 const latestProducts = ref<ProductVO[]>([])
 
-// 栏目卡片图标（按 id 轮换，避免千篇一律）
-const categoryIcons = ['Notebook', 'Reading', 'VideoPlay', 'DataLine', 'MagicStick', 'Star', 'Collection', 'TrendCharts']
+// 首页只陈列一行精选，凑不满整行会留下突兀的空格
+const featuredWorks = computed(() => latestProducts.value.slice(0, 4))
 
-// 无封面图时的占位图（渐变底色，避免破图）
-function coverStyle(url?: string) {
-  return url ? { backgroundImage: `url(${url})` } : { backgroundColor: '#d9e8ff' }
+// 编号统一两位，形成档案感
+function pad(n: number) {
+  return String(n).padStart(2, '0')
 }
 
 onMounted(async () => {
@@ -35,125 +33,154 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="home" v-loading="loading">
-    <!-- Hero 区 -->
+  <div class="home" v-loading="loading" element-loading-background="rgba(8, 9, 11, 0.72)">
+    <!-- ==================== 首屏 ==================== -->
     <section class="hero">
-      <div class="hero-bg-image" aria-hidden="true"></div>
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-inner rise-in">
-        <p class="hero-eyebrow">雄心工作室 · 学生创新团队</p>
-        <h1 class="hero-title">把想法做成作品</h1>
-        <p class="hero-subtitle">从需求到上线，我们用真实项目验证每一个想法，也把过程完整地记录下来</p>
-        <div class="hero-actions">
-          <el-button type="primary" size="large" round @click="router.push('/products')">
-            查看作品
-          </el-button>
-          <el-button size="large" round plain class="hero-btn-secondary" @click="router.push('/articles')">
-            阅读动态
-          </el-button>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">雄心工作室 · 学生创新团队</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="title-line">把想法</span>
+            <span class="title-line title-line--indent">做成作品</span>
+          </h1>
+
+          <p class="hero-desc">
+            从需求到上线，我们用真实项目验证每一个想法，也把过程完整地记录下来。
+          </p>
+
+          <div class="hero-actions">
+            <router-link to="/products" class="btn btn-solid">
+              <span>查看作品</span>
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M1 7h11M7.5 2.5L12 7l-4.5 4.5" stroke="currentColor" stroke-width="1.1" />
+              </svg>
+            </router-link>
+            <router-link to="/articles" class="btn btn-line">阅读记录</router-link>
+          </div>
+        </div>
+
+        <div class="hero-figure" aria-hidden="true">
+          <img :src="figureNight" alt="" />
+          <span class="figure-tag">XIONGXIN / 2026</span>
         </div>
       </div>
-      <!-- 数据统计条：全部取自接口真实数据，不写死 -->
-      <div class="hero-stats rise-in">
-        <div class="stat-item">
-          <strong>{{ categories.length }}</strong>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <strong>{{ pad(categories.length) }}</strong>
           <span>作品方向</span>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <strong>{{ latestArticles.length }}+</strong>
-          <span>技术文章</span>
+        <div class="stat">
+          <strong>{{ pad(latestArticles.length) }}</strong>
+          <span>近期记录</span>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <strong>{{ latestProducts.length }}+</strong>
-          <span>已发布作品</span>
+        <div class="stat">
+          <strong>{{ pad(latestProducts.length) }}</strong>
+          <span>近期作品</span>
         </div>
       </div>
     </section>
 
-    <!-- 栏目入口 -->
-    <section class="section">
-      <h2 class="section-title">内容栏目</h2>
+    <!-- ==================== 栏目 ==================== -->
+    <section id="columns" class="section">
+      <header class="section-head">
+        <div class="head-left">
+          <span class="section-no">01</span>
+          <h2 class="section-title">内容栏目</h2>
+        </div>
+        <span class="section-en">COLUMNS</span>
+      </header>
+
       <div class="category-grid">
-        <el-card
+        <router-link
           v-for="(item, index) in categories"
           :key="item.id"
-          class="category-card hover-card"
-          shadow="never"
-          @click="router.push({ path: '/articles', query: { categoryId: item.id } })"
+          :to="{ path: '/articles', query: { categoryId: item.id } }"
+          class="category-item"
         >
-          <div class="category-icon">
-            <el-icon :size="22"><component :is="categoryIcons[index % categoryIcons.length]" /></el-icon>
+          <div class="cat-top">
+            <span class="cat-no">{{ pad(index + 1) }}</span>
+            <span class="cat-arrow" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h11M7.5 2.5L12 7l-4.5 4.5" stroke="currentColor" stroke-width="1" />
+              </svg>
+            </span>
           </div>
-          <h3>{{ item.name }}</h3>
-          <p v-if="item.children?.length" class="category-children">
-            {{ item.children.map((c) => c.name).join(' · ') }}
+          <h3 class="cat-name">{{ item.name }}</h3>
+          <p v-if="item.children?.length" class="cat-sub">
+            {{ item.children.map((c) => c.name).join(' / ') }}
           </p>
-        </el-card>
-        <el-card v-if="!categories.length" class="category-card empty" shadow="never">
-          <p>暂无栏目</p>
-        </el-card>
+          <span class="cat-mark" aria-hidden="true">{{ item.name.slice(0, 1) }}</span>
+        </router-link>
+
+        <div v-if="!categories.length" class="empty-block">暂无栏目</div>
       </div>
     </section>
 
-    <!-- 最新文章 -->
-    <section class="section">
-      <div class="section-head">
-        <h2 class="section-title">最新文章</h2>
-        <el-link type="primary" @click="router.push('/articles')">更多文章</el-link>
-      </div>
-      <div class="article-grid">
-        <el-card
-          v-for="item in latestArticles"
+    <!-- ==================== 最新记录 ==================== -->
+    <section id="writing" class="section section--split">
+      <aside class="split-aside">
+        <span class="section-no">02</span>
+        <h2 class="section-title">最新记录</h2>
+        <span class="section-en">WRITING</span>
+        <router-link to="/articles" class="more-link">全部记录</router-link>
+      </aside>
+
+      <div class="article-list">
+        <router-link
+          v-for="(item, index) in latestArticles"
           :key="item.id"
-          class="article-card hover-card"
-          shadow="never"
-          @click="router.push(`/articles/${item.id}`)"
+          :to="`/articles/${item.id}`"
+          class="article-row"
         >
-          <div class="article-cover" :style="coverStyle(item.coverImage)">
-            <span v-if="!item.coverImage" class="cover-text">{{ item.title.slice(0, 1) }}</span>
+          <span class="row-index">{{ pad(index + 1) }}</span>
+          <div class="row-main">
+            <h3 class="row-title">{{ item.title }}</h3>
+            <p class="row-summary">{{ item.summary || '暂无摘要' }}</p>
           </div>
-          <div class="article-body">
-            <h3 class="article-title">{{ item.title }}</h3>
-            <p class="article-summary">{{ item.summary || '暂无摘要' }}</p>
-            <div class="article-meta">
-              <el-tag v-if="item.categoryName" size="small">{{ item.categoryName }}</el-tag>
-              <span class="article-date">{{ item.createdAt?.slice(0, 10) }}</span>
-            </div>
+          <div class="row-meta">
+            <span v-if="item.categoryName" class="row-cat">{{ item.categoryName }}</span>
+            <time class="row-date">{{ item.createdAt?.slice(0, 10) }}</time>
           </div>
-        </el-card>
-        <el-card v-if="!latestArticles.length" class="empty-card" shadow="never">
-          <p>暂无文章</p>
-        </el-card>
+        </router-link>
+
+        <div v-if="!latestArticles.length" class="empty-block">暂无记录</div>
       </div>
     </section>
 
-    <!-- 最新产品 -->
-    <section class="section">
-      <div class="section-head">
-        <h2 class="section-title">最新产品</h2>
-        <el-link type="primary" @click="router.push('/products')">更多产品</el-link>
-      </div>
-      <div class="product-grid">
-        <el-card
-          v-for="item in latestProducts"
+    <!-- ==================== 精选作品 ==================== -->
+    <section id="works" class="section">
+      <header class="section-head">
+        <div class="head-left">
+          <span class="section-no">03</span>
+          <h2 class="section-title">精选作品</h2>
+        </div>
+        <router-link to="/products" class="more-link">全部作品</router-link>
+      </header>
+
+      <div class="work-grid">
+        <router-link
+          v-for="(item, index) in featuredWorks"
           :key="item.id"
-          class="product-card hover-card"
-          shadow="never"
-          @click="router.push(`/products/${item.id}`)"
+          :to="`/products/${item.id}`"
+          class="work-item"
         >
-          <div class="product-cover" :style="coverStyle(item.coverImage)">
-            <span v-if="!item.coverImage" class="cover-text">{{ item.name.slice(0, 1) }}</span>
+          <div class="work-cover">
+            <img v-if="item.coverImage" :src="item.coverImage" :alt="item.name" loading="lazy" />
+            <span v-else class="cover-glyph">{{ item.name.slice(0, 1) }}</span>
+            <span class="work-no">{{ pad(index + 1) }}</span>
           </div>
-          <div class="product-body">
-            <h3 class="product-name">{{ item.name }}</h3>
-            <div class="product-price">¥{{ item.price }}</div>
+          <div class="work-info">
+            <h3 class="work-name">{{ item.name }}</h3>
+            <p v-if="item.description" class="work-desc">{{ item.description }}</p>
           </div>
-        </el-card>
-        <el-card v-if="!latestProducts.length" class="empty-card" shadow="never">
-          <p>暂无产品</p>
-        </el-card>
+        </router-link>
+
+        <div v-if="!featuredWorks.length" class="empty-block">暂无作品</div>
       </div>
     </section>
   </div>
@@ -163,425 +190,731 @@ onMounted(async () => {
 @import '@/styles/variables.less';
 
 .home {
-  min-height: 100%;
+  position: relative;
 }
 
-// Hero 区
+/* ==================== 首屏 ==================== */
 .hero {
   position: relative;
-  background:
-    radial-gradient(1100px 480px at 12% -30%, rgba(109, 93, 246, 0.6), transparent 60%),
-    radial-gradient(900px 420px at 88% 130%, rgba(45, 212, 191, 0.4), transparent 60%),
-    linear-gradient(135deg, #2f58c4 0%, #3b6ef5 55%, #5a6cf5 100%);
-  color: #fff;
-  padding: 110px 24px 88px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  /* dvh 对齐移动端浏览器实际可视区；100vh 会让首屏多出一截、滚动时地址栏收放导致跳动 */
+  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 76px);
+  /* 必须给不透明底色：父级带 z-index 形成了隔离组，
+     没有不透明 backdrop 时 lighten 混合会退化成普通绘制。 */
+  background: @ink-900;
+  border-bottom: 1px solid @line;
   overflow: hidden;
 }
 
-// 背景实景图（叠加在主色渐变之上，让首屏更像真实官网）
-.hero-bg-image {
-  position: absolute;
-  inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=70');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.28;
-  pointer-events: none;
-}
-
-// 网格纹理 + 光斑装饰
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75), transparent 72%);
-  pointer-events: none;
-}
-
 .hero-inner {
-  position: relative;
-  max-width: 720px;
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.76fr);
+  align-items: center;
+  gap: 56px;
+}
+
+.hero-copy {
+  animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .hero-eyebrow {
-  display: inline-block;
-  font-size: 13px;
-  letter-spacing: 3px;
-  opacity: 0.85;
-  margin: 0 0 20px;
-  padding: 6px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 38px;
+
+  .eyebrow-line {
+    width: 44px;
+    height: 1px;
+    background: @glow;
+  }
+
+  .eyebrow-text {
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    color: @text-3;
+  }
 }
 
 .hero-title {
-  font-size: 46px;
-  font-weight: 700;
-  margin: 0 0 16px;
-  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+  font-family: @font-serif;
+  font-size: clamp(46px, 6vw, 86px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.07em;
+  color: @text-1;
+  margin: 0;
+
+  .title-line--indent {
+    padding-left: 1.05em;
+  }
 }
 
-.hero-subtitle {
-  font-size: 18px;
-  opacity: 0.9;
-  margin: 0 0 40px;
+.hero-desc {
+  max-width: 520px;
+  margin: 34px 0 0;
+  font-size: 14px;
+  line-height: 2.1;
+  letter-spacing: 0.07em;
+  color: @text-2;
 }
 
 .hero-actions {
   display: flex;
-  justify-content: center;
-  gap: 16px;
+  align-items: center;
+  gap: 14px;
+  margin-top: 50px;
 }
 
-.hero-btn-secondary {
-  border-color: rgba(255, 255, 255, 0.6);
-  color: #fff;
-  background: transparent;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.btn-solid {
+  background: @text-1;
+  border-color: @text-1;
+  color: @ink-950;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #fff;
-    color: #fff;
+    background: @glow;
+    border-color: @glow;
+    color: @ink-950;
   }
 }
 
-// 数据统计条
-.hero-stats {
+.btn-line {
+  color: @text-2;
+  border-color: @line-strong;
+
+  &:hover {
+    color: @text-1;
+    border-color: @glow;
+    background: @glow-dim;
+  }
+}
+
+/* 人物竖幅
+   素材底色采样为 R3 G3 B2，页面底色为 R8 G9 B11，差值足以让整块图显形。
+   用 lighten 混合取每通道较大值，底色恰好被抬到与页面一致，矩形边界消失；
+   （screen 会把暗部提亮，反而更明显，不要用。）
+   容器比例比原图略扁，object-position: top 把底部那条生成工具标识裁掉。 */
+.hero-figure {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 44px;
-  max-width: 720px;
-  margin: 56px auto 0;
-  padding: 22px 32px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: var(--app-radius-lg);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation-delay: 0.15s;
+  justify-self: end;
+  align-self: center;
+  height: min(66vh, 640px);
+  aspect-ratio: 1024 / 1400;
+  max-width: 100%;
 
-  .stat-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 84px;
-
-    strong {
-      font-size: 26px;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    span {
-      font-size: 13px;
-      opacity: 0.82;
-      letter-spacing: 1px;
-    }
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    mix-blend-mode: lighten;
   }
 
-  .stat-divider {
-    width: 1px;
-    height: 34px;
-    background: rgba(255, 255, 255, 0.22);
+  /* 右侧压边：人物衣袖会顶到容器边界，需要收一道 */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 16%;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      fade(@ink-900, 0%) 0%,
+      fade(@ink-900, 55%) 62%,
+      @ink-900 100%
+    );
+  }
+
+  /* 底部柔和收进底色，避免裁切处留下一条硬边 */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30%;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      @ink-900 0%,
+      fade(@ink-900, 92%) 28%,
+      fade(@ink-900, 52%) 58%,
+      fade(@ink-900, 0%) 100%
+    );
+  }
+
+  .figure-tag {
+    position: absolute;
+    right: -30px;
+    bottom: 20%;
+    z-index: 3;
+    writing-mode: vertical-rl;
+    font-family: @font-mono;
+    font-size: 9px;
+    letter-spacing: 0.36em;
+    color: @text-3;
   }
 }
 
-// 通用 section
-.section {
-  max-width: 1200px;
+/* 首屏底部数据条 */
+.hero-stats {
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid @line;
+}
+
+.stat {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 26px 24px 26px 0;
+
+  & + .stat {
+    padding-left: 32px;
+    border-left: 1px solid @line;
+  }
+
+  strong {
+    font-family: @font-mono;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: @text-1;
+  }
+
+  span {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: @text-3;
+  }
+}
+
+/* ==================== 通用区块 ==================== */
+.section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 104px 32px;
 }
 
 .section-head {
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid @line;
+  margin-bottom: 40px;
+}
+
+.head-left {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+
+.section-no {
+  font-family: @font-mono;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: @glow;
 }
 
 .section-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--app-text);
+  font-family: @font-serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: @text-1;
   margin: 0;
-  position: relative;
-  padding-left: 14px;
+}
 
-  // 左侧主色竖条，强化品牌感
+.section-en {
+  font-family: @font-mono;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: @text-3;
+}
+
+.more-link {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: @text-2;
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid @line-strong;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover {
+    color: @glow;
+    border-color: @glow;
+  }
+}
+
+/* ==================== 栏目：连成一片的网格 ==================== */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid @line;
+  border-left: 1px solid @line;
+}
+
+.category-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 176px;
+  padding: 26px 24px;
+  overflow: hidden;
+  border-right: 1px solid @line;
+  border-bottom: 1px solid @line;
+  text-decoration: none;
+  background: transparent;
+  transition: background-color 0.35s ease;
+
+  /* 顶部一根冷蓝细线：hover 时从左展开，代替"整块变亮"的廉价反馈 */
   &::before {
     content: '';
     position: absolute;
+    top: -1px;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 20px;
-    border-radius: 2px;
-    background: linear-gradient(180deg, @primary-color, @accent-color);
+    right: 0;
+    height: 1px;
+    background: @glow;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover {
+    background: @ink-800;
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    .cat-no {
+      color: @glow;
+    }
+
+    .cat-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .cat-mark {
+      color: rgba(255, 255, 255, 0.07);
+    }
   }
 }
 
-// 栏目卡片
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+/* 栏目没有配图，用首字做半透明字模压住右下角，
+   否则四张等高的空盒子在长页面上会显得没做完 */
+.cat-mark {
+  position: absolute;
+  right: 14px;
+  bottom: -6px;
+  font-family: @font-serif;
+  font-size: 76px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.035);
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.45s ease;
 }
 
-.category-card {
-  text-align: center;
-  padding: 8px;
-
-  :deep(.el-card__body) {
-    padding: 24px 16px;
-  }
-
-  h3 {
-    font-size: 17px;
-    margin: 0;
-    color: var(--app-text);
-  }
-
-  .category-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 14px;
-    border-radius: 14px;
-    font-size: 22px;
-    background: var(--app-primary-soft);
-  }
-
-  &::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 3px;
-    margin: 16px auto 0;
-    border-radius: 2px;
-    background: linear-gradient(90deg, @primary-color, @accent-color);
-    transition: width 0.3s ease;
-  }
-
-  &:hover::after {
-    width: 40px;
-  }
-
-  &.empty p {
-    color: var(--app-text-3);
-    margin: 0;
-  }
-}
-
-.category-children {
-  margin: 10px 0 0;
-  color: var(--app-text-3);
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-// 文章卡片
-.article-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.article-card {
-  overflow: hidden;
-
-  :deep(.el-card__body) {
-    padding: 0;
-  }
-}
-
-.article-cover {
-  height: 168px;
-  background-size: cover;
-  background-position: center;
+.cat-top {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: transform 0.4s ease;
+  justify-content: space-between;
 }
 
-.article-card:hover .article-cover {
-  transform: scale(1.05);
+.cat-no {
+  font-family: @font-mono;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: @text-3;
+  transition: color 0.3s ease;
 }
 
-.cover-text {
-  font-size: 44px;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+.cat-arrow {
+  display: inline-flex;
+  color: @glow;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
-.article-body {
-  padding: 18px;
+.cat-name {
+  font-family: @font-serif;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: @text-1;
+  margin: auto 0 8px;
 }
 
-.article-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--app-text);
-  margin: 0 0 8px;
+.cat-sub {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: @text-3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.2s;
 }
 
-.article-card:hover .article-title {
-  color: @primary-color;
+/* ==================== 最新记录：左标题 + 右行列表 ==================== */
+.section--split {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
 }
 
-.article-summary {
-  color: var(--app-text-2);
-  font-size: 13px;
-  line-height: 1.7;
-  margin: 0 0 14px;
+.split-aside {
+  position: sticky;
+  top: 108px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .section-title {
+    font-size: 30px;
+  }
+
+  .more-link {
+    margin-top: 16px;
+    align-self: flex-start;
+  }
+}
+
+.article-list {
+  border-top: 1px solid @line;
+}
+
+.article-row {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 132px;
+  gap: 24px;
+  align-items: center;
+  padding: 26px 0;
+  border-bottom: 1px solid @line;
+  text-decoration: none;
+  transition:
+    padding-left 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.4s ease;
+
+  &:hover {
+    padding-left: 14px;
+    background: @ink-800;
+
+    .row-index {
+      color: @glow;
+    }
+
+    .row-title {
+      color: @glow;
+    }
+  }
+}
+
+.row-index {
+  font-family: @font-mono;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: @text-3;
+  transition: color 0.3s ease;
+}
+
+.row-title {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: @text-1;
+  margin: 0 0 9px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+
+.row-summary {
+  font-size: 12px;
+  line-height: 1.8;
+  color: @text-3;
+  margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.article-meta {
+.row-meta {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
 }
 
-.article-date {
-  color: var(--app-text-3);
-  font-size: 12px;
+.row-cat {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: @text-2;
 }
 
-// 产品卡片
-.product-grid {
+.row-date {
+  font-family: @font-mono;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: @text-3;
+}
+
+/* ==================== 作品：缝隙即为分割线 ==================== */
+.work-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: @line;
+  border: 1px solid @line;
 }
 
-.product-card {
-  overflow: hidden;
+.work-item {
+  display: block;
+  background: @ink-900;
+  text-decoration: none;
+  transition: background-color 0.35s ease;
 
-  :deep(.el-card__body) {
-    padding: 0;
+  &:hover {
+    background: @ink-800;
+
+    .work-cover img {
+      transform: scale(1.03);
+      filter: var(--media-ink-hover);
+    }
+
+    .work-name {
+      color: @glow;
+    }
   }
 }
 
-.product-cover {
-  height: 168px;
-  background-size: cover;
-  background-position: center;
+.work-cover {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.4s ease;
+  background: @ink-700;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* 封面多为彩色照片，压成近黑白才能与全站单色语言共存 */
+    filter: var(--media-ink);
+    transition:
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.5s ease;
+  }
 }
 
-.product-card:hover .product-cover {
-  transform: scale(1.05);
+.cover-glyph {
+  font-family: @font-serif;
+  font-size: 42px;
+  color: rgba(255, 255, 255, 0.14);
+  user-select: none;
 }
 
-.product-body {
-  padding: 16px 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.work-no {
+  position: absolute;
+  left: 10px;
+  bottom: 9px;
+  padding: 3px 7px;
+  font-family: @font-mono;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(5, 6, 7, 0.62);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
-.product-name {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--app-text);
+.work-info {
+  padding: 18px 18px 22px;
+}
+
+.work-name {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: @text-1;
   margin: 0;
+  transition: color 0.3s ease;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.product-price {
-  color: #ef4444;
-  font-weight: 700;
-  font-size: 17px;
-  flex-shrink: 0;
-  margin-left: 8px;
+.work-desc {
+  font-size: 11px;
+  line-height: 1.8;
+  color: @text-3;
+  margin: 8px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-// 空状态
-.empty-card {
+/* ==================== 空状态 ==================== */
+.empty-block {
   grid-column: 1 / -1;
-
-  p {
-    text-align: center;
-    color: var(--app-text-3);
-    margin: 0;
-  }
+  padding: 56px 0;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: @text-3;
+  border-right: 1px solid @line;
+  border-bottom: 1px solid @line;
 }
 
-// 响应式
-@media (max-width: 992px) {
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .article-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
+/* ==================== 响应式 ==================== */
+@media (max-width: 1080px) {
   .hero {
-    padding: 72px 20px 64px;
+    min-height: auto;
+  }
+
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding-top: 64px;
+  }
+
+  .hero-figure {
+    justify-self: center;
+    height: min(44vh, 380px);
+  }
+
+  .section--split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .split-aside {
+    position: static;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .work-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-inner {
+    padding: 44px 20px 0;
   }
 
   .hero-title {
-    font-size: 32px;
-  }
+    letter-spacing: 0.05em;
 
-  .hero-stats {
-    gap: 20px;
-    padding: 16px 20px;
-    margin-top: 40px;
-
-    .stat-item {
-      min-width: 0;
-
-      strong {
-        font-size: 20px;
-      }
-
-      span {
-        font-size: 12px;
-      }
+    .title-line--indent {
+      padding-left: 0;
     }
   }
 
-  .category-grid,
-  .article-grid,
-  .product-grid {
+  .hero-desc {
+    margin-top: 26px;
+  }
+
+  .hero-actions {
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stats {
     grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+
+  .stat {
+    padding: 16px 0;
+
+    & + .stat {
+      padding-left: 0;
+      border-left: none;
+      border-top: 1px solid @line;
+    }
+
+    strong {
+      font-size: 24px;
+    }
+  }
+
+  .section {
+    padding: 64px 20px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .article-row {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .row-meta {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .category-grid,
+  .work-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 </style>

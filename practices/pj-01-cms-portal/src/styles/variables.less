@@ -1,12 +1,44 @@
-// 全局样式变量（与 theme.css 中的 CSS 变量保持一致，供组件内 less 使用）
-@primary-color: #3b6ef5;
-@primary-deep: #2f58c4;
-@primary-soft: #eef3ff;
-@accent-color: #6d5df6;
-@sidebar-bg: #1e2a44;
-@header-bg: #fff;
-@main-bg: #f6f8fc;
-@border-color: #e6eaf2;
-@text-primary: #1f2733;
-@text-secondary: #5a6472;
-@text-light: #9aa3b2;
+// ============ 设计令牌（less 侧） ============
+// 与 theme.css 的 CSS 变量一一对应，供组件内 less 直接引用。
+// 语言：近黑底 + 细线分割 + 零圆角 + 单一冷色强调。
+
+// 墨色阶
+@ink-950: #050607;
+@ink-900: #08090b;
+@ink-800: #0d0f12;
+@ink-700: #14171c;
+@ink-600: #1c2027;
+
+// 细线
+@line: rgba(255, 255, 255, 0.092);
+@line-strong: rgba(255, 255, 255, 0.18);
+
+// 唯一强调色（冷蓝），仅用于细线、编号、hover
+@glow: #6fa0b8;
+@glow-dim: rgba(111, 160, 184, 0.14);
+@seal: #8c3a34;
+
+// 文字
+@text-1: #e8e9ec;
+@text-2: #9ba1aa;
+@text-3: #6f757e;
+
+// 字体
+@font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+@font-sans: 'Inter', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+@font-mono: 'JetBrains Mono', 'Cascadia Mono', 'Consolas', 'SFMono-Regular', monospace;
+
+// ============ 兼容旧变量名 ============
+// 其他页面（列表页 / 详情页）仍在引用这些名字，值统一映射到新色板，
+// 避免逐页改写时出现编译失败。
+@primary-color: @glow;
+@primary-deep: #4f7c92;
+@primary-soft: @glow-dim;
+@accent-color: #88b3c6;
+@sidebar-bg: @ink-800;
+@header-bg: @ink-900;
+@main-bg: @ink-900;
+@border-color: @line;
+@text-primary: @text-1;
+@text-secondary: @text-2;
+@text-light: @text-3;

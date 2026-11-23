@@ -25,7 +25,7 @@ onMounted(async () => {
 <template>
   <div class="product-detail" v-loading="loading">
     <div class="detail-body">
-      <el-page-header class="page-header" content="产品详情" @back="router.back()" />
+      <el-page-header class="page-header" content="作品详情" @back="router.back()" />
 
       <div v-if="product" class="product-content">
         <el-card shadow="never" class="product-card">
@@ -78,6 +78,7 @@ onMounted(async () => {
 .product-cover {
   width: 360px;
   flex-shrink: 0;
+  overflow: hidden;
 
   img {
     width: 100%;
@@ -85,35 +86,46 @@ onMounted(async () => {
     object-fit: cover;
     border-radius: var(--app-radius);
     display: block;
-    box-shadow: var(--app-shadow-sm);
+    filter: var(--media-ink);
+    transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
+}
+
+.product-card:hover .product-cover img {
+  transform: scale(1.02);
+  filter: var(--media-ink-hover);
 }
 
 .cover-placeholder {
   width: 100%;
   height: 280px;
-  border-radius: var(--app-radius);
-  background: linear-gradient(135deg, #eef3ff 0%, #fdf0e6 100%);
+  border: 1px solid var(--line);
+  background: var(--ink-700);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f59e0b;
-  font-size: 20px;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  color: var(--text-3);
+  font-size: 15px;
+  letter-spacing: 0.24em;
 }
 
 .product-name {
+  font-family: var(--font-serif);
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--app-text);
   margin: 0 0 18px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .product-price {
-  font-size: 30px;
-  font-weight: 700;
-  color: #ef4444;
+  font-size: 26px;
+  font-weight: 400;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--glow);
   margin-bottom: 28px;
 }
 
