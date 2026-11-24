@@ -1,5 +1,5 @@
 import { get } from '@/utils/http'
-import type { ArticleVO, CategoryVO, PageResult, ProductVO } from '@/types/api'
+import type { ArticleNavVO, ArticleVO, ArticleBriefVO, CategoryVO, PageResult, ProductVO } from '@/types/api'
 
 /** 首页聚合数据：栏目树 + 最新文章 + 最新产品 */
 export interface SiteHomeVO {
@@ -19,14 +19,24 @@ export const siteApi = {
     return get<CategoryVO[]>('/api/v1/site/categories')
   },
 
-  /** GET /api/v1/site/articles - 已发布文章分页（免鉴权） */
-  articlePage(params: { pageNum?: number; pageSize?: number; categoryId?: number }) {
+  /** GET /api/v1/site/articles - 已发布文章分页（免鉴权），keyword 命中标题或摘要 */
+  articlePage(params: { pageNum?: number; pageSize?: number; categoryId?: number; keyword?: string }) {
     return get<PageResult<ArticleVO>>('/api/v1/site/articles', params)
   },
 
   /** GET /api/v1/site/articles/{id} - 文章详情（免鉴权） */
   articleDetail(id: number) {
     return get<ArticleVO>(`/api/v1/site/articles/${id}`)
+  },
+
+  /** GET /api/v1/site/articles/{id}/navigation - 上一篇 / 下一篇（免鉴权） */
+  articleNavigation(id: number) {
+    return get<ArticleNavVO>(`/api/v1/site/articles/${id}/navigation`)
+  },
+
+  /** GET /api/v1/site/articles/{id}/related - 同栏目相关文章（免鉴权，最多 5 条） */
+  articleRelated(id: number, limit = 5) {
+    return get<ArticleBriefVO[]>(`/api/v1/site/articles/${id}/related`, { limit })
   },
 
   /** GET /api/v1/site/products - 产品分页（免鉴权） */

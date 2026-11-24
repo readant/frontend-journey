@@ -49,6 +49,19 @@ export interface ArticleVO {
   updatedAt: string
 }
 
+// 文章简要信息（上一篇 / 下一篇 / 相关文章），不含正文
+export interface ArticleBriefVO {
+  id: number
+  title: string
+  createdAt: string
+}
+
+// 文章导航，任一侧无相邻文章时为 null
+export interface ArticleNavVO {
+  prev: ArticleBriefVO | null
+  next: ArticleBriefVO | null
+}
+
 // --- 产品分类模块类型 ---
 
 export interface ProductCategoryVO {

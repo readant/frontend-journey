@@ -15,6 +15,7 @@ const pageNum = ref(1)
 const pageSize = 9
 
 const activeCategory = ref<number | undefined>(undefined)
+const keyword = ref('')
 
 async function fetchData() {
   loading.value = true
@@ -23,6 +24,7 @@ async function fetchData() {
       pageNum: pageNum.value,
       pageSize,
       categoryId: activeCategory.value,
+      keyword: keyword.value || undefined,
     })
     articles.value = res.records
     total.value = res.total
@@ -39,18 +41,30 @@ function fetchCategories() {
   })
 }
 
-// 顶栏点击栏目链接会携带 categoryId 查询参数，这里同步到选中状态
+// 顶栏点击栏目链接会携带 categoryId，搜索会携带 keyword，这里统一同步到页面状态
 function syncQuery() {
   const id = Number(route.query.categoryId)
   activeCategory.value = Number.isNaN(id) ? undefined : id
+  const kw = route.query.keyword
+  keyword.value = typeof kw === 'string' ? kw.trim() : ''
   pageNum.value = 1
 }
 
 function handleCategorySelect(id?: number) {
   activeCategory.value = id
   pageNum.value = 1
-  router.replace({ path: '/articles', query: id ? { categoryId: id } : {} })
-  fetchData()
+  const query: Record<string, string> = {}
+  if (id) query.categoryId = String(id)
+  if (keyword.value) query.keyword = keyword.value
+  // 查询参数变化由下方 watch 统一触发加载，避免双重请求
+  router.replace({ path: '/articles', query })
+}
+
+function clearSearch() {
+  keyword.value = ''
+  const query: Record<string, string> = {}
+  if (activeCategory.value) query.categoryId = String(activeCategory.value)
+  router.replace({ path: '/articles', query })
 }
 
 function handlePageChange(page: number) {
@@ -71,8 +85,9 @@ onMounted(() => {
 
 // 顶栏通过 router.push 导航时 route.query 变化，需重新加载
 watch(
-  () => route.query.categoryId,
+  () => [route.query.categoryId, route.query.keyword],
   () => {
+    if (route.path !== '/articles') return
     syncQuery()
     fetchData()
   },
@@ -87,11 +102,18 @@ watch(
     </div>
 
     <div class="list-body page-shell">
+      <!-- 搜索结果条：关键词来自页眉搜索框 -->
+      <div v-if="keyword" class="search-bar">
+        <span class="search-label">SEARCH</span>
+        <span class="search-kw">“{{ keyword }}”</span>
+        <span class="search-count">共 {{ total }} 篇</span>
+        <button class="search-clear" type="button" @click="clearSearch">清除</button>
+      </div>
+
       <!-- 栏目筛选 -->
       <div class="filter-bar">
         <el-button
           :type="activeCategory === undefined ? 'primary' : 'default'"
-          round
           size="small"
           @click="handleCategorySelect()"
         >
@@ -101,7 +123,6 @@ watch(
           v-for="item in categories"
           :key="item.id"
           :type="activeCategory === item.id ? 'primary' : 'default'"
-          round
           size="small"
           @click="handleCategorySelect(item.id)"
         >
@@ -132,7 +153,7 @@ watch(
         </el-card>
       </div>
 
-      <el-empty v-else description="暂无文章" />
+      <el-empty v-else :description="keyword ? `没有找到与「${keyword}」相关的文章` : '暂无文章'" />
 
       <!-- 分页 -->
       <div class="pagination" v-if="total > pageSize">
@@ -159,6 +180,54 @@ watch(
 .list-body {
   padding-top: 40px;
   padding-bottom: 64px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border: 1px solid var(--app-border);
+  border-left: 2px solid var(--app-accent);
+
+  .search-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    color: var(--app-text-3);
+  }
+
+  .search-kw {
+    font-size: 15px;
+    color: var(--app-text);
+  }
+
+  .search-count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--app-text-3);
+  }
+
+  .search-clear {
+    margin-left: auto;
+    padding: 2px 10px;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--app-text-2);
+    background: transparent;
+    border: 1px solid var(--app-border);
+    border-radius: 0;
+    cursor: pointer;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover {
+      color: var(--app-accent);
+      border-color: var(--app-accent);
+    }
+  }
 }
 
 .filter-bar {

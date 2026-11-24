@@ -18,6 +18,14 @@ const adminUrl = import.meta.env.VITE_ADMIN_URL || 'http://localhost:3002'
 const categories = ref<CategoryVO[]>([])
 const navList = ref<NavItem[]>([])
 const scrolled = ref(false)
+const keyword = ref('')
+
+function submitSearch() {
+  const kw = keyword.value.trim()
+  if (!kw) return
+  router.push({ path: '/articles', query: { keyword: kw } })
+  keyword.value = ''
+}
 
 // 顶部只在中段滚出后才落底色，首屏保持通透
 function handleScroll() {
@@ -90,6 +98,20 @@ onUnmounted(() => {
             {{ item.title }}
           </router-link>
         </nav>
+
+        <form class="header-search" @submit.prevent="submitSearch">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.2" />
+            <path d="M9.4 9.4L13 13" stroke="currentColor" stroke-width="1.2" />
+          </svg>
+          <input
+            v-model="keyword"
+            type="search"
+            placeholder="搜索文章…"
+            aria-label="搜索文章"
+            @keyup.enter="submitSearch"
+          />
+        </form>
 
         <button class="admin-entry" type="button" @click="openAdmin">
           <span>管理后台</span>
@@ -279,6 +301,42 @@ onUnmounted(() => {
   }
 }
 
+.header-search {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  color: @text-3;
+  border: 1px solid @line;
+  border-radius: 0;
+  background: transparent;
+  transition: border-color 0.25s ease;
+
+  &:focus-within {
+    color: @glow;
+    border-color: @glow;
+  }
+
+  input {
+    width: 140px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: @text-1;
+    font-family: inherit;
+    font-size: 13px;
+
+    &::placeholder {
+      color: @text-3;
+    }
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+  }
+}
+
 .admin-entry {
   flex-shrink: 0;
   display: inline-flex;
@@ -447,6 +505,11 @@ onUnmounted(() => {
 
   .admin-entry {
     margin-left: auto;
+  }
+
+  /* 窄屏页眉已折两行，搜索框退场：移动端在文章页用结果条里的清除 + 分类筛选即可 */
+  .header-search {
+    display: none;
   }
 
   .footer-inner {

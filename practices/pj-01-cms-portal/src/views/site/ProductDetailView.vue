@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { siteApi } from '@/apis/site'
+import { setPageMeta } from '@/utils/meta'
 import type { ProductVO } from '@/types/api'
 
 const route = useRoute()
@@ -14,6 +15,10 @@ onMounted(async () => {
   loading.value = true
   try {
     product.value = await siteApi.productDetail(Number(route.params.id))
+    if (product.value) {
+      // 动态 meta：描述用产品简介（搜索引擎与分享卡片）
+      setPageMeta(product.value.name, product.value.description || undefined)
+    }
   } catch {
     // 错误已由拦截器提示
   } finally {
